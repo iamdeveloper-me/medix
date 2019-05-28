@@ -1,0 +1,99 @@
+{% extends 'layout/layout.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+{% load i18n %}
+{% block content %}
+
+<main>
+    <div id="hero_register">
+        <div class="container margin_120_95">           
+            <div class="row">
+                <h1>{{form.errors}}</h1>
+                <h1>{{userform.errors}}</h1>
+                <div class="col-lg-5 ml-auto">
+                    <div class="box_form">
+                        <div id="message-register"></div>
+                        <form method="POST" role="form" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <label for="first_name">First Name</label><br>
+                                        {{userform.first_name}}<br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="last_name">Last Name</label><br>
+                                        {{userform.last_name}}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /row -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="email">Email</label><br>
+                                        {{userform.email}}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /row -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label><br>
+                                        {{form.gender}}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Specialisation</label><br>
+                                        {{form.practice}}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /row -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label><br>
+                                        {{form.phone}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="password">Password</label><br>
+                                        {{userform.password}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <p><input type="checkbox" name="accept" required>Agree to Terms of use checkbox</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div><input type="submit" class="btn_1" value="Submit" id="submit-register"></div>
+                        </form>
+                    </div>
+                    <!-- /box_form -->
+                </div>
+                <!-- /col -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /hero_register -->
+</main>
+
+{% endblock %}

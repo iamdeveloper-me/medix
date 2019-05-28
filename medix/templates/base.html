@@ -1,0 +1,29 @@
+{% load i18n staticfiles %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% block stylesheet %}{% endblock %}
+    <title>{% block title %}{% endblock %} | Medix</title>
+</head>
+
+<body>
+    <div class="container">
+    {% block header %}{% endblock %}
+
+    {% block content %}{% endblock %}    
+        
+
+    </div>
+
+    {% block other_content %}{% endblock %} 
+
+    
+    {% block script %}{% endblock %}  
+    
+
+  {% block styles %}{% endblock %} 
+</body>
+
+</html>
