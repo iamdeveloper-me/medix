@@ -13,12 +13,12 @@ class BaseModel(models.Model):
         abstract = True
 
 class Profile(BaseModel):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', blank = True, null = True)
 
     custom_role = models.IntegerField(verbose_name=_('User Role'), choices=ROLE_TYPE_CHOICES, default=0)
     practice = models.IntegerField(verbose_name=_('Practice Specialisation'), choices=SPECIALISATION_TYPE_CHOICES, blank = True, null = True)
     institution = models.IntegerField(verbose_name=_('Institution Type'), choices=INSTITUTION_TYPE_CHOICES, blank = True, null = True)
-    emergency_services = models.IntegerField(verbose_name=_('Institution Type'), choices=SERVICES_TYPE_CHOICES, blank = True, null = True)
+    emergency_services = models.IntegerField(verbose_name=_('Service Type'), choices=SERVICES_TYPE_CHOICES, blank = True, null = True)
     gender = models.IntegerField(verbose_name=_('Gender'), choices=GENDER_CHOICES, blank = True, null = True)
 
     phone = models.CharField(_("Phone Number"), max_length=254, blank = True, null = True)

@@ -1,0 +1,40 @@
+{% extends 'layout/layout.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+{% load i18n %}
+{% block content %}
+
+<main>
+    <div id="hero_register">
+        <div class="container margin_120_95">           
+            <div class="row">
+                <h1>{{form.errors}}</h1>
+                <h1>{{form.errors}}</h1>
+                <div class="col-lg-5 ml-auto">
+                    <div class="box_form">
+                        <div id="message-register"></div>
+                        <form method="POST" role="form" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="emergency_services">Emergency Services</label><br>
+                                        {{form.emergency_services}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div><input type="submit" class="btn_1" value="Next" id="submit-register"></div>
+                            
+                        </form>
+                    </div>
+                    <!-- /box_form -->
+                </div>
+                <!-- /col -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /hero_register -->
+</main>
+
+{% endblock %}
