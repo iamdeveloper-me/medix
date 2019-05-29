@@ -3,12 +3,22 @@
 {% load staticfiles %}
 {% load i18n %}
 {% block content %}
-
+{% if messages %}
+  {% for message in messages %}
+      <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{ message }}</p>
+  {% endfor %}
+  <script type="text/javascript">
+      setTimeout(function(){
+      $(".success").hide();
+      $(".error").hide();  
+      }, 5000);
+  </script>
+{% endif %}
 <main>
     <div id="hero_register">
         <div class="container margin_120_95">           
             <div class="row">
-                <h1>{{form.errors}}</h1>
+                <h1>{{insurance_form.errors}}</h1>
                 <h1>{{user_form.errors}}</h1>
                 <div class="col-lg-5 ml-auto">
                     <div class="box_form">
@@ -40,7 +50,14 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="gender">Contact Person</label><br>
+                                        {{insurance_form.contact_person}}
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">

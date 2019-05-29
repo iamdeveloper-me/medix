@@ -5,7 +5,11 @@ from django.contrib.auth.models import User
 from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm
 from django.views import View
 from django.http import HttpResponseRedirect,HttpResponse
-
+from django.contrib import messages
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.contrib.auth import authenticate, login, logout
 
 class UserTypeStep1View(CreateView):
     model = Profile
@@ -72,14 +76,21 @@ class PracticeSignupStep3View(View):
             user = user_form.save(commit=False)
             user.set_password(user.password)
             user.username = request.POST.get('email')
+            user.is_active = False
             user.save()
             practice_obj = practice_form.save(commit=False)
             practice_obj.user = user
             practice_obj.save()
+            frm = settings.DEFAULT_FROM_EMAIL
+            ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+            html_content = render_to_string('users/email.html',ctx)
+            email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+            email.content_subtype = "html" 
+            email.send()
         else:
             return render(self.request,'registration/practice.html',
                 {'form':user_form,'userform':practice_form,})
-
+        messages.success(self.request, 'Successfully registred.Please check your authorised email')
         return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
 
 class PatientSignupStep2View(View):
@@ -102,13 +113,21 @@ class InstitutionSignupStep3View(View):
             user = user_form.save(commit=False)
             user.set_password(user.password)
             user.username = request.POST.get('email')
+            user.is_active = False
             user.save()
             institution_obj = institution_form.save(commit=False)
             institution_obj.user = user
             institution_obj.save()
+            frm = settings.DEFAULT_FROM_EMAIL
+            ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+            html_content = render_to_string('users/email.html',ctx)
+            email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+            email.content_subtype = "html" 
+            email.send()
         else:
             return render(self.request,'registration/institution.html',
                 {'user_form':user_form,'institution_form':institution_form})
+        messages.success(self.request, 'Successfully registred.Please check your authorised email')
         return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
 
 class InsuranceProviderSignupStep2View(View):
@@ -125,22 +144,28 @@ class InsuranceProviderSignupStep2View(View):
             user = user_form.save(commit=False)
             user.set_password(user.password)
             user.username = request.POST.get('email')
+            user.is_active = False
             user.save()
             insurance_obj = insurance_form.save(commit=False)
             insurance_obj.user = user
             insurance_obj.save()
+            frm = settings.DEFAULT_FROM_EMAIL
+            ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+            html_content = render_to_string('users/email.html',ctx)
+            email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+            email.content_subtype = "html" 
+            email.send()
         else:
             return render(self.request,'registration/emergency_service.html',
                 {'user_form':user_form,'insurance_form':insurance_form})
+        messages.success(self.request, 'Successfully registred.Please check your authorised email')
         return HttpResponseRedirect('/insurance/signup/step2/'+str(pk))
-
 
 class EmergencyServiceSignupStep3View(View):
     def get(self,request,pk):
         service_form = EmergencyServiceSignupForm
         user_form = UserForm
         return render(self.request,'registration/emergency_service.html',{'service_form':service_form,'user_form':user_form,})
-
 
     def post(self,request,pk):
         user_form = UserForm(request.POST)
@@ -150,16 +175,45 @@ class EmergencyServiceSignupStep3View(View):
             user = user_form.save(commit=False)
             user.set_password(user.password)
             user.username = request.POST.get('email')
+            user.is_active = False
             user.save()
             service_obj = service_form.save(commit=False)
             service_obj.user = user
             service_obj.save()
+            frm = settings.DEFAULT_FROM_EMAIL
+            ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+            html_content = render_to_string('users/email.html',ctx)
+            email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+            email.content_subtype = "html" 
+            email.send()
         else:
             return render(self.request,'registration/emergency_service.html',
                 {'user_form':user_form,'service_form':service_form})
+        messages.success(self.request, 'Successfully registred.Please check your authorised email')
         return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
 
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'users/login.html')
 
+    def post(self, request):
+        email = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            if user.is_active :
+                login(request, user)
+                return HttpResponseRedirect('/user/dashboard/')
+            else:
+                return HttpResponse("Inactive user.")
+        else:
+            messages.success(self.request, 'You are not authorised to login.Admin approval pending')
+            return HttpResponseRedirect('/user/login/')
 
+        return render(request, "users/dashboard.html")
+
+class DashboardView(View):
+    def get(self, request):
+        return render(request, 'users/dashboard.html')
 
 
