@@ -25,7 +25,7 @@
                         <div id="message-register"></div>
                         <form method="POST" role="form" enctype="multipart/form-data">{% csrf_token %}
                             <div class="row">
-                                <div class="col-md-6 ">
+                                <div class="col-md-12 form_field">
                                     <div class="form-group">
                                         <label for="first_name">First Name</label><br>
                                         {{userform.first_name}}<br>
@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12 form_field">
                                     <div class="form-group">
                                         <label for="last_name">Last Name</label><br>
                                         {{userform.last_name}}
@@ -42,7 +42,7 @@
                             </div>
                             <!-- /row -->
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 form_field">
                                     <div class="form-group">
                                         <label for="email">Email</label><br>
                                         {{userform.email}}
@@ -51,7 +51,7 @@
                             </div>
                             <!-- /row -->
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12 select_gender">
                                     <div class="form-group">
                                         <label for="gender">Gender</label><br>
                                         {{form.gender}}
@@ -60,7 +60,7 @@
                             </div>
                             <!-- /row -->
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 form_field">
                                     <div class="form-group">
                                         <label for="phone">Phone</label><br>
                                         {{form.phone}}
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 form_field">
                                     <div class="form-group">
                                         <label for="password">Password</label><br>
                                         {{userform.password}}
@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 checkbox_form">
                                     <div class="form-group">
                                         <p><input type="checkbox" name="accept" required>Agree to Terms of use checkbox</p>
                                     </div>

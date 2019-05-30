@@ -69,7 +69,7 @@ class EmergencyServiceForm(forms.ModelForm):
     def clean_emergency_services(self):
         emergency_services = self.cleaned_data.get('emergency_services', False)
         if self.instance.emergency_services == emergency_services:
-            raise ValidationError("required")
+            raise ValidationError("_required")
         return None
 
 class PracticeSpecialisationForm(forms.ModelForm):
@@ -80,7 +80,7 @@ class PracticeSpecialisationForm(forms.ModelForm):
     def clean_practice(self):
         practice = self.cleaned_data.get('practice', False)
         if self.instance.practice == practice:
-            raise ValidationError("required")
+            raise ValidationError("_required")
         return None
 
 class InstitutionForm(forms.ModelForm):
@@ -91,5 +91,5 @@ class InstitutionForm(forms.ModelForm):
     def clean_institution(self):
         institution = self.cleaned_data.get('institution', False)
         if self.instance.institution == institution:
-            raise ValidationError("required")
+            raise ValidationError("_required")
         return None

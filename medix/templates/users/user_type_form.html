@@ -9,15 +9,15 @@
         <div class="container margin_120_95">           
             <div class="row">
                 <!-- /col -->
-                <div class="col-lg-5 ml-auto">
+                <div class="col-lg-4 ml-auto">
                     <div class="box_form">
                         <div id="message-register"></div>
                         <form method="POST" role="form" enctype="multipart/form-data">{% csrf_token %}
                             
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email">Select For Singup</label>
+                                <div class="col-md-12">
+                                    <div class="form-group width_label">
+                                        <label for="email">Select For Singup</label><br>
                                         {{ form.custom_role }}
                                     </div>
                                 </div>
