@@ -10,6 +10,7 @@ class UserTypeForm(forms.ModelForm):
 
 class UserForm(forms.ModelForm):
     email = forms.EmailField(required=True)
+    password = forms.CharField(widget=forms.PasswordInput())
     # first_name = forms.CharField(required=True)
     # last_name = forms.CharField(required=True)
     class Meta:
@@ -41,6 +42,13 @@ class InstitutionSignupForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['trading_name','address_of_institution','contact_person','phone']
+
+    # def clean_address_of_institution(self):
+    #     address_of_institution = self.cleaned_data.get('address_of_institution', False)
+    #     if self.instance.address_of_institution == address_of_institution:
+    #         raise ValidationError("required")
+    #     return None
+
 
 class InsuranceProviderSignupForm(forms.ModelForm):
     trading_name = forms.CharField(required=True)

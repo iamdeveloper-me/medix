@@ -110,20 +110,25 @@ class InstitutionSignupStep3View(View):
         profile = Profile.objects.get(pk=pk)
         institution_form = InstitutionSignupForm(request.POST, instance=profile)
         if user_form.is_valid() and institution_form.is_valid():
-            user = user_form.save(commit=False)
-            user.set_password(user.password)
-            user.username = request.POST.get('email')
-            user.is_active = False
-            user.save()
-            institution_obj = institution_form.save(commit=False)
-            institution_obj.user = user
-            institution_obj.save()
-            frm = settings.DEFAULT_FROM_EMAIL
-            ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-            html_content = render_to_string('users/email.html',ctx)
-            email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-            email.content_subtype = "html" 
-            email.send()
+            try:
+                user = user_form.save(commit=False)
+                user.set_password(user.password)
+                user.username = request.POST.get('email')
+                user.is_active = False
+                user.save()
+        
+                institution_obj = institution_form.save(commit=False)
+                institution_obj.user = user
+                institution_obj.save()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
+            except Exception as e:
+                messages.error(self.request, 'Email already exists')
+                return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
         else:
             return render(self.request,'registration/institution.html',
                 {'user_form':user_form,'institution_form':institution_form})
@@ -201,19 +206,52 @@ class LoginView(View):
         password = request.POST['password']
         user = authenticate(username=email, password=password)
         if user is not None:
-            if user.is_active :
+            role = Profile.objects.filter(user_id=user.id)
+            if user.is_superuser and user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/user/dashboard/')
+                return HttpResponseRedirect('/admin/dashboard/')
+            elif role[0].custom_role==1 and user.is_active and user.is_staff==False:
+                login(request, user)
+                return HttpResponseRedirect('/dashboard/practice/')
+            elif role[0].custom_role==2 and user.is_active and user.is_staff==False:
+                login(request, user)
+                return HttpResponseRedirect('/dashboard/institution/')
+            elif role[0].custom_role==3 and user.is_active and user.is_staff==False:
+                login(request, user)
+                return HttpResponseRedirect('/dashboard/emergency-service/')
+            elif role[0].custom_role==4 and user.is_active and user.is_staff==False:
+                login(request, user)
+                return HttpResponseRedirect('/dashboard/health-insurance/')
             else:
                 return HttpResponse("Inactive user.")
         else:
-            messages.success(self.request, 'You are not authorised to login.Admin approval pending')
+            messages.success(self.request, 'You are not authorised to login. Admin approval pending')
             return HttpResponseRedirect('/user/login/')
 
         return render(request, "users/dashboard.html")
 
-class DashboardView(View):
+class AdminDashboardView(View):
     def get(self, request):
-        return render(request, 'users/dashboard.html')
+        return render(request, 'admin/dashboard.html')
 
+class PracticeDashboardView(View):
+    def get(self, request):
+        return render(request, 'dashboard/practice.html')
 
+class InstitutionDashboardView(View):
+    def get(self, request):
+        return render(request, 'dashboard/institution.html')
+
+class EmergencyServicesDashboard(View):
+    def get(self, request):
+        return render(request, 'dashboard/emergency-services.html')
+
+class HealthInsuranceDashboard(View):
+    def get(self, request):
+        return render(request, 'dashboard/health_insurance.html')
+
+class LogoutView(View):
+    def get(self,request):
+        if request.user.username:
+            logout(request)
+        return HttpResponseRedirect('/user/login/')
