@@ -29,6 +29,7 @@
     
     <!-- YOUR CUSTOM CSS -->
     <link href="{% static 'html_menu_1/css/custom.css' %}" rel="stylesheet">
+    <link href="{% static 'style.css' %}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     
       
@@ -40,7 +41,7 @@
         <div class="row">
             <div class="col-lg-3 col-6">
                 <div id="logo">
-                    <a href="index.html" title="Findoctor"><img src="img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
+                    <a href="index.html" title="Findoctor"><img src="../../../static/html_menu_1/img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
                 </div>
             </div>
             <nav class="col-lg-9 col-6">
@@ -55,6 +56,7 @@
                             <a href="#0" class="show-submenu">Home<i class="icon-down-open-mini"></i></a>
                             <ul>
                                 <li><a href="index.html">Home Default</a></li>
+                                <li><a href="index.html"><img src="../../img/about_1.jpg" data-retina="true" alt="" width="163" height="36"></a></li>
                                 <li><a href="index-2.html">Home Version 2</a></li>
                                 <li><a href="index-3.html">Home Version 3</a></li>
                                 <li><a href="index-4.html">Home Version 4</a></li>
@@ -143,7 +145,9 @@
                 <div class="col-lg-3 col-md-12">
                     <p>
                         <a href="index.html" title="Findoctor">
-                            <img src="img/logo.png" data-retina="true" alt="" width="163" height="36" class="img-fluid">
+
+                            <img src="../../../static/html_menu_1/img/logo.png" data-retina="true" alt="" width="163" height="36" class="img-fluid">
+
                         </a>
                     </p>
                 </div>
@@ -199,7 +203,5 @@
             </div>
         </div>
 </footer>
-<!--/footer-->
-
 {% endblock %}
 

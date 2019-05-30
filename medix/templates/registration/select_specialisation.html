@@ -8,24 +8,28 @@
     <div id="hero_register">
         <div class="container margin_120_95">           
             <div class="row">
-                <h1>{{form.errors}}</h1>
-                <h1>{{userform.errors}}</h1>
-                <div class="col-lg-5 ml-auto">
+                <p>{{form.errors}}{{userform.errors}}</p>
+                
+                <div class="col-lg-4 ml-auto">
                     <div class="box_form">
                         <div id="message-register"></div>
                         <form method="POST" role="form" enctype="multipart/form-data">{% csrf_token %}
                             
                             
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="form-group width_label">
                                         <label for="email">Specialisation</label><br>
                                         {{form.practice}}
                                     </div>
                                 </div>
                             </div>
 
-                            <div><input type="submit" class="btn_1" value="Next" id="submit-register"></div>
+                            <div>
+                                <a href="{% url 'users:user-type-list' %}">
+                                <input type="button" class="btn_1" value="Back" >
+                                </a>
+                                <input type="submit" class="btn_1" value="Next" id="submit-register"></div>
                         </form>
                     </div>
                     <!-- /box_form -->
