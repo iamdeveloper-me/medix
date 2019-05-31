@@ -82,12 +82,12 @@ class PracticeSignupStep3View(View):
                 practice_obj = practice_form.save(commit=False)
                 practice_obj.user = user
                 practice_obj.save()
-                frm = settings.DEFAULT_FROM_EMAIL
-                ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                html_content = render_to_string('users/email.html',ctx)
-                email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                email.content_subtype = "html" 
-                email.send()
+                # frm = settings.DEFAULT_FROM_EMAIL
+                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+                # html_content = render_to_string('users/email.html',ctx)
+                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+                # email.content_subtype = "html" 
+                # email.send()
             except Exception as e:
                 messages.error(self.request, 'Email already exists')
                 return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
@@ -127,12 +127,12 @@ class InstitutionSignupStep3View(View):
                 institution_obj = institution_form.save(commit=False)
                 institution_obj.user = user
                 institution_obj.save()
-                frm = settings.DEFAULT_FROM_EMAIL
-                ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                html_content = render_to_string('users/email.html',ctx)
-                email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                email.content_subtype = "html" 
-                email.send()
+                # frm = settings.DEFAULT_FROM_EMAIL
+                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+                # html_content = render_to_string('users/email.html',ctx)
+                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+                # email.content_subtype = "html" 
+                # email.send()
             except Exception as e:
                 messages.error(self.request, 'Email already exists')
                 return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
@@ -162,12 +162,12 @@ class InsuranceProviderSignupStep2View(View):
                 insurance_obj = insurance_form.save(commit=False)
                 insurance_obj.user = user
                 insurance_obj.save()
-                frm = settings.DEFAULT_FROM_EMAIL
-                ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                html_content = render_to_string('users/email.html',ctx)
-                email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                email.content_subtype = "html" 
-                email.send()
+                # frm = settings.DEFAULT_FROM_EMAIL
+                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+                # html_content = render_to_string('users/email.html',ctx)
+                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+                # email.content_subtype = "html" 
+                # email.send()
             except Exception as e:
                 messages.error(self.request, 'Email already exists')
                 return HttpResponseRedirect('/insurance/signup/step2/'+str(pk))
@@ -197,12 +197,12 @@ class EmergencyServiceSignupStep3View(View):
                 service_obj = service_form.save(commit=False)
                 service_obj.user = user
                 service_obj.save()
-                frm = settings.DEFAULT_FROM_EMAIL
-                ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                html_content = render_to_string('users/email.html',ctx)
-                email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                email.content_subtype = "html" 
-                email.send()
+                # frm = settings.DEFAULT_FROM_EMAIL
+                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+                # html_content = render_to_string('users/email.html',ctx)
+                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+                # email.content_subtype = "html" 
+                # email.send()
             except Exception as e:
                 messages.error(self.request, 'Email already exists')
                 return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
