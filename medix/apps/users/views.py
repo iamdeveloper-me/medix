@@ -133,13 +133,14 @@ class InstitutionSignupStep3View(View):
                 email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
                 email.content_subtype = "html" 
                 email.send()
+                messages.success(self.request, 'Successfully registred.Please check your authorised email')
+                return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
             except Exception as e:
                 messages.error(self.request, 'Email already exists')
                 return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
         else:
             return render(self.request,'registration/institution.html',
                 {'user_form':user_form,'institution_form':institution_form})
-        messages.success(self.request, 'Successfully registred.Please check your authorised email')
         return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
 
 class InsuranceProviderSignupStep2View(View):
