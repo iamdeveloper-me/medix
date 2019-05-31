@@ -1,6 +1,5 @@
 *.pyc
 /media
-**/static/
 local.py
 **/migrations
 __init__.py

@@ -1,0 +1,104 @@
+.box_login {
+    width: 100% !important;
+  border-right: 1px solid #e1e8ed;
+  padding: 15px 25px;
+  margin: 0 auto !important;
+  float: none !important;
+}
+#login-2 .box_form {
+    padding: 30px 0 0 0;
+    width: 400px;
+    margin: 0 auto;
+}
+.login_btn{
+  text-align: center;
+}
+p.text-center.link_bright {
+    margin-top: 20px;
+}
+section.header_sticky{
+      padding: 10px 0;
+}
+.ml-auto {
+    margin: 0 auto;
+}
+.textarea_field{
+  width: 100%;
+    height: 34px;
+}
+.form_field input{
+  width: 100%;
+  padding: 6px 0;
+}
+.checkbox_form input{
+  margin-right: 5px;
+}
+
+.width_label select{
+  width: 250px !important;
+}
+.select_gender select{
+  width: 100%;
+  padding: 6px 0;
+}
+p.success{
+position: absolute;
+    z-index: 99;
+    text-align: center;
+    left: 0;
+    right: 0;
+    color: #fff;
+    background: #fff;
+    max-width: 442px;
+    margin: 0px auto;
+    top:95px;
+    padding: 10px;
+    background: darkseagreen;
+    border-radius: 5px;
+}
+ul.errorlist {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    color: red;
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 99;
+    width: 100% !important;
+    top:65px;
+}
+.save_btn a{
+  margin: 10px 0 50px 0;
+}
+.fa-angle-left:before{
+  content: "";
+}
+.margin_top{
+  margin-top: 56px!important;
+}
+#mainNav.fixed-top.navbar-dark .sidenav-toggler{
+  border-top: 0px solid #fff!important;
+}
+.errorlist{
+  color:transparent!important;
+}
+.errorlist ul.errorlist li{
+  color:#ff0000!important;
+}
+.logomax_width{
+  width: 730px !important;
+}
+p.error {
+    position: absolute;
+    z-index: 99;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-top: 70px;
+    color: red;
+}
+.back_btn{
+  display: inline-block;
+}
