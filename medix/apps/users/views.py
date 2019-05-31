@@ -93,10 +93,10 @@ class PracticeSignupStep3View(View):
                 return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
         else:
             form = PracticeSignupForm
-            userform = PracticeUserForm
+            userform = UserForm
             messages.error(self.request, 'Please select gender')
             return render(self.request,'registration/practice.html',
-                {'form':form,'userform':userform})
+                {'form':form,'userform':userform,'pk':pk})
         messages.success(self.request, 'Successfully registred.Please check your authorised email')
         return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
 
