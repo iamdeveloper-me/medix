@@ -66,7 +66,7 @@ class PracticeSignupStep3View(View):
         form = PracticeSignupForm
         userform = PracticeUserForm
         return render(self.request,'registration/practice.html',
-            {'form':form,'userform':userform})
+            {'form':form,'userform':userform,'pk':pk})
 
     def post(self,request,pk):
         user_form = UserForm(request.POST)
@@ -110,7 +110,7 @@ class InstitutionSignupStep3View(View):
     def get(self, request, pk):
         institution_form = InstitutionSignupForm
         user_form = UserForm
-        return render(self.request,'registration/institution.html',{'institution_form':institution_form,'user_form':user_form,})
+        return render(self.request,'registration/institution.html',{'institution_form':institution_form,'user_form':user_form,'pk':pk})
 
     def post(self, request, pk):
         user_form = UserForm(request.POST)
@@ -146,7 +146,7 @@ class InsuranceProviderSignupStep2View(View):
     def get(self, request, pk):
         insurance_form = InsuranceProviderSignupForm
         user_form = UserForm
-        return render(self.request,'registration/insurance_provider.html',{'insurance_form':insurance_form,'user_form':user_form,})
+        return render(self.request,'registration/insurance_provider.html',{'insurance_form':insurance_form,'user_form':user_form,'pk':pk})
 
     def post(self, request, pk):
         user_form = UserForm(request.POST)
@@ -181,7 +181,7 @@ class EmergencyServiceSignupStep3View(View):
     def get(self,request,pk):
         service_form = EmergencyServiceSignupForm
         user_form = UserForm
-        return render(self.request,'registration/emergency_service.html',{'service_form':service_form,'user_form':user_form,})
+        return render(self.request,'registration/emergency_service.html',{'service_form':service_form,'user_form':user_form,'pk':pk})
 
     def post(self,request,pk):
         user_form = UserForm(request.POST)

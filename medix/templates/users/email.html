@@ -1,15 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+	<title></title>
 </head>
-<body>
-<p>Email-{{email}}</p>
-<p>Password-{{password}}</p>
-<div class="login_btn signup_btn" style="text-align:center;">
+<body style="background: #3f4079 url(../img/hero_bg_1.svg) repeat fixed;color: #555;padding: 200px 0;">
+	<div class="email_div" style="margin: 0 auto;text-align: center;background: #fff;width: 500px;
+    border-radius: 4px;">
+     <ul style="list-style: none;text-align: left;">
+        <li style="padding: 26px 0 0 0;">E-mail:{{email}}</li>
+        <li style="padding: 26px 0 0 0;">Password:{{password}}</li>
+    </ul>
+		<!-- <form action="/action_page.php" style="text-align: left;
+    padding: 50px 30px;">
+		  E-mail: <br>
+		  <input type="email" name="emailaddress" style="width: 100%;
+    padding: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #222;
+    margin: 8px 0;
+    text-indent: 20px;">
+    Password: <br>
+		  <input type="password" name="psw" style="width: 100%;
+    padding: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #555;
+    margin: 8px 0;
+    text-indent: 20px;">
+    </form> -->
     <a href="{{root_url}}/user/login/">
-    <button value="" type="submit" style="color: #222;padding: 0;width: 100%;max-width: 512px;height: 56px;line-height: 56px;border-radius: 10px;font-size: 15px;margin-top: 38px;border: none;margin-bottom: 80px;">Click here</button>
-    </a>
-</div>
+	<button style="width: 86%;
+    background: #e74e84;
+    border: none;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 50px;
+    color: #fff;
+    margin: 14px 0 30px 0;">Click here</button>
+	</a>	
+	</div>
 </body>
 </html>
