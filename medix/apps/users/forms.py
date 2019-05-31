@@ -11,8 +11,15 @@ class UserTypeForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     email = forms.EmailField(required=True)
     password = forms.CharField(widget=forms.PasswordInput())
-    # first_name = forms.CharField(required=True)
-    # last_name = forms.CharField(required=True)
+    class Meta:
+        model = User
+        fields = ['first_name','last_name','email','password']
+
+class PracticeUserForm(forms.ModelForm):
+    
+    email = forms.EmailField(required=True)
+    password = forms.CharField(widget=forms.PasswordInput())
+    first_name = forms.CharField(required=True)
     class Meta:
         model = User
         fields = ['first_name','last_name','email','password']

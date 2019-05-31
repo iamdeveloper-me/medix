@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView,ListView,DetailView,UpdateView,DeleteView,View
 from users.models import Profile
 from django.contrib.auth.models import User
-from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm
+from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm
 from django.views import View
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import messages
@@ -64,32 +64,39 @@ class EmergencyServiceStep2UpdateView(UpdateView):
 class PracticeSignupStep3View(View):
     def get(self,request,pk):
         form = PracticeSignupForm
-        userform = UserForm
+        userform = PracticeUserForm
         return render(self.request,'registration/practice.html',
-            {'form':form,'userform':userform,})
+            {'form':form,'userform':userform})
 
     def post(self,request,pk):
         user_form = UserForm(request.POST)
         profile = Profile.objects.get(pk=pk)
         practice_form = PracticeSignupForm(request.POST,instance=profile)
         if user_form.is_valid() and practice_form.is_valid():
-            user = user_form.save(commit=False)
-            user.set_password(user.password)
-            user.username = request.POST.get('email')
-            user.is_active = False
-            user.save()
-            practice_obj = practice_form.save(commit=False)
-            practice_obj.user = user
-            practice_obj.save()
-            frm = settings.DEFAULT_FROM_EMAIL
-            ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-            html_content = render_to_string('users/email.html',ctx)
-            email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-            email.content_subtype = "html" 
-            email.send()
+            try:
+                user = user_form.save(commit=False)
+                user.set_password(user.password)
+                user.username = request.POST.get('email')
+                user.is_active = False
+                user.save()
+                practice_obj = practice_form.save(commit=False)
+                practice_obj.user = user
+                practice_obj.save()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
+            except Exception as e:
+                messages.error(self.request, 'Email already exists')
+                return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
         else:
+            form = PracticeSignupForm
+            userform = PracticeUserForm
+            messages.error(self.request, 'Please select gender')
             return render(self.request,'registration/practice.html',
-                {'form':user_form,'userform':practice_form,})
+                {'form':form,'userform':userform})
         messages.success(self.request, 'Successfully registred.Please check your authorised email')
         return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
 
@@ -146,20 +153,24 @@ class InsuranceProviderSignupStep2View(View):
         profile = Profile.objects.get(pk=pk)
         insurance_form = InsuranceProviderSignupForm(request.POST, instance=profile)
         if user_form.is_valid() and insurance_form.is_valid():
-            user = user_form.save(commit=False)
-            user.set_password(user.password)
-            user.username = request.POST.get('email')
-            user.is_active = False
-            user.save()
-            insurance_obj = insurance_form.save(commit=False)
-            insurance_obj.user = user
-            insurance_obj.save()
-            frm = settings.DEFAULT_FROM_EMAIL
-            ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-            html_content = render_to_string('users/email.html',ctx)
-            email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-            email.content_subtype = "html" 
-            email.send()
+            try:
+                user = user_form.save(commit=False)
+                user.set_password(user.password)
+                user.username = request.POST.get('email')
+                user.is_active = False
+                user.save()
+                insurance_obj = insurance_form.save(commit=False)
+                insurance_obj.user = user
+                insurance_obj.save()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
+            except Exception as e:
+                messages.error(self.request, 'Email already exists')
+                return HttpResponseRedirect('/insurance/signup/step2/'+str(pk))
         else:
             return render(self.request,'registration/emergency_service.html',
                 {'user_form':user_form,'insurance_form':insurance_form})
@@ -177,20 +188,24 @@ class EmergencyServiceSignupStep3View(View):
         profile = Profile.objects.get(pk=pk)
         service_form = EmergencyServiceSignupForm(request.POST,instance=profile)
         if user_form.is_valid() and service_form.is_valid():
-            user = user_form.save(commit=False)
-            user.set_password(user.password)
-            user.username = request.POST.get('email')
-            user.is_active = False
-            user.save()
-            service_obj = service_form.save(commit=False)
-            service_obj.user = user
-            service_obj.save()
-            frm = settings.DEFAULT_FROM_EMAIL
-            ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-            html_content = render_to_string('users/email.html',ctx)
-            email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-            email.content_subtype = "html" 
-            email.send()
+            try:
+                user = user_form.save(commit=False)
+                user.set_password(user.password)
+                user.username = request.POST.get('email')
+                user.is_active = False
+                user.save()
+                service_obj = service_form.save(commit=False)
+                service_obj.user = user
+                service_obj.save()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
+            except Exception as e:
+                messages.error(self.request, 'Email already exists')
+                return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
         else:
             return render(self.request,'registration/emergency_service.html',
                 {'user_form':user_form,'service_form':service_form})

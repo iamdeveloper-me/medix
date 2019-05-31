@@ -15,10 +15,14 @@ urlpatterns = [
     path('admin/dashboard/',views.AdminDashboardView.as_view(), name='admin-dashboard'),
 
     path('logout/',views.LogoutView.as_view(), name='users-logout'),
-
-
     path('user/login/',views.LoginView.as_view(), name='users-login'),
-    path('user-type/step1/',views.UserTypeStep1View.as_view(), name='user-type-list'),
+
+
+
+    path('user-type/step1/',views.UserTypeStep1View.as_view(), name='registration-step1'),
+
+
+
     path('practice/signup/step3/<int:pk>',views.PracticeSignupStep3View.as_view(), name='practice-signup'),
     path('emergency-service/signup/step3/<int:pk>',views.EmergencyServiceSignupStep3View.as_view(), name='emergency-service-signup'),
     path('institution/signup/step3/<int:pk>',views.InstitutionSignupStep3View.as_view(), name='institution-signup'),
