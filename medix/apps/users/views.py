@@ -341,6 +341,11 @@ class PriceDetail(DetailView):
     model = Profile
     template_name = 'dashboard/price_detail.html'
 
+# class EducationUpdateView(UpdateView):
+#     model = Education
+#     template_name = '/education.html'
+
+
 class InstitutionDashboardView(View):
     def get(self, request):
         return render(request, 'dashboard/institution.html')
