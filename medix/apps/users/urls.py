@@ -52,5 +52,6 @@ urlpatterns = [
     path('price/<int:pk>',views.PriceUpdateView.as_view(), name='price'),
     
     path('price/detail/<int:pk>',views.PriceDetail.as_view(), name='price-detail'),
-    
+
+    path('create/education/',views.EducationCreateView.as_view(), name='create-education')
 ]

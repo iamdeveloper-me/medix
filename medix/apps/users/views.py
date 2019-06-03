@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
-from users.models import Profile
+from users.models import Profile, Education
 from django.contrib.auth.models import User
-from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm, PricingForm
+from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm, PricingForm, EducationForm
 from django.views import View
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import messages
@@ -324,7 +324,7 @@ class ProfessionalOverviewUpdate(UpdateView):
 
 class ProfessionalOverviewDetail(DetailView):
     model = Profile
-    template_name = 'practice/overview.html'
+    template_name = 'practice/overview_detail.html'
 
 class PriceUpdateView(UpdateView):
     model = Profile
@@ -341,9 +341,43 @@ class PriceDetail(DetailView):
     model = Profile
     template_name = 'dashboard/price_detail.html'
 
+class EducationCreateView(CreateView):
+    model = Education
+    form_class = EducationForm
+    template_name = 'practice/education.html'
+    success_url = '/create/education/'
+    def form_valid(self, form, **kwargs):
+        form = form.save(commit=False)
+        user = User.objects.get(pk=self.request.user.id)
+        form.user = user
+        form.qualification = self.request.POST.get('qualification')
+        form.save()
+        return redirect(self.success_url)
+
 # class EducationUpdateView(UpdateView):
-#     model = Education
-#     template_name = '/education.html'
+    # def get(self, request, pk):
+    #     if request.user.is_authenticated:
+    #         education_form = EducationForm
+    #         specialisation_form = PracticeSpecialisationForm
+    #         return render(request, 'dashboard/education.html',{'education_form':education_form,'specialisation_form':specialisation_form,'pk':pk})
+
+    # def post(self, request, pk):
+    #     education_form = EducationForm(request.POST,instance=User.objects.get(pk=request.user.id))
+    #     specialisation_form = PracticeSpecialisationForm(request.POST,instance=profile)
+    #     if education_form.is_valid() and specialisation_form.is_valid():
+    #         education = education_form.save(commit=False)
+    #         education.qualification = request.POST.get('first_name')
+            
+    #         education.save()
+    #         specialisation= specialisation_form.save(commit=False)
+    #         specialisation.user = user
+    #         specialisation.phone = request.POST.get('phone')
+    #         specialisation.save()
+    #     else:
+    #         messages.error(request, 'Invalid')
+    #         return HttpResponseRedirect('/dashboard/practice/'+str(pk))
+    #     return HttpResponseRedirect('/dashboard/practice/'+str(pk))
+
 
 
 class InstitutionDashboardView(View):
