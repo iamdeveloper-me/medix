@@ -39,11 +39,21 @@ INSTITUTION_TYPE_CHOICES = (
     (2, _("Clinic")),
     (3, _("Area Health Center")),
     (4, _("Pharmacy")),
-    (5, _("Medical Laboratorie")),
+    (5, _("Medical Laboratories")),
 )
 
 SERVICES_TYPE_CHOICES = (
     (0, _("Private Ambulance Independent")),
     (1, _("Private Ambulance")),
     (2, _("Public Ambulance "))
+)
+
+Day_CHOICES = (
+    (0, _("Mon")),
+    (1, _("Tue")),
+    (2, _("Wed")),
+    (3, _("Thu")),
+    (5, _("Fir")),
+    (6, _("Sat")),
+    (7, _("Sun"))
 )

@@ -18,8 +18,7 @@
     <div id="hero_register">
         <div class="container margin_120_95">           
             <div class="row">
-                <h1>{{form.errors}}</h1>
-                <h1>{{userform.errors}}</h1>
+                <p>{{form.errors}}{{userform.errors}}</p>
                 <div class="col-lg-5 ml-auto">
                     <div class="box_form">
                         <div id="message-register"></div>
@@ -83,7 +82,7 @@
                                 </div>
                             </div>
                             <div class="back_btn">
-                                <a href="{% url 'users:select-specialisation' pk %}">
+                                <a href="{% url 'users:select-specialisation' %}">
                                 <input type="button" class="btn_1" value="Back" >   
                                 </a>
                             </div>

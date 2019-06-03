@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView,ListView,DetailView,UpdateView,DeleteView,View
+from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
 from users.models import Profile
 from django.contrib.auth.models import User
 from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm
@@ -10,6 +10,17 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
+
+
+def index(request):
+    if not request.user.is_authenticated:
+        return redirect('user-type/step1/')
+  
+class UserFormSubmitView(View):
+    def get(self,request):
+        messages.success(self.request, 'Successfully registered')
+        return render(request,"users/form_submit.html")
+
 
 class UserTypeStep1View(CreateView):
     model = Profile
@@ -30,7 +41,8 @@ class UserTypeStep1View(CreateView):
         else:
             return redirect('/insurance/signup/step2/'+str(profile.id))
 
-class SpecialisationStep2UpdateView(UpdateView):
+
+class PracticeStep2CreateView(CreateView):
     model = Profile
     form_class = PracticeSpecialisationForm
     template_name = 'registration/select_specialisation.html'
@@ -38,28 +50,40 @@ class SpecialisationStep2UpdateView(UpdateView):
     
     def form_valid(self, form, **kwargs):
         spec_type = form.save(commit=False)
+        spec_type.custom_role = 1
+        spec_type.practice = self.request.POST.get('practice')
         spec_type.save()
         return redirect(self.success_url+str(spec_type.id))
 
-class InstitutionStep2UpdateView(UpdateView):
+class InstitutionStep2CreateView(CreateView):
     model = Profile
     form_class = InstitutionForm
     template_name = 'registration/select_institution.html'
     success_url = '/institution/signup/step3/'
     def form_valid(self, form, **kwargs):
         form = form.save(commit=False)
+        form.custom_role = 2
+        form.institution = self.request.POST.get('institution')
         form.save()
         return redirect(self.success_url+str(form.id))
+
         
-class EmergencyServiceStep2UpdateView(UpdateView):
+class EmergencyServiceStep2CreateView(CreateView):
     model = Profile
     form_class = EmergencyServiceForm
     template_name = 'registration/select_emergency_service.html'
     success_url = '/emergency-service/signup/step3/'
     def form_valid(self, form, **kwargs):
         form = form.save(commit=False)
+        form.custom_role = 3
+        form.emergency_services = self.request.POST.get('emergency_services')
         form.save()
         return redirect(self.success_url+str(form.id))
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(SavedOffLineListView, self).get_context_data(**kwargs)
+    #     context['object_list'] = self.model.objects.filter(created_by=self.request.user)
+    #     return context
 
 class PracticeSignupStep3View(View):
     def get(self,request,pk):
@@ -97,8 +121,8 @@ class PracticeSignupStep3View(View):
             messages.error(self.request, 'Please select gender')
             return render(self.request,'registration/practice.html',
                 {'form':form,'userform':userform,'pk':pk})
-        messages.success(self.request, 'Successfully registred.Please check your authorised email')
-        return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
+        # messages.success(self.request, 'Successfully registered.Please check your authorised email')
+        return HttpResponseRedirect('/form/submit/')
 
 class PatientSignupStep2View(View):
     def get(self,request):
@@ -139,19 +163,20 @@ class InstitutionSignupStep3View(View):
         else:
             return render(self.request,'registration/institution.html',
                 {'user_form':user_form,'institution_form':institution_form})
-        messages.success(self.request, 'Successfully registred.Please check your authorised email')
-        return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
+        # messages.success(self.request, 'Successfully registered.Please check your authorised email')
+        # return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
+        return HttpResponseRedirect('/form/submit/')
 
 class InsuranceProviderSignupStep2View(View):
-    def get(self, request, pk):
+    def get(self, request):
         insurance_form = InsuranceProviderSignupForm
         user_form = UserForm
-        return render(self.request,'registration/insurance_provider.html',{'insurance_form':insurance_form,'user_form':user_form,'pk':pk})
+        return render(self.request,'registration/insurance_provider.html',{'insurance_form':insurance_form,'user_form':user_form})
 
-    def post(self, request, pk):
+    def post(self, request):
         user_form = UserForm(request.POST)
-        profile = Profile.objects.get(pk=pk)
-        insurance_form = InsuranceProviderSignupForm(request.POST, instance=profile)
+        # profile = Profile.objects.get(pk=pk)
+        insurance_form = InsuranceProviderSignupForm(request.POST)
         if user_form.is_valid() and insurance_form.is_valid():
             try:
                 user = user_form.save(commit=False)
@@ -160,6 +185,7 @@ class InsuranceProviderSignupStep2View(View):
                 user.is_active = False
                 user.save()
                 insurance_obj = insurance_form.save(commit=False)
+                insurance_obj.custom_role = 4
                 insurance_obj.user = user
                 insurance_obj.save()
                 # frm = settings.DEFAULT_FROM_EMAIL
@@ -170,12 +196,13 @@ class InsuranceProviderSignupStep2View(View):
                 # email.send()
             except Exception as e:
                 messages.error(self.request, 'Email already exists')
-                return HttpResponseRedirect('/insurance/signup/step2/'+str(pk))
+                return HttpResponseRedirect('/insurance/signup/step2/')
         else:
             return render(self.request,'registration/emergency_service.html',
                 {'user_form':user_form,'insurance_form':insurance_form})
-        messages.success(self.request, 'Successfully registred.Please check your authorised email')
-        return HttpResponseRedirect('/insurance/signup/step2/'+str(pk))
+        # messages.success(self.request, 'Successfully registered.Please check your authorised email')
+        # return HttpResponseRedirect('/insurance/signup/step2/')
+        return HttpResponseRedirect('/form/submit/')
 
 class EmergencyServiceSignupStep3View(View):
     def get(self,request,pk):
@@ -209,11 +236,13 @@ class EmergencyServiceSignupStep3View(View):
         else:
             return render(self.request,'registration/emergency_service.html',
                 {'user_form':user_form,'service_form':service_form})
-        messages.success(self.request, 'Successfully registred.Please check your authorised email')
-        return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
+        # messages.success(self.request, 'Successfully registered.Please check your authorised email')
+        # return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
+        return HttpResponseRedirect('/form/submit/')
 
 class LoginView(View):
     def get(self, request):
+        # if request.user.is_authenticated:
         return render(request, 'users/login.html')
 
     def post(self, request):
@@ -241,9 +270,9 @@ class LoginView(View):
                 return HttpResponse("Inactive user.")
         else:
             messages.success(self.request, 'You are not authorised to login. Admin approval pending')
-            return HttpResponseRedirect('/user/login/')
+            return HttpResponseRedirect('/user-type/step1/')
 
-        return render(request, "users/dashboard.html")
+        return render(request, "users/user_type_form.html")
 
 class AdminDashboardView(View):
     def get(self, request):
@@ -251,7 +280,9 @@ class AdminDashboardView(View):
 
 class PracticeDashboardView(View):
     def get(self, request):
-        return render(request, 'dashboard/practice.html')
+        import pdb; pdb.set_trace()
+        if request.user.is_authenticated:
+            return render(request, 'dashboard/practice.html')
 
 class InstitutionDashboardView(View):
     def get(self, request):
@@ -269,4 +300,4 @@ class LogoutView(View):
     def get(self,request):
         if request.user.username:
             logout(request)
-        return HttpResponseRedirect('/user/login/')
+        return HttpResponseRedirect('/user-type/step1/')
