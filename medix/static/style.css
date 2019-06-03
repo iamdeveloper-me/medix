@@ -90,6 +90,7 @@ ul.errorlist {
 .logomax_width{
   width: 730px !important;
 }
+
 p.error {
     position: absolute;
     z-index: 99;
