@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from users.select_choices import *
 from datetime import datetime
 
-
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name=_('Created At'))
     modified_at = models.DateTimeField(auto_now=True, db_index=True, verbose_name=_('Modified At'))
