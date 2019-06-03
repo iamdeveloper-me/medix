@@ -91,6 +91,7 @@ class PracticeSpecialisationForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['practice']
+        # exclude = ['custom_role']
 
     def clean_practice(self):
         practice = self.cleaned_data.get('practice', False)

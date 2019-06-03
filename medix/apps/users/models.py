@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from users.select_choices import *
 from datetime import datetime
+from django.contrib.gis.db.models import PointField
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name=_('Created At'))
@@ -26,6 +27,26 @@ class Profile(BaseModel):
     trading_name = models.CharField(_("Trading Name"), max_length=254, blank = True, null = True)
     address_of_institution = models.TextField(_("Address Of Institution"), blank = True, null = True)
     contact_person = models.CharField(_("Contact Person"), max_length=254, blank = True, null = True)
+    pricing = models.FloatField(_("Pricing"), blank = True, null = True)
+    description = models.TextField(_("Descrption"), blank = True, null = True)
+    image = models.ImageField(_("Image"), blank = True, null=True)
 
     def __str__(self):
         return self.user.email
+
+
+class Education(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='education', blank = True, null = True)
+    qualification = models.CharField(_("Doctor qualification"), max_length=254, blank = True, null = True)
+
+class Location(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='location', blank = True, null = True)
+    location = models.TextField(_("Clinic location"), blank = True, null = True)
+
+class OperatingHours(BaseModel):
+
+    open_time = models.TimeField(_("Strat Time"), blank=True)
+    close_time = models.TimeField(_("End Time"), blank=True)
+    day = models.IntegerField(verbose_name=_('Day Type'), choices=Day_CHOICES, blank = True, null = True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location_hour', blank = True, null = True)
+    
