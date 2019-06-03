@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     #user dashboard
-    path('dashboard/practice/',views.PracticeDashboardView.as_view(), name='practice-dashboard'),
+    path('dashboard/practice/<int:pk>',views.PracticeDashboardView.as_view(), name='practice-dashboard'),
     path('dashboard/institution/',views.InstitutionDashboardView.as_view(), name='institution-dashboard'),
     path('dashboard/emergency-service/',views.EmergencyServicesDashboard.as_view(), name='emergency-service-dashboard'),
     path('dashboard/emergency-service/',views.EmergencyServicesDashboard.as_view(), name='admin-dashboard'),
@@ -39,4 +39,18 @@ urlpatterns = [
 
     # path('practice/step1/',views.PracticeStep1CreateView.as_view(), name='practice-step1'),
     path('form/submit/',views.UserFormSubmitView.as_view(), name='form-submit'),
+
+    #dashboard details form
+    # path('user/profile/',views.profile_info, name='user-profile'),
+
+    
+    path('create/overview/<int:pk>',views.ProfessionalOverviewUpdate.as_view(), name='professional-overview'),
+
+    path('profile/detail/<int:pk>',views.PracticeInfoDetailView.as_view(), name='profile-information'),
+    path('professional/detail/<int:pk>',views.ProfessionalOverviewDetail.as_view(), name='professional-detail'),
+    
+    path('price/<int:pk>',views.PriceUpdateView.as_view(), name='price'),
+    
+    path('price/detail/<int:pk>',views.PriceDetail.as_view(), name='price-detail'),
+    
 ]

@@ -44,21 +44,21 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="">
+          <a class="nav-link" href="{% url 'users:practice-dashboard'  request.user.profile.id %}">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-          <a class="nav-link" href="">
+          <a class="nav-link" href="{% url 'users:professional-overview'  request.user.profile.id %}">
             <i class="fa fa-fw fa-envelope-open"></i>
-            <span class="nav-link-text">Messages</span>
+            <span class="nav-link-text">Professional Statement/Overview of Institution</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
-          <a class="nav-link" href="">
+          <a class="nav-link" href="{% url 'users:price'  request.user.profile.id %}">
             <i class="fa fa-fw fa-calendar-check-o"></i>
-            <span class="nav-link-text">Bookings <span class="badge badge-pill badge-primary">6 New</span></span>
+            <span class="nav-link-text">Price</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
