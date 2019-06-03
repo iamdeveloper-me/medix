@@ -3,6 +3,26 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
+class PricingForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['pricing']
+      
+class ProfileInfoForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['gender','phone','image']
+
+class ProfileUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name','last_name']
+
+class ProfessionalOverviewForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['description','experience']
+
 class UserTypeForm(forms.ModelForm):
     class Meta:
         model = Profile

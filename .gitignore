@@ -1,5 +1,5 @@
 *.pyc
-/media
+media
 local.py
 **/migrations
 __init__.py
