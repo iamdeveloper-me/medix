@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from users.select_choices import *
 from datetime import datetime
-from django.contrib.gis.db.models import PointField
+
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name=_('Created At'))
