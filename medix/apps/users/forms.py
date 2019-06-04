@@ -6,12 +6,12 @@ from django.core.exceptions import ValidationError
 class EducationForm(forms.ModelForm):
     class Meta:
         model = Education
-        fields = ['qualification']
+        fields = ['qualification','specialisation']
 
-class PricingForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['pricing']
+# class ProductForm(forms.ModelForm):
+#     class Meta:
+#         model = Profile
+#         fields = ['price','item']
       
 class ProfileInfoForm(forms.ModelForm):
     class Meta:

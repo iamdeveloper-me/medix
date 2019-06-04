@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     #user dashboard
-    path('dashboard/practice/<int:pk>',views.PracticeDashboardView.as_view(), name='practice-dashboard'),
+    path('edit/profile/<int:pk>',views.PracticeUpdateView.as_view(), name='edit-practice'),
     path('dashboard/institution/',views.InstitutionDashboardView.as_view(), name='institution-dashboard'),
     path('dashboard/emergency-service/',views.EmergencyServicesDashboard.as_view(), name='emergency-service-dashboard'),
     path('dashboard/emergency-service/',views.EmergencyServicesDashboard.as_view(), name='admin-dashboard'),
@@ -49,9 +49,13 @@ urlpatterns = [
     path('profile/detail/<int:pk>',views.PracticeInfoDetailView.as_view(), name='profile-information'),
     path('professional/detail/<int:pk>',views.ProfessionalOverviewDetail.as_view(), name='professional-detail'),
     
-    path('price/<int:pk>',views.PriceUpdateView.as_view(), name='price'),
+    # path('create/product/<int:pk>',views.ProductCreateView.as_view(), name='create-product'),
     
-    path('price/detail/<int:pk>',views.PriceDetail.as_view(), name='price-detail'),
+    # path('price/detail/<int:pk>',views.PriceDetail.as_view(), name='price-detail'),
 
-    path('create/education/',views.EducationCreateView.as_view(), name='create-education')
+    path('create/education/',views.EducationCreateView.as_view(), name='create-education'),
+    
+    path('education/detail/<int:pk>',views.EducationDetailView.as_view(), name='education-detail'),
+
+    path('dashboard/practice/<int:pk>',views.PracticeProfileDetailView.as_view(), name='profile-dashboard')
 ]
