@@ -11,7 +11,7 @@
         <li class="breadcrumb-item">
           <a href="#">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Add listing</li>
+        <li class="breadcrumb-item active">Add Profile</li>
       </ol>
       {% for message in messages %}
       <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{ message }}</p>
@@ -25,25 +25,19 @@
         <div class="box_general padding_bottom">
             <div class="header_box version_2">
                 <h2><i class="fa fa-user"></i>Profile Information</h2>
-                <a href="{% url 'users:profile-information' request.user.profile.id %}">View</a>
+                <a href="{% url 'users:profile-information' request.user.profile.id %}"><img src="../../../static/html_menu_1/img/eye.png">View</a>
             </div>
             <div class="row">
                 <form method="POST" role="form" action="" enctype="multipart/form-data">{% csrf_token %}
-                    <div class="col-md-4">
-                        <div class="form-group">
-                        <label>Your photo</label>
-                            {{profile_info.image}}
-                        </div>
-                    </div>
-                    <div class="col-md-8 add_top_30">
+                    <div class="col-md-8 add_top_30 Profile_form">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 profile_input">
                                 <div class="form-group">
                                     <label>Name</label>
                                     {{user_info.first_name}}
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 profile_input">
                                 <div class="form-group">
                                     <label>Last name</label>
                                     {{user_info.last_name}}
@@ -51,22 +45,30 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /row-->
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 profile_input">
                                 <div class="form-group">
                                     <label>Telephone</label>
                                     {{profile_info.phone}}
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 gender_input">
                                 <div class="form-group">
-                                    <label>Gender</label>
-                                    {{profile_info.gender}}
+                                  <label>Gender:</label><br>
+  <input type="radio" name="gender" value="male"> Male
+  <input type="radio" name="gender" value="female"> Female
+
+                                    <!-- <label></label>
+                                    {{profile_info.gender}} -->
                                 </div>
                             </div>
                         </div>
-                        <!-- /row-->
+                    </div>
+                     <div class="col-md-8 profile_input">
+                        <div class="form-group">
+                        <label>Your photo</label>
+                            {{profile_info.image}}
+                        </div>
                     </div>
                     <div class="back_btn">
                     <input type="submit" class="btn_1" value="Add" id="submit-register">
@@ -103,5 +105,33 @@
       </div>
     </div>
    
+<style type="text/css">
+  .header_box a{
+  text-align: right;
+    border: 1px solid #007bff;
+    padding: 6px 14px;
+    float: right;
+    border-radius: 50px;
+}
+.header_box a img{
+  width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+.Profile_form{
+  margin-top: 10px !important;
+} 
+.profile_input input {
+    width: 100%;
+}
+.gender_input input{
+  width: 18px !important;
+    height: 18px!important;
+    vertical-align: top;
+    margin: 0 6px;
+}
 
+
+
+</style>
 {% endblock %}

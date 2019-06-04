@@ -103,3 +103,14 @@ p.error {
 .back_btn{
   display: inline-block;
 }
+.header_box a{
+  text-align: right;
+    border: 1px solid #ccc;
+    padding: 6px 20px;
+    float: right;
+    border-radius: 50px;
+}
+
+
+
+
