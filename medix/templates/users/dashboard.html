@@ -36,8 +36,11 @@
                                             <img src="{{ image.url }}" alt="" class="img-fluid">
                                         </figure>
                                     </div>
-                                    <div class="col-lg-7 col-md-8">
-                                        <small>Primary care - Internist</small>
+                                    <div class="col-lg-7 col-md-8" id="primary_care">
+                                        <small>Primary care - Internist
+                                            <span><button id="editBtn" type="button">Edit Document</button></span>
+                                        </small>
+                                        
                                         <h1>{{first_name}} {{last_name}}</h1>
                                         <span class="rating">
                                             <i class="icon_star voted"></i>
@@ -357,4 +360,80 @@
         <!-- /container -->
 </main>
 <!-- /main -->
+<script>
+    var editBtn = document.getElementById('editBtn');
+var editables = document.querySelectorAll('#primary_care');
+
+if (typeof(Storage) !== "undefined") {
+  if (localStorage.getItem('title') !== null) {
+    editables[0].innerHTML = localStorage.getItem('title');
+  }
+  if (localStorage.getItem('author') !== null) {
+    editables[1].innerHTML = localStorage.getItem('author');
+  }
+  if (localStorage.getItem('content') !== null) {
+    editables[2].innerHTML = localStorage.getItem('content');
+  }
+}
+
+editBtn.addEventListener('click', function(e) {
+  if (!editables[0].isContentEditable) {
+    editables[0].contentEditable = 'true';
+    editables[1].contentEditable = 'true';
+    editables[2].contentEditable = 'true';
+    editBtn.innerHTML = 'Save Changes';
+    editBtn.style.backgroundColor = '#6F9';
+  } else {
+    // Disable Editing
+    editables[0].contentEditable = 'false';
+    editables[1].contentEditable = 'false';
+    editables[2].contentEditable = 'false';
+    // Change Button Text and Color
+    editBtn.innerHTML = 'Enable Editing';
+    editBtn.style.backgroundColor = '#F96';
+    // Save the data in localStorage 
+    for (var i = 0; i < editables.length; i++) {
+      localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
+    }
+  }
+});
+
+setInterval(function() {
+  for (var i = 0; i < editables.length; i++) {
+    localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
+  }
+}, 5000);
+</script>
+<style type="text/css">
+    button {
+  border: none;
+  padding: 0.8em;
+  background: #F96;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+  margin: 0 0 1em;
+}
+
+button:hover, button:focus {
+  cursor: pointer;
+  outline: none;
+}
+
+#editor {
+  padding: 1em;
+  background: #E6E6E6;
+  border-radius: 3px;
+}
+
+#editor:focus {
+  background: #FFF;
+  border-color: #69c773;
+}
+
+[contenteditable="true"] {
+  font-family: "Rajdhani";
+  color: #C00;
+}
+</style>
 {% endblock %}
