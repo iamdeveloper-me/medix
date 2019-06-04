@@ -38,9 +38,9 @@
                                     </div>
                                     <div class="col-lg-7 col-md-8" id="primary_care">
                                         <small>Primary care - Internist
-                                            <span><button id="editBtn" type="button">Edit Document</button></span>
+                                            <span class="edit_btn"><button id="myBtn"><img src="../../../static/html_menu_1/img/edit.png"></button></span>
                                         </small>
-                                        
+
                                         <h1>{{first_name}} {{last_name}}</h1>
                                         <span class="rating">
                                             <i class="icon_star voted"></i>
@@ -359,81 +359,118 @@
         </div>
         <!-- /container -->
 </main>
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p><div class="col-lg-12 col-md-12" id="primary_care">
+                                        <small>Primary care - Internist
+                                            
+                                        </small>
+                                        <input type="text" name="" value="{{first_name}} {{last_name}}">
+                                        <h1></h1>
+                                        
+                                        
+                                        <ul class="contacts">
+                                         <h6>Phone</h6> 
+                                            <input type="text" name="" value="{{phone}}">
+                                        </ul>
+                                        <button class="save_btn">save</button>
+                                    </div></p>
+  </div>
+
+</div>
 <!-- /main -->
 <script>
-    var editBtn = document.getElementById('editBtn');
-var editables = document.querySelectorAll('#primary_care');
+// Get the modal
+var modal = document.getElementById("myModal");
 
-if (typeof(Storage) !== "undefined") {
-  if (localStorage.getItem('title') !== null) {
-    editables[0].innerHTML = localStorage.getItem('title');
-  }
-  if (localStorage.getItem('author') !== null) {
-    editables[1].innerHTML = localStorage.getItem('author');
-  }
-  if (localStorage.getItem('content') !== null) {
-    editables[2].innerHTML = localStorage.getItem('content');
-  }
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
 }
 
-editBtn.addEventListener('click', function(e) {
-  if (!editables[0].isContentEditable) {
-    editables[0].contentEditable = 'true';
-    editables[1].contentEditable = 'true';
-    editables[2].contentEditable = 'true';
-    editBtn.innerHTML = 'Save Changes';
-    editBtn.style.backgroundColor = '#6F9';
-  } else {
-    // Disable Editing
-    editables[0].contentEditable = 'false';
-    editables[1].contentEditable = 'false';
-    editables[2].contentEditable = 'false';
-    // Change Button Text and Color
-    editBtn.innerHTML = 'Enable Editing';
-    editBtn.style.backgroundColor = '#F96';
-    // Save the data in localStorage 
-    for (var i = 0; i < editables.length; i++) {
-      localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
-    }
-  }
-});
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
 
-setInterval(function() {
-  for (var i = 0; i < editables.length; i++) {
-    localStorage.setItem(editables[i].getAttribute('id'), editables[i].innerHTML);
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
   }
-}, 5000);
+}
 </script>
-<style type="text/css">
-    button {
-  border: none;
-  padding: 0.8em;
-  background: #F96;
-  border-radius: 3px;
-  color: white;
+<style>
+    .edit_btn{
+        float: right;
+    }
+    .edit_btn button{
+     border:none;
+     background: none;
+    }
+    .edit_btn img{
+      width: 16px;
+    }
+    .edit_btn button:focus{
+     border:none;
+     outline: none;
+    }
+    .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
   font-weight: bold;
-  margin: 0 0 1em;
+  text-align: right;
+    margin-top: -10px;
 }
 
-button:hover, button:focus {
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
   cursor: pointer;
-  outline: none;
 }
-
-#editor {
-  padding: 1em;
-  background: #E6E6E6;
-  border-radius: 3px;
-}
-
-#editor:focus {
-  background: #FFF;
-  border-color: #69c773;
-}
-
-[contenteditable="true"] {
-  font-family: "Rajdhani";
-  color: #C00;
+.save_btn {
+    text-align: right;
+    float: right;
+    background: #e74e84;
+    border: none;
+    border-radius: 50px;
+    padding: 9px 25px;
+    color: #fff;
 }
 </style>
 {% endblock %}
