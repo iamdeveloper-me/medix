@@ -43,7 +43,7 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="{% url 'users:practice-dashboard'  request.user.profile.id %}">
+          <a class="nav-link" href="{% url 'users:profile-dashboard'  request.user.profile.id %}">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Dashboard</span>
           </a>
@@ -55,13 +55,13 @@
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
-          <a class="nav-link" href="{% url 'users:price'  request.user.profile.id %}">
+          <a class="nav-link" href="">
             <i class="fa fa-fw fa-calendar-check-o"></i>
-            <span class="nav-link-text">Price</span>
+            <span class="nav-link-text">Product</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
-          <a class="nav-link" href="{% url 'users:create-education'  %}">
+          <a class="nav-link" href="{% url 'users:create-education' %}">
             <i class="fa fa-fw fa-star"></i>
             <span class="nav-link-text">QUALIFICATIONS & AREAS OF SPECIALISATION</span>
           </a>

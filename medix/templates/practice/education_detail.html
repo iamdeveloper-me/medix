@@ -24,29 +24,37 @@
   </script>
         <div class="box_general padding_bottom">
             <div class="header_box version_2">
-                <h2><i class="fa fa-user"></i>QUALIFICATIONS & AREAS OF SPECIALISATION</h2>
-                <a href="{% url 'users:education-detail' request.user.profile.id %}">View</a>
+                <h2><i class="fa fa-user"></i></h2>
+                
             </div>
             <div class="row">
-                <form method="POST" role="form" action="" enctype="multipart/form-data">{% csrf_token %}
-                    <div class="col-md-4">
-                        <div class="form-group">
-                        <label>Qualification</label>
-                            {{form.qualification}}
+                
+                    <div class="col-md-8 add_top_30">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{object.qualification}} 
+                                </div>
+                            </div>
+                            
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                        <label>Specialisation</label>
-                            {{form.specialisation}}
+                        <!-- /row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{object.specialisation}} 
+                                </div>
+                            </div>
+                            
                         </div>
+                        <!-- /row-->
                     </div>
-                    <div class="back_btn">
-                    <input type="submit" class="btn_1" value="Add" id="submit-register">
-                    </div>
-                </form>
+                    
+                
             </div>
         </div>
+        
+        
       </div>
       <!-- /.container-fluid-->
     </div>

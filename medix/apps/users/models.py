@@ -26,7 +26,6 @@ class Profile(BaseModel):
     trading_name = models.CharField(_("Trading Name"), max_length=254, blank = True, null = True)
     address_of_institution = models.TextField(_("Address Of Institution"), blank = True, null = True)
     contact_person = models.CharField(_("Contact Person"), max_length=254, blank = True, null = True)
-    pricing = models.FloatField(_("Pricing"), blank = True, null = True)
     description = models.TextField(_("Descrption"), blank = True, null = True)
     image = models.ImageField(_("Image"), null=True)
     experience = models.CharField(_("Experience"), max_length=5, blank = True, null = True)
@@ -38,6 +37,7 @@ class Profile(BaseModel):
 class Education(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='education', blank = True, null = True)
     qualification = models.CharField(_("Doctor qualification"), max_length=254, blank = True, null = True)
+    specialisation = models.CharField(_("Doctor specialisation"), max_length=254, blank = True, null = True)
 
 class Location(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='location', blank = True, null = True)
@@ -50,3 +50,8 @@ class OperatingHours(BaseModel):
     day = models.IntegerField(verbose_name=_('Day Type'), choices=Day_CHOICES, blank = True, null = True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location_hour', blank = True, null = True)
     
+
+class Product(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Product', blank = True, null = True)
+    price = models.FloatField(_("Product Pricing"), blank = True, null = True)
+    item = models.CharField(_("Product Item"), max_length=254, blank = True, null = True)

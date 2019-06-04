@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
-from users.models import Profile, Education
+from users.models import Profile, Education, Product
 from django.contrib.auth.models import User
-from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm, PricingForm, EducationForm
+from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm
 from django.views import View
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import messages
@@ -15,11 +15,20 @@ from django.contrib.auth import authenticate, login, logout
 def index(request):
     if not request.user.is_authenticated:
         return redirect('user-type/step1/')
-  
+
 class UserFormSubmitView(View):
     def get(self,request):
         messages.success(self.request, 'Successfully registered')
         return render(request,"users/form_submit.html")
+
+class PracticeProfileDetailView(View):
+    def get(self,request,pk):
+        if request.user.is_authenticated:
+            # import pdb; pdb.set_trace()
+            user = User.objects.get(id=request.user.id)
+            profileInfo = Profile.objects.get(user=user)
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'image':profileInfo.image}
+        return render(request,"users/dashboard.html", context)
 
 
 class UserTypeStep1View(CreateView):
@@ -279,7 +288,7 @@ class AdminDashboardView(View):
     def get(self, request):
         return render(request, 'admin/dashboard.html')
 
-class PracticeDashboardView(View):
+class PracticeUpdateView(View):
     def get(self, request, pk):
         if request.user.is_authenticated:
             profile_info = ProfileInfoForm
@@ -303,8 +312,8 @@ class PracticeDashboardView(View):
             profile_obj.save()
         else:
             messages.error(request, 'Invalid')
-            return HttpResponseRedirect('/dashboard/practice/'+str(pk))
-        return HttpResponseRedirect('/dashboard/practice/'+str(pk))
+            return HttpResponseRedirect('/edit/profile/'+str(pk))
+        return HttpResponseRedirect('/edit/profile/'+str(pk))
 
 class PracticeInfoDetailView(DetailView):
     model = Profile
@@ -316,6 +325,7 @@ class ProfessionalOverviewUpdate(UpdateView):
     template_name = 'dashboard/overview.html'
     success_url = '/create/overview/'
     def form_valid(self, form, **kwargs):
+        # import pdb; pdb.set_trace()
         overview = form.save(commit=False)
         overview.description = self.request.POST.get('description')
         overview.experience = self.request.POST.get('experience')
@@ -326,20 +336,20 @@ class ProfessionalOverviewDetail(DetailView):
     model = Profile
     template_name = 'practice/overview_detail.html'
 
-class PriceUpdateView(UpdateView):
-    model = Profile
-    form_class = PricingForm 
-    template_name = 'dashboard/pricing.html'
-    success_url = '/price/'
-    def form_valid(self, form, **kwargs):
-        price = form.save(commit=False)
-        price.pricing = self.request.POST.get('price')
-        price.save()
-        return redirect(self.success_url+str(self.request.user.profile.id))
+# class ProductCreateView(CreateView):
+#     model = Product
+#     form_class = ProductForm 
+#     template_name = 'dashboard/product.html'
+#     success_url = '/price/'
+#     def form_valid(self, form, **kwargs):
+#         product = form.save(commit=False)
+#         product.price = self.request.POST.get('price')
+#         product.save()
+#         return redirect(self.success_url+str(self.request.user.profile.id))
 
-class PriceDetail(DetailView):
-    model = Profile
-    template_name = 'dashboard/price_detail.html'
+# class PriceDetail(DetailView):
+#     model = Profile
+#     template_name = 'dashboard/price_detail.html'
 
 class EducationCreateView(CreateView):
     model = Education
@@ -351,8 +361,13 @@ class EducationCreateView(CreateView):
         user = User.objects.get(pk=self.request.user.id)
         form.user = user
         form.qualification = self.request.POST.get('qualification')
+        form.specialisation = self.request.POST.get('specialisation')
         form.save()
         return redirect(self.success_url)
+
+class EducationDetailView(DetailView):
+    model = Education
+    template_name = 'practice/education_detail.html'
 
 # class EducationUpdateView(UpdateView):
     # def get(self, request, pk):
@@ -375,8 +390,8 @@ class EducationCreateView(CreateView):
     #         specialisation.save()
     #     else:
     #         messages.error(request, 'Invalid')
-    #         return HttpResponseRedirect('/dashboard/practice/'+str(pk))
-    #     return HttpResponseRedirect('/dashboard/practice/'+str(pk))
+    #         return HttpResponseRedirect('/edit/profile/'+str(pk))
+    #     return HttpResponseRedirect('/edit/profile/'+str(pk))
 
 
 
