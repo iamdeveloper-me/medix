@@ -24,11 +24,19 @@ class UserFormSubmitView(View):
 class PracticeProfileDetailView(View):
     def get(self,request,pk):
         if request.user.is_authenticated:
-            # import pdb; pdb.set_trace()
+            import pdb; pdb.set_trace()
+            profile_info = ProfileInfoForm
+            user_info= ProfileUserForm
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'image':profileInfo.image}
+            education = Education.objects.filter(user=user)
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'image':profileInfo.image,'educations':education,'pk':pk}
         return render(request,"users/dashboard.html", context)
+
+    def post(self,request,pk):
+
+        return HttpResponseRedirect('/dashboard/practice/'+str(pk))
+
 
 
 class UserTypeStep1View(CreateView):

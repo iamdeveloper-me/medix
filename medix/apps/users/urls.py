@@ -1,5 +1,6 @@
 from django.urls import path
 from users import views
+from .ajax import * 
 
 app_name = 'users'
 
@@ -59,3 +60,10 @@ urlpatterns = [
 
     path('dashboard/practice/<int:pk>',views.PracticeProfileDetailView.as_view(), name='profile-dashboard')
 ]
+
+ajaxpatterns = [
+    # path('ajax/mapping/add/expertise-attachment/', add_expertise_attachment, name='add-expertise-attachment'),
+    
+]    
+
+urlpatterns = urlpatterns + ajaxpatterns

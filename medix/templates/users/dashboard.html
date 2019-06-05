@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="col-lg-7 col-md-8" id="primary_care">
                                         <small>Primary care - Internist
-                                            <span class="edit_btn"><button id="myBtn"><img src="../../../static/html_menu_1/img/edit.png"></button></span>
+                                            <span class="edit_btn"><button id="myBtn1"><img src="../../../static/html_menu_1/img/edit.png"></button></span>
                                         </small>
 
                                         <h1>{{first_name}} {{last_name}}</h1>
@@ -73,30 +73,14 @@
                             <!-- /profile -->
                             <div class="indent_title_in">
                                 <i class="pe-7s-user"></i>
-                                <h3>Professional statement</h3>
-                                <p>Mussum ipsum cacilds, vidis litro abertis.</p>
+                                <h3>Professional statement
+                                    <span class="edit_btn"><button id="myBtn2"><img src="../../../static/html_menu_1/img/edit.png"></button></span>
+                                </h3>
+                                
                             </div>
                             <div class="wrapper_indent">
-                                <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Nullam mollis. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapi.</p>
-                                <h6>Specializations</h6>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <ul class="bullets">
-                                            <li>Abdominal Radiology</li>
-                                            <li>Addiction Psychiatry</li>
-                                            <li>Adolescent Medicine</li>
-                                            <li>Cardiothoracic Radiology </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <ul class="bullets">
-                                            <li>Abdominal Radiology</li>
-                                            <li>Addiction Psychiatry</li>
-                                            <li>Adolescent Medicine</li>
-                                            <li>Cardiothoracic Radiology </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <p>{{description}}</p>
+                                
                                 <!-- /row-->
                             </div>
                             <!-- /wrapper indent -->
@@ -105,16 +89,18 @@
 
                             <div class="indent_title_in">
                                 <i class="pe-7s-news-paper"></i>
-                                <h3>Education</h3>
-                                <p>Mussum ipsum cacilds, vidis litro abertis.</p>
+                                <h3>Education
+                                    <span class="edit_btn"><button id="myBtn3"><img src="../../../static/html_menu_1/img/edit.png"></button></span>
+                                </h3>
+                                
                             </div>
                             <div class="wrapper_indent">
-                                <p>Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Nullam mollis. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapi.</p>
+                                <p></p>
                                 <h6>Curriculum</h6>
                                 <ul class="list_edu">
-                                    <li><strong>New York Medical College</strong> - Doctor of Medicine</li>
-                                    <li><strong>Montefiore Medical Center</strong> - Residency in Internal Medicine</li>
-                                    <li><strong>New York Medical College</strong> - Master Internal Medicine</li>
+                                    {% for education in educations%}
+                                    <li><strong>New York Medical College</strong> - {{education.qualification}}</li><span class="edit_btn"><button id="myBtn3"><img src="../../../static/html_menu_1/img/edit.png"></button></span>
+                                    {% endfor %}
                                 </ul>
                             </div>
                             <!--  End wrapper indent -->
@@ -123,11 +109,13 @@
 
                             <div class="indent_title_in">
                                 <i class="pe-7s-cash"></i>
-                                <h3>Prices &amp; Payments</h3>
-                                <p>Mussum ipsum cacilds, vidis litro abertis.</p>
+                                <h3>Prices &amp; Payments
+                                    <span class="edit_btn"><button id="myBtn"><img src="../../../static/html_menu_1/img/edit.png">
+                                </h3>
+                                
                             </div>
                             <div class="wrapper_indent">
-                                <p>Zril causae ancillae sit ea. Dicam veritus mediocritatem sea ex, nec id agam eius. Te pri facete latine salutandi, scripta mediocrem et sed, cum ne mundi vulputate. Ne his sint graeco detraxit, posse exerci volutpat has in.</p>
+                                <p></p>
                                 <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -137,10 +125,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for product in products %}
                                         <tr>
-                                            <td>New patient visit</td>
-                                            <td>$34</td>
+                                            <td>{{product.item}}</td>
+                                            <td>{{product.price}}</td>
                                         </tr>
+                                        {% endfor %}
                                         <tr>
                                             <td>General consultation</td>
                                             <td>$60</td>
@@ -359,56 +349,196 @@
         </div>
         <!-- /container -->
 </main>
-<div id="myModal" class="modal">
+<div id="myModal1" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
     <p><div class="col-lg-12 col-md-12" id="primary_care">
-                                        <small>Primary care - Internist
-                                            
-                                        </small>
-                                        <input type="text" name="" value="{{first_name}} {{last_name}}">
-                                        <h1></h1>
-                                        
-                                        
-                                        <ul class="contacts">
-                                         <h6>Phone</h6> 
-                                            <input type="text" name="" value="{{phone}}">
-                                        </ul>
-                                        <button class="save_btn">save</button>
-                                    </div></p>
+        <small>Primary care - Internist
+            
+        </small>
+        <ul class="contacts">
+            <h6>First Name</h6>
+        <input type="text" value="{{first_name}}" name="first_name" id="firstName">
+        </ul>
+        <ul class="contacts">
+            <h6>Last Name</h6>
+        <input type="text" value="{{last_name}}" name="last_name" id="lastName">
+        </ul>
+        <h1></h1>
+        <ul class="contacts">
+         <h6>Phone</h6> 
+            <input type="text" value="{{phone}}" name="phone" id="phone">
+        </ul>
+        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-profile' %}" class="save_btn">save</button>
+    </div></p>
   </div>
+</div>
 
+
+<div id="myModal2" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <ul class="contacts">
+            <h6>Description</h6>
+        <input type="text" value="{{description}}" name="description" id="description">
+        </ul>
+        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-statement' %}" class="save_btn">save</button>
+    </div>
+</div>
+
+
+<div id="myModal3" class="modal">
+<!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <ul class="contacts">
+            <h6>Qualification</h6>
+        <input type="text" value="{{qualification}}" name="qualification" id="qualification">
+        </ul>
+        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-education' %}" class="save_btn">save</button>
+    </div>
+</div>
+
+
+<div id="myModal" class="modal">
+<!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+        <ul class="contacts">
+            <h6>Item</h6>
+            <input type="text" value="{{item}}" name="item" id="item">
+        </ul>
+        <ul class="contacts">
+            <h6>Prices</h6>
+            <input type="text" value="{{price}}" name="price" id="price">
+        </ul>
+        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-product' %}" class="save_btn">save</button>
+    </div>
 </div>
 <!-- /main -->
-<script>
-// Get the modal
-var modal = document.getElementById("myModal");
+<script type="text/javascript">
+    // var modal = document.getElementById("myModal");
+    // var btn = document.getElementById("myBtn");
+    // var span = document.getElementsByClassName("close")[0];
+    // btn.onclick = function() {
+    //     modal.style.display = "block";
+    // };
+    // span.onclick = function() {
+    //   modal.style.display = "none";
+    // };
+    // window.onclick = function(event) {
+    //   if (event.target == modal) {
+    //     modal.style.display = "none";
+    // }
+    // };
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function() {
+        modal.style.display = "block";
+    };
+    span.onclick = function() {
+      modal.style.display = "none";
+    };
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    };
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+$(document).on("click", ".save_btn1", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    phone = $("#phone").val();
+    firstName = $("#firstName").val();
+    lastName = $("#lastName").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"profile_id":profile_id,"phone":phone,"firstName":firstName,"lastName":lastName},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
 
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
+$(document).on("click", ".save_btn1", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    description = $("#description").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"profile_id":profile_id,"description":description},
+        success: function(response) {
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+$(document).on("click", ".save_btn1", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    qualification = $("#qualification").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"profile_id":profile_id,"qualification":qualification},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
+
+$(document).on("click", ".save_btn", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    price = $("#price").val();
+    item = $("#item").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"profile_id":profile_id,"price":price,"item":item},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
 </script>
+
 <style>
     .edit_btn{
         float: right;
@@ -425,20 +555,19 @@ window.onclick = function(event) {
      outline: none;
     }
     .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  display: none; 
+  position: fixed; 
+  padding-top: 100px; 
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
 }
 
-/* Modal Content */
+
 .modal-content {
   background-color: #fefefe;
   margin: auto;
@@ -447,7 +576,6 @@ window.onclick = function(event) {
   width: 40%;
 }
 
-/* The Close Button */
 .close {
   color: #aaaaaa;
   float: right;
@@ -473,4 +601,5 @@ window.onclick = function(event) {
     color: #fff;
 }
 </style>
+
 {% endblock %}
