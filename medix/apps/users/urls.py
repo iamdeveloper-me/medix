@@ -62,7 +62,16 @@ urlpatterns = [
 ]
 
 ajaxpatterns = [
-    # path('ajax/mapping/add/expertise-attachment/', add_expertise_attachment, name='add-expertise-attachment'),
+    path('add/location', add_location, name='add-location'),
+    path('edit/profile/', edit_profile, name='edit-profile'),
+    path('add/statement', add_statement, name='add-statement'),
+    path('add/education', add_education, name='add-education'),
+    
+    path('add/product', add_product, name='add-product'),
+    path('edit/education', edit_education, name='edit-education'),
+    path('edit/product', edit_product, name='edit-product'),
+
+    
     
 ]    
 

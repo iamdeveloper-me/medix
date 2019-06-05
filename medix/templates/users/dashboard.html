@@ -1,4 +1,4 @@
-{% extends 'layout/layout.html' %}
+{% extends 'layout/profile_layout.html' %}
 {% load widget_tweaks %}
 {% load staticfiles %}
 {% load i18n %}
@@ -33,12 +33,32 @@
                                 <div class="row">
                                     <div class="col-lg-5 col-md-4">
                                         <figure>
-                                            <img src="{{ image.url }}" alt="" class="img-fluid">
+                                            <img src="../../../static/html_menu_1/img/images.jpeg" alt="" class="img-fluid">
+
                                         </figure>
                                     </div>
                                     <div class="col-lg-7 col-md-8" id="primary_care">
                                         <small>Primary care - Internist
-                                            <span class="edit_btn"><button id="myBtn1"><img src="../../../static/html_menu_1/img/edit.png"></button></span>
+                                            <div class="popup_main">
+                                            <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <div class="popup_body">
+                                              <div class="popup_back"></div>
+                                                <div class="popup_contain popup_width">
+                                                  <div class="popup_close">x</div>
+                                                   <p>First Name</p>
+                                                   <input type="text" name="first_name" value="{{first_name}}" id="firstName">
+                                                   <ul class="contacts">
+                                                    <p>Last Name</p> 
+                                                    <input type="text" name="last_name" value="{{last_name}}" id="lastName">
+                                                   </ul>
+                                                   <ul class="contacts">
+                                                    <h6>Phone</h6> 
+                                                    <input type="text" name="phone" value="{{phone}}" id="phone">
+                                                   </ul>
+                                                   <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-profile' %}" class="save_btn">save</button>
+                                                </div>
+                                            </div>
+                                          </div>
                                         </small>
 
                                         <h1>{{first_name}} {{last_name}}</h1>
@@ -57,12 +77,17 @@
                                         </ul>
                                         <ul class="contacts">
                                             <li>
-                                                <h6>Address</h6>
-                                                2726 Shinn Street, New York -
-                                                <a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" target="_blank"> <strong>View on map</strong></a>
+                                                <h6>Email</h6>
+                                                {{email}}
+                                                
                                             </li>
                                             <li>
                                                 <h6>Phone</h6> <a href="tel://{{phone}}">{{phone}}</a> 
+                                            </li>
+                                            <li>
+                                                <h6>Gender</h6> 
+                                                {{gender}}
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -73,15 +98,33 @@
                             <!-- /profile -->
                             <div class="indent_title_in">
                                 <i class="pe-7s-user"></i>
-                                <h3>Professional statement
-                                    <span class="edit_btn"><button id="myBtn2"><img src="../../../static/html_menu_1/img/edit.png"></button></span>
-                                </h3>
-                                
-                            </div>
+                                <h3>Professional statement</h3>
+                                <div class="popup_main">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <div class="popup_body">
+                                              <div class="popup_back"></div>
+                                                <div class="popup_contain popup_width">
+                                                  <div class="popup_close">x</div>
+                                                   <ul class="contacts">
+                                                    <h6>Description</h6>
+                                                    <textarea type="text" rows="5" cols="22" value="{{description}}" name="description" id="description">
+                                                    </textarea>
+                                                   
+                                                    </ul>
+                                                    <ul class="contacts">
+                                                    <h6>Year Of Experience</h6>
+                                                    <input type="text" value="{{experience}}" name="experience" id="experience">
+                                                    </ul>
+                                                    <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-statement' %}" class="save_des">save</button>
+                                                </div>
+                                            </div>
+                                          </div>    
+                                        </div>
                             <div class="wrapper_indent">
                                 <p>{{description}}</p>
                                 
-                                <!-- /row-->
+                                <p>Year Of Experience-{{experience}}</p>
+                                
                             </div>
                             <!-- /wrapper indent -->
 
@@ -89,9 +132,21 @@
 
                             <div class="indent_title_in">
                                 <i class="pe-7s-news-paper"></i>
-                                <h3>Education
-                                    <span class="edit_btn"><button id="myBtn3"><img src="../../../static/html_menu_1/img/edit.png"></button></span>
-                                </h3>
+                                <h3>Education</h3>
+                                <div class="popup_main">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                          <div class="popup_close">x</div>
+                                           <ul class="contacts">
+                                            <h6>Qualification</h6>
+                                            <input type="text" value="{{qualification}}" name="qualification" id="qualification">
+                                            </ul>
+                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-education' %}" class="save_edu">save</button>
+                                        </div>
+                                    </div>
+                                  </div>
                                 
                             </div>
                             <div class="wrapper_indent">
@@ -99,7 +154,21 @@
                                 <h6>Curriculum</h6>
                                 <ul class="list_edu">
                                     {% for education in educations%}
-                                    <li><strong>New York Medical College</strong> - {{education.qualification}}</li><span class="edit_btn"><button id="myBtn3"><img src="../../../static/html_menu_1/img/edit.png"></button></span>
+                                    <li>{{education.qualification}}
+                                        <div class="popup_main">
+                                            <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <div class="popup_body">
+                                              <div class="popup_back"></div>
+                                                <div class="popup_contain popup_width">
+                                                  <div class="popup_close">x</div>
+                                                   <input type="text" value="{{education.qualification}}" class="mycloseclass" name="qualification">
+                                                <button data-id="{{education.id}}"  data-url="{% url 'users:edit-education' %}" class="edit_btn">save</button>
+                                                </div>
+                                            </div>
+                                          </div>
+                                    </li>
+
+                                </button></span>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -109,53 +178,75 @@
 
                             <div class="indent_title_in">
                                 <i class="pe-7s-cash"></i>
-                                <h3>Prices &amp; Payments
-                                    <span class="edit_btn"><button id="myBtn"><img src="../../../static/html_menu_1/img/edit.png">
-                                </h3>
+                                <h3>Items & Prices</h3>
+                                <div class="popup_main">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                          <div class="popup_close">x</div>
+                                           <ul class="contacts">
+                                            <h6>Item</h6>
+                                            <input type="text" value="{{item}}" name="item" id="item">
+                                        </ul>
+                                        <ul class="contacts">
+                                            <h6>Price</h6>
+                                            <input type="text" value="{{price}}" name="price" id="price">
+                                        </ul>
+                                        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-product' %}" class="save_product">save</button>
+                                    </div>
+                                </div>
+                            </div>
                                 
                             </div>
                             <div class="wrapper_indent">
-                                <p></p>
+                                
                                 <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Service - Visit</th>
+                                            <th>Items</th>
                                             <th>Price</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        
                                         {% for product in products %}
                                         <tr>
                                             <td>{{product.item}}</td>
-                                            <td>{{product.price}}</td>
+                                            <td>${{product.price}}</td>
+                                            <td>
+                                            <div class="popup_main">
+                                            <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <div class="popup_body">
+                                              <div class="popup_back"></div>
+                                                <div class="popup_contain popup_width">
+                                                  <div class="popup_close">x</div>
+                                                   <ul class="contacts">
+                                                    <h6>Item</h6>
+                                                    <input type="text" value="{{product.item}}" name="item" class="editItem">
+                                                    </ul>
+                                                    <ul class="contacts">
+                                                    <h6>Item</h6>
+                                                   <input type="text" value="{{product.price}}" name="price" class="editPrice">
+                                                </ul>
+                                                <button data-id="{{product.id}}" data-url="{% url 'users:edit-product' %}" class="edit_pro">save</button>
+                                                </div>
+                                            </div>
+                                          </div>
+                                            </td>
                                         </tr>
                                         {% endfor %}
-                                        <tr>
-                                            <td>General consultation</td>
-                                            <td>$60</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Back Pain</td>
-                                            <td>$40</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Diabetes Consultation</td>
-                                            <td>$55</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eating disorder</td>
-                                            <td>$60</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Foot Pain</td>
-                                            <td>$35</td>
-                                        </tr>
+                                        
+                                        
                                     </tbody>
                                 </table>
                                 </div>
                             </div>
                             <!--  /wrapper_indent -->
+                            <hr>
+
+                               
                         </div>
                         <!-- /section_1 -->
                     </div>
@@ -349,108 +440,39 @@
         </div>
         <!-- /container -->
 </main>
-<div id="myModal1" class="modal">
+<div id="myModal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
     <p><div class="col-lg-12 col-md-12" id="primary_care">
-        <small>Primary care - Internist
-            
-        </small>
-        <ul class="contacts">
-            <h6>First Name</h6>
-        <input type="text" value="{{first_name}}" name="first_name" id="firstName">
-        </ul>
-        <ul class="contacts">
-            <h6>Last Name</h6>
-        <input type="text" value="{{last_name}}" name="last_name" id="lastName">
-        </ul>
-        <h1></h1>
-        <ul class="contacts">
-         <h6>Phone</h6> 
-            <input type="text" value="{{phone}}" name="phone" id="phone">
-        </ul>
-        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-profile' %}" class="save_btn">save</button>
+         <small>Primary care - Internist</small>
+         <input type="text" name="" value="{{first_name}} {{last_name}}">
+         <ul class="contacts">
+          <h6>Phone</h6> 
+          <input type="text" name="" value="{{phone}}">
+         </ul>
+         <button class="save_btn">save</button>
     </div></p>
   </div>
-</div>
 
-
-<div id="myModal2" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <ul class="contacts">
-            <h6>Description</h6>
-        <input type="text" value="{{description}}" name="description" id="description">
-        </ul>
-        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-statement' %}" class="save_btn">save</button>
-    </div>
-</div>
-
-
-<div id="myModal3" class="modal">
-<!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <ul class="contacts">
-            <h6>Qualification</h6>
-        <input type="text" value="{{qualification}}" name="qualification" id="qualification">
-        </ul>
-        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-education' %}" class="save_btn">save</button>
-    </div>
-</div>
-
-
-<div id="myModal" class="modal">
-<!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-        <ul class="contacts">
-            <h6>Item</h6>
-            <input type="text" value="{{item}}" name="item" id="item">
-        </ul>
-        <ul class="contacts">
-            <h6>Prices</h6>
-            <input type="text" value="{{price}}" name="price" id="price">
-        </ul>
-        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-product' %}" class="save_btn">save</button>
-    </div>
 </div>
 <!-- /main -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript">
-    // var modal = document.getElementById("myModal");
-    // var btn = document.getElementById("myBtn");
-    // var span = document.getElementsByClassName("close")[0];
-    // btn.onclick = function() {
-    //     modal.style.display = "block";
-    // };
-    // span.onclick = function() {
-    //   modal.style.display = "none";
-    // };
-    // window.onclick = function(event) {
-    //   if (event.target == modal) {
-    //     modal.style.display = "none";
-    // }
-    // };
+    $(".open_popup").click(function () {
+   $(this).parent(".popup_main").children(".popup_body").addClass("popup_body_show");
+   });
+ $(".popup_close").click(function () {
+   $(".popup_body").removeClass("popup_body_show");
+   });
+ $(".popup_back").click(function () {
+   $(".popup_body").removeClass("popup_body_show");
+   });
 
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("myBtn");
-    var span = document.getElementsByClassName("close")[0];
-    btn.onclick = function() {
-        modal.style.display = "block";
-    };
-    span.onclick = function() {
-      modal.style.display = "none";
-    };
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-    }
-    };
 
-$(document).on("click", ".save_btn1", function(e){
+$(document).on("click", ".save_btn", function(e){
     e.preventDefault();
     url = $(this).data('url');
     profile_id = $(this).data('id');
@@ -473,11 +495,13 @@ $(document).on("click", ".save_btn1", function(e){
         });
 });
 
-$(document).on("click", ".save_btn1", function(e){
+
+$(document).on("click", ".save_des", function(e){
     e.preventDefault();
     url = $(this).data('url');
     profile_id = $(this).data('id');
     description = $("#description").val();
+    experience = $('#experience').val();
     $.ajax({
         type: "POST",
         url: url,
@@ -485,7 +509,7 @@ $(document).on("click", ".save_btn1", function(e){
             "X-CSRFToken": '{{csrf_token}}' 
         },
         dataType: "json",
-        data: {"profile_id":profile_id,"description":description},
+        data: {"profile_id":profile_id,"description":description,"experience":experience},
         success: function(response) {
 
                 if(response.status == 200){
@@ -495,7 +519,7 @@ $(document).on("click", ".save_btn1", function(e){
         });
 });
 
-$(document).on("click", ".save_btn1", function(e){
+$(document).on("click", ".save_edu", function(e){
     e.preventDefault();
     url = $(this).data('url');
     profile_id = $(this).data('id');
@@ -516,7 +540,7 @@ $(document).on("click", ".save_btn1", function(e){
         });
 });
 
-$(document).on("click", ".save_btn", function(e){
+$(document).on("click", ".save_product", function(e){
     e.preventDefault();
     url = $(this).data('url');
     profile_id = $(this).data('id');
@@ -537,69 +561,240 @@ $(document).on("click", ".save_btn", function(e){
             }
         });
 });
+
+$(document).on("click", ".edit_btn", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    edu_id = $(this).data('id');
+    quali = $(this).parents('.popup_contain').find(".mycloseclass").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"edu_id":edu_id,"qualification":quali},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
+
+$(document).on("click", ".edit_pro", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    product_id = $(this).data('id');
+    
+    item = $(this).parents('.popup_contain').find(".editItem").val();
+    price = $(this).parents('.popup_contain').find(".editPrice").val();
+    // item = $("#editItem").val();
+    // price = $("#editPrice").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"product_id":product_id,"item":item,"price":price},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
+
+$(document).on("click", ".save_location", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    product_id = $(this).data('id');
+    location = $("#location").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"product_id":product_id,"location":location},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
+
 </script>
 
+
+
+
+
 <style>
-    .edit_btn{
-        float: right;
-    }
-    .edit_btn button{
-     border:none;
-     background: none;
-    }
-    .edit_btn img{
-      width: 16px;
-    }
-    .edit_btn button:focus{
-     border:none;
-     outline: none;
-    }
-    .modal {
-  display: none; 
-  position: fixed; 
-  padding-top: 100px; 
-  left: 0;
-  top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4); 
-}
-
-
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 40%;
-}
-
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  text-align: right;
-    margin-top: -10px;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-.save_btn {
-    text-align: right;
-    float: right;
-    background: #e74e84;
+ button.open_popup {
+    background: none;
     border: none;
-    border-radius: 50px;
-    padding: 9px 25px;
-    color: #fff;
+    padding: 0;
 }
-</style>
+.popup_main img {
+    width: 16px;
+}
+.signup_heading {
+  text-align: left;
+  font-size: 22px;
+  color: #fff;
+  padding-left: 24px;
+  padding-bottom: 10px;
+}
+.nopadd{
+  padding: 0!important;
+}
+.popup_main button:focus {
+    outline: none;
+}
+.popup_close:hover {
+    cursor: pointer;
+}
+.margin_none{
+  padding-top: 95px !important;
+}
+.popup_body{
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -o-transition: 300ms;
+    -ms-transition: 300ms;
+    transition: 300ms;
+}
+.popup_body_show{
+  display:block;
+  -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -o-transition: 300ms;
+    -ms-transition: 300ms;
+    transition: 300ms;
+    z-index: 9999999;
+}
+.popup_back{
+  background: rgba(0,0,0,0.4);
+  position: fixed;
+  left:0;right:0;top:0;bottom:0;
+}
+.popup_contain{
+  position: relative;
+  background: #fff;
+  min-width: 300px;
+  max-width: 30%;
+  margin: 150px auto 50px;
+  padding: 10px 20px;
+  color: #222;
+  border-radius: 4px;
+}
+.popup_width p {
+    font-size: 12px;
+    margin: 8px 0;
+}
+.popup_width{
+ max-width: 50% !important;
+ padding-top: 40px;
+}
+button.save_btn {
+ background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
+button.save_des{
+ background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
 
+button.save_edu{
+ background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
+
+button.save_product{
+    background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
+button.edit_btn{
+    background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
+button.edit_pro{
+    background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
+button.save_location{
+    background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+
+}
+.popup_close{
+  background: #23234714;
+    padding: 3px 10px 5px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #222;
+    border-radius: 50%;
+}
+.text_aligntext{
+    text-align: center;
+}
+.popup_main {
+    display: inline-block;
+    float: right;
+    
+}
+.health_insurance{
+    margin:20px 0;
+}
+a.forgot {
+    text-align: left;
+    padding-top: 6px;
+    display: block;
+}
+</style>>
 {% endblock %}
