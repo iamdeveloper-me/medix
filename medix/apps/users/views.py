@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
-from users.models import Profile, Education, Product
+from users.models import Profile, Education, Product, OperatingHours, Location
 from django.contrib.auth.models import User
 from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm
 from django.views import View
@@ -24,18 +24,20 @@ class UserFormSubmitView(View):
 class PracticeProfileDetailView(View):
     def get(self,request,pk):
         if request.user.is_authenticated:
-            import pdb; pdb.set_trace()
-            profile_info = ProfileInfoForm
-            user_info= ProfileUserForm
+            # import pdb; pdb.set_trace()
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
             education = Education.objects.filter(user=user)
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'image':profileInfo.image,'educations':education,'pk':pk}
-        return render(request,"users/dashboard.html", context)
+            product = Product.objects.filter(user=user)
+            # location = Location.objects.filter(user=user)
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'pk':pk}
+            return render(request,"users/dashboard.html", context)
+        return redirect('user-type/step1/')
 
-    def post(self,request,pk):
 
-        return HttpResponseRedirect('/dashboard/practice/'+str(pk))
+    # def post(self,request,pk):
+
+    #     return HttpResponseRedirect('/dashboard/practice/'+str(pk))
 
 
 
@@ -84,7 +86,6 @@ class InstitutionStep2CreateView(CreateView):
         form.save()
         return redirect(self.success_url+str(form.id))
 
-        
 class EmergencyServiceStep2CreateView(CreateView):
     model = Profile
     form_class = EmergencyServiceForm
@@ -122,6 +123,7 @@ class PracticeSignupStep3View(View):
                 user.save()
                 practice_obj = practice_form.save(commit=False)
                 practice_obj.user = user
+                practice_obj.gender = request.POST.get('gender')
                 practice_obj.save()
                 # frm = settings.DEFAULT_FROM_EMAIL
                 # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
@@ -376,32 +378,6 @@ class EducationCreateView(CreateView):
 class EducationDetailView(DetailView):
     model = Education
     template_name = 'practice/education_detail.html'
-
-# class EducationUpdateView(UpdateView):
-    # def get(self, request, pk):
-    #     if request.user.is_authenticated:
-    #         education_form = EducationForm
-    #         specialisation_form = PracticeSpecialisationForm
-    #         return render(request, 'dashboard/education.html',{'education_form':education_form,'specialisation_form':specialisation_form,'pk':pk})
-
-    # def post(self, request, pk):
-    #     education_form = EducationForm(request.POST,instance=User.objects.get(pk=request.user.id))
-    #     specialisation_form = PracticeSpecialisationForm(request.POST,instance=profile)
-    #     if education_form.is_valid() and specialisation_form.is_valid():
-    #         education = education_form.save(commit=False)
-    #         education.qualification = request.POST.get('first_name')
-            
-    #         education.save()
-    #         specialisation= specialisation_form.save(commit=False)
-    #         specialisation.user = user
-    #         specialisation.phone = request.POST.get('phone')
-    #         specialisation.save()
-    #     else:
-    #         messages.error(request, 'Invalid')
-    #         return HttpResponseRedirect('/edit/profile/'+str(pk))
-    #     return HttpResponseRedirect('/edit/profile/'+str(pk))
-
-
 
 class InstitutionDashboardView(View):
     def get(self, request):

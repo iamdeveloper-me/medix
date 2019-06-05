@@ -27,7 +27,7 @@ class Profile(BaseModel):
     address_of_institution = models.TextField(_("Address Of Institution"), blank = True, null = True)
     contact_person = models.CharField(_("Contact Person"), max_length=254, blank = True, null = True)
     description = models.TextField(_("Descrption"), blank = True, null = True)
-    image = models.ImageField(_("Image"), null=True)
+    image = models.ImageField(_("Image"),blank = True, null=True)
     experience = models.CharField(_("Experience"), max_length=5, blank = True, null = True)
 
     def __str__(self):
