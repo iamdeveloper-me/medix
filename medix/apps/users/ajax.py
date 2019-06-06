@@ -93,3 +93,47 @@ def delete_product(request):
     product = Product.objects.get(pk=request.GET.get('product_id'))
     product.delete()
     return JsonResponse({'status':200})
+
+#Strat Health Insurance Ajax
+def edit_insurance_profile(request):
+    if request.method == 'POST':
+        profile = Profile.objects.get(id=request.POST.get("profile_id"))
+        user = User.objects.get(id=profile.user.id)
+        profile.phone = request.POST.get("phone")
+        profile.contact_person = request.POST.get("contactp")
+        profile.address_of_institution = request.POST.get("address")
+        profile.trading_name = request.POST.get("trad_name")
+        profile.save()
+        return JsonResponse({'status':200})
+
+def add_insurance_overview(request):
+    add_statement(request)
+    return JsonResponse({'status':200})
+
+def add_insurance_product(request):
+    add_product(request) 
+    return JsonResponse({'status':200}) 
+
+def insurance_product_delete(request):
+    delete_product(request)
+    return JsonResponse({'status':200})
+
+def edit_insurance_product(request):
+    edit_product(request)
+    return JsonResponse({'status':200})
+
+def add_insurance_keyword(request):
+    add_keyword(request)
+    return JsonResponse({'status':200})
+
+def delete_keyword(request):
+    profile = Profile.objects.filter(id=request.GET.get("profile_id")).update(keyword=None)
+    return JsonResponse({'status':200})
+
+def delete_description(request):
+    profile = Profile.objects.filter(id=request.GET.get("profile_id")).update(description=None)
+    return JsonResponse({'status':200})
+
+def delete_experience(request):
+    profile = Profile.objects.filter(id=request.GET.get("profile_id")).update(experience=None)
+    return JsonResponse({'status':200})

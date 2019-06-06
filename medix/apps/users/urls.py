@@ -12,7 +12,7 @@ urlpatterns = [
     path('dashboard/institution/',views.InstitutionDashboardView.as_view(), name='institution-dashboard'),
     path('dashboard/emergency-service/',views.EmergencyServicesDashboard.as_view(), name='emergency-service-dashboard'),
     path('dashboard/emergency-service/',views.EmergencyServicesDashboard.as_view(), name='admin-dashboard'),
-    path('dashboard/health-insurance/',views.HealthInsuranceDashboard.as_view(), name='health-insurance-dashboard'),
+    path('dashboard/health-insurance/<int:pk>',views.HealthInsuranceDashboard.as_view(), name='health-insurance-dashboard'),
 
     #admin dashboard
     path('admin/dashboard/',views.AdminDashboardView.as_view(), name='admin-dashboard'),
@@ -59,20 +59,29 @@ urlpatterns = [
 ]
 
 ajaxpatterns = [
+    #practice add ,edit ,delete ajax
     path('add/location', add_location, name='add-location'),
     path('edit/profile/', edit_profile, name='edit-profile'),
     path('add/statement', add_statement, name='add-statement'),
     path('add/education', add_education, name='add-education'),
-    
     path('add/product', add_product, name='add-product'),
     path('edit/education', edit_education, name='edit-education'),
     path('edit/product', edit_product, name='edit-product'),
-    
     path('add/keyword', add_keyword, name='add-keyword'),
     path('delete/education', delete_education, name='qualification-delete'),
     path('delete/product', delete_product, name='product-delete'),
-       
-
+     
+    #Health Insurance add, edit, delete ajax
+    path('edit/insurance-profile', edit_insurance_profile, name='edit-insurance-profile'),
+    path('add/insurance-overview', add_insurance_overview , name='add-insurance-overview'),
+    path('add/insurance-product', add_insurance_product , name='add-insurance-product'),
+    path('delete/insurance-product', insurance_product_delete , name='insurance-product-delete'),
+    path('edit/insurance-product', edit_insurance_product, name='insurance-product'),
+    path('add/insurance-keyword', add_insurance_keyword, name='add-insurance-keyword'),
+    path('delete/keyword', delete_keyword ,name='delete-keyword'),
+    path('delete/description', delete_description ,name='delete-description'),
+    path('delete/experience', delete_experience,name='delete-experience')
+    
 ]    
 
 urlpatterns = urlpatterns + ajaxpatterns

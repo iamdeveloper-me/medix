@@ -1,132 +1,906 @@
-{% extends 'layout/user_layout.html' %}
+{% extends 'layout/profile_layout.html' %}
 {% load widget_tweaks %}
 {% load staticfiles %}
 {% load i18n %}
 {% block content %}
- <div class="content-wrapper">
-    <div class="container-fluid margin_top">
-      <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">Add listing</li>
-      </ol>
-        <div class="box_general padding_bottom">
-            <div class="header_box version_2">
-                <h2><i class="fa fa-user"></i>Profile details</h2>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                    <label>Your photo</label>
-                        <form action="/file-upload" class="dropzone"></form>
-                    </div>
-                </div>
-                <div class="col-md-8 add_top_30">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" placeholder="Your name">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Last name</label>
-                                <input type="text" class="form-control" placeholder="Your last name">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /row-->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Telephone</label>
-                                <input type="text" class="form-control" placeholder="Your telephone number">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" class="form-control" placeholder="Your email">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /row-->
-                </div>
+<main>
+        <div id="breadcrumb">
+            <div class="container">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Category</a></li>
+                    <li>Page active</li>
+                </ul>
             </div>
         </div>
-        <!-- /box_general-->
-        <div class="row">
-            <div class="col-md-6">
-                <div class="box_general padding_bottom">
-                    <div class="header_box version_2">
-                        <h2><i class="fa fa-lock"></i>Change password</h2>
-                    </div>
-                    <div class="form-group">
-                        <label>Old password</label>
-                        <input class="form-control" type="password">
-                    </div>
-                    <div class="form-group">
-                        <label>New password</label>
-                        <input class="form-control" type="password">
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm new password</label>
-                        <input class="form-control" type="password">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="box_general padding_bottom">
-                    <div class="header_box version_2">
-                        <h2><i class="fa fa-envelope"></i>Change email</h2>
-                    </div>
-                    <div class="form-group">
-                        <label>Old email</label>
-                        <input class="form-control" name="old_email" id="old_email" type="email">
-                    </div>
-                    <div class="form-group">
-                        <label>New email</label>
-                        <input class="form-control" name="new_email" id="new_email" type="email">
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm new email</label>
-                        <input class="form-control" name="confirm_new_email" id="confirm_new_email" type="email">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /row-->
-        <p class="save_btn"><a href="#0" class="btn_1 medium">Save</a></p>
-      </div>
-      <!-- /.container-fluid-->
-  </div>
-    <!-- /.container-wrapper-->
-    
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fa fa-angle-up"></i>
-    </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
-   
+        <!-- /breadcrumb -->
 
+        <div class="container margin_60">
+            <div class="row">
+                <div class="col-xl-8 col-lg-8">
+                    <nav id="secondary_nav">
+                        <div class="container">
+                            <ul class="clearfix">
+                                <li><a href="#section_1" class="active">General info</a></li>
+                                <li><a href="#section_2">Reviews</a></li>
+                                <li><a href="#sidebar">Booking</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div id="section_1">
+                        <div class="box_general_3">
+                            <div class="profile">
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-4">
+                                        <figure>
+                                            <img src="../../../static/html_menu_1/img/images.jpeg" alt="" class="img-fluid">
+
+                                        </figure>
+                                    </div>
+                                    <div class="col-lg-7 col-md-8" id="primary_care">
+                                        <small>Primary care - Internist
+                                            <div class="popup_main">
+                                            <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <div class="popup_body">
+                                              <div class="popup_back"></div>
+                                                <div class="popup_contain popup_width">
+                                                  <div class="popup_close">x</div>
+                                                   <p>Trading Name</p>
+                                                   <input type="text" name="trading_name" value="{{trading_name}}" id="tradName">
+                                                   <ul class="contacts">
+                                                    <p>Address Of Institution</p> 
+                                                    <input type="text" name="address_of_institution" value="{{address_of_institution}}" id="address">
+                                                   </ul>
+                                                   <ul class="contacts">
+                                                    <h6>Phone</h6> 
+                                                    <input type="text" name="phone" value="{{phone}}" id="phone">
+                                                   </ul>
+                                                   <ul class="contacts">
+                                                    <h6>Contact Person</h6> 
+                                                    <input type="text" name="contact_person" value="{{contact_person}}" id="contactp">
+                                                   </ul>
+                                                   <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-insurance-profile' %}" class="save_btn">save</button>
+                                                </div>
+                                            </div>
+                                          </div>
+                                        </small>
+
+                                        <h1>{{trading_name}}</h1>
+                                        <span class="rating">
+                                            <i class="icon_star voted"></i>
+                                            <i class="icon_star voted"></i>
+                                            <i class="icon_star voted"></i>
+                                            <i class="icon_star voted"></i>
+                                            <i class="icon_star"></i>
+                                            <small>(145)</small>
+                                            <a href="badges.html" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="img/badges/badge_1.svg" width="15" height="15" alt=""></a>
+                                        </span>
+                                        <ul class="statistic">
+                                            <li>854 Views</li>
+                                            <li>124 Patients</li>
+                                        </ul>
+                                        <ul class="contacts">
+                                            <li>
+                                                <h6>Email</h6>
+                                                {{email}}
+                                                
+                                            </li>
+                                            <li>
+                                                <h6>Phone</h6> <a href="tel://{{phone}}">{{phone}}</a> 
+                                            </li>
+                                            <li>
+                                                <h6>Address Of Institution</h6> 
+                                                {{address_of_institution}}
+                                            </li>
+                                            <li>
+                                                <h6>Contact Person</h6> 
+                                                {{contact_person}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            
+                            <!-- /profile -->
+                            <div class="indent_title_in">
+                                <i class="pe-7s-user"></i>
+                                <h3>Overview</h3>
+                                <div class="popup_main">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <div class="popup_body">
+                                              <div class="popup_back"></div>
+                                                <div class="popup_contain popup_width">
+                                                  <div class="popup_close">x</div>
+                                                   <ul class="contacts">
+                                                    <h6>Description</h6>
+                                                    <textarea type="text" rows="5" cols="22" value="{{description}}" name="description" id="description">
+                                                    </textarea>
+                                                   
+                                                    </ul>
+                                                    <ul class="contacts">
+                                                    <h6>Year Of Experience</h6>
+                                                    <input type="text" value="{{experience}}" name="experience" id="experience">
+                                                    </ul>
+                                                    <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-insurance-overview' %}" class="save_overview">save</button>
+                                                </div>
+                                            </div>
+                                          </div>    
+                                        </div>
+                            <div class="wrapper_indent">
+                                <p>{{description}}
+                                <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-description' %}" class="delete_des popup_main">
+                                    <img src="../../../static/html_menu_1/img/delete.png">
+                                 </a></p>
+                                
+                                <p>Year Of Experience-{{experience}}
+                                <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-experience' %}" class="delete_exp popup_main">
+                                    <img src="../../../static/html_menu_1/img/delete.png">
+                                </a></p>
+                                
+                            </div>
+                            <!-- /wrapper indent -->
+
+                            <hr>
+
+                            <div class="indent_title_in">
+                                <i class="pe-7s-cash"></i>
+                                <h3>Items & Prices</h3>
+                                <div class="popup_main">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                          <div class="popup_close">x</div>
+                                           <ul class="contacts">
+                                            <h6>Item</h6>
+                                            <input type="text" value="{{item}}" name="item" id="item">
+                                        </ul>
+                                        <ul class="contacts">
+                                            <h6>Price</h6>
+                                            <input type="text" value="{{price}}" name="price" id="price">
+                                        </ul>
+                                        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-insurance-product' %}" class="save_price">save</button>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            </div>
+                            <div class="wrapper_indent">
+                                
+                                <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Items</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        {% for product in products %}
+                                        <tr id="product_tr_{{product.id}}">
+                                            <td>{{product.item}}</td>
+                                            <td>${{product.price}}</td>
+                                            <td>
+                                            <div class="popup_main">
+                                            <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <a data-id="{{product.id}}" data-url="{% url 'users:insurance-product-delete' %}" class="delete_product">
+                                                <img src="../../../static/html_menu_1/img/delete.png">
+                                            </a>
+                                            <div class="popup_body">
+                                              <div class="popup_back"></div>
+                                                <div class="popup_contain popup_width">
+                                                  <div class="popup_close">x</div>
+                                                   <ul class="contacts">
+                                                    <h6>Item</h6>
+                                                    <input type="text" value="{{product.item}}" name="item" class="editItem">
+                                                    </ul>
+                                                    <ul class="contacts">
+                                                    <h6>Price</h6>
+                                                   <input type="text" value="{{product.price}}" name="price" class="editPrice">
+                                                </ul>
+                                                <button data-id="{{product.id}}" data-url="{% url 'users:insurance-product' %}" class="edit_pro">save</button>
+                                                </div>
+                                            </div>
+                                          </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}  
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                            <!--  /wrapper_indent -->
+                            <hr>
+
+                            <div class="indent_title_in">
+                                <i class="pe-7s-news-paper"></i>
+                                <h3>Location & Trading Hours</h3>
+                                <div class="popup_main">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                          <div class="popup_close">x</div>
+                                           <ul class="contacts">
+                                            <h6>Location</h6>
+                                            <input type="text" value="{{location}}" name="location" id="locationId">
+                                            </ul>
+                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location">save</button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                
+                            </div>
+                            <div class="wrapper_indent">
+                                <p></p>
+                                
+                                <ul class="list_edu">
+                                   {% for value in locations %}
+                                    <li>
+                                      {{value.location}}  
+                                    </li>
+                                    {% endfor %}
+                                
+                                </ul>
+                            </div>
+                               
+                            <hr>
+
+                            <div class="indent_title_in">
+                                <i class="pe-7s-news-paper"></i>
+                                <h3>Keywords</h3>
+                                <div class="popup_main">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                          <div class="popup_close">x</div>
+                                           <ul class="contacts">
+                                            <h6>keyword</h6>
+                                            <input type="text" value="{{keyword}}" name="keyword" id="keyword">
+                                            </ul>
+                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-insurance-keyword' %}" class="save_keyword">save</button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                
+                            </div>
+                            <div class="wrapper_indent">
+                                <p></p>
+                                
+                                <ul class="list_edu">
+                                    
+                                    {{keyword}}
+                                    <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-keyword' %}" class="delete_keyword popup_main" >
+                                       <img src="../../../static/html_menu_1/img/delete.png">
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /section_1 -->
+                    </div>
+                    <!-- /box_general -->
+
+                    <div id="section_2">
+                        <div class="box_general_3">
+                            <div class="reviews-container">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div id="review_summary">
+                                            <strong>4.7</strong>
+                                            <div class="rating">
+                                                <i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+                                            </div>
+                                            <small>Based on 4 reviews</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-lg-10 col-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-3"><small><strong>5 stars</strong></small></div>
+                                        </div>
+                                        <!-- /row -->
+                                        <div class="row">
+                                            <div class="col-lg-10 col-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-3"><small><strong>4 stars</strong></small></div>
+                                        </div>
+                                        <!-- /row -->
+                                        <div class="row">
+                                            <div class="col-lg-10 col-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-3"><small><strong>3 stars</strong></small></div>
+                                        </div>
+                                        <!-- /row -->
+                                        <div class="row">
+                                            <div class="col-lg-10 col-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-3"><small><strong>2 stars</strong></small></div>
+                                        </div>
+                                        <!-- /row -->
+                                        <div class="row">
+                                            <div class="col-lg-10 col-9">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: 0" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-3"><small><strong>1 stars</strong></small></div>
+                                        </div>
+                                        <!-- /row -->
+                                    </div>
+                                </div>
+                                <!-- /row -->
+
+                                <hr>
+
+                                <div class="review-box clearfix">
+                                    <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
+                                    </figure>
+                                    <div class="rev-content">
+                                        <div class="rating">
+                                            <i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+                                        </div>
+                                        <div class="rev-info">
+                                            Admin – April 03, 2016:
+                                        </div>
+                                        <div class="rev-text">
+                                            <p>
+                                                Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End review-box -->
+
+                                <div class="review-box clearfix">
+                                    <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
+                                    </figure>
+                                    <div class="rev-content">
+                                        <div class="rating">
+                                            <i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+                                        </div>
+                                        <div class="rev-info">
+                                            Ahsan – April 01, 2016
+                                        </div>
+                                        <div class="rev-text">
+                                            <p>
+                                                Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End review-box -->
+
+                                <div class="review-box clearfix">
+                                    <figure class="rev-thumb"><img src="http://via.placeholder.com/150x150.jpg" alt="">
+                                    </figure>
+                                    <div class="rev-content">
+                                        <div class="rating">
+                                            <i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+                                        </div>
+                                        <div class="rev-info">
+                                            Sara – March 31, 2016
+                                        </div>
+                                        <div class="rev-text">
+                                            <p>
+                                                Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End review-box -->
+                            </div>
+                            <!-- End review-container -->
+                            <hr>
+                            <div class="text-right"><a href="submit-review.html" class="btn_1">Submit review</a></div>
+                        </div>
+                    </div>
+                    <!-- /section_2 -->
+                    </div>
+                <!-- /col -->
+                <aside class="col-xl-4 col-lg-4" id="sidebar">
+                    <div class="box_general_3 booking">
+                        <form>
+                            <div class="title">
+                            <h3>Book a Visit</h3>
+                            <small>Monday to Friday 09.00am-06.00pm</small>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" id="booking_date" data-lang="en" data-min-year="2017" data-max-year="2020" data-disabled-days="10/17/2017,11/18/2017">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" id="booking_time" value="9:00 am">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /row -->
+                            <ul class="treatments clearfix">
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" class="css-checkbox" id="visit1" name="visit1">
+                                        <label for="visit1" class="css-label">Back Pain visit <strong>$55</strong></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" class="css-checkbox" id="visit2" name="visit2">
+                                        <label for="visit2" class="css-label">Cardiovascular screen <strong>$55</strong></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" class="css-checkbox" id="visit3" name="visit3">
+                                        <label for="visit3" class="css-label">Diabetes consultation <strong>$55</strong></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" class="css-checkbox" id="visit4" name="visit4">
+                                        <label for="visit4" class="css-label">General visit <strong>$55</strong></label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <hr>
+                            <a href="booking-page.html" class="btn_1 full-width">Book Now</a>
+                        </form>
+                    </div>
+                    <!-- /box_general -->
+                </aside>
+                <!-- /asdide -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+</main>
+
+<!-- /main -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(".open_popup").click(function () {
+   $(this).parent(".popup_main").children(".popup_body").addClass("popup_body_show");
+   });
+ $(".popup_close").click(function () {
+   $(".popup_body").removeClass("popup_body_show");
+   });
+ $(".popup_back").click(function () {
+   $(".popup_body").removeClass("popup_body_show");
+   });
+
+
+$(document).on("click", ".save_btn", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    phone = $("#phone").val();
+    contactp = $("#contactp").val();
+    address = $("#address").val();
+    trad_name = $("#tradName").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"profile_id":profile_id,"phone":phone,"contactp":contactp,"address":address,"trad_name":trad_name},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
+
+
+$(document).on("click", ".save_overview", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    description = $("#description").val();
+    experience = $('#experience').val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"profile_id":profile_id,"description":description,"experience":experience},
+        success: function(response) {
+
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
+
+
+$(document).on("click", ".save_price", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    price = $("#price").val();
+    item = $("#item").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"profile_id":profile_id,"price":price,"item":item},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
+
+$(document).on("click", ".edit_btn", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    edu_id = $(this).data('id');
+    quali = $(this).parents('.popup_contain').find(".mycloseclass").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"edu_id":edu_id,"qualification":quali},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
+
+$(document).on("click", ".edit_pro", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    product_id = $(this).data('id');
+    item = $(this).parents('.popup_contain').find(".editItem").val();
+    price = $(this).parents('.popup_contain').find(".editPrice").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"product_id":product_id,"item":item,"price":price},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
+
+$(document).on("click", ".save_location", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    locationVal = $("#locationId").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"profile_id":profile_id,"locations":locationVal},
+        success: function(response) {
+                if(response.status == 200){
+                   window.location.reload() 
+                   }  
+            }
+        });
+});
+
+$(document).on("click", ".save_keyword", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    keyword = $("#keyword").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"profile_id":profile_id,"keyword":keyword},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
+
+$(document).on("click", ".delete_quali", function(e){
+    e.preventDefault();
+    if (confirm("Are you sure you want to delete this qualification!")) {
+    url = $(this).data('url');
+    education_id = $(this).data('id');
+    var li = ("#education_li_" + education_id);
+    $.get(url, {'education_id':education_id}, function(response){
+        if(response.status==200){
+        $(li).remove();
+        $( ".successdelet" ).html( "<p>Education deleted successfully!</p>" );
+        $(".successdelet").css("display","block");
+        setTimeout(function(){
+        $(".successdelet").hide(); 
+        }, 5000);
+        }
+    });
+    } // confirm box end
+});
+
+$(document).on("click", ".delete_product", function(e){
+    e.preventDefault();
+    if (confirm("Are you sure you want to delete this product!")) {
+    url = $(this).data('url');
+    product_id = $(this).data('id');
+    var li = ("#product_tr_" + product_id);
+    $.get(url, {'product_id':product_id}, function(response){
+        if(response.status==200){
+        $(li).remove();
+        $( ".successdelet" ).html( "<p>Product deleted successfully!</p>" );
+        $(".successdelet").css("display","block");
+        setTimeout(function(){
+        $(".successdelet").hide(); 
+        }, 5000);
+        }
+    });
+    } // confirm box end
+});
+
+$(document).on("click", ".delete_keyword", function(e){
+    e.preventDefault();
+    if (confirm("Are you sure you want to delete this keyword!")) {
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    $.get(url, {'profile_id':profile_id}, function(response){
+        if(response.status==200){
+        window.location.reload()
+        $( ".successdelet" ).html( "<p>Keyword deleted successfully!</p>" );
+        $(".successdelet").css("display","block");
+        setTimeout(function(){
+        $(".successdelet").hide(); 
+        }, 5000);
+        }
+    });
+    } // confirm box end
+});
+
+$(document).on("click", ".delete_des", function(e){
+    e.preventDefault();
+    if (confirm("Are you sure you want to delete this description!")) {
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    $.get(url, {'profile_id':profile_id}, function(response){
+        if(response.status==200){
+        window.location.reload()
+        $( ".successdelet" ).html( "<p>Description deleted successfully!</p>" );
+        $(".successdelet").css("display","block");
+        setTimeout(function(){
+        $(".successdelet").hide(); 
+        }, 5000);
+        }
+    });
+    } // confirm box end
+});
+
+$(document).on("click", ".delete_exp", function(e){
+    e.preventDefault();
+    if (confirm("Are you sure you want to delete this experience!")) {
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    $.get(url, {'profile_id':profile_id}, function(response){
+        if(response.status==200){
+        window.location.reload()
+        $( ".successdelet" ).html( "<p>Experience deleted successfully!</p>" );
+        $(".successdelet").css("display","block");
+        setTimeout(function(){
+        $(".successdelet").hide(); 
+        }, 5000);
+        }
+    });
+    } // confirm box end
+});
+</script>
+
+
+
+
+
+<style>
+ button.open_popup {
+    background: none;
+    border: none;
+    padding: 0;
+}
+.popup_main img {
+    width: 16px;
+}
+.signup_heading {
+  text-align: left;
+  font-size: 22px;
+  color: #fff;
+  padding-left: 24px;
+  padding-bottom: 10px;
+}
+.nopadd{
+  padding: 0!important;
+}
+.popup_main button:focus {
+    outline: none;
+}
+.popup_close:hover {
+    cursor: pointer;
+}
+.margin_none{
+  padding-top: 95px !important;
+}
+.popup_body{
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -o-transition: 300ms;
+    -ms-transition: 300ms;
+    transition: 300ms;
+}
+.popup_body_show{
+  display:block;
+  -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -o-transition: 300ms;
+    -ms-transition: 300ms;
+    transition: 300ms;
+    z-index: 9999999;
+}
+.popup_back{
+  background: rgba(0,0,0,0.4);
+  position: fixed;
+  left:0;right:0;top:0;bottom:0;
+}
+.popup_contain{
+  position: relative;
+  background: #fff;
+  min-width: 300px;
+  max-width: 30%;
+  margin: 150px auto 50px;
+  padding: 10px 20px;
+  color: #222;
+  border-radius: 4px;
+}
+.popup_width p {
+    font-size: 12px;
+    margin: 8px 0;
+}
+.popup_width{
+ max-width: 50% !important;
+ padding-top: 40px;
+}
+button.save_btn {
+ background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
+button.save_overview{
+ background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
+
+button.save_edu{
+ background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
+
+button.save_product{
+    background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
+button.edit_btn{
+    background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
+button.edit_pro{
+    background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+}
+button.save_location{
+    background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
+
+}
+.popup_close{
+  background: #23234714;
+    padding: 3px 10px 5px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #222;
+    border-radius: 50%;
+}
+.text_aligntext{
+    text-align: center;
+}
+.popup_main {
+    display: inline-block;
+    float: right;
+    
+}
+.health_insurance{
+    margin:20px 0;
+}
+a.forgot {
+    text-align: left;
+    padding-top: 6px;
+    display: block;
+}
+</style>>
 {% endblock %}

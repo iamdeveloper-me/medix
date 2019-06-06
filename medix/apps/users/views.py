@@ -34,13 +34,6 @@ class PracticeProfileDetailView(View):
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 
-
-    # def post(self,request,pk):
-
-    #     return HttpResponseRedirect('/dashboard/practice/'+str(pk))
-
-
-
 class UserTypeStep1View(CreateView):
     model = Profile
     form_class = UserTypeForm
@@ -59,7 +52,6 @@ class UserTypeStep1View(CreateView):
             return redirect('/emergency-services/step2/'+str(profile.id))
         else:
             return redirect('/insurance/signup/step2/'+str(profile.id))
-
 
 class PracticeStep2CreateView(CreateView):
     model = Profile
@@ -285,7 +277,7 @@ class LoginView(View):
                 return HttpResponseRedirect('/dashboard/emergency-service/')
             elif role[0].custom_role==4 and user.is_active and user.is_staff==False:
                 login(request, user)
-                return HttpResponseRedirect('/dashboard/health-insurance/')
+                return HttpResponseRedirect('/dashboard/health-insurance/'+str(request.user.profile.id))
             else:
                 return HttpResponse("Inactive user.")
         else:
@@ -374,8 +366,15 @@ class EmergencyServicesDashboard(View):
         return render(request, 'dashboard/emergency-services.html')
 
 class HealthInsuranceDashboard(View):
-    def get(self, request):
-        return render(request, 'dashboard/health_insurance.html')
+    def get(self, request, pk):
+        if request.user.is_authenticated:
+            # import pdb; pdb.set_trace()
+            user = User.objects.get(id=request.user.id)
+            profileInfo = Profile.objects.get(user=user)
+            product = Product.objects.filter(user=user)
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':profileInfo.keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'pk':pk}
+            return render(request, 'dashboard/health_insurance.html', context)
+        return redirect('user-type/step1/')
 
 class LogoutView(View):
     def get(self,request):
