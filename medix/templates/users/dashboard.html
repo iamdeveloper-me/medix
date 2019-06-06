@@ -31,15 +31,27 @@
                         <div class="box_general_3">
                             <div class="profile">
                                 <div class="row">
-                                    <div class="col-lg-5 col-md-4">
-                                        <figure>
+                                  <div class="col-lg-5 col-md-4">
+                                        <!-- <figure>
                                             <img src="../../../static/html_menu_1/img/images.jpeg" alt="" class="img-fluid">
-
-                                        </figure>
+                                        </figure> -->
+                                    <div class="avatar-upload">
+                                     <div class="avatar-edit">
+                                         <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                         <label for="imageUpload">
+                                          <img src="../../../static/html_menu_1/img/edit.png">
+                                         </label>
+                                     </div>
+                                     <div class="avatar-preview">
+                                      <div id="imagePreview" style="background-image: url(../../../static/html_menu_1/img/female.jpg);">
+                                      </div>
+                                     </div>
                                     </div>
+                                  </div>
                                     <div class="col-lg-7 col-md-8" id="primary_care">
-                                        <small>Primary care - Internist
-                                            <div class="popup_main">
+                                        <small>{{specialisation}}</small>
+
+                                        <div class="popup_main">
                                             <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
@@ -58,11 +70,12 @@
                                                    <select>
                                                        <option>{{gender}}</option>
                                                    </select>
-                                                   <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-profile' %}" class="save_btn">save</button>
+                                                   <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-profile' %}" class="save_btn save_btncss">save</button>
                                                 </div>
                                             </div>
                                           </div>
-                                        </small>
+
+
 
                                         <h1>{{first_name}} {{last_name}}</h1>
                                         <span class="rating">
@@ -118,15 +131,30 @@
                                                     <h6>Year Of Experience</h6>
                                                     <input type="text" value="{{experience}}" name="experience" id="experience">
                                                     </ul>
-                                                    <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-statement' %}" class="save_des">save</button>
+                                                    <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-statement' %}" class="save_des save_btncss">save</button>
                                                 </div>
                                             </div>
                                           </div>    
                                         </div>
                             <div class="wrapper_indent">
-                                <p>{{description}}</p>
+                                <p id="pra_{{request.user.profile.id}}">
+                                    {% if description != None %}
+                                        {{description}}
+                                        <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-description' %}" class="delete_des popup_main">
+                                            <img src="../../../static/html_menu_1/img/delete.png">
+                                        </a>
+                                    {% endif %}
+                                </p>
+                                 
+                                <p id="exp_ptag">
+                                {% if experience != None %}
+                                    Year Of Experience-{{experience}}
+                                    <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-experience' %}" class="delete_exp popup_main">
+                                        <img src="../../../static/html_menu_1/img/delete.png">
+                                    </a>
+                                {% endif %}
+                            </p>
                                 
-                                <p>Year Of Experience-{{experience}}</p>
                                 
                             </div>
                             <!-- /wrapper indent -->
@@ -146,7 +174,7 @@
                                             <h6>Qualification</h6>
                                             <input type="text" value="{{qualification}}" name="qualification" id="qualification">
                                             </ul>
-                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-education' %}" class="save_edu">save</button>
+                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-education' %}" class="save_edu save_btncss">save</button>
                                         </div>
                                     </div>
                                   </div>
@@ -169,7 +197,7 @@
                                                 <div class="popup_contain popup_width">
                                                   <div class="popup_close">x</div>
                                                    <input type="text" value="{{education.qualification}}" class="mycloseclass" name="qualification">
-                                                <button data-id="{{education.id}}"  data-url="{% url 'users:edit-education' %}" class="edit_btn">save</button>
+                                                <button data-id="{{education.id}}"  data-url="{% url 'users:edit-education' %}" class="edit_btn save_btncss">save</button>
                                                 </div>
                                             </div>
                                           </div>
@@ -200,7 +228,7 @@
                                             <h6>Price</h6>
                                             <input type="text" value="{{price}}" name="price" id="price">
                                         </ul>
-                                        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-product' %}" class="save_product">save</button>
+                                        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-product' %}" class="save_product save_btncss">save</button>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +268,7 @@
                                                     <h6>Item</h6>
                                                    <input type="text" value="{{product.price}}" name="price" class="editPrice">
                                                 </ul>
-                                                <button data-id="{{product.id}}" data-url="{% url 'users:edit-product' %}" class="edit_pro">save</button>
+                                                <button data-id="{{product.id}}" data-url="{% url 'users:edit-product' %}" class="edit_pro save_btncss">save</button>
                                                 </div>
                                             </div>
                                           </div>
@@ -267,41 +295,21 @@
                                             <h6>Location</h6>
                                             <input type="text" value="{{location}}" name="location" id="locationId">
                                             </ul>
-                                            
-                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location">save</button>
-                                        </div>
-                                    </div>
-                                  </div>
-                                
-                            </div>
-                            <div class="wrapper_indent">
-                                <p></p>
-                                
-                                <ul class="list_edu">
-                                   {% for value in locations %}
-                                    <li>
-                                      {{value.location}}  
-                                    </li>
-                                    {% endfor %}
-                                
-                                </ul>
-                            </div>
-
-                            <hr>
-                            <div class="indent_title_in">
-                                <i class="pe-7s-news-paper"></i>
-                                <h3>Trading Hours</h3>
-                                <div class="popup_main">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
-                                    <div class="popup_body">
-                                      <div class="popup_back"></div>
-                                        <div class="popup_contain popup_width">
-                                          <div class="popup_close">x</div>
-                                           <ul class="contacts">
-                                            <h6>Trading</h6>
-                                            <input type="text" value="{{location}}" name="location" id="locationId">
+                                            <ul class="contacts open_time">
+                                            <li>
+                                                <h6>Open Time</h6>
+                                                {{hour.open_time}}
+                                            </li>
+                                            <li>
+                                                <h6>Close Time</h6>
+                                                {{hour.close_time}}
+                                            </li>
                                             </ul>
-                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location">save</button>
+                                            <ul class="contacts">
+                                                <h6>Day</h6>
+                                                {{hour.day}}
+                                            </ul>
+                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location save_btncss">save</button>
                                         </div>
                                     </div>
                                   </div>
@@ -314,12 +322,16 @@
                                    {% for value in locations %}
                                     <li>
                                       {{value.location}}  
+                                       <a data-id="" data-url="" class="delete_product popup_main">
+                                       <img src="../../../static/html_menu_1/img/delete.png">
+                                      </a>
                                     </li>
                                     {% endfor %}
                                 
                                 </ul>
-                            </div>
 
+                            </div>
+                               
                             <hr>
 
                             <div class="indent_title_in">
@@ -335,7 +347,7 @@
                                             <h6>keyword</h6>
                                             <input type="text" value="{{keyword}}" name="keyword" id="keyword">
                                             </ul>
-                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-keyword' %}" class="save_keyword">save</button>
+                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-keyword' %}" class="save_keyword save_btncss">save</button>
                                         </div>
                                     </div>
                                   </div>
@@ -344,10 +356,13 @@
                             <div class="wrapper_indent">
                                 <p></p>
                                 
-                                <ul class="list_edu">
-                                    
+                                <ul class="list_edu" id="delekeyul">
+                                    {% if keyword != None %}
                                     {{keyword}}
-                                    
+                                    <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-keyword' %}" class="delete_keyword popup_main" >
+                                       <img src="../../../static/html_menu_1/img/delete.png">
+                                    </a>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
@@ -545,6 +560,7 @@
 </main>
 
 <!-- /main -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript">
@@ -557,9 +573,7 @@
  $(".popup_back").click(function () {
    $(".popup_body").removeClass("popup_body_show");
    });
-
-
-$(document).on("click", ".save_btn", function(e){
+ $(document).on("click", ".save_btn", function(e){
     e.preventDefault();
     url = $(this).data('url');
     profile_id = $(this).data('id');
@@ -699,11 +713,11 @@ $(document).on("click", ".save_location", function(e){
     e.preventDefault();
     url = $(this).data('url');
     profile_id = $(this).data('id');
-    // 
-    
+     
     locationVal = $("#locationId").val();
-    // alert(locationVal);
-    // location = "11";
+    opnTim = $("#id_open_time").val();
+    closTim = $("#id_close_time").val();
+    day = $("#id_day").val();
     $.ajax({
         type: "POST",
         url: url,
@@ -711,7 +725,7 @@ $(document).on("click", ".save_location", function(e){
             "X-CSRFToken": '{{csrf_token}}' 
         },
         dataType: "json",
-        data: {"profile_id":profile_id,"locations":locationVal},
+        data: {"profile_id":profile_id,"locations":locationVal,"opnTim":opnTim,"closTim":closTim,"day":day},
         success: function(response) {
                 if(response.status == 200){
                    window.location.reload() 
@@ -778,9 +792,82 @@ $(document).on("click", ".delete_product", function(e){
     });
     } // confirm box end
 });
+
+$(document).on("click", ".delete_keyword", function(e){
+    e.preventDefault();
+    if (confirm("Are you sure you want to delete this keyword!")) {
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    $.get(url, {'profile_id':profile_id}, function(response){
+        if(response.status==200){
+        $("#delekeyul").remove();
+        window.location.reload()
+        $( ".successdelet" ).html( "<p>Keyword deleted successfully!</p>" );
+        $(".successdelet").css("display","block");
+        setTimeout(function(){
+        $(".successdelet").hide(); 
+        }, 5000);
+        }
+    });
+    } // confirm box end
+});
+
+$(document).on("click", ".delete_des", function(e){
+    e.preventDefault();
+    if (confirm("Are you sure you want to delete this description!")) {
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    var pra = ("#pra_"+profile_id)
+    $.get(url, {'profile_id':profile_id}, function(response){
+        if(response.status==200){
+        $(pra).remove();
+        window.location.reload()
+        $( ".successdelet" ).html( "<p>Description deleted successfully!</p>" );
+        $(".successdelet").css("display","block");
+        setTimeout(function(){
+        $(".successdelet").hide(); 
+        }, 5000);
+        }
+    });
+    } // confirm box end
+});
+
+$(document).on("click", ".delete_exp", function(e){
+    e.preventDefault();
+    if (confirm("Are you sure you want to delete this experience!")) {
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    $.get(url, {'profile_id':profile_id}, function(response){
+        if(response.status==200){
+        $("#exp_ptag").remove();
+        window.location.reload()
+        $( ".successdelet" ).html( "<p>Experience deleted successfully!</p>" );
+        $(".successdelet").css("display","block");
+        setTimeout(function(){
+        $(".successdelet").hide(); 
+        }, 5000);
+        }
+    });
+    } // confirm box end
+});
 </script>
 
-
+<script>
+ function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+            $('#imagePreview').hide();
+            $('#imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+$("#imageUpload").change(function() {
+    readURL(this);
+});
+</script>
 
 
 
@@ -945,5 +1032,13 @@ a.forgot {
     padding-top: 6px;
     display: block;
 }
-</style>>
+.indent_title_in h3 {
+    width: 97%;
+    float: left;
+    margin-bottom: 20px;
+}
+.open_time li {
+    display: inline-block !important;
+}
+</style>
 {% endblock %}

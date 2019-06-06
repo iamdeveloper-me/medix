@@ -1,4 +1,4 @@
-from .models import Profile, Education
+from .models import Profile, Education,OperatingHours
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -134,3 +134,9 @@ class InstitutionForm(forms.ModelForm):
         if self.instance.institution == institution:
             raise ValidationError("This field is required")
         return None
+
+
+class TradingHourForm(forms.ModelForm):
+    class Meta:
+        model = OperatingHours
+        fields = ['open_time','close_time','day']

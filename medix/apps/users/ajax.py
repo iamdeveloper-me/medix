@@ -1,9 +1,9 @@
 from django.http import  JsonResponse
 from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
-from .models import Profile, Education, Product, Location 
+from .models import Profile, Education, Product, Location, OperatingHours
 from django.contrib.auth.models import User
-
+from datetime import datetime
 
 
 def edit_profile(request):
@@ -68,11 +68,20 @@ def add_location(request):
     if request.method == 'POST':
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
         user = User.objects.get(id=profile.user.id)
+        opnTime = request.POST.get("opnTim")
+        opncon = datetime.strptime(opnTime,'%H:%M')
+        closTime = request.POST.get("closTim")
+        clscon= datetime.strptime(opnTime,'%H:%M')
+        day = request.POST.get("day")
         try:
-            location = Location.objects.get(user=user)
-            Location.objects.create(user=user,location=request.POST.get("locations"))
+            location = Location.objects.filter(user=user)
+            location_obj = Location.objects.create(user=user,location=request.POST.get("locations"))
+            locationId = Location.objects.get(id=location_obj.id)
+            OperatingHours.objects.create(open_time=opnTime,close_time=closTime,day=day,location=locationId)
         except Exception as e:
-            Location.objects.create(user=user,location=request.POST.get("locations"))
+            location_obj =Location.objects.create(user=user,location=request.POST.get("locations"))
+            locationId = Location.objects.get(id=location_obj.id)
+            OperatingHours.objects.create(open_time=opnTime,close_time=closTime,day=day,location=locationId)
         return JsonResponse({'status':200}) 
 
 
@@ -94,7 +103,7 @@ def delete_product(request):
     product.delete()
     return JsonResponse({'status':200})
 
-#Strat Health Insurance Ajax
+#Start Health Insurance Ajax
 def edit_insurance_profile(request):
     if request.method == 'POST':
         profile = Profile.objects.get(id=request.POST.get("profile_id"))

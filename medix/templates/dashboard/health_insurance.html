@@ -129,15 +129,24 @@
                                           </div>    
                                         </div>
                             <div class="wrapper_indent">
-                                <p>{{description}}
-                                <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-description' %}" class="delete_des popup_main">
-                                    <img src="../../../static/html_menu_1/img/delete.png">
-                                 </a></p>
+                                <p id="pra_{{request.user.profile.id}}">
+                                    {% if description != None %}
+                                        {{description}}
+                                        <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-description' %}" class="delete_des popup_main">
+                                            <img src="../../../static/html_menu_1/img/delete.png">
+                                        </a>
+                                    {% endif %}
+                                </p>
                                 
-                                <p>Year Of Experience-{{experience}}
-                                <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-experience' %}" class="delete_exp popup_main">
-                                    <img src="../../../static/html_menu_1/img/delete.png">
-                                </a></p>
+                            <p id="exp_ptag">
+
+                                {% if experience != None %}
+                                    Year Of Experience-{{experience}}
+                                    <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-experience' %}" class="delete_exp popup_main">
+                                        <img src="../../../static/html_menu_1/img/delete.png">
+                                    </a>
+                                {% endif %}
+                            </p>
                                 
                             </div>
                             <!-- /wrapper indent -->
@@ -271,12 +280,13 @@
                             <div class="wrapper_indent">
                                 <p></p>
                                 
-                                <ul class="list_edu">
-                                    
+                                <ul class="list_edu" id="delekeyul">
+                                    {% if keyword != None %}
                                     {{keyword}}
                                     <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-keyword' %}" class="delete_keyword popup_main" >
                                        <img src="../../../static/html_menu_1/img/delete.png">
                                     </a>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
@@ -689,6 +699,7 @@ $(document).on("click", ".delete_keyword", function(e){
     profile_id = $(this).data('id');
     $.get(url, {'profile_id':profile_id}, function(response){
         if(response.status==200){
+        $("#delekeyul").remove();
         window.location.reload()
         $( ".successdelet" ).html( "<p>Keyword deleted successfully!</p>" );
         $(".successdelet").css("display","block");
@@ -705,8 +716,10 @@ $(document).on("click", ".delete_des", function(e){
     if (confirm("Are you sure you want to delete this description!")) {
     url = $(this).data('url');
     profile_id = $(this).data('id');
+    var pra = ("#pra_"+profile_id)
     $.get(url, {'profile_id':profile_id}, function(response){
         if(response.status==200){
+        $(pra).remove();
         window.location.reload()
         $( ".successdelet" ).html( "<p>Description deleted successfully!</p>" );
         $(".successdelet").css("display","block");
@@ -725,6 +738,7 @@ $(document).on("click", ".delete_exp", function(e){
     profile_id = $(this).data('id');
     $.get(url, {'profile_id':profile_id}, function(response){
         if(response.status==200){
+        $("#exp_ptag").remove();
         window.location.reload()
         $( ".successdelet" ).html( "<p>Experience deleted successfully!</p>" );
         $(".successdelet").css("display","block");
@@ -810,6 +824,15 @@ $(document).on("click", ".delete_exp", function(e){
 .popup_width{
  max-width: 50% !important;
  padding-top: 40px;
+}
+button.save_keyword{
+    background: #e74e84;
+    border-radius: 50px;
+    padding: 12px 32px;
+    margin-top: 20px;
+    display: block;
+    margin-right: 0 !important;
+    margin: 25px auto;
 }
 button.save_btn {
  background: #e74e84;

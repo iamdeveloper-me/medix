@@ -9,9 +9,9 @@ urlpatterns = [
 
     #user dashboard
     path('edit/profile/<int:pk>',views.PracticeUpdateView.as_view(), name='edit-practice'),
-    path('dashboard/institution/',views.InstitutionDashboardView.as_view(), name='institution-dashboard'),
-    path('dashboard/emergency-service/',views.EmergencyServicesDashboard.as_view(), name='emergency-service-dashboard'),
-    path('dashboard/emergency-service/',views.EmergencyServicesDashboard.as_view(), name='admin-dashboard'),
+    path('dashboard/institution/<int:pk>',views.InstitutionDashboardView.as_view(), name='institution-dashboard'),
+    path('dashboard/emergency-service/<int:pk>',views.EmergencyServicesDashboard.as_view(), name='emergency-service-dashboard'),
+    # path('dashboard/emergency-service/<int:pk>',views.EmergencyServicesDashboard.as_view(), name='admin-dashboard'),
     path('dashboard/health-insurance/<int:pk>',views.HealthInsuranceDashboard.as_view(), name='health-insurance-dashboard'),
 
     #admin dashboard
