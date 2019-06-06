@@ -29,8 +29,8 @@ class PracticeProfileDetailView(View):
             profileInfo = Profile.objects.get(user=user)
             education = Education.objects.filter(user=user)
             product = Product.objects.filter(user=user)
-            # location = Location.objects.filter(user=user)
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'pk':pk}
+            locations = Location.objects.filter(user=user)
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':profileInfo.keyword,'locations':locations,'pk':pk}
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 
@@ -346,20 +346,6 @@ class ProfessionalOverviewDetail(DetailView):
     model = Profile
     template_name = 'practice/overview_detail.html'
 
-# class ProductCreateView(CreateView):
-#     model = Product
-#     form_class = ProductForm 
-#     template_name = 'dashboard/product.html'
-#     success_url = '/price/'
-#     def form_valid(self, form, **kwargs):
-#         product = form.save(commit=False)
-#         product.price = self.request.POST.get('price')
-#         product.save()
-#         return redirect(self.success_url+str(self.request.user.profile.id))
-
-# class PriceDetail(DetailView):
-#     model = Profile
-#     template_name = 'dashboard/price_detail.html'
 
 class EducationCreateView(CreateView):
     model = Education
