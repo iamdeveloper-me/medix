@@ -21,16 +21,16 @@ urlpatterns = [
     path('user/login/',views.LoginView.as_view(), name='users-login'),
 
 
-
+    #signup step first
     path('user-type/step1/',views.UserTypeStep1View.as_view(), name='registration-step1'),
 
 
-
+    #signup step third
     path('practice/signup/step3/<int:pk>',views.PracticeSignupStep3View.as_view(), name='practice-signup'),
     path('emergency-service/signup/step3/<int:pk>',views.EmergencyServiceSignupStep3View.as_view(), name='emergency-service-signup'),
     path('institution/signup/step3/<int:pk>',views.InstitutionSignupStep3View.as_view(), name='institution-signup'),
     
-
+    #signup step second
     path('emergency-services/step2/',views.EmergencyServiceStep2CreateView.as_view(), name='select-emergency-service'),
     path('patient/signup/step2/',views.PatientSignupStep2View.as_view(), name='patient-signup'),
     path('insurance/signup/step2/',views.InsuranceProviderSignupStep2View.as_view(), name='insurance-provider-signup'),
@@ -40,9 +40,6 @@ urlpatterns = [
 
     # path('practice/step1/',views.PracticeStep1CreateView.as_view(), name='practice-step1'),
     path('form/submit/',views.UserFormSubmitView.as_view(), name='form-submit'),
-
-    #dashboard details form
-    # path('user/profile/',views.profile_info, name='user-profile'),
 
     
     path('create/overview/<int:pk>',views.ProfessionalOverviewUpdate.as_view(), name='professional-overview'),
@@ -70,9 +67,12 @@ ajaxpatterns = [
     path('add/product', add_product, name='add-product'),
     path('edit/education', edit_education, name='edit-education'),
     path('edit/product', edit_product, name='edit-product'),
+    
+    path('add/keyword', add_keyword, name='add-keyword'),
+    path('delete/education', delete_education, name='qualification-delete'),
+    path('delete/product', delete_product, name='product-delete'),
+       
 
-    
-    
 ]    
 
 urlpatterns = urlpatterns + ajaxpatterns

@@ -29,7 +29,7 @@ class Profile(BaseModel):
     description = models.TextField(_("Descrption"), blank = True, null = True)
     image = models.ImageField(_("Image"),blank = True, null=True)
     experience = models.CharField(_("Experience"), max_length=5, blank = True, null = True)
-
+    keyword = models.CharField(_("Keyword"), max_length=50, blank = True, null = True)
     def __str__(self):
         return self.user.email
 

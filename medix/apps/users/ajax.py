@@ -3,12 +3,11 @@ from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
 from .models import Profile, Education, Product, Location 
 from django.contrib.auth.models import User
-# from .forms import CreateExpertiseForm
+
 
 
 def edit_profile(request):
     if request.method == 'POST':
-        # import pdb; pdb.set_trace()
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
         user = User.objects.get(id=profile.user.id)
         profile.phone = request.POST.get("phone")
@@ -33,9 +32,6 @@ def add_education(request):
         try:
             education = Education.objects.get(user=user)
             Education.objects.create(user=user,qualification=request.POST.get("qualification"))
-            # education.qualification = request.POST.get("qualification")
-            # education.user = user
-            # education.save()
         except Exception as e:
             Education.objects.create(user=user,qualification=request.POST.get("qualification"))
         return JsonResponse({'status':200}) 
@@ -53,7 +49,6 @@ def add_product(request):
 
 def edit_education(request):
     if request.method == 'POST':
-        # import pdb; pdb.set_trace()
         edu = Education.objects.get(id=request.POST.get("edu_id"))
         user = User.objects.get(id=edu.user.id)
         edu.qualification = request.POST.get("qualification")
@@ -71,12 +66,30 @@ def edit_product(request):
 
 def add_location(request):
     if request.method == 'POST':
-        
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
         user = User.objects.get(id=profile.user.id)
         try:
             location = Location.objects.get(user=user)
-            Location.objects.create(user=user,location=request.POST.get("location"))
+            Location.objects.create(user=user,location=request.POST.get("locations"))
         except Exception as e:
-            Location.objects.create(user=user,location=request.POST.get("location"))
+            Location.objects.create(user=user,location=request.POST.get("locations"))
         return JsonResponse({'status':200}) 
+
+
+def add_keyword(request):
+    if request.method == 'POST':
+        profile = Profile.objects.get(id=request.POST.get("profile_id"))
+        user = User.objects.get(id=profile.user.id)
+        profile.keyword = request.POST.get("keyword")
+        profile.save()
+        return JsonResponse({'status':200})
+
+def delete_education(request):
+    education = Education.objects.get(pk=request.GET.get('education_id'))
+    education.delete()
+    return JsonResponse({'status':200})
+
+def delete_product(request):
+    product = Product.objects.get(pk=request.GET.get('product_id'))
+    product.delete()
+    return JsonResponse({'status':200})
