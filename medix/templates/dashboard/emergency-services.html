@@ -53,7 +53,7 @@
                                                    </ul>
                                                    <ul class="contacts">
                                                     <h6>Phone</h6> 
-                                                    <input type="text" name="phone" value="{{phone}}" id="phone">
+                                                    <input type="number" name="phone" value="{{phone}}" id="phone">
                                                    </ul>
                                                    <ul class="contacts">
                                                     <h6>Contact Person</h6> 
@@ -570,26 +570,6 @@ $(document).on("click", ".save_price", function(e){
         });
 });
 
-$(document).on("click", ".edit_btn", function(e){
-    e.preventDefault();
-    url = $(this).data('url');
-    edu_id = $(this).data('id');
-    quali = $(this).parents('.popup_contain').find(".mycloseclass").val();
-    $.ajax({
-        type: "POST",
-        url: url,
-        headers:{
-            "X-CSRFToken": '{{csrf_token}}' 
-        },
-        dataType: "json",
-        data: {"edu_id":edu_id,"qualification":quali},
-        success: function(response) {
-                if(response.status == 200){
-                    window.location.reload()
-                   }  
-            }
-        });
-});
 
 $(document).on("click", ".edit_pro", function(e){
     e.preventDefault();
@@ -870,7 +850,7 @@ button.save_product{
     margin-right: 0 !important;
     margin: 25px auto;
 }
-button.edit_btn{
+button.save_price{
     background: #e74e84;
     border-radius: 50px;
     padding: 12px 32px;

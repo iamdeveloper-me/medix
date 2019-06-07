@@ -45,8 +45,10 @@
                 <ul id="top_access">
                     <li id="user">
                         <a href="#0">
-                            <figure><img src="http://via.placeholder.com/150x150.jpg" alt=""></figure>
-                            Jhon Smith
+                            <figure><img src="http://via.placeholder.com/150x150.jpg" alt="">
+                            </figure>
+                            {{request.user.first_name}} {{request.user.last_name}}
+                            
                         </a>
                     </li>
                 </ul>

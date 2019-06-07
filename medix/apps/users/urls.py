@@ -80,7 +80,13 @@ ajaxpatterns = [
     path('add/insurance-keyword', add_insurance_keyword, name='add-insurance-keyword'),
     path('delete/keyword', delete_keyword ,name='delete-keyword'),
     path('delete/description', delete_description ,name='delete-description'),
-    path('delete/experience', delete_experience,name='delete-experience')
+    path('delete/experience', delete_experience,name='delete-experience'),
+
+    
+    path('add/ambulance-info', add_ambulance_info,name='add-ambulance-info'),
+    path('delete/ambulance-info', ambulance_info_delete,name='ambulance-info-delete'),
+
+    path('edit/ambulance-info', edit_ambulance_info, name='edit-ambulance-info'),
     
 ]    
 
