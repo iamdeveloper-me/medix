@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
 from users.models import Profile, Education, Product, OperatingHours, Location
 from django.contrib.auth.models import User
-from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm
+from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm
 from django.views import View
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import messages
@@ -24,22 +24,18 @@ class UserFormSubmitView(View):
 class PracticeProfileDetailView(View):
     def get(self,request,pk):
         if request.user.is_authenticated:
-            # import pdb; pdb.set_trace()
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
             education = Education.objects.filter(user=user)
             product = Product.objects.filter(user=user)
             locations = Location.objects.filter(user=user)
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':profileInfo.keyword,'locations':locations,'pk':pk}
+            hour = TradingHourForm 
+
+            # import pdb; pdb.set_trace()
+            # hour = OperatingHours.objects.all()
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':profileInfo.keyword,'specialisation':profileInfo.get_practice_display(),'locations':locations,'pk':pk, 'hour' : hour}
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
-
-
-    # def post(self,request,pk):
-
-    #     return HttpResponseRedirect('/dashboard/practice/'+str(pk))
-
-
 
 class UserTypeStep1View(CreateView):
     model = Profile
@@ -59,7 +55,6 @@ class UserTypeStep1View(CreateView):
             return redirect('/emergency-services/step2/'+str(profile.id))
         else:
             return redirect('/insurance/signup/step2/'+str(profile.id))
-
 
 class PracticeStep2CreateView(CreateView):
     model = Profile
@@ -279,13 +274,13 @@ class LoginView(View):
                 return HttpResponseRedirect('/dashboard/practice/'+str(request.user.profile.id))
             elif role[0].custom_role==2 and user.is_active and user.is_staff==False:
                 login(request, user)
-                return HttpResponseRedirect('/dashboard/institution/')
+                return HttpResponseRedirect('/dashboard/institution/'+str(request.user.profile.id))
             elif role[0].custom_role==3 and user.is_active and user.is_staff==False:
                 login(request, user)
-                return HttpResponseRedirect('/dashboard/emergency-service/')
+                return HttpResponseRedirect('/dashboard/emergency-service/'+str(request.user.profile.id))
             elif role[0].custom_role==4 and user.is_active and user.is_staff==False:
                 login(request, user)
-                return HttpResponseRedirect('/dashboard/health-insurance/')
+                return HttpResponseRedirect('/dashboard/health-insurance/'+str(request.user.profile.id))
             else:
                 return HttpResponse("Inactive user.")
         else:
@@ -366,16 +361,36 @@ class EducationDetailView(DetailView):
     template_name = 'practice/education_detail.html'
 
 class InstitutionDashboardView(View):
-    def get(self, request):
-        return render(request, 'dashboard/institution.html')
+    def get(self, request, pk):
+        if request.user.is_authenticated:
+            user = User.objects.get(id=request.user.id)
+            profileInfo = Profile.objects.get(user=user)
+            product = Product.objects.filter(user=user)
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':profileInfo.keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk}
+            return render(request, 'dashboard/institution.html', context)
+        return redirect('user-type/step1/')
+        
 
 class EmergencyServicesDashboard(View):
-    def get(self, request):
-        return render(request, 'dashboard/emergency-services.html')
+    def get(self, request, pk):
+        if request.user.is_authenticated:
+            user = User.objects.get(id=request.user.id)
+            profileInfo = Profile.objects.get(user=user)
+            product = Product.objects.filter(user=user)
+            # import pdb; pdb.set_trace()
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':profileInfo.keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'services':profileInfo.get_emergency_services_display(),'pk':pk}
+            return render(request, 'dashboard/emergency-services.html',context)
+        return redirect('user-type/step1/')
 
 class HealthInsuranceDashboard(View):
-    def get(self, request):
-        return render(request, 'dashboard/health_insurance.html')
+    def get(self, request, pk):
+        if request.user.is_authenticated:
+            user = User.objects.get(id=request.user.id)
+            profileInfo = Profile.objects.get(user=user)
+            product = Product.objects.filter(user=user)
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':profileInfo.keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'pk':pk}
+            return render(request, 'dashboard/health_insurance.html', context)
+        return redirect('user-type/step1/')
 
 class LogoutView(View):
     def get(self,request):

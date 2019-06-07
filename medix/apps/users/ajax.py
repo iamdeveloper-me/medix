@@ -1,9 +1,9 @@
 from django.http import  JsonResponse
 from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
-from .models import Profile, Education, Product, Location 
+from .models import Profile, Education, Product, Location, OperatingHours
 from django.contrib.auth.models import User
-
+from datetime import datetime
 
 
 def edit_profile(request):
@@ -68,11 +68,20 @@ def add_location(request):
     if request.method == 'POST':
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
         user = User.objects.get(id=profile.user.id)
+        opnTime = request.POST.get("opnTim")
+        opncon = datetime.strptime(opnTime,'%H:%M')
+        closTime = request.POST.get("closTim")
+        clscon= datetime.strptime(opnTime,'%H:%M')
+        day = request.POST.get("day")
         try:
-            location = Location.objects.get(user=user)
-            Location.objects.create(user=user,location=request.POST.get("locations"))
+            location = Location.objects.filter(user=user)
+            location_obj = Location.objects.create(user=user,location=request.POST.get("locations"))
+            locationId = Location.objects.get(id=location_obj.id)
+            OperatingHours.objects.create(open_time=opnTime,close_time=closTime,day=day,location=locationId)
         except Exception as e:
-            Location.objects.create(user=user,location=request.POST.get("locations"))
+            location_obj =Location.objects.create(user=user,location=request.POST.get("locations"))
+            locationId = Location.objects.get(id=location_obj.id)
+            OperatingHours.objects.create(open_time=opnTime,close_time=closTime,day=day,location=locationId)
         return JsonResponse({'status':200}) 
 
 
@@ -92,4 +101,48 @@ def delete_education(request):
 def delete_product(request):
     product = Product.objects.get(pk=request.GET.get('product_id'))
     product.delete()
+    return JsonResponse({'status':200})
+
+#Start Health Insurance Ajax
+def edit_insurance_profile(request):
+    if request.method == 'POST':
+        profile = Profile.objects.get(id=request.POST.get("profile_id"))
+        user = User.objects.get(id=profile.user.id)
+        profile.phone = request.POST.get("phone")
+        profile.contact_person = request.POST.get("contactp")
+        profile.address_of_institution = request.POST.get("address")
+        profile.trading_name = request.POST.get("trad_name")
+        profile.save()
+        return JsonResponse({'status':200})
+
+def add_insurance_overview(request):
+    add_statement(request)
+    return JsonResponse({'status':200})
+
+def add_insurance_product(request):
+    add_product(request) 
+    return JsonResponse({'status':200}) 
+
+def insurance_product_delete(request):
+    delete_product(request)
+    return JsonResponse({'status':200})
+
+def edit_insurance_product(request):
+    edit_product(request)
+    return JsonResponse({'status':200})
+
+def add_insurance_keyword(request):
+    add_keyword(request)
+    return JsonResponse({'status':200})
+
+def delete_keyword(request):
+    profile = Profile.objects.filter(id=request.GET.get("profile_id")).update(keyword=None)
+    return JsonResponse({'status':200})
+
+def delete_description(request):
+    profile = Profile.objects.filter(id=request.GET.get("profile_id")).update(description=None)
+    return JsonResponse({'status':200})
+
+def delete_experience(request):
+    profile = Profile.objects.filter(id=request.GET.get("profile_id")).update(experience=None)
     return JsonResponse({'status':200})
