@@ -28,13 +28,10 @@ class PracticeProfileDetailView(View):
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
             education = Education.objects.filter(user=user)
-            product = Product.objects.filter(user=user)
-            location_obj = Location.objects.filter(user=user)
-
-            opratHour = OperatingHours.objects.filter(location=location_obj[0])    
+            product = Product.objects.filter(user=user)   
             hour = TradingHourForm 
             proInfo = ProfileInfoForm
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':profileInfo.keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo, 'opratHour':opratHour,"location_obj":location_obj}
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':profileInfo.keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo, }
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 

@@ -66,49 +66,7 @@ def edit_product(request):
         return JsonResponse({'status':200})
 
 def add_location(request):
-    try:
-        if request.method == 'POST':
-            profile = Profile.objects.get(id=request.POST.get("profile_id"))
-
-            user = profile.user
-            day_list = []
-            day_list.append(request.POST.get('monday'))
-            day_list.append(request.POST.get('tueday'))
-            day_list.append(request.POST.get('wedday'))
-            day_list.append(request.POST.get('thuday'))
-            day_list.append(request.POST.get('friday'))
-            day_list.append(request.POST.get('satday'))
-
-            open_list = []
-            open_list.append(request.POST.get('monopn'))
-            open_list.append(request.POST.get('tueOpn'))
-            open_list.append(request.POST.get('wedOpn'))
-            open_list.append(request.POST.get('thuOpn'))
-            open_list.append(request.POST.get('friOpn'))
-            open_list.append(request.POST.get('satOpn'))
-
-            close_list = []
-            close_list.append(request.POST.get('monclos'))
-            close_list.append(request.POST.get('tueCls'))
-            close_list.append(request.POST.get('wedCls'))
-            close_list.append(request.POST.get('thuCls'))
-            close_list.append(request.POST.get('friCls'))
-            close_list.append(request.POST.get('satCls'))
-
-            location_obj = Location.objects.create(user=user,location=request.POST.get("locations"))
-
-            for day, openl, closel in zip(day_list,open_list,close_list):
-                OperatingHours.objects.create(
-                    open_time=openl,
-                    close_time=closel,
-                    day=day,
-                    location=location_obj
-                )
-
-            return JsonResponse({'status':200}) 
-    except Exception as e:
-        print("Uh oh, Error : ", str(e))
-        return JsonResponse({'status':400}) 
+    return JsonResponse({'status':400}) 
 
 
 def add_keyword(request):
