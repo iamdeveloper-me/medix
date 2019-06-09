@@ -39,24 +39,9 @@ class PracticeProfileDetailView(View):
         return redirect('user-type/step1/')
 
 
-class UserTypeStep1View(CreateView):
-    model = Profile
-    form_class = UserTypeForm
+class UserTypeStep1View(TemplateView):
     template_name = 'users/user_type_form.html'
     
-    def form_valid(self, form, **kwargs):
-        profile = form.save(commit=False)
-        profile.save()
-        if profile.custom_role==0:
-           return redirect('/patient/signup/step2/')
-        elif profile.custom_role==1:
-            return redirect('/specialisation/step2/'+str(profile.id))
-        elif profile.custom_role==2:
-            return redirect('/institution/step2/'+str(profile.id))
-        elif profile.custom_role==3:
-            return redirect('/emergency-services/step2/'+str(profile.id))
-        else:
-            return redirect('/insurance/signup/step2/'+str(profile.id))
 
 class PracticeStep2CreateView(CreateView):
     model = Profile
@@ -256,40 +241,6 @@ class EmergencyServiceSignupStep3View(View):
         # return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
         return HttpResponseRedirect('/form/submit/')
 
-class LoginView(View):
-    def get(self, request):
-        # if request.user.is_authenticated:
-        return render(request, 'users/login.html')
-
-    def post(self, request):
-        # import pdb; pdb.set_trace()
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(username=email, password=password)
-        if user is not None:
-            role = Profile.objects.filter(user_id=user.id)
-            if user.is_superuser and user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/admin/dashboard/')
-            elif role[0].custom_role==1 and user.is_active and user.is_staff==False:
-                login(request, user)
-                return HttpResponseRedirect('/dashboard/practice/'+str(request.user.profile.id))
-            elif role[0].custom_role==2 and user.is_active and user.is_staff==False:
-                login(request, user)
-                return HttpResponseRedirect('/dashboard/institution/'+str(request.user.profile.id))
-            elif role[0].custom_role==3 and user.is_active and user.is_staff==False:
-                login(request, user)
-                return HttpResponseRedirect('/dashboard/emergency-service/'+str(request.user.profile.id))
-            elif role[0].custom_role==4 and user.is_active and user.is_staff==False:
-                login(request, user)
-                return HttpResponseRedirect('/dashboard/health-insurance/'+str(request.user.profile.id))
-            else:
-                return HttpResponse("Inactive user.")
-        else:
-            messages.success(self.request, 'You are not authorised to login. Admin approval pending')
-            return HttpResponseRedirect('/user-type/step1/')
-
-        return render(request, "users/user_type_form.html")
 
 class AdminDashboardView(View):
     def get(self, request):

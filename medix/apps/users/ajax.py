@@ -4,7 +4,8 @@ from django.forms.models import model_to_dict
 from .models import Profile, Education, Product, Location, OperatingHours, AmbulanceService
 from django.contrib.auth.models import User
 from datetime import datetime
-
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect,HttpResponse
 
 def edit_profile(request):
     if request.method == 'POST':
@@ -193,3 +194,57 @@ def delete_description(request):
 def delete_experience(request):
     profile = Profile.objects.filter(id=request.GET.get("profile_id")).update(experience=None)
     return JsonResponse({'status':200})
+
+#ajax for login page
+def login_form(request):
+    email = request.POST['email']
+    password = request.POST['password']
+    user = authenticate(username=email, password=password)
+    if user is not None:
+        role = Profile.objects.filter(user_id=user.id)
+        return role,user
+    return False
+
+def practice_login(request):
+    if login_form(request) != False:
+        role,user = login_form(request)
+        if role[0].custom_role==1 and user.is_active and user.is_staff==False:
+            login(request, user)
+            return JsonResponse({'status':200,'user_id':request.user.profile.id})
+    return JsonResponse({'status':400})
+
+def institution_login(request):
+    if login_form(request) != False:
+        role,user = login_form(request)
+        if role[0].custom_role==2 and user.is_active and user.is_staff==False:
+            login(request, user)
+            return JsonResponse({'status':200,'user_id':request.user.profile.id})
+    return JsonResponse({'status':400})
+
+def service_login(request):
+    if login_form(request) != False:
+        role,user = login_form(request)
+        if role[0].custom_role==3 and user.is_active and user.is_staff==False:
+            login(request, user)
+            return JsonResponse({'status':200,'user_id':request.user.profile.id})
+    return JsonResponse({'status':400})
+
+def insurance_login(request):
+    if login_form(request) != False:
+        role,user = login_form(request)
+        if role[0].custom_role==4 and user.is_active and user.is_staff==False:
+            login(request, user)
+            return JsonResponse({'status':200,'user_id':request.user.profile.id})
+    return JsonResponse({'status':400})
+
+def patient_login(request):
+    if login_form(request) != False:
+        role,user = login_form(request)
+        if role[0].custom_role==0 and user.is_active and user.is_staff==False:
+            login(request, user)
+            return JsonResponse({'status':200,'user_id':request.user.profile.id})
+    return JsonResponse({'status':400})
+
+
+
+
