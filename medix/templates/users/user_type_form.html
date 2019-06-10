@@ -28,9 +28,11 @@
                       <div class="popup_body">
                         <div class="popup_back"></div>
                           <div class="popup_contain">
+                            <div class="optionerror" style="display:none">
+                            </div>
                             <div class="popup_close">x</div>
                             <h5 class="health_insurance">Patient</h5>
-                              <form id="login-form"  method="post" role="form" style="display: block;">{% csrf_token %}
+                              <form id="login-patient" action="/patient/login/" method="post" role="form" style="display: block;">{% csrf_token %}
                                     <div class="form-group">
                                       <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
                                     </div>
@@ -52,9 +54,12 @@
                         
                         <div class="popup_back"></div>
                           <div class="popup_contain">
+                            <div class="optionerror" style="display:none">
+                            </div>
                             <div class="popup_close">x</div>
                             <h5 class="health_insurance">Practice</h5>
-                              <form id="login-form" action="/user/login/" method="post" role="form" style="display: block;">{% csrf_token %}
+                            
+                              <form id="login-practice" action="/prctice/login" method="post" role="form" style="display: block;">{% csrf_token %}
                                     <div class="form-group">
                                       <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
                                     </div>
@@ -75,9 +80,11 @@
                       <div class="popup_body">
                         <div class="popup_back"></div>
                           <div class="popup_contain">
+                            <div class="optionerror" style="display:none">
+                            </div>
                             <div class="popup_close">x</div>
                             <h5 class="health_insurance">Institution</h5>
-                              <form id="login-form"  method="post" action="/user/login/" role="form" style="display: block;">{% csrf_token %}
+                              <form id="login-inst"  method="post" action="/institution/login/" role="form" style="display: block;">{% csrf_token %}
                                     <div class="form-group">
                                       <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
                                     </div>
@@ -98,9 +105,11 @@
                       <div class="popup_body">
                         <div class="popup_back"></div>
                           <div class="popup_contain">
+                            <div class="optionerror" style="display:none">
+                            </div>
                             <div class="popup_close">x</div>
                             <h5 class="health_insurance">Emergency Services</h5>
-                              <form id="login-form"  method="post" action="/user/login/" role="form" style="display: block;">{% csrf_token %}
+                              <form id="login-service"  method="post" action="/service/login/" role="form" style="display: block;">{% csrf_token %}
                                     <div class="form-group">
                                       <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
                                     </div>
@@ -121,9 +130,11 @@
                       <div class="popup_body">
                         <div class="popup_back"></div>
                           <div class="popup_contain">
+                            <div class="optionerror" style="display:none">
+                            </div>
                             <div class="popup_close">x</div>
                             <h5 class="health_insurance">Health Insurance Providers</h5>
-                              <form id="login-form"  method="post" action="/user/login/" role="form" style="display: block;">{% csrf_token %}
+                              <form id="login-insu"  method="post" action="/insurance/login/" role="form" style="display: block;">{% csrf_token %}
                                     <div class="form-group">
                                       <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
                                     </div>
@@ -161,6 +172,212 @@
    $(".popup_body").removeClass("popup_body_show");
    });
 
+
+ var frm = $('#login-practice');
+    frm.submit(function () {
+        
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+            },
+            dataType: "json",
+            success: function (response) {
+              if(response.status == 200){
+                window.location.href='/dashboard/practice/'+response.user_id
+              }
+              else if(response.status == 400){
+                $( ".optionerror" ).html( "Admin aprroval pendding or Incorrect email id or password" );
+                    $(".optionerror").css("display","block");
+                    $(".optionerror").css("position","fixed");
+                    setTimeout(function(){
+                    $(".optionerror").hide(); 
+                    }, 8000);
+
+              }
+              else{
+                    $( ".optionerror" ).html( "Not Authorised" );
+                    $(".optionerror").css("display","block");
+                    $(".optionerror").css("position","fixed");
+                    setTimeout(function(){
+                    $(".optionerror").hide(); 
+                    }, 8000);
+
+              }
+            },
+            error: function(response) {
+                
+            }
+        });
+        return false;
+    });
+
+
+var instFrm = $('#login-inst');
+    instFrm.submit(function () { 
+        $.ajax({
+            type: instFrm.attr('method'),
+            url: instFrm.attr('action'),
+            data: instFrm.serialize(),
+            headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+            },
+            dataType: "json",
+            success: function (response) {
+              if(response.status == 200){
+                window.location.href='/dashboard/institution/'+response.user_id
+              }
+              else if(response.status == 400){
+                $( ".optionerror" ).html( "Admin aprroval pendding or Incorrect email id or password" );
+                    $(".optionerror").css("display","block");
+                    $(".optionerror").css("position","fixed");
+                    setTimeout(function(){
+                    $(".optionerror").hide(); 
+                    }, 8000);
+
+              }
+              else{
+                    $( ".optionerror" ).html( "Not Authorised" );
+                    $(".optionerror").css("display","block");
+                    $(".optionerror").css("position","fixed");
+                    setTimeout(function(){
+                    $(".optionerror").hide(); 
+                    }, 8000);
+
+              }
+            },
+            error: function(response) {
+                
+            }
+        });
+        return false;
+    });
+
+var serviceFrm = $('#login-service');
+    serviceFrm.submit(function () { 
+        $.ajax({
+            type: serviceFrm.attr('method'),
+            url: serviceFrm.attr('action'),
+            data: serviceFrm.serialize(),
+            headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+            },
+            dataType: "json",
+            success: function (response) {
+              if(response.status == 200){
+                window.location.href='/dashboard/emergency-service/'+response.user_id
+              }
+              else if(response.status == 400){
+                $( ".optionerror" ).html( "Admin aprroval pendding or Incorrect email id or password" );
+                    $(".optionerror").css("display","block");
+                    $(".optionerror").css("position","fixed");
+                    setTimeout(function(){
+                    $(".optionerror").hide(); 
+                    }, 8000);
+
+              }
+              else{
+                    $( ".optionerror" ).html( "Not Authorised" );
+                    $(".optionerror").css("display","block");
+                    $(".optionerror").css("position","fixed");
+                    setTimeout(function(){
+                    $(".optionerror").hide(); 
+                    }, 8000);
+
+              }
+            },
+            error: function(response) {
+                
+            }
+        });
+        return false;
+    });
+
+var insFrm = $('#login-insu');
+    insFrm.submit(function () { 
+        $.ajax({
+            type: insFrm.attr('method'),
+            url: insFrm.attr('action'),
+            data: insFrm.serialize(),
+            headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+            },
+            dataType: "json",
+            success: function (response) {
+              if(response.status == 200){
+                window.location.href='/dashboard/health-insurance/'+response.user_id
+              }
+              else if(response.status == 400){
+                $( ".optionerror" ).html( "Admin aprroval pendding or Incorrect email id or password" );
+                    $(".optionerror").css("display","block");
+                    $(".optionerror").css("position","fixed");
+                    setTimeout(function(){
+                    $(".optionerror").hide(); 
+                    }, 8000);
+
+              }
+              else{
+                    $( ".optionerror" ).html( "Not Authorised" );
+                    $(".optionerror").css("display","block");
+                    $(".optionerror").css("position","fixed");
+                    setTimeout(function(){
+                    $(".optionerror").hide(); 
+                    }, 8000);
+
+              }
+            },
+            error: function(response) {
+                
+            }
+        });
+        return false;
+    }); 
+
+
+    var patFrm = $('#login-patient');
+    patFrm.submit(function () {
+        
+        $.ajax({
+            type: patFrm.attr('method'),
+            url: patFrm.attr('action'),
+            data: patFrm.serialize(),
+            headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+            },
+            dataType: "json",
+            success: function (response) {
+              if(response.status == 200){
+                window.location.href='/dashboard/practice/'+response.user_id
+              }
+              else if(response.status == 400){
+                $( ".optionerror" ).html( "Admin aprroval pendding or Incorrect email id or password" );
+                    $(".optionerror").css("display","block");
+                    $(".optionerror").css("position","fixed");
+                    setTimeout(function(){
+                    $(".optionerror").hide(); 
+                    }, 8000);
+
+              }
+              else{
+                    $( ".optionerror" ).html( "Not Authorised" );
+                    $(".optionerror").css("display","block");
+                    $(".optionerror").css("position","fixed");
+                    setTimeout(function(){
+                    $(".optionerror").hide(); 
+                    }, 8000);
+
+              }
+            },
+            error: function(response) {
+                
+            }
+        });
+        return false;
+    });
+
+ 
 </script>
 <style>
 button.open_popup {

@@ -1,4 +1,4 @@
-from .models import Profile, Education,OperatingHours
+from .models import Profile, Education, OperatingHours, AmbulanceService
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -8,10 +8,10 @@ class EducationForm(forms.ModelForm):
         model = Education
         fields = ['qualification','specialisation']
 
-# class ProductForm(forms.ModelForm):
-#     class Meta:
-#         model = Profile
-#         fields = ['price','item']
+class AmbulanceForm(forms.ModelForm):
+    class Meta:
+        model = AmbulanceService
+        fields = ['location','contact']
       
 class ProfileInfoForm(forms.ModelForm):
     class Meta:

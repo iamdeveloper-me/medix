@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
-from users.models import Profile, Education, Product, OperatingHours, Location
+from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService
 from django.contrib.auth.models import User
-from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm
+from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm
 from django.views import View
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import messages
@@ -23,38 +23,22 @@ class UserFormSubmitView(View):
 
 class PracticeProfileDetailView(View):
     def get(self,request,pk):
+        loc_list = []
         if request.user.is_authenticated:
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
             education = Education.objects.filter(user=user)
-            product = Product.objects.filter(user=user)
-            locations = Location.objects.filter(user=user)
+            product = Product.objects.filter(user=user)   
             hour = TradingHourForm 
-
-            # import pdb; pdb.set_trace()
-            # hour = OperatingHours.objects.all()
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':profileInfo.keyword,'specialisation':profileInfo.get_practice_display(),'locations':locations,'pk':pk, 'hour' : hour}
+            proInfo = ProfileInfoForm
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':profileInfo.keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo, }
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 
-class UserTypeStep1View(CreateView):
-    model = Profile
-    form_class = UserTypeForm
+
+class UserTypeStep1View(TemplateView):
     template_name = 'users/user_type_form.html'
     
-    def form_valid(self, form, **kwargs):
-        profile = form.save(commit=False)
-        profile.save()
-        if profile.custom_role==0:
-           return redirect('/patient/signup/step2/')
-        elif profile.custom_role==1:
-            return redirect('/specialisation/step2/'+str(profile.id))
-        elif profile.custom_role==2:
-            return redirect('/institution/step2/'+str(profile.id))
-        elif profile.custom_role==3:
-            return redirect('/emergency-services/step2/'+str(profile.id))
-        else:
-            return redirect('/insurance/signup/step2/'+str(profile.id))
 
 class PracticeStep2CreateView(CreateView):
     model = Profile
@@ -254,40 +238,6 @@ class EmergencyServiceSignupStep3View(View):
         # return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
         return HttpResponseRedirect('/form/submit/')
 
-class LoginView(View):
-    def get(self, request):
-        # if request.user.is_authenticated:
-        return render(request, 'users/login.html')
-
-    def post(self, request):
-        # import pdb; pdb.set_trace()
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(username=email, password=password)
-        if user is not None:
-            role = Profile.objects.filter(user_id=user.id)
-            if user.is_superuser and user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/admin/dashboard/')
-            elif role[0].custom_role==1 and user.is_active and user.is_staff==False:
-                login(request, user)
-                return HttpResponseRedirect('/dashboard/practice/'+str(request.user.profile.id))
-            elif role[0].custom_role==2 and user.is_active and user.is_staff==False:
-                login(request, user)
-                return HttpResponseRedirect('/dashboard/institution/'+str(request.user.profile.id))
-            elif role[0].custom_role==3 and user.is_active and user.is_staff==False:
-                login(request, user)
-                return HttpResponseRedirect('/dashboard/emergency-service/'+str(request.user.profile.id))
-            elif role[0].custom_role==4 and user.is_active and user.is_staff==False:
-                login(request, user)
-                return HttpResponseRedirect('/dashboard/health-insurance/'+str(request.user.profile.id))
-            else:
-                return HttpResponse("Inactive user.")
-        else:
-            messages.success(self.request, 'You are not authorised to login. Admin approval pending')
-            return HttpResponseRedirect('/user-type/step1/')
-
-        return render(request, "users/user_type_form.html")
 
 class AdminDashboardView(View):
     def get(self, request):
@@ -366,11 +316,13 @@ class InstitutionDashboardView(View):
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
             product = Product.objects.filter(user=user)
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':profileInfo.keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk}
+            ambulanceInfo = AmbulanceService.objects.filter(user=user)
+            hour = TradingHourForm 
+            ambulance = AmbulanceForm
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':profileInfo.keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk, 'hour':hour, 'ambulance':ambulance, 'ambulanceInfo':ambulanceInfo}
             return render(request, 'dashboard/institution.html', context)
         return redirect('user-type/step1/')
         
-
 class EmergencyServicesDashboard(View):
     def get(self, request, pk):
         if request.user.is_authenticated:

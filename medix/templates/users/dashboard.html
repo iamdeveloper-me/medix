@@ -68,11 +68,12 @@
                                                    </ul>
                                                    <ul class="contacts">
                                                     <h6>Phone</h6> 
-                                                    <input type="text" name="phone" value="{{phone}}" id="phone">
+                                                    <input type="number" name="phone" value="{{phone}}" id="phone">
                                                    </ul>
-                                                   <select>
-                                                       <option>{{gender}}</option>
-                                                   </select>
+                                                   <ul class="contacts">
+                                                    <h6>Gender</h6> 
+                                                    {{proInfo.gender}}
+                                                    </ul>
                                                    <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-profile' %}" class="save_btn save_btncss">save</button>
                                                 </div>
                                             </div>
@@ -126,7 +127,7 @@
                                                   <div class="popup_close">x</div>
                                                    <ul class="contacts">
                                                     <h6>Description</h6>
-                                                    <textarea type="text" rows="5" cols="22" value="{{description}}" name="description" id="description">
+                                                    <textarea type="text" rows="5" cols="22" value="{{description}}" name="description" id="description">{{description}}
                                                     </textarea>
                                                    
                                                     </ul>
@@ -284,57 +285,8 @@
                                 </div>
                             </div>
                             <!--  /wrapper_indent -->
-                            <hr>
-
-                            <div class="indent_title_in">
-                                <i class="pe-7s-news-paper"></i>
-                                <h3>Location & Trading Hours</h3>
-                                <div class="popup_main">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
-                                    <div class="popup_body">
-                                      <div class="popup_back"></div>
-                                        <div class="popup_contain popup_width">
-                                          <div class="popup_close">x</div>
-                                           <ul class="contacts">
-                                            <h6>Location</h6>
-                                            <input type="text" value="{{location}}" name="location" id="locationId">
-                                            </ul>
-                                            <ul class="contacts open_time">
-                                            <li>
-                                                <h6>Open Time</h6>
-                                                {{hour.open_time}}
-                                            </li>
-                                            <li>
-                                                <h6>Close Time</h6>
-                                                {{hour.close_time}}
-                                            </li>
-                                            </ul>
-                                            <ul class="contacts">
-                                                <h6>Day</h6>
-                                                {{hour.day}}
-                                            </ul>
-                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location save_btncss">save</button>
-                                        </div>
-                                    </div>
-                                  </div>
-                                
-                            </div>
-                            <div class="wrapper_indent">
-                                <p></p>
-                                
-                                <ul class="list_edu">
-                                   {% for value in locations %}
-                                    <li>
-                                      {{value.location}}  
-                                       <a data-id="" data-url="" class="delete_product popup_main">
-                                       <img src="../../../static/html_menu_1/img/delete.png">
-                                      </a>
-                                    </li>
-                                    {% endfor %}
-                                
-                                </ul>
-
-                            </div>
+                           
+                            
                                
                             <hr>
 
@@ -586,6 +538,7 @@
     phone = $("#phone").val();
     firstName = $("#firstName").val();
     lastName = $("#lastName").val();
+    gender = $("#id_gender").val();
     $.ajax({
         type: "POST",
         url: url,
@@ -593,7 +546,7 @@
             "X-CSRFToken": '{{csrf_token}}' 
         },
         dataType: "json",
-        data: {"profile_id":profile_id,"phone":phone,"firstName":firstName,"lastName":lastName},
+        data: {"profile_id":profile_id,"phone":phone,"firstName":firstName,"lastName":lastName,"gender":gender},
         success: function(response) {
                 if(response.status == 200){
                     window.location.reload()
@@ -715,30 +668,7 @@ $(document).on("click", ".edit_pro", function(e){
         });
 });
 
-$(document).on("click", ".save_location", function(e){
-    e.preventDefault();
-    url = $(this).data('url');
-    profile_id = $(this).data('id');
-     
-    locationVal = $("#locationId").val();
-    opnTim = $("#id_open_time").val();
-    closTim = $("#id_close_time").val();
-    day = $("#id_day").val();
-    $.ajax({
-        type: "POST",
-        url: url,
-        headers:{
-            "X-CSRFToken": '{{csrf_token}}' 
-        },
-        dataType: "json",
-        data: {"profile_id":profile_id,"locations":locationVal,"opnTim":opnTim,"closTim":closTim,"day":day},
-        success: function(response) {
-                if(response.status == 200){
-                   window.location.reload() 
-                   }  
-            }
-        });
-});
+
 
 $(document).on("click", ".save_keyword", function(e){
     e.preventDefault();
@@ -1047,6 +977,17 @@ a.forgot {
 }
 .open_time li {
     display: inline-block !important;
+    width: 30%;
+    margin: 10px;
+}
+.open_time input {
+    width: 100%;
+}
+ul.contacts.open_time {
+    margin: 0;
+}
+.popup_contain {
+    margin: 53px auto 50px;
 }
 
 </style>

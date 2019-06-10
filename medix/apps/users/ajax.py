@@ -1,16 +1,18 @@
 from django.http import  JsonResponse
 from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
-from .models import Profile, Education, Product, Location, OperatingHours
+from .models import Profile, Education, Product, Location, OperatingHours, AmbulanceService
 from django.contrib.auth.models import User
 from datetime import datetime
-
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect,HttpResponse
 
 def edit_profile(request):
     if request.method == 'POST':
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
         user = User.objects.get(id=profile.user.id)
         profile.phone = request.POST.get("phone")
+        profile.gender = request.POST.get("gender")
         profile.save()
         user.first_name = request.POST.get("firstName")
         user.last_name = request.POST.get("lastName")
@@ -65,24 +67,7 @@ def edit_product(request):
         return JsonResponse({'status':200})
 
 def add_location(request):
-    if request.method == 'POST':
-        profile = Profile.objects.get(id=request.POST.get("profile_id"))
-        user = User.objects.get(id=profile.user.id)
-        opnTime = request.POST.get("opnTim")
-        opncon = datetime.strptime(opnTime,'%H:%M')
-        closTime = request.POST.get("closTim")
-        clscon= datetime.strptime(opnTime,'%H:%M')
-        day = request.POST.get("day")
-        try:
-            location = Location.objects.filter(user=user)
-            location_obj = Location.objects.create(user=user,location=request.POST.get("locations"))
-            locationId = Location.objects.get(id=location_obj.id)
-            OperatingHours.objects.create(open_time=opnTime,close_time=closTime,day=day,location=locationId)
-        except Exception as e:
-            location_obj =Location.objects.create(user=user,location=request.POST.get("locations"))
-            locationId = Location.objects.get(id=location_obj.id)
-            OperatingHours.objects.create(open_time=opnTime,close_time=closTime,day=day,location=locationId)
-        return JsonResponse({'status':200}) 
+    return JsonResponse({'status':400}) 
 
 
 def add_keyword(request):
@@ -103,7 +88,6 @@ def delete_product(request):
     product.delete()
     return JsonResponse({'status':200})
 
-#Start Health Insurance Ajax
 def edit_insurance_profile(request):
     if request.method == 'POST':
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
@@ -114,6 +98,28 @@ def edit_insurance_profile(request):
         profile.trading_name = request.POST.get("trad_name")
         profile.save()
         return JsonResponse({'status':200})
+
+def add_ambulance_info(request):
+    profile = Profile.objects.get(id=request.POST.get("profile_id"))
+    user = User.objects.get(id=profile.user.id)
+    try:
+        AmbulanceService.objects.create(user=user,location=request.POST.get("location"),contact=request.POST.get("contact"))
+    except Exception as e:
+        AmbulanceService.objects.create(user=user,location=request.POST.get("location"),contact=request.POST.get("contact"))
+    return JsonResponse({'status':200})
+
+def edit_ambulance_info(request):
+    if request.method == 'POST':
+        ambulance = AmbulanceService.objects.get(id=request.POST.get("ambulance_id"))
+        ambulance.location = request.POST.get("locationInfo")
+        ambulance.contact = request.POST.get("contact")
+        ambulance.save()
+        return JsonResponse({'status':200})
+
+def ambulance_info_delete(request):
+    ambulance = AmbulanceService.objects.get(pk=request.GET.get('ambulance_id'))
+    ambulance.delete()
+    return JsonResponse({'status':200})
 
 def add_insurance_overview(request):
     add_statement(request)
@@ -146,3 +152,57 @@ def delete_description(request):
 def delete_experience(request):
     profile = Profile.objects.filter(id=request.GET.get("profile_id")).update(experience=None)
     return JsonResponse({'status':200})
+
+#ajax for login page
+def login_form(request):
+    email = request.POST['email']
+    password = request.POST['password']
+    user = authenticate(username=email, password=password)
+    if user is not None:
+        role = Profile.objects.filter(user_id=user.id)
+        return role,user
+    return False
+
+def practice_login(request):
+    if login_form(request) != False:
+        role,user = login_form(request)
+        if role[0].custom_role==1 and user.is_active and user.is_staff==False:
+            login(request, user)
+            return JsonResponse({'status':200,'user_id':request.user.profile.id})
+    return JsonResponse({'status':400})
+
+def institution_login(request):
+    if login_form(request) != False:
+        role,user = login_form(request)
+        if role[0].custom_role==2 and user.is_active and user.is_staff==False:
+            login(request, user)
+            return JsonResponse({'status':200,'user_id':request.user.profile.id})
+    return JsonResponse({'status':400})
+
+def service_login(request):
+    if login_form(request) != False:
+        role,user = login_form(request)
+        if role[0].custom_role==3 and user.is_active and user.is_staff==False:
+            login(request, user)
+            return JsonResponse({'status':200,'user_id':request.user.profile.id})
+    return JsonResponse({'status':400})
+
+def insurance_login(request):
+    if login_form(request) != False:
+        role,user = login_form(request)
+        if role[0].custom_role==4 and user.is_active and user.is_staff==False:
+            login(request, user)
+            return JsonResponse({'status':200,'user_id':request.user.profile.id})
+    return JsonResponse({'status':400})
+
+def patient_login(request):
+    if login_form(request) != False:
+        role,user = login_form(request)
+        if role[0].custom_role==0 and user.is_active and user.is_staff==False:
+            login(request, user)
+            return JsonResponse({'status':200,'user_id':request.user.profile.id})
+    return JsonResponse({'status':400})
+
+
+
+
