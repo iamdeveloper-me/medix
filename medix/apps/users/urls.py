@@ -98,6 +98,8 @@ ajaxpatterns = [
     path('insurance/login/', insurance_login, name='insurance-login'),
     path('patient/login/', patient_login, name='patient-login'),
     
+    path('edit/location/hour', edit_location_hour, name='edit-location-hour'),
+    
    
 ]    
 

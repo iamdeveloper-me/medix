@@ -261,9 +261,46 @@ def edit_location(request):
             'open_time' : hour.open_time,
             'close_time': hour.close_time,
             'day'       : hour.day,
-            'location'  : hour.location.id
+            'location'  : hour.location.location
         } for hour in tradHour_obj]
         return JsonResponse({'status':200,'loc_hour_list':loc_hour_list}) 
     return JsonResponse({'status':400}) 
- 
 
+def edit_location_hour(request):
+    day_list = []
+    open_list = []
+    close_list = []
+    
+    day_list.append(request.POST.get('mondy'))
+    day_list.append(request.POST.get('tuedy'))
+    day_list.append(request.POST.get('wedy'))
+    day_list.append(request.POST.get('thusdy'))
+    day_list.append(request.POST.get('frdy'))
+    day_list.append(request.POST.get('satdy'))
+
+    open_list.append(request.POST.get('monOpn'))
+    open_list.append(request.POST.get('tueOpn'))
+    open_list.append(request.POST.get('wedOpn'))
+    open_list.append(request.POST.get('thuOpn'))
+    open_list.append(request.POST.get('friOpn'))
+    open_list.append(request.POST.get('satOpn'))
+  
+    close_list.append(request.POST.get('monCls'))
+    close_list.append(request.POST.get('tueCls'))
+    close_list.append(request.POST.get('wedCls'))
+    close_list.append(request.POST.get('thuCls'))
+    close_list.append(request.POST.get('friCls'))
+    close_list.append(request.POST.get('satCls'))
+    
+    location_obj = Location.objects.get(id=request.POST.get("location_id"))
+    location_obj.location = request.POST.get('loc_add')
+    location_obj.save()
+
+    for dayl, openl, closel in zip(day_list,open_list,close_list):
+        
+        try:
+            OperatingHours.objects.filter(location=location_obj,day=dayl).update(open_time=openl,close_time=closel)
+
+        except Exception as e:
+            return JsonResponse({'status':200})
+    return JsonResponse({'status':200}) 

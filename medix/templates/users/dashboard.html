@@ -442,10 +442,15 @@
                                                 <div class="popup_contain popup_width">
                                                   <div class="popup_close">x</div>
                                                     
-                                                <ul class="contacts open_time">
+                                            <ul class="contacts open_time">
+                                            
+
+                                                <h6>Location</h6>
+                                                <input type="text" value="" name="location" id="locId">
+                                            
                                             <li>
                                                 <h6>Day</h6>
-                                                <input type="text" name="mon" value="mon" id="mon" disabled>
+                                                <input type="text" name="mon" value="mon" id="mondy" disabled>
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
@@ -460,7 +465,7 @@
                                             <ul class="contacts open_time">
                                             <li>
                                                 <h6>Day</h6>
-                                                <input type="text" name="tue" value="tue" id="tue" disabled>
+                                                <input type="text" name="tue" value="tue" id="tuedy" disabled>
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
@@ -474,7 +479,7 @@
                                             <ul class="contacts open_time">
                                             <li>
                                                 <h6>Day</h6>
-                                                <input type="text" name="wed" value="wed" id="wed" disabled>
+                                                <input type="text" name="wed" value="wed" id="wedy" disabled>
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
@@ -488,7 +493,7 @@
                                             <ul class="contacts open_time">
                                             <li>
                                                 <h6>Day</h6>
-                                                <input type="text" name="thus" value="thu" id="thus" disabled>
+                                                <input type="text" name="thus" value="thu" id="thusdy" disabled>
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
@@ -502,7 +507,7 @@
                                             <ul class="contacts open_time">
                                             <li>
                                                 <h6>Day</h6>
-                                                <input type="text" name="friday" value="fri" id="friday" disabled>
+                                                <input type="text" name="friday" value="fri" id="frdy" disabled>
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
@@ -516,7 +521,7 @@
                                            <ul class="contacts open_time">
                                             <li>
                                                 <h6>Day</h6>
-                                                <input type="text" name="sat" value="sat" id="sat" disabled>
+                                                <input type="text" name="sat" value="sat" id="satdy" disabled>
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
@@ -527,7 +532,7 @@
                                                 <input type="text" name="mySatCls" value="" class="mySatCls" >
                                             </li>
                                             </ul>
-                                                <button type="submit" class="edit_location11 save_btncss" >save</button>
+                                                <button type="submit" class="edit_hours save_btncss" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location-hour' %}">save</button>
                                                 </div>
                                             </div>
                                           </div>
@@ -936,7 +941,6 @@ $(document).on("click", ".edit_pro", function(e){
 });
 
 
-
 $(document).on("click", ".save_keyword", function(e){
     e.preventDefault();
     url = $(this).data('url');
@@ -1164,6 +1168,7 @@ $(document).on("click", ".edit_location", function(e){
                    var hour_list = res.loc_hour_list;
                    
                    for (var i = 0; i < hour_list.length; i++) {
+                        $("#locId").val(hour_list[i].location)
                         if(hour_list[i].day == 'mon'){
                             $(".myMonOpn").val(hour_list[i].open_time)
                             $(".myMonCls").val(hour_list[i].close_time)
@@ -1199,6 +1204,45 @@ $(document).on("click", ".edit_location", function(e){
         });
 
 $('.disOnReq').attr('disabled',true);
+$(document).on("click", ".edit_hours", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    location_id = $(this).data('id');
+    monOpn = $(".myMonOpn").val();
+    monCls = $(".myMonCls").val();
+    tueOpn = $(".myTueOpn").val();
+    tueCls = $(".myTueCls").val();
+    wedOpn = $(".myWedOpn").val();
+    wedCls = $(".myWedCls").val();
+    thuOpn = $(".myThuOpn").val();
+    thuCls = $(".myThuCls").val();
+    friOpn = $(".myFriOpn").val();
+    friCls = $(".myFriCls").val();
+    satOpn = $(".mySatOpn").val();
+    satCls = $(".mySatCls").val();
+    satdy  = $("#satdy").val();
+    mondy  = $("#mondy").val();
+    tuedy  = $("#tuedy").val();
+    wedy   = $("#wedy").val();
+    thusdy = $("#thusdy").val();
+    frdy   = $("#frdy").val();
+    satdy   = $("#satdy").val();
+    loc_add = $("#locId").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"location_id":location_id,"monOpn":monOpn,"monCls":monCls,"tueOpn":tueOpn,"tueCls":tueCls,"wedOpn":wedOpn,"wedCls":wedCls,"thuOpn":thuOpn,"thuCls":thuCls,"friOpn":friOpn,"friCls":friCls,"satOpn":satOpn ,"satCls":satCls,"mondy":mondy,"tuedy":tuedy,"wedy":wedy,"thusdy":thusdy,"frdy":frdy,"satdy":satdy,"loc_add":loc_add},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
+        });
+});
 </script>
 
 <script>
