@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
-from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService
+from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords
 from django.contrib.auth.models import User
 from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm
 from django.views import View
@@ -24,14 +24,24 @@ class UserFormSubmitView(View):
 class PracticeProfileDetailView(View):
     def get(self,request,pk):
         loc_list = []
+        hour_list = []
         if request.user.is_authenticated:
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
             education = Education.objects.filter(user=user)
-            product = Product.objects.filter(user=user)   
+            product = Product.objects.filter(user=user)
+            location_obj = Location.objects.filter(user=user)
+            keyword = Keywords.objects.filter(user=user)
+            for loc in location_obj:
+                loc_list.append(loc)
+            for val in loc_list:    
+                opratHour = OperatingHours.objects.filter(location=val)
+                for vals in opratHour:  
+                    hour_list.append(vals)   
+
             hour = TradingHourForm 
             proInfo = ProfileInfoForm
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':profileInfo.keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo, }
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list }
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 
@@ -312,35 +322,64 @@ class EducationDetailView(DetailView):
 
 class InstitutionDashboardView(View):
     def get(self, request, pk):
+        loc_list=[]
+        hour_list=[]
         if request.user.is_authenticated:
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
             product = Product.objects.filter(user=user)
             ambulanceInfo = AmbulanceService.objects.filter(user=user)
+            keyword = Keywords.objects.filter(user=user)
             hour = TradingHourForm 
             ambulance = AmbulanceForm
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':profileInfo.keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk, 'hour':hour, 'ambulance':ambulance, 'ambulanceInfo':ambulanceInfo}
+            location_obj = Location.objects.filter(user=user)
+            for loc in location_obj:
+                loc_list.append(loc)
+            for val in loc_list:    
+                opratHour = OperatingHours.objects.filter(location=val)
+                for vals in opratHour:  
+                    hour_list.append(vals)
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk, 'hour':hour, 'ambulance':ambulance, 'ambulanceInfo':ambulanceInfo,'opratHour':hour_list }
             return render(request, 'dashboard/institution.html', context)
         return redirect('user-type/step1/')
         
 class EmergencyServicesDashboard(View):
     def get(self, request, pk):
+        loc_list = []
+        hour_list = []
         if request.user.is_authenticated:
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
             product = Product.objects.filter(user=user)
-            # import pdb; pdb.set_trace()
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':profileInfo.keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'services':profileInfo.get_emergency_services_display(),'pk':pk}
+            location_obj = Location.objects.filter(user=user)
+            keyword = Keywords.objects.filter(user=user)
+            for loc in location_obj:
+                loc_list.append(loc)
+            for val in loc_list:    
+                opratHour = OperatingHours.objects.filter(location=val)
+                for vals in opratHour:  
+                    hour_list.append(vals)
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'services':profileInfo.get_emergency_services_display(),'pk':pk, 'opratHour':hour_list}
             return render(request, 'dashboard/emergency-services.html',context)
         return redirect('user-type/step1/')
 
 class HealthInsuranceDashboard(View):
     def get(self, request, pk):
+        loc_list = []
+        hour_list = []
         if request.user.is_authenticated:
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
             product = Product.objects.filter(user=user)
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':profileInfo.keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'pk':pk}
+            location_obj = Location.objects.filter(user=user)
+            keyword = Keywords.objects.filter(user=user)
+            for loc in location_obj:
+                loc_list.append(loc)
+            for val in loc_list:    
+                opratHour = OperatingHours.objects.filter(location=val)
+                for vals in opratHour:  
+                    hour_list.append(vals)
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'pk':pk, 'opratHour':hour_list}
             return render(request, 'dashboard/health_insurance.html', context)
         return redirect('user-type/step1/')
 

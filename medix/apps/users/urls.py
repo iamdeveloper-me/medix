@@ -61,6 +61,8 @@ urlpatterns = [
 ajaxpatterns = [
     #practice add ,edit ,delete ajax
     path('add/location', add_location, name='add-location'),
+    path('edit/location', edit_location, name='edit-location'),
+    path('delete/location', delete_location, name='delete-location'),
     path('edit/profile/', edit_profile, name='edit-profile'),
     path('add/statement', add_statement, name='add-statement'),
     path('add/education', add_education, name='add-education'),

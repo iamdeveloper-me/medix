@@ -181,3 +181,41 @@ p.error {
     border: none;
     border-radius: 50px;
 }
+.open_time li {
+    display: inline-block !important;
+    width: 30%;
+    margin: 10px;
+}
+.open_time input {
+    width: 100%;
+}
+ul.contacts.open_time {
+    margin: 0;
+}
+.popup_contain {
+    margin: 53px auto 50px;
+}
+.padding_bottom{
+    padding-bottom: 20px!important;
+}
+.popup_spanlist{
+    display: inline-block;
+}
+.popup_spanlist span{
+    padding: 0 15px;
+    background: #fff;
+    border-radius: 20px;
+    color: #ffaa2d;
+    margin-right: 5px;
+    display: inline-block;
+    margin-bottom: 10px;
+    border: 1px solid #ffaa2d;
+    font-size: 14px;
+    position: relative;
+    text-transform: capitalize;
+}
+.popup_spanlist a.chipsCLose{
+    margin-top: 2px!important;
+    margin-left: 15px!important;
+    cursor: pointer !important;
+}

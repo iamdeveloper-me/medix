@@ -1,7 +1,7 @@
 from django.http import  JsonResponse
 from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
-from .models import Profile, Education, Product, Location, OperatingHours, AmbulanceService
+from .models import Profile, Education, Product, Location, OperatingHours, AmbulanceService, Keywords
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
@@ -39,13 +39,14 @@ def add_education(request):
         return JsonResponse({'status':200}) 
 
 def add_product(request):
+    # import pdb; pdb.set_trace()
     profile = Profile.objects.get(id=request.POST.get("profile_id"))
     user = User.objects.get(id=profile.user.id)
     try:
         product = Product.objects.filter(user=user)
-        Product.objects.create(user=user,item=request.POST.get("item"),price=request.POST.get("price"))
+        Product.objects.create(user=user,item=request.POST.get("item"),price=request.POST.get("price"),on_request=request.POST.get("onRequest").title())
     except Exception as e:
-        Product.objects.create(user=user,item=request.POST.get("item"),price=request.POST.get("price")) 
+        Product.objects.create(user=user,item=request.POST.get("item"),price=request.POST.get("price"),on_request=request.POST.get("onRequest")) 
     return JsonResponse({'status':200}) 
 
 
@@ -60,22 +61,18 @@ def edit_education(request):
 
 def edit_product(request):
     if request.method == 'POST':
+        # import pdb; pdb.set_trace()
         product = Product.objects.get(id=request.POST.get("product_id"))
         product.item = request.POST.get("item")
         product.price = request.POST.get("price")
+        product.on_request = request.POST.get("onRequest").title()
         product.save()
         return JsonResponse({'status':200})
-
-def add_location(request):
-    return JsonResponse({'status':400}) 
-
 
 def add_keyword(request):
     if request.method == 'POST':
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
-        user = User.objects.get(id=profile.user.id)
-        profile.keyword = request.POST.get("keyword")
-        profile.save()
+        keyword = Keywords.objects.create(user=profile.user,keyword=request.POST.get("keyword"))
         return JsonResponse({'status':200})
 
 def delete_education(request):
@@ -142,7 +139,8 @@ def add_insurance_keyword(request):
     return JsonResponse({'status':200})
 
 def delete_keyword(request):
-    profile = Profile.objects.filter(id=request.GET.get("profile_id")).update(keyword=None)
+    keyword = Keywords.objects.get(id=request.GET.get("keyword_id"))
+    keyword.delete()
     return JsonResponse({'status':200})
 
 def delete_description(request):
@@ -203,6 +201,57 @@ def patient_login(request):
             return JsonResponse({'status':200,'user_id':request.user.profile.id})
     return JsonResponse({'status':400})
 
+def delete_location(request):
+    location = Location.objects.get(pk=request.GET.get('location_id'))
+    location.delete()
+    return JsonResponse({'status':200})
 
+def edit_location(request):
+    return JsonResponse({'status':200})
 
+def add_location(request):
+    if request.method == 'POST':
+        profile = Profile.objects.get(id=request.POST.get("profile_id"))
+
+        user = profile.user
+        day_list = []
+        day_list.append(request.POST.get('monday'))
+        day_list.append(request.POST.get('tueday'))
+        day_list.append(request.POST.get('wedday'))
+        day_list.append(request.POST.get('thuday'))
+        day_list.append(request.POST.get('friday'))
+        day_list.append(request.POST.get('satday'))
+
+        open_list = []
+        open_list.append(request.POST.get('monopn'))
+        open_list.append(request.POST.get('tueOpn'))
+        open_list.append(request.POST.get('wedOpn'))
+        open_list.append(request.POST.get('thuOpn'))
+        open_list.append(request.POST.get('friOpn'))
+        open_list.append(request.POST.get('satOpn'))
+
+        close_list = []
+        close_list.append(request.POST.get('monclos'))
+        close_list.append(request.POST.get('tueCls'))
+        close_list.append(request.POST.get('wedCls'))
+        close_list.append(request.POST.get('thuCls'))
+        close_list.append(request.POST.get('friCls'))
+        close_list.append(request.POST.get('satCls'))
+
+        location_obj = Location.objects.create(user=user,location=request.POST.get("locations"))
+        try:
+            for day, openl, closel in zip(day_list,open_list,close_list):
+                OperatingHours.objects.create(
+                    open_time=openl,
+                    close_time=closel,
+                    day=day,
+                    location=location_obj
+                )
+
+            return JsonResponse({'status':200}) 
+        except Exception as e:
+            print("Uh oh, Error : ", str(e))
+            return JsonResponse({'status':200}) 
+    return JsonResponse({'status':400}) 
+ 
 
