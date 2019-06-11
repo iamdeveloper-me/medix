@@ -61,7 +61,6 @@ def edit_education(request):
 
 def edit_product(request):
     if request.method == 'POST':
-        # import pdb; pdb.set_trace()
         product = Product.objects.get(id=request.POST.get("product_id"))
         product.item = request.POST.get("item")
         product.price = request.POST.get("price")
@@ -206,9 +205,6 @@ def delete_location(request):
     location.delete()
     return JsonResponse({'status':200})
 
-def edit_location(request):
-    return JsonResponse({'status':200})
-
 def add_location(request):
     if request.method == 'POST':
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
@@ -252,6 +248,22 @@ def add_location(request):
         except Exception as e:
             print("Uh oh, Error : ", str(e))
             return JsonResponse({'status':200}) 
+    return JsonResponse({'status':400}) 
+ 
+def edit_location(request):
+    loc_hour_list=[]
+    if request.method == 'POST':
+        # import pdb; pdb.set_trace()
+        location_obj = Location.objects.get(id=request.POST.get("location_id"))
+        tradHour_obj = OperatingHours.objects.filter(location=location_obj)
+        loc_hour_list = [{
+            'pk'        : hour.pk,
+            'open_time' : hour.open_time,
+            'close_time': hour.close_time,
+            'day'       : hour.day,
+            'location'  : hour.location.id
+        } for hour in tradHour_obj]
+        return JsonResponse({'status':200,'loc_hour_list':loc_hour_list}) 
     return JsonResponse({'status':400}) 
  
 

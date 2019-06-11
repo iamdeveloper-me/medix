@@ -327,7 +327,7 @@
                                             <ul class="contacts open_time">
                                             <li>
                                                 <h6>Day</h6>
-                                                <input type="text" name="mon" value="Mon" id="mon" disabled>
+                                                <input type="text" name="mon" value="mon" id="mon" disabled>
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
@@ -430,45 +430,30 @@
                                         
                                         {{val.location.location}}
                                         
-                                        <a data-id="{{val.location.id}}" data-url="{% url 'users:delete-location' %}" class="delete_location popup_main" >
+                                        
+                                        
+                                        <div class="popup_main">
+                                            <a data-id="{{val.location.id}}" data-url="{% url 'users:delete-location' %}" class="delete_location popup_main" >
                                             <img src="../../../static/html_menu_1/img/delete.png">
-                                        </a>
-                                       
-                                        {% endifchanged %}
-                                    </strong>  
-                                    <li id="location_li_{{val.location.id}}">
-
-                                        {% if val.open_time != None%}
-                                            {{val.day}}-{{val.open_time}}-{{val.close_time}} 
-                                    
-                                        {%endif%} 
-                             
-                                    </li>
-                                    <div class="popup_main">
-                                             <button class="open_popup float_right"><img src="../../../static/html_menu_1/img/edit.png"></button>
-                                           
+                                            </a>
+                                            <button class="open_popup float_right edit_location" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location' %}"><img src="../../../static/html_menu_1/img/edit.png"></button>
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
                                                   <div class="popup_close">x</div>
-                                                    <ul class="contacts open_time">
-                                            <ul class="contacts">
-                                                
-                                                <h6>Location</h6>
-                                                <input type="text" value="{{val.location.location}}" name="location" id="locationId">
-                                                
-                                            </ul>
+                                                    
+                                                <ul class="contacts open_time">
                                             <li>
                                                 <h6>Day</h6>
-                                                <input type="text" name="mon" value="Mon" id="mon" disabled>
+                                                <input type="text" name="mon" value="mon" id="mon" disabled>
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
-                                                <input type="text" name="monOpn" value="{{val.open_time}}" id="monOpn" >
+                                                <input type="text" name="myMonOpn" value="" class="myMonOpn" >
                                             </li>
                                             <li>
                                                 <h6>Closing Time</h6>
-                                                <input type="text" name="monCls" value="{{val.close_time}}" id="monCls" >
+                                                <input type="text" name="myMonCls" value="" class="myMonCls" >
                                             </li>
                                             
                                             </ul>
@@ -479,11 +464,11 @@
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
-                                                <input type="text" name="tueOpn" value="{{val.open_time}}" id="tueOpn" >
+                                                <input type="text" name="myTueOpn" value="" class="myTueOpn" >
                                             </li>
                                             <li>
                                                 <h6>Closing Time</h6>
-                                                <input type="text" name="tueCls" value="{{val.close_time}}" id="tueCls" >
+                                                <input type="text" name="myTueCls" value="" class="myTueCls" >
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
@@ -493,11 +478,11 @@
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
-                                                <input type="text" name="wedOpn" value="{{val.open_time}}" id="wedOpn" >
+                                                <input type="text" name="myWedOpn" value="" class="myWedOpn" >
                                             </li>
                                             <li>
                                                 <h6>Closing Time</h6>
-                                                <input type="text" name="wedCls" value="{{val.close_time}}" id="wedCls" >
+                                                <input type="text" name="myWedCls" value="{{close_time}}" class="myWedCls" >
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
@@ -507,11 +492,11 @@
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
-                                                <input type="text" name="thuOpn" value="{{val.open_time}}" id="thuOpn" >
+                                                <input type="text" name="myThuOpn" value="{{open_time}}" class="myThuOpn" >
                                             </li>
                                             <li>
                                                 <h6>Closing Time</h6>
-                                                <input type="text" name="thuCls" value="{{val.close_time}}" id="thuCls" >
+                                                <input type="text" name="myThuCls" value="{{close_time}}" class="myThuCls" >
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
@@ -521,11 +506,11 @@
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
-                                                <input type="text" name="friOpn" value="{{val.open_time}}" id="friOpn" >
+                                                <input type="text" name="myFriOpn" value="{{open_time}}" class="myFriOpn" >
                                             </li>
                                             <li>
                                                 <h6>Closing Time</h6>
-                                                <input type="text" name="friCls" value="{{val.close_time}}" id="friCls" >
+                                                <input type="text" name="myFriCls" value="{{close_time}}" class="myFriCls" >
                                             </li>
                                             </ul>
                                            <ul class="contacts open_time">
@@ -535,17 +520,28 @@
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
-                                                <input type="text" name="satOpn" value="{{val.open_time}}" id="satOpn" >
+                                                <input type="text" name="mySatOpn" value="" class="mySatOpn" >
                                             </li>
                                             <li>
                                                 <h6>Closing Time</h6>
-                                                <input type="text" name="satCls" value="{{val.close_time}}" id="satCls" >
+                                                <input type="text" name="mySatCls" value="" class="mySatCls" >
                                             </li>
                                             </ul>
-                                                <button data-id="{{val.id}}" data-url="{% url 'users:edit-location' %}" class="edit_location save_btncss">save</button>
+                                                <button type="submit" class="edit_location11 save_btncss" >save</button>
                                                 </div>
                                             </div>
                                           </div>
+                                        {% endifchanged %}
+                                    </strong>  
+                                    <li id="location_li_{{val.location.id}}">
+
+                                        {% if val.open_time != None%}
+                                            {{val.day}}-{{val.open_time}}-{{val.close_time}} 
+                                    
+                                        {%endif%} 
+                             
+                                    </li>
+                                    
                                       {% endfor %} 
                                       
                                     </ul>
@@ -920,7 +916,6 @@ $(document).on("click", ".edit_pro", function(e){
     e.preventDefault();
     url = $(this).data('url');
     product_id = $(this).data('id');
-    
     item = $(this).parents('.popup_contain').find(".editItem").val();
     price = $(this).parents('.popup_contain').find(".editPrice").val();
     onRequest=$('input[name="on_req"]').prop('checked');
@@ -1145,6 +1140,63 @@ $(document).on("click", ".save_location", function(e){
             });
         });
 
+
+$(document).on("click", ".edit_location", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    location_id = $(this).data('id');
+
+    locationVal = $("#locationId").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {
+            "location_id" : location_id,
+            "locations" : locationVal,
+        },
+        success: function(res) {
+            
+                if(res.status == 200){
+                   var hour_list = res.loc_hour_list;
+                   
+                   for (var i = 0; i < hour_list.length; i++) {
+                        if(hour_list[i].day == 'mon'){
+                            $(".myMonOpn").val(hour_list[i].open_time)
+                            $(".myMonCls").val(hour_list[i].close_time)
+                        }
+                        if(hour_list[i].day == 'tue'){
+                          $(".myTueOpn").val(hour_list[i].open_time)
+                            $(".myTueCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'wed'){
+                          $(".myWedOpn").val(hour_list[i].open_time)
+                            $(".myWedCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'thu'){
+                          $(".myThuOpn").val(hour_list[i].open_time)
+                            $(".myThuCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'fri'){
+                          $(".myFriOpn").val(hour_list[i].open_time)
+                            $(".myFriCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'sat'){
+                          $(".mySatOpn").val(hour_list[i].open_time)
+                            $(".mySatCls").val(hour_list[i].close_time)  
+                        }
+                   }
+                   }
+                   else if (response.status == 400){
+                    window.location.reload() 
+                   }     
+                }
+
+            });
+        });
 
 $('.disOnReq').attr('disabled',true);
 </script>
