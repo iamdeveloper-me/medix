@@ -245,7 +245,7 @@
                             <hr>
 
                             <div class="indent_title_in">
-                                <i class="pe-7s-news-paper"></i>
+                                <i class="far fa-map-marker-alt"></i>
                                 <h3>Location & Trading Hours</h3>
                                 <div class="popup_main">
                                     <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
@@ -261,7 +261,7 @@
                                             <ul class="contacts open_time">
                                             <li>
                                                 <h6>Day</h6>
-                                                <input type="text" name="mon" value="Mon" id="mon" disabled>
+                                                <input type="text" name="mon" value="mon" id="mon" disabled>
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
@@ -352,7 +352,7 @@
                                   </div>
                                 
                             </div>
-                            <div class="wrapper_indent">
+                            <div class="wrapper_indent padding_bottom">
                                 <p></p>
                                 
                                 <ul class="">
@@ -361,28 +361,132 @@
                                         
                                     <strong>
                                         {% ifchanged val.location.location %}
-                                        <a data-id="{{val.location.id}}" data-url="{% url 'users:delete-location' %}" class="delete_location popup_main" >
+                                        
+                                        {{val.location.location}} 
+                                        
+                                        <div class="popup_main">
+                                            <a data-id="{{val.location.id}}" data-url="{% url 'users:delete-location' %}" class="delete_location popup_main" >
                                             <img src="../../../static/html_menu_1/img/delete.png">
-
                                             </a>
-                                        {{val.location.location}}
+                                            <button class="open_popup float_right edit_location" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location' %}"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <div class="popup_body">
+                                              <div class="popup_back"></div>
+                                                <div class="popup_contain popup_width">
+                                                  <div class="popup_close">x</div>
+                                                    
+                                            <ul class="contacts open_time">
+                                            
 
+                                                <h6>Location</h6>
+                                                <input type="text" value="" name="location" class="locId">
+                                            
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="mon" value="mon" id="mondy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="myMonOpn" value="" class="myMonOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="myMonCls" value="" class="myMonCls" >
+                                            </li>
+                                            
+                                            </ul>
+                                            <ul class="contacts open_time">
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="tue" value="tue" id="tuedy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="myTueOpn" value="" class="myTueOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="myTueCls" value="" class="myTueCls" >
+                                            </li>
+                                            </ul>
+                                            <ul class="contacts open_time">
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="wed" value="wed" id="wedy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="myWedOpn" value="" class="myWedOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="myWedCls" value="{{close_time}}" class="myWedCls" >
+                                            </li>
+                                            </ul>
+                                            <ul class="contacts open_time">
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="thus" value="thu" id="thusdy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="myThuOpn" value="{{open_time}}" class="myThuOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="myThuCls" value="{{close_time}}" class="myThuCls" >
+                                            </li>
+                                            </ul>
+                                            <ul class="contacts open_time">
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="friday" value="fri" id="frdy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="myFriOpn" value="{{open_time}}" class="myFriOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="myFriCls" value="{{close_time}}" class="myFriCls" >
+                                            </li>
+                                            </ul>
+                                           <ul class="contacts open_time">
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="sat" value="sat" id="satdy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="mySatOpn" value="" class="mySatOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="mySatCls" value="" class="mySatCls" >
+                                            </li>
+                                            </ul>
+                                                <button type="submit" class="edit_hours save_btncss" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location-hour' %}">save</button>
+                                                </div>
+                                            </div>
+                                          </div>
                                         {% endifchanged %}
                                     </strong>  
                                     <li id="location_li_{{val.location.id}}">
-                                    {% if val.open_time != None%}
-                                      {{val.day}}-{{val.open_time}}-{{val.close_time}} 
+
+                                        {% if val.open_time != None%}
+                                            {{val.day}}-{{val.open_time}}-{{val.close_time}} 
                                     
-                                    {%endif%}
+                                        {%endif%} 
+                             
                                     </li>
                                     
                                       {% endfor %} 
                                       
-                                </ul>
-                                
-                            </div>
+                                    </ul>
+
+                                </div>
+                        
                             
-                               
+                              
                             <hr>
 
                             <div class="indent_title_in">
@@ -404,7 +508,7 @@
                                   </div>
                                 
                             </div>
-                            <div class="wrapper_indent">
+                            <div class="wrapper_indent padding_bottom">
                                 <p></p>
                                 
                                 <ul class="" id="delekeyul">
@@ -417,8 +521,6 @@
                         </div>
                         <!-- /section_1 -->
                     </div>
-                    <!-- /box_general -->
-
                     <div id="section_2">
                         <div class="box_general_3">
                             <div class="reviews-container">
@@ -546,10 +648,9 @@
                             <div class="text-right"><a href="submit-review.html" class="btn_1">Submit review</a></div>
                         </div>
                     </div>
-                    <!-- /section_2 -->
-                    </div>
-                <!-- /col -->
-                <aside class="col-xl-4 col-lg-4" id="sidebar">
+                    <!-- /box_general -->
+                </div>
+                 <aside class="col-xl-4 col-lg-4" id="sidebar">
                     <div class="box_general_3 booking">
                         <form>
                             <div class="title">
@@ -601,6 +702,10 @@
                     </div>
                     <!-- /box_general -->
                 </aside>
+                <div class="clearfix"></div>
+            </div>
+                <!-- /col -->
+               
                 <!-- /asdide -->
             </div>
             <!-- /row -->
@@ -882,6 +987,7 @@ $(document).on("click", ".delete_exp", function(e){
 $(document).on("click", ".delete_location", function(e){
     e.preventDefault();
     if (confirm("Are you sure you want to delete this location!")) {
+
     url = $(this).data('url');
     location_id = $(this).data('id');
     var li = ("#location_li_" + location_id);
@@ -891,9 +997,10 @@ $(document).on("click", ".delete_location", function(e){
         window.location.reload()
         $( ".successdelet" ).html( "<p>Location deleted successfully!</p>" );
         $(".successdelet").css("display","block");
-        setTimeout(function(){
-        $(".successdelet").hide(); 
-        }, 5000);
+        
+        }
+        else{
+            console.log("error")
         }
     });
     } // confirm box end
@@ -958,187 +1065,111 @@ $(document).on("click", ".save_location", function(e){
                    }
                    else if (response.status == 400){
                     window.location.reload() 
-                   }
-                 
-            }
+                   }     
+                }
 
+            });
+        });
+
+
+$(document).on("click", ".edit_location", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    location_id = $(this).data('id');
+
+    locationVal = $("#locationId").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {
+            "location_id" : location_id,
+            "locations" : locationVal,
+        },
+        success: function(res) {
+            
+                if(res.status == 200){
+                   var hour_list = res.loc_hour_list;
+                   
+                   for (var i = 0; i < hour_list.length; i++) {
+                        $(".locId").val(hour_list[i].location)
+                        if(hour_list[i].day == 'mon'){
+                            $(".myMonOpn").val(hour_list[i].open_time)
+                            $(".myMonCls").val(hour_list[i].close_time)
+                        }
+                        if(hour_list[i].day == 'tue'){
+                          $(".myTueOpn").val(hour_list[i].open_time)
+                            $(".myTueCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'wed'){
+                          $(".myWedOpn").val(hour_list[i].open_time)
+                            $(".myWedCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'thu'){
+                          $(".myThuOpn").val(hour_list[i].open_time)
+                            $(".myThuCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'fri'){
+                          $(".myFriOpn").val(hour_list[i].open_time)
+                            $(".myFriCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'sat'){
+                          $(".mySatOpn").val(hour_list[i].open_time)
+                            $(".mySatCls").val(hour_list[i].close_time)  
+                        }
+                   }
+                   }
+                   else if (response.status == 400){
+                    window.location.reload() 
+                   }     
+                }
+
+            });
+        });
+
+
+$(document).on("click", ".edit_hours", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    location_id = $(this).data('id');
+    monOpn = $(".myMonOpn").val();
+    monCls = $(".myMonCls").val();
+    tueOpn = $(".myTueOpn").val();
+    tueCls = $(".myTueCls").val();
+    wedOpn = $(".myWedOpn").val();
+    wedCls = $(".myWedCls").val();
+    thuOpn = $(".myThuOpn").val();
+    thuCls = $(".myThuCls").val();
+    friOpn = $(".myFriOpn").val();
+    friCls = $(".myFriCls").val();
+    satOpn = $(".mySatOpn").val();
+    satCls = $(".mySatCls").val();
+    satdy  = $("#satdy").val();
+    mondy  = $("#mondy").val();
+    tuedy  = $("#tuedy").val();
+    wedy   = $("#wedy").val();
+    thusdy = $("#thusdy").val();
+    frdy   = $("#frdy").val();
+    satdy   = $("#satdy").val();
+    loc_add = $("#locId").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"location_id":location_id,"monOpn":monOpn,"monCls":monCls,"tueOpn":tueOpn,"tueCls":tueCls,"wedOpn":wedOpn,"wedCls":wedCls,"thuOpn":thuOpn,"thuCls":thuCls,"friOpn":friOpn,"friCls":friCls,"satOpn":satOpn ,"satCls":satCls,"mondy":mondy,"tuedy":tuedy,"wedy":wedy,"thusdy":thusdy,"frdy":frdy,"satdy":satdy,"loc_add":loc_add},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
         });
 });
 </script>
 
-
-
-
-
-<style>
- button.open_popup {
-    background: none;
-    border: none;
-    padding: 0;
-}
-.popup_main img {
-    width: 16px;
-}
-.signup_heading {
-  text-align: left;
-  font-size: 22px;
-  color: #fff;
-  padding-left: 24px;
-  padding-bottom: 10px;
-}
-.nopadd{
-  padding: 0!important;
-}
-.popup_main button:focus {
-    outline: none;
-}
-.popup_close:hover {
-    cursor: pointer;
-}
-.margin_none{
-  padding-top: 95px !important;
-}
-.popup_body{
-  display:none;
-  position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  -webkit-transition: 300ms;
-    -moz-transition: 300ms;
-    -o-transition: 300ms;
-    -ms-transition: 300ms;
-    transition: 300ms;
-}
-.popup_body_show{
-  display:block;
-  -webkit-transition: 300ms;
-    -moz-transition: 300ms;
-    -o-transition: 300ms;
-    -ms-transition: 300ms;
-    transition: 300ms;
-    z-index: 9999999;
-}
-.popup_back{
-  background: rgba(0,0,0,0.4);
-  position: fixed;
-  left:0;right:0;top:0;bottom:0;
-}
-.popup_contain{
-  position: relative;
-  background: #fff;
-  min-width: 300px;
-  max-width: 30%;
-  margin: 150px auto 50px;
-  padding: 10px 20px;
-  color: #222;
-  border-radius: 4px;
-}
-.popup_width p {
-    font-size: 12px;
-    margin: 8px 0;
-}
-.popup_width{
- max-width: 50% !important;
- padding-top: 40px;
-}
-button.save_keyword{
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-button.save_btn {
- background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-button.save_overview{
- background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-
-button.save_price{
- background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-
-button.save_product{
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-button.edit_btn{
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-button.edit_pro{
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-button.save_location{
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-
-}
-.popup_close{
-  background: #23234714;
-    padding: 3px 10px 5px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    color: #222;
-    border-radius: 50%;
-}
-.text_aligntext{
-    text-align: center;
-}
-.popup_main {
-    display: inline-block;
-    float: right;
-    
-}
-.health_insurance{
-    margin:20px 0;
-}
-a.forgot {
-    text-align: left;
-    padding-top: 6px;
-    display: block;
-}
-</style>>
 {% endblock %}

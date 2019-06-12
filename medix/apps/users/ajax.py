@@ -201,9 +201,13 @@ def patient_login(request):
     return JsonResponse({'status':400})
 
 def delete_location(request):
-    location = Location.objects.get(pk=request.GET.get('location_id'))
-    location.delete()
-    return JsonResponse({'status':200})
+    try:
+        location = Location.objects.get(pk=request.GET.get('location_id'))
+        location.delete()
+        return JsonResponse({'status':200})
+    except Exception as e:
+            print("Uh oh, Error : ", str(e))
+            return JsonResponse({'status':400})
 
 def add_location(request):
     if request.method == 'POST':
@@ -236,6 +240,7 @@ def add_location(request):
 
         location_obj = Location.objects.create(user=user,location=request.POST.get("locations"))
         try:
+
             for day, openl, closel in zip(day_list,open_list,close_list):
                 OperatingHours.objects.create(
                     open_time=openl,
@@ -253,7 +258,6 @@ def add_location(request):
 def edit_location(request):
     loc_hour_list=[]
     if request.method == 'POST':
-        # import pdb; pdb.set_trace()
         location_obj = Location.objects.get(id=request.POST.get("location_id"))
         tradHour_obj = OperatingHours.objects.filter(location=location_obj)
         loc_hour_list = [{
@@ -293,9 +297,7 @@ def edit_location_hour(request):
     close_list.append(request.POST.get('satCls'))
     
     location_obj = Location.objects.get(id=request.POST.get("location_id"))
-    location_obj.location = request.POST.get('loc_add')
-    location_obj.save()
-
+    Location.objects.filter(id=request.POST.get("location_id")).update(location = request.POST.get('loc_add'))
     for dayl, openl, closel in zip(day_list,open_list,close_list):
         
         try:

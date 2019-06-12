@@ -16,7 +16,7 @@
         <!-- /breadcrumb -->
 
         <div class="container margin_60">
-            <div class="row">
+            <div class="row" style="transform: none;">
                 <div class="col-xl-8 col-lg-8">
                     <nav id="secondary_nav">
                         <div class="container">
@@ -99,8 +99,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
-                            
+                            </div>  
                             <hr>
                             
                             <!-- /profile -->
@@ -108,9 +107,11 @@
                                 <i class="pe-7s-user"></i>
                                 <h3>Overview</h3>
                                 <div class="popup_main">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
-                                            <div class="popup_body">
-                                              <div class="popup_back"></div>
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png">
+                                    </button>
+                                    <div class="popup_body">
+                                              <div class="popup_back">
+                                              </div>
                                                 <div class="popup_contain popup_width">
                                                   <div class="popup_close">x</div>
                                                    <ul class="contacts">
@@ -125,9 +126,9 @@
                                                     </ul>
                                                     <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-insurance-overview' %}" class="save_overview">save</button>
                                                 </div>
-                                            </div>
-                                          </div>    
-                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
                             <div class="wrapper_indent">
                                 <p id="pra_{{request.user.profile.id}}">
                                     {% if description != None %}
@@ -136,18 +137,16 @@
                                             <img src="../../../static/html_menu_1/img/delete.png">
                                         </a>
                                     {% endif %}
+                                </p>  
+                                <p id="exp_ptag">
+                                    {% if experience != None %}
+                                        Year Of Experience-{{experience}}
+                                        
+                                        <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-experience' %}" class="delete_exp popup_main">
+                                            <img src="../../../static/html_menu_1/img/delete.png">
+                                        </a>
+                                    {% endif %}
                                 </p>
-                                
-                            <p id="exp_ptag">
-                                {% if experience != None %}
-                                    Year Of Experience-{{experience}}
-                                    
-                                    <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-experience' %}" class="delete_exp popup_main">
-                                        <img src="../../../static/html_menu_1/img/delete.png">
-                                    </a>
-                                {% endif %}
-                            </p>
-                                
                             </div>
                             <!-- /wrapper indent -->
 
@@ -156,93 +155,90 @@
                             <div class="indent_title_in">
                                 <i class="pe-7s-cash"></i>
                                 <h3>Items & Prices</h3>
-
                                 <div class="popup_main position_div">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
-
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png">
+                                    </button>
                                     <div class="popup_body">
-                                      <div class="popup_back"></div>
-                                        <div class="popup_contain popup_width">
-                                          <div class="popup_close">x</div>
-                                           <ul class="contacts">
-                                            <h6>Item</h6>
-                                            <input type="text" value="{{item}}" name="item" id="item">
-                                        </ul>
-                                        <ul class="contacts">
-                                            <h6>Price</h6>
-                                            <input type="text" value="{{price}}" name="price" id="price">
-                                        </ul>
-                                        <ul class="contacts">
-                                            <h6>On Request</h6>
-                                            <input type="checkbox" name="on_request" >
-                                        </ul>
-                                         
-                                        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-product' %}" class="save_product save_btncss">save</button>
-                                    </div>
-                                </div>
-                            </div>
-                                
-                            </div>
-                            <div class="wrapper_indent">
-                                
-                                <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Items</th>
-                                            <th>Price</th>
-                                            <th>On Request</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                        {% for product in products %}
-                                        <tr id="education_li_{{product.id}}">
-                                            <td>{{product.item}}</td>
-                                            <td>${{product.price}}</td>
-
-                                            <td>
-                                            {% if product.on_request == True %}
-                                            <input type="checkbox" name="on_request" value="{{product.on_request}}" class="disOnReq" checked>
-                                            {% else %}
-                                            <input type="checkbox" name="on_request" value="{{product.on_request}}" class="disOnReq">
-                                            {%endif%}
-                                            </td>
-                                            <td>
-                                            <div class="popup_main">
-                                            <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
-                                            <a data-id="{{product.id}}" data-url="{% url 'users:product-delete' %}" class="delete_product">
-                                                <img src="../../../static/html_menu_1/img/delete.png">
-                                            </a>
-                                            <div class="popup_body">
-                                              <div class="popup_back"></div>
-                                                <div class="popup_contain popup_width">
-                                                  <div class="popup_close">x</div>
-                                                   <ul class="contacts">
+                                        <div class="popup_back"></div>
+                                            <div class="popup_contain popup_width">
+                                              <div class="popup_close">x</div>
+                                               <ul class="contacts">
                                                     <h6>Item</h6>
-                                                    <input type="text" value="{{product.item}}" name="item" class="editItem">
-                                                    </ul>
-                                                    <ul class="contacts">
-                                                    <h6>Price</h6>
-                                                   <input type="text" value="{{product.price}}" name="price" class="editPrice">
+                                                    <input type="text" value="{{item}}" name="item" id="item">
                                                 </ul>
                                                 <ul class="contacts">
-                                                <h6>On Request</h6>
-                                                {% if product.on_request == True %}
-                                                <input type="checkbox" name="on_req" value="{{product.on_request}}" checked>
-                                                {% else %}
-                                                <input type="checkbox" name="on_req" value="{{product.on_request}}" >
-                                                {% endif %}
+                                                    <h6>Price</h6>
+                                                    <input type="text" value="{{price}}" name="price" id="price">
                                                 </ul>
-                                                <button data-id="{{product.id}}" data-url="{% url 'users:edit-product' %}" class="edit_pro save_btncss">save</button>
-                                                </div>
+                                                <ul class="contacts">
+                                                    <h6>On Request</h6>
+                                                    <input type="checkbox" name="on_request" >
+                                                </ul>
+                                             
+                                                <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-product' %}" class="save_product save_btncss">save</button>
                                             </div>
-                                          </div>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}  
-                                    </tbody>
-                                </table>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="wrapper_indent">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Items</th>
+                                                <th>Price</th>
+                                                <th>On Request</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            {% for product in products %}
+                                            <tr id="education_li_{{product.id}}">
+                                                <td>{{product.item}}</td>
+                                                <td>${{product.price}}</td>
+
+                                                <td>
+                                                {% if product.on_request == True %}
+                                                <input type="checkbox" name="on_request" value="{{product.on_request}}" class="disOnReq" checked>
+                                                {% else %}
+                                                <input type="checkbox" name="on_request" value="{{product.on_request}}" class="disOnReq">
+                                                {%endif%}
+                                                </td>
+                                                <td>
+                                                <div class="popup_main">
+                                                <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                                <a data-id="{{product.id}}" data-url="{% url 'users:product-delete' %}" class="delete_product">
+                                                    <img src="../../../static/html_menu_1/img/delete.png">
+                                                </a>
+                                                <div class="popup_body">
+                                                  <div class="popup_back"></div>
+                                                    <div class="popup_contain popup_width">
+                                                      <div class="popup_close">x</div>
+                                                       <ul class="contacts">
+                                                        <h6>Item</h6>
+                                                        <input type="text" value="{{product.item}}" name="item" class="editItem">
+                                                        </ul>
+                                                        <ul class="contacts">
+                                                        <h6>Price</h6>
+                                                       <input type="text" value="{{product.price}}" name="price" class="editPrice">
+                                                    </ul>
+                                                    <ul class="contacts">
+                                                    <h6>On Request</h6>
+                                                    {% if product.on_request == True %}
+                                                    <input type="checkbox" name="on_req" value="{{product.on_request}}" checked>
+                                                    {% else %}
+                                                    <input type="checkbox" name="on_req" value="{{product.on_request}}" >
+                                                    {% endif %}
+                                                    </ul>
+                                                    <button data-id="{{product.id}}" data-url="{% url 'users:edit-product' %}" class="edit_pro save_btncss">save</button>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}  
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <!--  /wrapper_indent -->
@@ -272,8 +268,7 @@
                                         <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-ambulance-info' %}" class="save_ambulance save_btncss">save</button>
                                     </div>
                                 </div>
-                            </div>
-                                
+                                </div>    
                             </div>
                             <div class="wrapper_indent">
                                 
@@ -323,7 +318,7 @@
                             <hr>
 
                             <div class="indent_title_in">
-                                <i class="pe-7s-news-paper"></i>
+                                <i class="far fa-map-marker-alt"></i>
                                 <h3>Location & Trading Hours</h3>
                                 <div class="popup_main">
                                     <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
@@ -339,7 +334,7 @@
                                             <ul class="contacts open_time">
                                             <li>
                                                 <h6>Day</h6>
-                                                <input type="text" name="mon" value="Mon" id="mon" disabled>
+                                                <input type="text" name="mon" value="mon" id="mon" disabled>
                                             </li>
                                             <li>
                                                 <h6>Opening Time</h6>
@@ -428,9 +423,8 @@
                                         </div>
                                     </div>
                                   </div>
-                                
                             </div>
-                            <div class="wrapper_indent">
+                            <div class="wrapper_indent padding_bottom">
                                 <p></p>
                                 
                                 <ul class="">
@@ -439,27 +433,129 @@
                                         
                                     <strong>
                                         {% ifchanged val.location.location %}
-                                        <a data-id="{{val.location.id}}" data-url="{% url 'users:delete-location' %}" class="delete_location popup_main" >
-                                            <img src="../../../static/html_menu_1/img/delete.png">
-
-                                            </a>
+                                        
                                         {{val.location.location}}
+                                        
+                                        <div class="popup_main">
+                                            <a data-id="{{val.location.id}}" data-url="{% url 'users:delete-location' %}" class="delete_location popup_main" >
+                                            <img src="../../../static/html_menu_1/img/delete.png">
+                                            </a>
+                                            <button class="open_popup float_right edit_location" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location' %}"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <div class="popup_body">
+                                              <div class="popup_back"></div>
+                                                <div class="popup_contain popup_width">
+                                                  <div class="popup_close">x</div>
+                                                    
+                                            <ul class="contacts open_time">
+                                            
 
+                                                <h6>Location</h6>
+                                                <input type="text" value="" name="location" class="locId">
+                                            
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="mon" value="mon" id="mondy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="myMonOpn" value="" class="myMonOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="myMonCls" value="" class="myMonCls" >
+                                            </li>
+                                            
+                                            </ul>
+                                            <ul class="contacts open_time">
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="tue" value="tue" id="tuedy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="myTueOpn" value="" class="myTueOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="myTueCls" value="" class="myTueCls" >
+                                            </li>
+                                            </ul>
+                                            <ul class="contacts open_time">
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="wed" value="wed" id="wedy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="myWedOpn" value="" class="myWedOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="myWedCls" value="{{close_time}}" class="myWedCls" >
+                                            </li>
+                                            </ul>
+                                            <ul class="contacts open_time">
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="thus" value="thu" id="thusdy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="myThuOpn" value="{{open_time}}" class="myThuOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="myThuCls" value="{{close_time}}" class="myThuCls" >
+                                            </li>
+                                            </ul>
+                                            <ul class="contacts open_time">
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="friday" value="fri" id="frdy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="myFriOpn" value="{{open_time}}" class="myFriOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="myFriCls" value="{{close_time}}" class="myFriCls" >
+                                            </li>
+                                            </ul>
+                                           <ul class="contacts open_time">
+                                            <li>
+                                                <h6>Day</h6>
+                                                <input type="text" name="sat" value="sat" id="satdy" disabled>
+                                            </li>
+                                            <li>
+                                                <h6>Opening Time</h6>
+                                                <input type="text" name="mySatOpn" value="" class="mySatOpn" >
+                                            </li>
+                                            <li>
+                                                <h6>Closing Time</h6>
+                                                <input type="text" name="mySatCls" value="" class="mySatCls" >
+                                            </li>
+                                            </ul>
+                                                <button type="submit" class="edit_hours save_btncss" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location-hour' %}">save</button>
+                                                </div>
+                                            </div>
+                                          </div>
                                         {% endifchanged %}
                                     </strong>  
                                     <li id="location_li_{{val.location.id}}">
-                                    {% if val.open_time != None%}
-                                      {{val.day}}-{{val.open_time}}-{{val.close_time}} 
+
+                                        {% if val.open_time != None%}
+                                            {{val.day}}-{{val.open_time}}-{{val.close_time}} 
                                     
-                                    {%endif%}
+                                        {%endif%} 
+                             
                                     </li>
                                     
                                       {% endfor %} 
                                       
-                                </ul>
-                                
-                            </div>
-                           
+                                    </ul>
+
+                                </div>
                             <hr>
                             <div class="indent_title_in">
                                 <i class="pe-7s-news-paper"></i>
@@ -478,7 +574,6 @@
                                         </div>
                                     </div>
                                   </div>
-                                
                             </div>
                             <div class="wrapper_indent">
                                 <p></p>
@@ -516,9 +611,8 @@
                                         </div>
                                     </div>
                                   </div>
-                                
                             </div>
-                            <div class="wrapper_indent">
+                            <div class="wrapper_indent padding_bottom">
                                 
                             </div>
 
@@ -544,14 +638,14 @@
                                             
                                         </div>
                                     </div>
-                                  </div>
+                                </div>
+                            </div>
+                            <div class="wrapper_indent padding_bottom">
                                 
                             </div>
                         </div>
                         <!-- /section_1 -->
                     </div>
-                    <!-- /box_general -->
-
                     <div id="section_2">
                         <div class="box_general_3">
                             <div class="reviews-container">
@@ -679,61 +773,65 @@
                             <div class="text-right"><a href="submit-review.html" class="btn_1">Submit review</a></div>
                         </div>
                     </div>
-                    <!-- /section_2 -->
-                    </div>
-                <!-- /col -->
+                </div>
                 <aside class="col-xl-4 col-lg-4" id="sidebar">
-                    <div class="box_general_3 booking">
-                        <form>
-                            <div class="title">
-                            <h3>Book a Visit</h3>
-                            <small>Monday to Friday 09.00am-06.00pm</small>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" id="booking_date" data-lang="en" data-min-year="2017" data-max-year="2020" data-disabled-days="10/17/2017,11/18/2017">
+                        <div class="box_general_3 booking">
+                            <form>
+                                <div class="title">
+                                <h3>Book a Visit</h3>
+                                <small>Monday to Friday 09.00am-06.00pm</small>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="booking_date" data-lang="en" data-min-year="2017" data-max-year="2020" data-disabled-days="10/17/2017,11/18/2017">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="booking_time" value="9:00 am">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" id="booking_time" value="9:00 am">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /row -->
-                            <ul class="treatments clearfix">
-                                <li>
-                                    <div class="checkbox">
-                                        <input type="checkbox" class="css-checkbox" id="visit1" name="visit1">
-                                        <label for="visit1" class="css-label">Back Pain visit <strong>$55</strong></label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="checkbox">
-                                        <input type="checkbox" class="css-checkbox" id="visit2" name="visit2">
-                                        <label for="visit2" class="css-label">Cardiovascular screen <strong>$55</strong></label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="checkbox">
-                                        <input type="checkbox" class="css-checkbox" id="visit3" name="visit3">
-                                        <label for="visit3" class="css-label">Diabetes consultation <strong>$55</strong></label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="checkbox">
-                                        <input type="checkbox" class="css-checkbox" id="visit4" name="visit4">
-                                        <label for="visit4" class="css-label">General visit <strong>$55</strong></label>
-                                    </div>
-                                </li>
-                            </ul>
-                            <hr>
-                            <a href="booking-page.html" class="btn_1 full-width">Book Now</a>
-                        </form>
-                    </div>
-                    <!-- /box_general -->
+                                <!-- /row -->
+                                <ul class="treatments clearfix">
+                                    <li>
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="css-checkbox" id="visit1" name="visit1">
+                                            <label for="visit1" class="css-label">Back Pain visit <strong>$55</strong></label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="css-checkbox" id="visit2" name="visit2">
+                                            <label for="visit2" class="css-label">Cardiovascular screen <strong>$55</strong></label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="css-checkbox" id="visit3" name="visit3">
+                                            <label for="visit3" class="css-label">Diabetes consultation <strong>$55</strong></label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <input type="checkbox" class="css-checkbox" id="visit4" name="visit4">
+                                            <label for="visit4" class="css-label">General visit <strong>$55</strong></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <hr>
+                                <a href="booking-page.html" class="btn_1 full-width">Book Now</a>
+                            </form>
+                        </div>
                 </aside>
+                <div class="clearfix"></div>
+                <!--box_general -->
+                
+                    <!-- /section_2 -->
+            </div>
+                <!-- /col -->
+               
                 <!-- /asdide -->
             </div>
             <!-- /row -->
@@ -1158,188 +1256,112 @@ $(document).on("click", ".save_location", function(e){
                    }
                    else if (response.status == 400){
                     window.location.reload() 
-                   }
-                 
-            }
+                   }     
+                }
 
+            });
+        });
+
+
+$(document).on("click", ".edit_location", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    location_id = $(this).data('id');
+
+    locationVal = $("#locationId").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {
+            "location_id" : location_id,
+            "locations" : locationVal,
+        },
+        success: function(res) {
+            
+                if(res.status == 200){
+                   var hour_list = res.loc_hour_list;
+                   
+                   for (var i = 0; i < hour_list.length; i++) {
+                        $(".locId").val(hour_list[i].location)
+                        if(hour_list[i].day == 'mon'){
+                            $(".myMonOpn").val(hour_list[i].open_time)
+                            $(".myMonCls").val(hour_list[i].close_time)
+                        }
+                        if(hour_list[i].day == 'tue'){
+                          $(".myTueOpn").val(hour_list[i].open_time)
+                            $(".myTueCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'wed'){
+                          $(".myWedOpn").val(hour_list[i].open_time)
+                            $(".myWedCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'thu'){
+                          $(".myThuOpn").val(hour_list[i].open_time)
+                            $(".myThuCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'fri'){
+                          $(".myFriOpn").val(hour_list[i].open_time)
+                            $(".myFriCls").val(hour_list[i].close_time)  
+                        }
+                        if(hour_list[i].day == 'sat'){
+                          $(".mySatOpn").val(hour_list[i].open_time)
+                            $(".mySatCls").val(hour_list[i].close_time)  
+                        }
+                   }
+                   }
+                   else if (response.status == 400){
+                    window.location.reload() 
+                   }     
+                }
+
+            });
+        });
+
+
+$(document).on("click", ".edit_hours", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    location_id = $(this).data('id');
+    monOpn = $(".myMonOpn").val();
+    monCls = $(".myMonCls").val();
+    tueOpn = $(".myTueOpn").val();
+    tueCls = $(".myTueCls").val();
+    wedOpn = $(".myWedOpn").val();
+    wedCls = $(".myWedCls").val();
+    thuOpn = $(".myThuOpn").val();
+    thuCls = $(".myThuCls").val();
+    friOpn = $(".myFriOpn").val();
+    friCls = $(".myFriCls").val();
+    satOpn = $(".mySatOpn").val();
+    satCls = $(".mySatCls").val();
+    satdy  = $("#satdy").val();
+    mondy  = $("#mondy").val();
+    tuedy  = $("#tuedy").val();
+    wedy   = $("#wedy").val();
+    thusdy = $("#thusdy").val();
+    frdy   = $("#frdy").val();
+    satdy   = $("#satdy").val();
+    loc_add = $("#locId").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"location_id":location_id,"monOpn":monOpn,"monCls":monCls,"tueOpn":tueOpn,"tueCls":tueCls,"wedOpn":wedOpn,"wedCls":wedCls,"thuOpn":thuOpn,"thuCls":thuCls,"friOpn":friOpn,"friCls":friCls,"satOpn":satOpn ,"satCls":satCls,"mondy":mondy,"tuedy":tuedy,"wedy":wedy,"thusdy":thusdy,"frdy":frdy,"satdy":satdy,"loc_add":loc_add},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+            }
         });
 });
 
 </script>
 
-
-<style>
- button.open_popup {
-    background: none;
-    border: none;
-    padding: 0;
-}
-.popup_main img {
-    width: 16px;
-}
-.signup_heading {
-  text-align: left;
-  font-size: 22px;
-  color: #fff;
-  padding-left: 24px;
-  padding-bottom: 10px;
-}
-.nopadd{
-  padding: 0!important;
-}
-.popup_main button:focus {
-    outline: none;
-}
-.popup_close:hover {
-    cursor: pointer;
-}
-.margin_none{
-  padding-top: 95px !important;
-}
-.popup_body{
-  display:none;
-  position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  -webkit-transition: 300ms;
-    -moz-transition: 300ms;
-    -o-transition: 300ms;
-    -ms-transition: 300ms;
-    transition: 300ms;
-}
-.popup_body_show{
-  display:block;
-  -webkit-transition: 300ms;
-    -moz-transition: 300ms;
-    -o-transition: 300ms;
-    -ms-transition: 300ms;
-    transition: 300ms;
-    z-index: 9999999;
-}
-.popup_back{
-  background: rgba(0,0,0,0.4);
-  position: fixed;
-  left:0;right:0;top:0;bottom:0;
-}
-.popup_contain{
-  position: relative;
-  background: #fff;
-  min-width: 300px;
-  max-width: 30%;
-  margin: 150px auto 50px;
-  padding: 10px 20px;
-  color: #222;
-  border-radius: 4px;
-}
-.popup_width p {
-    font-size: 12px;
-    margin: 8px 0;
-}
-.popup_width{
- max-width: 50% !important;
- padding-top: 40px;
-}
-button.save_keyword{
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-button.save_btn {
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-button.save_overview{
- background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-
-button.save_product{
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-button.save_location{
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-
-}
-button.edit_btn{
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-button.edit_pro{
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-}
-
-button.edit_ambuinfo{
-    background: #e74e84;
-    border-radius: 50px;
-    padding: 12px 32px;
-    margin-top: 20px;
-    display: block;
-    margin-right: 0 !important;
-    margin: 25px auto;
-
-}
-
-.popup_close{
-  background: #23234714;
-    padding: 3px 10px 5px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    color: #222;
-    border-radius: 50%;
-}
-.text_aligntext{
-    text-align: center;
-}
-.popup_main {
-    display: inline-block;
-    float: right;
-    
-}
-.health_insurance{
-    margin:20px 0;
-}
-a.forgot {
-    text-align: left;
-    padding-top: 6px;
-    display: block;
-}
-
-</style>>
 {% endblock %}
