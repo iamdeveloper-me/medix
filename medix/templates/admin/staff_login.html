@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+                {{ message }}
+        {% endfor %}
+    </ul>
+{% else %}
+
+{% endif %}
+<form method="post">
+{% csrf_token %}
+{{form.as_p}}
+<p><input type="submit" value="Log in"></input></p>
+</body>
+</html>

@@ -238,15 +238,16 @@ def add_location(request):
         close_list.append(request.POST.get('friCls'))
         close_list.append(request.POST.get('satCls'))
 
-        location_obj = Location.objects.create(user=user,location=request.POST.get("locations"))
+        location_obj = Location.objects.create(user=user,location=request.POST.get("locations"),mobility = request.POST.get('mobility').title())
         try:
 
             for day, openl, closel in zip(day_list,open_list,close_list):
                 OperatingHours.objects.create(
-                    open_time=openl,
-                    close_time=closel,
-                    day=day,
-                    location=location_obj
+                    open_time = openl,
+                    close_time = closel,
+                    day = day,
+                    location = location_obj,
+                    
                 )
 
             return JsonResponse({'status':200}) 
@@ -260,12 +261,14 @@ def edit_location(request):
     if request.method == 'POST':
         location_obj = Location.objects.get(id=request.POST.get("location_id"))
         tradHour_obj = OperatingHours.objects.filter(location=location_obj)
+
         loc_hour_list = [{
             'pk'        : hour.pk,
             'open_time' : hour.open_time,
             'close_time': hour.close_time,
             'day'       : hour.day,
-            'location'  : hour.location.location
+            'location'  : hour.location.location,
+            'mobility'  : hour.location.mobility
         } for hour in tradHour_obj]
         return JsonResponse({'status':200,'loc_hour_list':loc_hour_list}) 
     return JsonResponse({'status':400}) 

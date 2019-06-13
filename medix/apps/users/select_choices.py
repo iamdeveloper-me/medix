@@ -57,3 +57,14 @@ Day_CHOICES = (
     (6, _("Sat")),
     (7, _("Sun"))
 )
+
+STATUS_CHOICES=(
+    (0, _("Open")),
+    (1, _("Close")),
+)
+
+PROFILE_STATUS_CHOICES=(
+    (0, _("Active")),
+    (1, _("Pending")),
+    (2, _("Deactive"))
+)
