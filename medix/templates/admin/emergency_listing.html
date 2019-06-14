@@ -35,7 +35,6 @@
                         <ul class="booking_details">
                             <li><strong>Joined date</strong> {{emergency_user.created_at}}</li>
                             <li><strong>Service Type</strong> {{emergency_user.get_emergency_services_display}}</li>
-                            <li><strong>Experience</strong> {{emergency_user.experience}}</li>
                             <li><strong>Telephone</strong> {{emergency_user.phone}}</li>
                             <li><strong>Email</strong> {{emergency_user.user.email}}</li>
                         </ul>
@@ -120,7 +119,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="/myadmin/logout/">Logout</a>
           </div>
         </div>
       </div>

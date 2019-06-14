@@ -34,8 +34,7 @@
                         </h4>
                         <ul class="booking_details">
                             <li><strong>Joined date</strong> {{inst.created_at}}</li>
-                            <li><strong>Service Type</strong> {{inst.get_emergency_services_display}}</li>
-                            <li><strong>Experience</strong> {{inst.experience}}</li>
+                            <li><strong>Service Type</strong> {{inst.get_institution_display}}</li>
                             <li><strong>Telephone</strong> {{inst.phone}}</li>
                             <li><strong>Email</strong> {{inst.user.email}}</li>
                         </ul>
@@ -120,7 +119,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="/myadmin/logout/">Logout</a>
           </div>
         </div>
       </div>

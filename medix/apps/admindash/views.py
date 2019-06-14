@@ -1,17 +1,20 @@
 from django.views import View
 from django.contrib import messages
 from django.http import HttpResponse,JsonResponse
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 
 from users.models import Profile
+from .forms import CustomAuthForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.decorators import method_decorator
 
 
 def stafflogin(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = CustomAuthForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             if user.is_staff:
@@ -20,10 +23,18 @@ def stafflogin(request):
             else:
                 messages.error(request, 'You are not authorized!')
     else:
-        form = AuthenticationForm()
+        form = CustomAuthForm()
     return render(request, 'admin/staff_login.html', {'form': form})
 
 
+def stafflogout(request):
+    logout(request)
+    messages.success(request, 'Successfully Logged out!')
+    form = CustomAuthForm()
+    return redirect("/myadmin/stafflogin/", {'form': form})
+
+
+@method_decorator(staff_member_required, name='dispatch')
 class MyAdminDashboard(View):
     def get(self, request, *args, **kwargs):
         pateint     = Profile.objects.filter(custom_role__contains=0).count()
@@ -41,6 +52,7 @@ class MyAdminDashboard(View):
         return render(request, 'admin/staff_dashboard.html', data)
 
 
+@method_decorator(staff_member_required, name='dispatch')
 class AccountManagementView(View):
     def get(self, request, *args, **kwargs):
         account = Profile.objects.all()
@@ -58,6 +70,7 @@ class AccountManagementView(View):
         return render(request,'admin/account_management.html',data)
 
 
+@method_decorator(staff_member_required, name='dispatch')
 class PatientListingView(View):
     def get(self, request, *args, **kwargs):
         institution    = Profile.objects.filter(custom_role__contains=0)
@@ -75,6 +88,7 @@ class PatientListingView(View):
         return render(request,'admin/patient_listing.html',data)
 
 
+@method_decorator(staff_member_required, name='dispatch')
 class PracticeListingView(View):
     def get(self, request, *args, **kwargs):
         practice    = Profile.objects.filter(custom_role__contains=1)
@@ -92,6 +106,7 @@ class PracticeListingView(View):
         return render(request,'admin/practice_listing.html',data)
 
 
+@method_decorator(staff_member_required, name='dispatch')
 class InstitutionListingView(View):
     def get(self, request, *args, **kwargs):
         institution    = Profile.objects.filter(custom_role__contains=2)
@@ -109,6 +124,7 @@ class InstitutionListingView(View):
         return render(request,'admin/institution_listing.html',data)
 
 
+@method_decorator(staff_member_required, name='dispatch')
 class EmergencyListingView(View):
     def get(self, request, *args, **kwargs):
         emergency    = Profile.objects.filter(custom_role__contains=3)
@@ -126,6 +142,7 @@ class EmergencyListingView(View):
         return render(request,'admin/emergency_listing.html',data)
 
 
+@method_decorator(staff_member_required, name='dispatch')
 class InsuranceProvidersListingView(View):
     def get(self, request, *args, **kwargs):
         insurance = Profile.objects.filter(custom_role__contains=4)
@@ -188,6 +205,7 @@ def activate_user_ajax(request):
         return JsonResponse(res)
         
 
+@method_decorator(staff_member_required, name='dispatch')
 class StatisticsView(View):
     def get(self, request, *args, **kwargs):
         profiles     = Profile.objects.all()
@@ -202,6 +220,7 @@ class StatisticsView(View):
         return render(request,'admin/statistics.html', data)
 
 
+@method_decorator(staff_member_required, name='dispatch')
 class ActiveAccountStatusView(View):
     def get(self, request, *args, **kwargs):
         user    = Profile.objects.filter(status=0)
@@ -219,6 +238,7 @@ class ActiveAccountStatusView(View):
         return render(request,'admin/active_status_listing.html',data)
 
 
+@method_decorator(staff_member_required, name='dispatch')
 class PendingStatusView(View):
     def get(self, request, *args, **kwargs):
         user    = Profile.objects.filter(status=1)
@@ -236,6 +256,7 @@ class PendingStatusView(View):
         return render(request,'admin/pending_status.html',data)
 
 
+@method_decorator(staff_member_required, name='dispatch')
 class DeactiveAccountStatusView(View):
     def get(self, request, *args, **kwargs):
         user    = Profile.objects.filter(status=2)

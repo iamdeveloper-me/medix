@@ -5,6 +5,7 @@ from django.urls import path, include
 urlpatterns = [
     # Staff Login
     path('stafflogin/', stafflogin, name='stafflogin'),
+    path('logout/', stafflogout, name='stafflogout'),
 
     # Staff Dashboard
     path('dashboard/', MyAdminDashboard.as_view(), name='my-admin-dashboard'),
