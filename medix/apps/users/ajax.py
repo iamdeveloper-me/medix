@@ -237,7 +237,6 @@ def add_location(request):
         close_list.append(request.POST.get('thuCls'))
         close_list.append(request.POST.get('friCls'))
         close_list.append(request.POST.get('satCls'))
-
         location_obj = Location.objects.create(user=user,location=request.POST.get("locations"),mobility = request.POST.get('mobility').title())
         try:
 
@@ -298,9 +297,9 @@ def edit_location_hour(request):
     close_list.append(request.POST.get('thuCls'))
     close_list.append(request.POST.get('friCls'))
     close_list.append(request.POST.get('satCls'))
-    
+    hom = request.POST.get('homVist').title()
     location_obj = Location.objects.get(id=request.POST.get("location_id"))
-    Location.objects.filter(id=request.POST.get("location_id")).update(location = request.POST.get('loc_add'))
+    Location.objects.filter(id=request.POST.get("location_id")).update(location = request.POST.get('loc_add'),mobility=request.POST.get('homVist').title())
     for dayl, openl, closel in zip(day_list,open_list,close_list):
         
         try:

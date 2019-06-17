@@ -327,9 +327,20 @@
                                         <div class="popup_contain popup_width">
                                           <div class="popup_close">x</div>
                                            <ul class="contacts">
-                                            <h6>Location</h6>
+                                            
                                             <form id="save_location22"  method="post" role="form" style="display: block;">{% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                <h6>Location</h6>
                                             <input type="text" value="{{location}}" name="location" id="locationId">
+                                                </div>
+                                                <div class="col-md-6">
+                                                        
+                                                <input type="checkbox" name="mobility">  Mobility
+                                                </div>
+                                                </div>
+                                            
+                                            
                                             </ul>
                                             <ul class="contacts open_time">
                                             <li>
@@ -423,6 +434,7 @@
                                         </div>
                                     </div>
                                   </div>
+                                
                             </div>
                             <div class="wrapper_indent padding_bottom">
                                 <p></p>
@@ -432,10 +444,15 @@
                                     {% for val in opratHour %}
                                         
                                     <strong>
-                                        {% ifchanged val.location.location %}
+                                        
+                                    {% ifchanged val.location.location %}
                                         
                                         {{val.location.location}}
-                                        
+                                        {% if val.location.mobility == True %}
+                                        <input type="checkbox" name="mobility" value="{{val.location.mobility}}" class="homVist mobVist" checked>Mobility
+                                        {% else %}
+                                        <input type="checkbox" name="mobility" value="{{val.location.mobility}}" class="homVist mobVist">Mobility
+                                        {% endif %}
                                         <div class="popup_main">
                                             <a data-id="{{val.location.id}}" data-url="{% url 'users:delete-location' %}" class="delete_location popup_main" >
                                             <img src="../../../static/html_menu_1/img/delete.png">
@@ -445,13 +462,20 @@
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
                                                   <div class="popup_close">x</div>
-                                                    
-                                            <ul class="contacts open_time">
-                                            
-
+                                             <div class="row">
+                                                <div class="col-md-6">
                                                 <h6>Location</h6>
-                                                <input type="text" value="" name="location" class="locId">
-                                            
+                                                <input type="text" value="" name="locationAdd" class="locId">
+                                                </div>
+                                            <div class="col-md-6">
+                                                {% if val.location.mobility == True %}
+                                                <input type="checkbox" name="hom_visit" value="" class="homVist" checked>Mobility
+                                                {% else %}
+                                                <input type="checkbox" name="hom_visit" value="" class="homVist">Mobility
+                                                {% endif %} 
+                                             </div>
+                                             </div>       
+                                            <ul class="contacts open_time">
                                             <li>
                                                 <h6>Day</h6>
                                                 <input type="text" name="mon" value="mon" id="mondy" disabled>
@@ -1203,15 +1227,16 @@ $(document).on("click", ".save_location", function(e){
     url = $(this).data('url');
     profile_id = $(this).data('id');
     locationVal = $("#locationId").val();
+    mobility=$('input[name="mobility"]').prop('checked');
     monOpn = $("#monOpn").val();
     monClos = $("#monCls").val();
     monday = $("#mon").val();
     tueOpn = $("#tueOpn").val();
     tueCls = $("#tueCls").val();
     tueday = $("#tue").val();
-    wedOpn=$("#wedOpn").val(); 
+    wedOpn = $("#wedOpn").val(); 
     wedday = $("#wed").val();
-    wedCls =$("#wedCls").val();               
+    wedCls = $("#wedCls").val();               
     thuOpn = $("#thuOpn").val();  
     thuCls = $("#thuCls").val();
     thuday = $("#thus").val();
@@ -1248,7 +1273,8 @@ $(document).on("click", ".save_location", function(e){
             "friday" : friday , 
             "satOpn" : satOpn,
             "satCls" : satCls,
-            "satday" : satday
+            "satday" : satday,
+            "mobility":mobility
         },
         success: function(response) {
                 if(response.status == 200){
@@ -1287,6 +1313,8 @@ $(document).on("click", ".edit_location", function(e){
                    
                    for (var i = 0; i < hour_list.length; i++) {
                         $(".locId").val(hour_list[i].location)
+                        $(".hom_visit").val(hour_list[i].mobility)
+                        
                         if(hour_list[i].day == 'mon'){
                             $(".myMonOpn").val(hour_list[i].open_time)
                             $(".myMonCls").val(hour_list[i].close_time)
@@ -1345,7 +1373,8 @@ $(document).on("click", ".edit_hours", function(e){
     thusdy = $("#thusdy").val();
     frdy   = $("#frdy").val();
     satdy   = $("#satdy").val();
-    loc_add = $("#locId").val();
+    loc_add = $(".locId").val();
+    homVist = $('input[name="hom_visit"]').prop('checked');
     $.ajax({
         type: "POST",
         url: url,
@@ -1353,7 +1382,7 @@ $(document).on("click", ".edit_hours", function(e){
             "X-CSRFToken": '{{csrf_token}}' 
         },
         dataType: "json",
-        data: {"location_id":location_id,"monOpn":monOpn,"monCls":monCls,"tueOpn":tueOpn,"tueCls":tueCls,"wedOpn":wedOpn,"wedCls":wedCls,"thuOpn":thuOpn,"thuCls":thuCls,"friOpn":friOpn,"friCls":friCls,"satOpn":satOpn ,"satCls":satCls,"mondy":mondy,"tuedy":tuedy,"wedy":wedy,"thusdy":thusdy,"frdy":frdy,"satdy":satdy,"loc_add":loc_add},
+        data: {"location_id":location_id,"monOpn":monOpn,"monCls":monCls,"tueOpn":tueOpn,"tueCls":tueCls,"wedOpn":wedOpn,"wedCls":wedCls,"thuOpn":thuOpn,"thuCls":thuCls,"friOpn":friOpn,"friCls":friCls,"satOpn":satOpn ,"satCls":satCls,"mondy":mondy,"tuedy":tuedy,"wedy":wedy,"thusdy":thusdy,"frdy":frdy,"satdy":satdy,"loc_add":loc_add,"homVist":homVist},
         success: function(response) {
                 if(response.status == 200){
                     window.location.reload()
@@ -1361,6 +1390,9 @@ $(document).on("click", ".edit_hours", function(e){
             }
         });
 });
+
+
+$('.mobVist').attr('disabled',true);
 
 </script>
 
