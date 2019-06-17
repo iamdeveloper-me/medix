@@ -73,7 +73,7 @@ var HeaderVideo = (function ($, document) {
     var appendTeaserVideo = function() {
         if(Modernizr.video && !isMobile()) {
             var source = videoDetails.teaser,
-                html = '<video autoplay="true" loop="loop" muted id="teaser-video" class="teaser-video"><source src="'+source+'.mp4" type="video/mp4"><source src="'+source+'.ogv" type="video/ogg"></video>';
+                html = '<video autoplay="true" loop="loop" muted id="teaser-video" class="teaser-video"><source src="/static/html_menu_1/'+source+'.mp4" type="video/mp4"><source src="'+source+'.ogv" type="video/ogg"></video>';
             settings.container.append(html);
         }
     };

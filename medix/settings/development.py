@@ -23,7 +23,7 @@ EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
 
-ROOT_URL = 'http://localhost:8000'
+ROOT_URL = 'http://localhost:8000/'
 
 # local settings
 try:
