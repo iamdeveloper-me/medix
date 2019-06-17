@@ -29,9 +29,11 @@ class Profile(BaseModel):
     description = models.TextField(_("Descrption"), blank = True, null = True)
     image = models.ImageField(_("Image"),blank = True, null=True)
     experience = models.CharField(_("Experience"), max_length=5, blank = True, null = True)
+
+    status = models.IntegerField(verbose_name=_('Profile Status'), choices=PROFILE_STATUS_CHOICES, default=0,null=True,blank=True)
     
-    def __str__(self):
-        return self.user.email
+    # def __str__(self):
+    #     return self.user.email
 
 
 class Education(BaseModel):
@@ -42,12 +44,14 @@ class Education(BaseModel):
 class Location(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='location', blank = True, null = True)
     location = models.TextField(_("Clinic location"), blank = True, null = True)
+    mobility = models.BooleanField(default=False)
 
 class OperatingHours(BaseModel):
 
     open_time = models.TimeField(_("Strat Time"), blank = True, null = True)
     close_time = models.TimeField(_("End Time"), blank = True, null = True)
     day = models.CharField(_("Day"), max_length=50, blank = True, null = True)
+    status = models.IntegerField(verbose_name=_('Status'), choices=STATUS_CHOICES, blank = True, null = True)
     # day = models.IntegerField(verbose_name=_('Day Type'), choices=Day_CHOICES, blank = True, null = True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location_hour', blank = True, null = True)
     
