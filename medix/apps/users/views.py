@@ -110,6 +110,8 @@ class PracticeSignupStep3View(View):
                 user.username = request.POST.get('email')
                 user.is_active = False
                 user.save()
+                profile.status = 1
+                profile.save()
                 practice_obj = practice_form.save(commit=False)
                 practice_obj.user = user
                 practice_obj.gender = request.POST.get('gender')
@@ -155,7 +157,8 @@ class InstitutionSignupStep3View(View):
                 user.username = request.POST.get('email')
                 user.is_active = False
                 user.save()
-        
+                profile.status = 1
+                profile.save()
                 institution_obj = institution_form.save(commit=False)
                 institution_obj.user = user
                 institution_obj.save()
@@ -182,6 +185,7 @@ class InsuranceProviderSignupStep2View(View):
         return render(self.request,'registration/insurance_provider.html',{'insurance_form':insurance_form,'user_form':user_form})
 
     def post(self, request):
+       
         user_form = UserForm(request.POST)
         # profile = Profile.objects.get(pk=pk)
         insurance_form = InsuranceProviderSignupForm(request.POST)
@@ -229,6 +233,8 @@ class EmergencyServiceSignupStep3View(View):
                 user.username = request.POST.get('email')
                 user.is_active = False
                 user.save()
+                profile.status = 1
+                profile.save()
                 service_obj = service_form.save(commit=False)
                 service_obj.user = user
                 service_obj.save()

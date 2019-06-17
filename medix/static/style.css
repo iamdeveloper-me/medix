@@ -180,12 +180,14 @@ p.error {
     color: #fff;
     border: none;
     border-radius: 50px;
+    margin-top: 10px;
 }
 .open_time li {
     display: inline-block !important;
-    width: 30%;
-    margin: 10px;
+    width: 32.33%;
+    margin: 0px;
 }
+
 .open_time input {
     width: 100%;
 }
@@ -292,10 +294,12 @@ button.open_popup {
     font-size: 12px;
     margin: 8px 0;
 }
-.popup_width{
- max-width: 50% !important;
- padding-top: 40px;
+
+.popup_width {
+    max-width: 50% !important;
+    padding-top: 30px;
 }
+
 button.save_price{
  background: #e74e84;
     border-radius: 50px;
@@ -393,12 +397,12 @@ button.save_location{
     background: #e74e84;
     border-radius: 50px;
     padding: 12px 32px;
-    margin-top: 20px;
     display: block;
     margin-right: 0 !important;
-    margin: 25px auto;
+    margin: 14px auto 0px auto;
 
 }
+
 .popup_close{
   background: #23234714;
     padding: 3px 10px 5px;
@@ -426,8 +430,7 @@ a.forgot {
 }
 .indent_title_in h3 {
     width: 97%;
-    float: left;
-    margin-bottom: 20px;
+    
 }
 .open_popup img{
     width:16px;

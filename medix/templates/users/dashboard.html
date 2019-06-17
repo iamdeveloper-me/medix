@@ -442,9 +442,9 @@
                                         
                                         {{val.location.location}}
                                         {% if val.location.mobility == True %}
-                                        <input type="checkbox" name="mobility" value="{{val.location.mobility}}" class="homVist" checked>Mobility
+                                        <input type="checkbox" name="mobility" value="{{val.location.mobility}}" class="homVist mobVist" checked>Mobility
                                         {% else %}
-                                        <input type="checkbox" name="mobility" value="{{val.location.mobility}}" class="homVist">Mobility
+                                        <input type="checkbox" name="mobility" value="{{val.location.mobility}}" class="homVist mobVist">Mobility
                                         {% endif %}
                                         <div class="popup_main">
                                             <a data-id="{{val.location.id}}" data-url="{% url 'users:delete-location' %}" class="delete_location popup_main" >
@@ -462,7 +462,7 @@
                                                 </div>
                                             <div class="col-md-6">
                                                 {% if val.location.mobility == True %}
-                                                <input type="checkbox" name="hom_visit" value="" class="" checked>Mobility
+                                                <input type="checkbox" name="hom_visit" value="" class="homVist" checked>Mobility
                                                 {% else %}
                                                 <input type="checkbox" name="hom_visit" value="" class="homVist">Mobility
                                                 {% endif %} 
@@ -1252,7 +1252,7 @@ $(document).on("click", ".edit_hours", function(e){
     thusdy = $("#thusdy").val();
     frdy   = $("#frdy").val();
     satdy   = $("#satdy").val();
-    loc_add = $("#locId").val();
+    loc_add = $(".locId").val();
     homVist = $('input[name="hom_visit"]').prop('checked');
     $.ajax({
         type: "POST",
@@ -1270,6 +1270,8 @@ $(document).on("click", ".edit_hours", function(e){
         });
 });
 $('.disOnReq').attr('disabled',true);
+
+$('.mobVist').attr('disabled',true);
 </script>
 
 <script>
