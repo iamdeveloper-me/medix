@@ -204,9 +204,7 @@ class InsuranceProviderSignupStep2View(View):
         return render(self.request,'registration/insurance_provider.html',{'insurance_form':insurance_form,'user_form':user_form})
 
     def post(self, request):
-       
         user_form = UserForm(request.POST)
-        # profile = Profile.objects.get(pk=pk)
         insurance_form = InsuranceProviderSignupForm(request.POST)
         if user_form.is_valid() and insurance_form.is_valid():
             try:
@@ -219,6 +217,9 @@ class InsuranceProviderSignupStep2View(View):
                 insurance_obj.custom_role = 4
                 insurance_obj.user = user
                 insurance_obj.save()
+                profile = Profile.objects.get(user=user)
+                profile.status = 1
+                profile.save()
                 # frm = settings.DEFAULT_FROM_EMAIL
                 # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
                 # html_content = render_to_string('users/email.html',ctx)
