@@ -315,7 +315,7 @@ def search_keyword(request):
     suggestion = request.POST.get('suggestion')
     searchtype = request.POST.get('searchtype')
     if searchtype == 'Patient':
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         profiles = Profile.objects.filter(practice__contains = suggestion)
     elif searchtype == 'Practice':
         profiles = Profile.objects.filter(practice__contains = suggestion)

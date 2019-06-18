@@ -423,7 +423,7 @@ class FindBySpecification(TemplateView):
 class BookNow(TemplateView):
         template_name = 'home/detail-page.html'
 
-
 # class Home(View):
 #     def get(request,self):
 #         return render(request,'html_menu_2/index-2.html')
+
