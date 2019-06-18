@@ -40,13 +40,17 @@
                                     <div class="col-lg-7 col-md-8" id="primary_care">
                                         <small>{{institution}}
                                             <div class="popup_main">
-                                            <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <button class="open_popup"><img src="{% static 'html_menu_1/img/edit.png' %}"></button>
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
                                                   <div class="popup_close">x</div>
                                                    <p>Trading Name</p>
                                                    <input type="text" name="trading_name" value="{{trading_name}}" id="tradName">
+                                                   <ul class="contacts">
+                                                    <p>Email</p> 
+                                                    <input type="text" name="email" value="{{email}}" id="email">
+                                                   </ul>
                                                    <ul class="contacts">
                                                     <p>Address Of Institution</p> 
                                                     <input type="text" name="address_of_institution" value="{{address_of_institution}}" id="address">
@@ -885,6 +889,7 @@ $(document).on("click", ".save_btn", function(e){
     phone = $("#phone").val();
     contactp = $("#contactp").val();
     address = $("#address").val();
+    email = $("#email").val();
     trad_name = $("#tradName").val();
     $.ajax({
         type: "POST",
@@ -893,11 +898,11 @@ $(document).on("click", ".save_btn", function(e){
             "X-CSRFToken": '{{csrf_token}}' 
         },
         dataType: "json",
-        data: {"profile_id":profile_id,"phone":phone,"contactp":contactp,"address":address,"trad_name":trad_name},
+        data: {"profile_id":profile_id,"phone":phone,"contactp":contactp, "email":email, "address":address,"trad_name":trad_name},
         success: function(response) {
-                if(response.status == 200){
-                    window.location.reload()
-                   }  
+            if(response.status == 200){
+                window.location.reload()
+               }  
             }
         });
 });

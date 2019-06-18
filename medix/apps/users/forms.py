@@ -38,7 +38,7 @@ class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = User
-        fields = ['first_name','last_name','email','password']
+        fields = ['first_name','last_name', 'username', 'email','password']
 
 class PracticeUserForm(forms.ModelForm):
     
@@ -47,7 +47,7 @@ class PracticeUserForm(forms.ModelForm):
     first_name = forms.CharField(required=True)
     class Meta:
         model = User
-        fields = ['first_name','last_name','email','password']
+        fields = ['first_name','last_name', 'username', 'email','password']
 
 class PracticeSignupForm(forms.ModelForm):
     phone = forms.CharField(required=True)

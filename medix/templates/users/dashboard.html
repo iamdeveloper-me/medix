@@ -65,6 +65,10 @@
                                                     <input type="text" name="last_name" value="{{last_name}}" id="lastName">
                                                    </ul>
                                                    <ul class="contacts">
+                                                    <p>Email</p> 
+                                                    <input type="text" name="email" value="{{email}}" id="email">
+                                                   </ul>
+                                                   <ul class="contacts">
                                                     <h6>Phone</h6> 
                                                     <input type="number" name="phone" value="{{phone}}" id="phone">
                                                    </ul>
@@ -831,6 +835,7 @@ $(document).on("click", ".save_btn", function(e){
     phone = $("#phone").val();
     firstName = $("#firstName").val();
     lastName = $("#lastName").val();
+    email = $("#email").val();
     gender = $("#id_gender").val();
     $.ajax({
         type: "POST",
@@ -839,11 +844,11 @@ $(document).on("click", ".save_btn", function(e){
             "X-CSRFToken": '{{csrf_token}}' 
         },
         dataType: "json",
-        data: {"profile_id":profile_id,"phone":phone,"firstName":firstName,"lastName":lastName,"gender":gender},
+        data: {"profile_id":profile_id,"phone":phone,"firstName":firstName,"lastName":lastName, "email":email, "gender":gender},
         success: function(response) {
-                if(response.status == 200){
-                    window.location.reload()
-                   }  
+            if(response.status == 200){
+                window.location.reload()
+               }  
             }
         });
 });
