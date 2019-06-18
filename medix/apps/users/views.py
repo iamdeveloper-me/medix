@@ -13,7 +13,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 
 def index(request):
-    if not request.user.is_authenticated:
+    if request.user.is_authenticated:
+        return redirect('user-type/step1/')
+    else:
         return redirect('user-type/step1/')
 
 class UserFormSubmitView(View):
@@ -116,7 +118,7 @@ class PracticeSignupStep3View(View):
             try:
                 user = user_form.save(commit=False)
                 user.set_password(user.password)
-                user.username = request.POST.get('email')
+                user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
                 profile.status = 1
@@ -145,6 +147,7 @@ class PracticeSignupStep3View(View):
 
 class PatientSignupStep2View(View):
     def get(self,request):
+        import pdb; pdb.set_trace()
         patient_form = PatientSignupForm
         user_form = UserForm
         return render(self.request,'registration/patient.html',{'patient_form':patient_form,'user_form':user_form,})
@@ -163,7 +166,7 @@ class InstitutionSignupStep3View(View):
             try:
                 user = user_form.save(commit=False)
                 user.set_password(user.password)
-                user.username = request.POST.get('email')
+                user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
                 profile.status = 1
@@ -200,7 +203,7 @@ class InsuranceProviderSignupStep2View(View):
             try:
                 user = user_form.save(commit=False)
                 user.set_password(user.password)
-                user.username = request.POST.get('email')
+                user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
                 insurance_obj = insurance_form.save(commit=False)
@@ -240,7 +243,7 @@ class EmergencyServiceSignupStep3View(View):
             try:
                 user = user_form.save(commit=False)
                 user.set_password(user.password)
-                user.username = request.POST.get('email')
+                user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
                 profile.status = 1

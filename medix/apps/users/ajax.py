@@ -16,6 +16,7 @@ def edit_profile(request):
         profile.save()
         user.first_name = request.POST.get("firstName")
         user.last_name = request.POST.get("lastName")
+        user.email = request.POST.get("email")
         user.save()
         return JsonResponse({'status':200}) 
 
@@ -88,6 +89,8 @@ def edit_insurance_profile(request):
     if request.method == 'POST':
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
         user = User.objects.get(id=profile.user.id)
+        user.email = request.POST.get('email')
+        user.save()
         profile.phone = request.POST.get("phone")
         profile.contact_person = request.POST.get("contactp")
         profile.address_of_institution = request.POST.get("address")
@@ -152,7 +155,7 @@ def delete_experience(request):
 
 #ajax for login page
 def login_form(request):
-    email = request.POST['email']
+    email = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=email, password=password)
     if user is not None:

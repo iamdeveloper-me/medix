@@ -52,6 +52,10 @@
                                                     <input type="text" name="address_of_institution" value="{{address_of_institution}}" id="address">
                                                    </ul>
                                                    <ul class="contacts">
+                                                    <p>Email</p> 
+                                                    <input type="email" name="email" value="{{email}}" id="email">
+                                                   </ul>
+                                                   <ul class="contacts">
                                                     <h6>Phone</h6> 
                                                     <input type="text" name="phone" value="{{phone}}" id="phone">
                                                    </ul>
@@ -756,6 +760,7 @@ $(document).on("click", ".save_btn", function(e){
     profile_id = $(this).data('id');
     phone = $("#phone").val();
     contactp = $("#contactp").val();
+    email = $("#email").val();
     address = $("#address").val();
     trad_name = $("#tradName").val();
     $.ajax({
@@ -765,7 +770,7 @@ $(document).on("click", ".save_btn", function(e){
             "X-CSRFToken": '{{csrf_token}}' 
         },
         dataType: "json",
-        data: {"profile_id":profile_id,"phone":phone,"contactp":contactp,"address":address,"trad_name":trad_name},
+        data: {"profile_id":profile_id,"phone":phone,"contactp":contactp,"address":address, "email":email, "trad_name":trad_name},
         success: function(response) {
                 if(response.status == 200){
                     window.location.reload()
