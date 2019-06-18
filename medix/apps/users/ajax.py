@@ -308,3 +308,16 @@ def edit_location_hour(request):
         except Exception as e:
             return JsonResponse({'status':200})
     return JsonResponse({'status':200}) 
+
+
+def search_keyword(request):
+    import pdb; pdb.set_trace()
+    suggestion = request.POST.get('suggestion')
+    searchtype = request.POST.get('searchtype')
+    if searchtype == 'Patient':
+        import pdb; pdb.set_trace()
+        profiles = Profile.objects.filter(practice__contains = suggestion)
+    elif searchtype == 'Practice':
+        profiles = Profile.objects.filter(practice__contains = suggestion)
+
+    return JsonResponse({'status':200}) 

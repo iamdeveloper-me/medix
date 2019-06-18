@@ -3,10 +3,14 @@
 {% load staticfiles %}
 {% load i18n %}
 {% block content %}
-    <div id="preloader" class="Fixed">
+    
+    <!--<link href="css/blog.css" rel="stylesheet">-->
+
+    <div id="preloader">
         <div data-loader="circle-side"></div>
     </div>
-    <!-- /Preload-->
+    <!-- End Preload -->
+       
     <main>
         <div id="breadcrumb">
             <div class="container">
@@ -30,7 +34,7 @@
                         <div class="row no-gutters">
                             <div class="col-lg-7">
                                 <figure>
-                                    <a href="{% url 'users:blog-post' %}"><img src="http://via.placeholder.com/800x533.jpg" alt=""><div class="preview"><span>Read more</span></div></a>
+                                    <a href="blog-post.html"><img src="http://via.placeholder.com/800x533.jpg" alt=""><div class="preview"><span>Read more</span></div></a>
                                 </figure>
                             </div>
                             <div class="col-lg-5">
@@ -218,11 +222,11 @@
     </main>
     <!-- /main -->
     
+   
+    <!--/footer-->
 
     <div id="toTop"></div>
-    <!-- Back to top button -->
 
-    
     
 {% endblock %}
 

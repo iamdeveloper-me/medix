@@ -10,7 +10,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
-
+from django.db.models import Q
 
 def index(request):
     if not request.user.is_authenticated:
@@ -51,23 +51,13 @@ class UserTypeStep1View(TemplateView):
 
 class Home(TemplateView):
         template_name = 'users/index-2.html'
+        
+# def search(request):
+#     query = request.GET.get('q')
+#     results = Profile.objects.filter(Q(practice__icontains=query))
+#     return render(request, 'users/index-2.html', {'results': results})
 
-class About_us(TemplateView):
-        template_name = 'users/about.html'
 
-class Blog(TemplateView):
-        template_name = 'users/blog-1.html'
-
-class BlogPost(TemplateView):
-        template_name = 'users/blog-post.html'
-
-class Faq(TemplateView):
-        template_name = 'users/faq.html'
-
-# class Home(View):
-#     def get(request,self):
-#         return render(request,'html_menu_2/index-2.html')
-       
 
 class PracticeStep2CreateView(CreateView):
     model = Profile
@@ -413,3 +403,26 @@ class LogoutView(View):
         if request.user.username:
             logout(request)
         return HttpResponseRedirect('/user-type/step1/')
+
+class About_us(TemplateView):
+        template_name = 'users/about.html'
+
+class Blog(TemplateView):
+        template_name = 'users/blog-1.html'
+
+class BlogPost(TemplateView):
+        template_name = 'users/blog-post.html'
+
+class Faq(TemplateView):
+        template_name = 'users/faq.html'
+
+class FindBySpecification(TemplateView):
+        template_name = 'home/list.html'
+
+class BookNow(TemplateView):
+        template_name = 'home/detail-page.html'
+
+
+# class Home(View):
+#     def get(request,self):
+#         return render(request,'html_menu_2/index-2.html')
