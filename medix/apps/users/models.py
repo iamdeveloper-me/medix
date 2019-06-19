@@ -31,6 +31,7 @@ class Profile(BaseModel):
     experience = models.CharField(_("Experience"), max_length=5, blank = True, null = True)
 
     status = models.IntegerField(verbose_name=_('Profile Status'), choices=PROFILE_STATUS_CHOICES, default=0,null=True,blank=True)
+    document = models.FileField(upload_to='media/',null=True,blank=True)
     
     # def __str__(self):
     #     return self.user.email
