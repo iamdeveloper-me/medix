@@ -57,7 +57,8 @@ urlpatterns = [
 
     path('dashboard/practice/<int:pk>',views.PracticeProfileDetailView.as_view(), name='profile-dashboard'),
 
-       #-------home-----about
+    path('file/upload/<int:pk>',views.file_upload, name='file-upload'),
+    #-------home-----about
     
   
     path('user-type/home/',views.Home.as_view(), name='home-1'),

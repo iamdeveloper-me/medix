@@ -1,6 +1,8 @@
 {% extends 'admin/admin_base.html' %}
   {% block content %}
-
+{% load widget_tweaks %}
+{% load staticfiles %}
+{% load i18n %}
  {% include 'admin/navigation.html' %}
 
   <div class="content-wrapper">
@@ -39,6 +41,19 @@
                             <li><strong>Experience</strong> {{practice.experience}}</li>
                             <li><strong>Telephone</strong> {{practice.phone}}</li>
                             <li><strong>Email</strong> {{practice.user.email}}</li>
+                            <li><strong>Document</strong>
+                            
+                            {% for docimage in practice.Attachment.all %}
+                              <a href="{{ docimage.document.url }}">
+                                
+                                {{ docimage.document.url}}
+                                
+                              </a>
+                              {% empty %}
+                              <!-- no entries -->
+                            {% endfor %}
+                           
+                          </li>
                         </ul>
                     <ul class="buttons">
                     <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> Activate</a></li>
@@ -195,5 +210,28 @@ function active_deactive_user(profile_id,action_is) {
         }
     });
 }
+
+function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            // debugger
+          $('.logohandler img').attr('src', e.target.result);
+          $('.logohandler').attr("style", "display: block;");
+          $('.whitelinkbtn-hide').addClass("whitelinkbtn");
+          $('.whitelinkbtn').removeClass("whitelinkbtn-hide");
+          
+
+        }
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $("#fileUpload").change(function() {
+      readURL(this);
+    });
 </script>
 {% endblock %}

@@ -31,11 +31,9 @@ class Profile(BaseModel):
     experience = models.CharField(_("Experience"), max_length=5, blank = True, null = True)
 
     status = models.IntegerField(verbose_name=_('Profile Status'), choices=PROFILE_STATUS_CHOICES, default=0,null=True,blank=True)
-    document = models.FileField(upload_to='media/',null=True,blank=True)
     
     # def __str__(self):
     #     return self.user.email
-
 
 class Education(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='education', blank = True, null = True)
@@ -56,7 +54,6 @@ class OperatingHours(BaseModel):
     # day = models.IntegerField(verbose_name=_('Day Type'), choices=Day_CHOICES, blank = True, null = True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location_hour', blank = True, null = True)
     
-
 class Product(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Product', blank = True, null = True)
     price = models.FloatField(_("Product Pricing"), blank = True, null = True)
@@ -71,3 +68,7 @@ class AmbulanceService(BaseModel):
 class Keywords(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Keyword', blank = True, null = True)
     keyword = models.CharField(_("Keyword"), max_length=50, blank = True, null = True)
+
+class Attachment(BaseModel):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='Attachment', blank = True, null = True)
+    document = models.FileField(blank=True)

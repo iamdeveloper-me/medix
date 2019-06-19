@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
-from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords
+from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords, Attachment
 from django.contrib.auth.models import User
-from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm
+from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm,PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm, DocumentForm
 from django.views import View
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import messages
@@ -11,6 +11,23 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
+
+
+def file_upload(request,pk):
+    if request.method == 'POST':
+        profile = Profile.objects.get(pk=pk)
+        
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            aa=form.save(commit=False)
+            aa.profile = profile
+            aa.save()
+            return redirect('/file/upload/'+str(pk))
+    else:
+        form = DocumentForm()
+    return render(request, 'users/file_upload.html', {
+        'form': form
+    })
 
 def index(request):
     if request.user.is_authenticated:
@@ -111,6 +128,7 @@ class PracticeSignupStep3View(View):
             {'form':form,'userform':userform,'pk':pk})
 
     def post(self,request,pk):
+        # import pdb; pdb.set_trace()
         user_form = UserForm(request.POST)
         profile = Profile.objects.get(pk=pk)
         practice_form = PracticeSignupForm(request.POST,instance=profile)
@@ -127,12 +145,12 @@ class PracticeSignupStep3View(View):
                 practice_obj.user = user
                 practice_obj.gender = request.POST.get('gender')
                 practice_obj.save()
-                # frm = settings.DEFAULT_FROM_EMAIL
-                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                # html_content = render_to_string('users/email.html',ctx)
-                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                # email.content_subtype = "html" 
-                # email.send()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'pk':pk}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
             except Exception as e:
                 messages.error(self.request, 'Email already exists')
                 return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
@@ -147,7 +165,6 @@ class PracticeSignupStep3View(View):
 
 class PatientSignupStep2View(View):
     def get(self,request):
-        import pdb; pdb.set_trace()
         patient_form = PatientSignupForm
         user_form = UserForm
         return render(self.request,'registration/patient.html',{'patient_form':patient_form,'user_form':user_form,})

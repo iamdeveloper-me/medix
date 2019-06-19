@@ -1,7 +1,12 @@
-from .models import Profile, Education, OperatingHours, AmbulanceService
+from .models import Profile, Education, OperatingHours, AmbulanceService, Attachment
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Attachment
+        fields = ('document',)
 
 class EducationForm(forms.ModelForm):
     class Meta:
