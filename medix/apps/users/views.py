@@ -51,8 +51,7 @@ class PracticeProfileDetailView(View):
 class UserTypeStep1View(TemplateView):
     template_name = 'users/user_type_form.html'
 
-class Home(TemplateView):
-        template_name = 'users/index-2.html'
+
         
 # def search(request):
 #     query = request.GET.get('q')
@@ -147,7 +146,6 @@ class PracticeSignupStep3View(View):
 
 class PatientSignupStep2View(View):
     def get(self,request):
-        import pdb; pdb.set_trace()
         patient_form = PatientSignupForm
         user_form = UserForm
         return render(self.request,'registration/patient.html',{'patient_form':patient_form,'user_form':user_form,})
@@ -408,25 +406,60 @@ class LogoutView(View):
             logout(request)
         return HttpResponseRedirect('/user-type/step1/')
 
+
+class Home(TemplateView):
+        template_name = 'home/home.html'
+
 class About_us(TemplateView):
-        template_name = 'users/about.html'
+        template_name = 'home/about.html'
 
 class Blog(TemplateView):
-        template_name = 'users/blog-1.html'
+        template_name = 'home/blog.html'
 
 class BlogPost(TemplateView):
-        template_name = 'users/blog-post.html'
+        template_name = 'home/blog-post.html'
 
 class Faq(TemplateView):
-        template_name = 'users/faq.html'
+        template_name = 'home/faq.html'
 
-class FindBySpecification(TemplateView):
-        template_name = 'home/list.html'
+# class BookNow(View):
+#     def get(self, request, pk):
+#         import pdb; pdb.set_trace()
+#         user = Profile.objects.get(pk = pk)
+#         return render(request,'home/detail-page.html')
+#         # return render(request,'home/detail-page.html')
+#         # template_name = 'home/detail-page.html'
 
-class BookNow(TemplateView):
-        template_name = 'home/detail-page.html'
+class FindBySpecialisation(View):
+    def get(self, request, *args, **kwargs):
+        profile = Profile.objects.filter(practice=2)
+        return render(request,'home/list.html',{'profile' : profile})     
+        
+class BookNow(DetailView):
+    model = Profile
+    template_name = 'home/detail-page.html'
 
-# class Home(View):
-#     def get(request,self):
-#         return render(request,'html_menu_2/index-2.html')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#         user = User.objects.get(pk = kwargs['pk'])
+#         return render(request,'profile.html',{'user' : user})     

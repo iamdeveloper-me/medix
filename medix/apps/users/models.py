@@ -70,3 +70,4 @@ class AmbulanceService(BaseModel):
 class Keywords(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Keyword', blank = True, null = True)
     keyword = models.CharField(_("Keyword"), max_length=50, blank = True, null = True)
+

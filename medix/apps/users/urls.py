@@ -65,8 +65,8 @@ urlpatterns = [
     path('user-type/blog/',views.Blog.as_view(), name='blog-1'),
     path('user-type/blog-post/',views.BlogPost.as_view(), name='blog-post'),
     path('user-type/faq/',views.Faq.as_view(), name='faq-1'),
-    path('user-type/specialisation/',views.FindBySpecification.as_view(), name='specification'),
-    path('user-type/book-now/',views.BookNow.as_view(), name='book'),
+    path('user-type/specialisation/',views.FindBySpecialisation.as_view(), name='specification'),
+    path('user-type/book-now/<int:pk>/',views.BookNow.as_view(), name='book'),
 
 
 ]

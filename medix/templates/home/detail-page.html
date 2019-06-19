@@ -33,12 +33,12 @@
 								<div class="row">
 									<div class="col-lg-5 col-md-4">
 										<figure>
-											<img src="http://via.placeholder.com/565x565.jpg" alt="" class="img-fluid">
+											<img src="/static/html_menu_1/img/images.jpeg" alt="" class="img-fluid">
 										</figure>
 									</div>
 									<div class="col-lg-7 col-md-8">
-										<small>Primary care - Internist</small>
-										<h1>DR. Julia Jhones</h1>
+										<small>{{object.user.profile.get_practice_display}}</small>
+										<h1>{{object.user.first_name}}</h1>
 										<span class="rating">
 											<i class="icon_star voted"></i>
 											<i class="icon_star voted"></i>
@@ -55,11 +55,11 @@
 										<ul class="contacts">
 											<li>
 												<h6>Address</h6>
-												2726 Shinn Street, New York -
+												{{object.user.profile.address_of_institution}}
 												<a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" target="_blank"> <strong>View on map</strong></a>
 											</li>
 											<li>
-												<h6>Phone</h6> <a href="tel://000434323342">+00043 4323342</a> - <a href="tel://000434323342">+00043 4323342</a></li>
+												<h6>Phone</h6> <a>{{object.user.profile.phone}}</a> - <a href="tel://000434323342">+00043 4323342</a></li>
 										</ul>
 									</div>
 								</div>
@@ -74,8 +74,8 @@
 								<p>Mussum ipsum cacilds, vidis litro abertis.</p>
 							</div>
 							<div class="wrapper_indent">
-								<p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Nullam mollis. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapi.</p>
 								<h6>Specializations</h6>
+								<p>{{object.user.profile.description}}</p>
 								<div class="row">
 									<div class="col-lg-6">
 										<ul class="bullets">
@@ -108,8 +108,9 @@
 							<div class="wrapper_indent">
 								<p>Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Nullam mollis. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapi.</p>
 								<h6>Curriculum</h6>
+								<p>{{object.user.education.qualification}}</p>
 								<ul class="list_edu">
-									<li><strong>New York Medical College</strong> - Doctor of Medicine</li>
+									<li><strong>{{object.user.education.qualification}}</strong> - Doctor of Medicine</li>
 									<li><strong>Montefiore Medical Center</strong> - Residency in Internal Medicine</li>
 									<li><strong>New York Medical College</strong> - Master Internal Medicine</li>
 								</ul>
