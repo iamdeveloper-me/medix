@@ -46,7 +46,8 @@
                             {% for docimage in practice.Attachment.all %}
                               <a href="{{ docimage.document.url }}">
                                 
-                                {{ docimage.document.url}}
+                                {{ docimage.document.url|slice:"7:" }},
+                                &nbsp;
                                 
                               </a>
                               {% empty %}
