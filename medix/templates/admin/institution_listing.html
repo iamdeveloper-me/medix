@@ -23,7 +23,7 @@
                         <input type="hidden" name="profile_id" id="profile_id" value="{{inst.pk}}">
                         <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
                         <h4>
-                            {{inst.user.first_name}} {{inst.user.last_name}}
+                           {{inst.trading_name}}
                   {% if inst.get_status_display == "Active" %}
                       <i class="approved">Active</i>
                   {% elif inst.get_status_display == "Pending" %}

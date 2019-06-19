@@ -10,10 +10,12 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
-
+from django.db.models import Q
 
 def index(request):
-    if not request.user.is_authenticated:
+    if request.user.is_authenticated:
+        return redirect('user-type/step1/')
+    else:
         return redirect('user-type/step1/')
 
 class UserFormSubmitView(View):
@@ -51,23 +53,13 @@ class UserTypeStep1View(TemplateView):
 
 class Home(TemplateView):
         template_name = 'users/index-2.html'
+        
+# def search(request):
+#     query = request.GET.get('q')
+#     results = Profile.objects.filter(Q(practice__icontains=query))
+#     return render(request, 'users/index-2.html', {'results': results})
 
-class About_us(TemplateView):
-        template_name = 'users/about.html'
 
-class Blog(TemplateView):
-        template_name = 'users/blog-1.html'
-
-class BlogPost(TemplateView):
-        template_name = 'users/blog-post.html'
-
-class Faq(TemplateView):
-        template_name = 'users/faq.html'
-
-# class Home(View):
-#     def get(request,self):
-#         return render(request,'html_menu_2/index-2.html')
-       
 
 class PracticeStep2CreateView(CreateView):
     model = Profile
@@ -126,7 +118,7 @@ class PracticeSignupStep3View(View):
             try:
                 user = user_form.save(commit=False)
                 user.set_password(user.password)
-                user.username = request.POST.get('email')
+                user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
                 profile.status = 1
@@ -155,6 +147,7 @@ class PracticeSignupStep3View(View):
 
 class PatientSignupStep2View(View):
     def get(self,request):
+        import pdb; pdb.set_trace()
         patient_form = PatientSignupForm
         user_form = UserForm
         return render(self.request,'registration/patient.html',{'patient_form':patient_form,'user_form':user_form,})
@@ -173,7 +166,7 @@ class InstitutionSignupStep3View(View):
             try:
                 user = user_form.save(commit=False)
                 user.set_password(user.password)
-                user.username = request.POST.get('email')
+                user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
                 profile.status = 1
@@ -210,7 +203,7 @@ class InsuranceProviderSignupStep2View(View):
             try:
                 user = user_form.save(commit=False)
                 user.set_password(user.password)
-                user.username = request.POST.get('email')
+                user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
                 insurance_obj = insurance_form.save(commit=False)
@@ -250,7 +243,7 @@ class EmergencyServiceSignupStep3View(View):
             try:
                 user = user_form.save(commit=False)
                 user.set_password(user.password)
-                user.username = request.POST.get('email')
+                user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
                 profile.status = 1
@@ -414,3 +407,26 @@ class LogoutView(View):
         if request.user.username:
             logout(request)
         return HttpResponseRedirect('/user-type/step1/')
+
+class About_us(TemplateView):
+        template_name = 'users/about.html'
+
+class Blog(TemplateView):
+        template_name = 'users/blog-1.html'
+
+class BlogPost(TemplateView):
+        template_name = 'users/blog-post.html'
+
+class Faq(TemplateView):
+        template_name = 'users/faq.html'
+
+class FindBySpecification(TemplateView):
+        template_name = 'home/list.html'
+
+class BookNow(TemplateView):
+        template_name = 'home/detail-page.html'
+
+
+# class Home(View):
+#     def get(request,self):
+#         return render(request,'html_menu_2/index-2.html')

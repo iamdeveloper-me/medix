@@ -23,14 +23,8 @@ urlpatterns = [
 
     #signup step first
     path('user-type/step1/',views.UserTypeStep1View.as_view(), name='registration-step1'),
-    #-------home-----about
-    path('user-type/home/',views.Home.as_view(), name='home-1'),
-    path('user-type/about/',views.About_us.as_view(), name='about-1'),
-    path('user-type/blog/',views.Blog.as_view(), name='blog-1'),
-    path('user-type/blog-post/',views.BlogPost.as_view(), name='blog-post'),
-    path('user-type/faq/',views.Faq.as_view(), name='faq-1'),
-
-
+   
+    
     #signup step third
     path('practice/signup/step3/<int:pk>',views.PracticeSignupStep3View.as_view(), name='practice-signup'),
     path('emergency-service/signup/step3/<int:pk>',views.EmergencyServiceSignupStep3View.as_view(), name='emergency-service-signup'),
@@ -61,8 +55,23 @@ urlpatterns = [
     
     path('education/detail/<int:pk>',views.EducationDetailView.as_view(), name='education-detail'),
 
-    path('dashboard/practice/<int:pk>',views.PracticeProfileDetailView.as_view(), name='profile-dashboard')
+    path('dashboard/practice/<int:pk>',views.PracticeProfileDetailView.as_view(), name='profile-dashboard'),
+
+       #-------home-----about
+    
+  
+    path('user-type/home/',views.Home.as_view(), name='home-1'),
+    path('user-type/about/',views.About_us.as_view(), name='about-1'),
+    path('user-type/blog/',views.Blog.as_view(), name='blog-1'),
+    path('user-type/blog-post/',views.BlogPost.as_view(), name='blog-post'),
+    path('user-type/faq/',views.Faq.as_view(), name='faq-1'),
+    path('user-type/specialisation/',views.FindBySpecification.as_view(), name='specification'),
+    path('user-type/book-now/',views.BookNow.as_view(), name='book'),
+
+
 ]
+
+
 
 ajaxpatterns = [
     #practice add ,edit ,delete ajax
@@ -105,6 +114,9 @@ ajaxpatterns = [
     path('patient/login/', patient_login, name='patient-login'),
     
     path('edit/location/hour', edit_location_hour, name='edit-location-hour'),
+
+    # search-keyword
+    path('search-keyword/', search_keyword, name='search-keyword'),
     
    
 ]    
