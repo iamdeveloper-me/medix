@@ -671,6 +671,48 @@
                             <div class="wrapper_indent padding_bottom">
                                 
                             </div>
+                            <hr>
+
+                            <div class="indent_title_in">
+                               
+                                <div class="popup_main">
+                                    <a class="open_popup">View Doctors List</a>
+                                    
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                          <div class="popup_close">x</div>
+                                           <ul class="contacts">
+                                            <h6>Doctor Information</h6>
+                                            {% for list in doctorList %}
+                                            
+
+                                            <h6>Speciality</h6>
+                                            
+                                            
+                                            {% if list.is_accept == False %}
+                                                <i class="pending">Pending</i>
+                                            {% else %}
+                                                <i class="approved">Active</i>
+                                            {% endif %}
+
+
+                                            <li>{{list.service_member.profile.get_practice_display}}</li>
+
+                                            <h6>Name</h6>
+                                            <li>{{list.service_member.first_name}}&nbsp;{{list.service_member.last_name}}</li>
+                                            
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                  </div>
+                                 
+                            </div>
+                            <div class="wrapper_indent">
+                                
+                                  
+                            </div>
                         </div>
                         <!-- /section_1 -->
                     </div>

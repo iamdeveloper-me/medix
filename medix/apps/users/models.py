@@ -72,3 +72,8 @@ class Keywords(BaseModel):
 class Attachment(BaseModel):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='Attachment', blank = True, null = True)
     document = models.FileField(blank=True)
+
+class ServiceRequest(BaseModel):
+    service_provider = models.ForeignKey(User, related_name='Service_Provider',on_delete=models.CASCADE, blank = True, null = True)
+    service_member = models.ForeignKey(User, related_name='Service_Member',on_delete=models.CASCADE, blank = True, null = True)
+    is_accept = models.BooleanField(default=False)

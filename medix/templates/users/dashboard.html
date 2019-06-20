@@ -619,6 +619,39 @@
                                     {% endfor %}
                                 </ul>
                             </div>
+
+                            <hr>
+
+                            <div class="indent_title_in">
+                               
+                                <div class="popup_main">
+                                    <a class="open_popup">Add to institution</a>
+                                    
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                          <div class="popup_close">x</div>
+                                           <ul class="contacts">
+                                            <h6>Institution Name</h6>
+                                            
+                                            <select class="instName" name="trading_name">
+                                                {% for list in instList%}
+                                                <option  value="{{list.trading_name}}">{{list.trading_name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                            
+                                            <button data-id="{{request.user.id}}" data-url="{% url 'users:service-request' %}" class="inst_list save_btncss">Request</button>
+                                            
+                                            </ul>
+                                        </div>
+                                    </div>
+                                  </div>
+                                 
+                            </div>
+                            <div class="wrapper_indent">
+                                
+                                  
+                            </div>
                         </div>
                         <!-- /section_1 -->
                     </div>
@@ -828,6 +861,7 @@
    $(".popup_body").removeClass("popup_body_show");
    });
 
+
 $(document).on("click", ".save_btn", function(e){
     e.preventDefault();
     url = $(this).data('url');
@@ -852,6 +886,29 @@ $(document).on("click", ".save_btn", function(e){
             }
         });
 });
+
+
+$("select.instName").change(function(){
+    var trad_name = $(".instName option:selected").val();
+    $(document).on("click", ".inst_list", function(e){
+    url = $(this).data('url');
+    user_id = $(this).data('id');
+        $.ajax({
+            type: "POST",
+            url: url,
+            headers:{
+                "X-CSRFToken": '{{csrf_token}}' 
+            },
+            dataType: "json",
+            data: {"user_id":user_id,"trading_name":trad_name},
+            success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                   }  
+                }
+            });
+        });
+    });
 
 
 $(document).on("click", ".save_des", function(e){

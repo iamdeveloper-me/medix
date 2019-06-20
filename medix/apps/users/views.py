@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
-from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords, Attachment
+from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords, Attachment, ServiceRequest
 from django.contrib.auth.models import User
 from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm,PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm, DocumentForm
 from django.views import View
@@ -55,16 +55,17 @@ class PracticeProfileDetailView(View):
             product = Product.objects.filter(user=user)
             location_obj = Location.objects.filter(user=user)
             keyword = Keywords.objects.filter(user=user)
+            instList = Profile.objects.filter(custom_role=2)
             for loc in location_obj:
                 loc_list.append(loc)
             for val in loc_list:    
                 opratHour = OperatingHours.objects.filter(location=val)
                 for vals in opratHour:  
                     hour_list.append(vals)   
-
+            
             hour = TradingHourForm 
             proInfo = ProfileInfoForm
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list }
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list,'instList':instList }
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 
@@ -368,6 +369,7 @@ class InstitutionDashboardView(View):
             product = Product.objects.filter(user=user)
             ambulanceInfo = AmbulanceService.objects.filter(user=user)
             keyword = Keywords.objects.filter(user=user)
+            doctorList = ServiceRequest.objects.filter(service_provider=user)
             hour = TradingHourForm 
             ambulance = AmbulanceForm
             location_obj = Location.objects.filter(user=user)
@@ -377,7 +379,7 @@ class InstitutionDashboardView(View):
                 opratHour = OperatingHours.objects.filter(location=val)
                 for vals in opratHour:  
                     hour_list.append(vals)
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk, 'hour':hour, 'ambulance':ambulance, 'ambulanceInfo':ambulanceInfo,'opratHour':hour_list }
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk, 'hour':hour, 'ambulance':ambulance, 'ambulanceInfo':ambulanceInfo,'opratHour':hour_list , "doctorList":doctorList}
             return render(request, 'dashboard/institution.html', context)
         return redirect('user-type/step1/')
         

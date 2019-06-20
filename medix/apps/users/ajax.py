@@ -1,11 +1,20 @@
 from django.http import  JsonResponse
 from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
-from .models import Profile, Education, Product, Location, OperatingHours, AmbulanceService, Keywords
+from .models import Profile, Education, Product, Location, OperatingHours, AmbulanceService, Keywords, ServiceRequest
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect,HttpResponse
+
+def service_request(request):
+    trad_name = request.POST.get("trading_name")
+    s_member = User.objects.get(pk=request.POST.get("user_id"))
+    profile = Profile.objects.filter(trading_name=trad_name).values('user')
+    s_provider = User.objects.get(pk=profile[0]['user'])
+    service = ServiceRequest.objects.create(service_member=s_member,service_provider=s_provider,is_accept=False)
+    return JsonResponse({'status':200})  
+
 
 def edit_profile(request):
     if request.method == 'POST':
