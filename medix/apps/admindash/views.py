@@ -91,7 +91,6 @@ class PatientListingView(View):
 @method_decorator(staff_member_required, name='dispatch')
 class PracticeListingView(View):
     def get(self, request, *args, **kwargs):
-        # import pdb; pdb.set_trace()
         practice    = Profile.objects.filter(custom_role__contains=1)
         
         page = request.GET.get('page', 1)

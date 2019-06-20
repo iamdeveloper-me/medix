@@ -16,15 +16,19 @@ from django.db.models import Q
 def file_upload(request,pk):
     if request.method == 'POST':
         profile = Profile.objects.get(pk=pk)
-        
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             aa=form.save(commit=False)
             aa.profile = profile
             aa.save()
+            messages.success(request, 'Successfully uploaded')
+            return redirect('/file/upload/'+str(pk))
+        else:
+            messages.error(request, 'Invalid')
             return redirect('/file/upload/'+str(pk))
     else:
         form = DocumentForm()
+        
     return render(request, 'users/file_upload.html', {
         'form': form
     })
@@ -128,7 +132,6 @@ class PracticeSignupStep3View(View):
             {'form':form,'userform':userform,'pk':pk})
 
     def post(self,request,pk):
-        # import pdb; pdb.set_trace()
         user_form = UserForm(request.POST)
         profile = Profile.objects.get(pk=pk)
         practice_form = PracticeSignupForm(request.POST,instance=profile)
@@ -148,11 +151,11 @@ class PracticeSignupStep3View(View):
                 frm = settings.DEFAULT_FROM_EMAIL
                 ctx = {'root_url':settings.ROOT_URL,'pk':pk}
                 html_content = render_to_string('users/email.html',ctx)
-                email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
+                email = EmailMessage("Attach Id and Registered certificate to click on this link", html_content,frm,to=[user.email])
                 email.content_subtype = "html" 
                 email.send()
             except Exception as e:
-                messages.error(self.request, 'Email already exists')
+                messages.error(self.request, 'Invalid')
                 return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
         else:
             form = PracticeSignupForm
@@ -191,14 +194,14 @@ class InstitutionSignupStep3View(View):
                 institution_obj = institution_form.save(commit=False)
                 institution_obj.user = user
                 institution_obj.save()
-                # frm = settings.DEFAULT_FROM_EMAIL
-                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                # html_content = render_to_string('users/email.html',ctx)
-                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                # email.content_subtype = "html" 
-                # email.send()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'pk':pk}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Attach Id and Registered certificate to click on this link", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
             except Exception as e:
-                messages.error(self.request, 'Email already exists')
+                messages.error(self.request, 'Invalid')
                 return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
         else:
             return render(self.request,'registration/institution.html',
@@ -230,14 +233,14 @@ class InsuranceProviderSignupStep2View(View):
                 profile = Profile.objects.get(user=user)
                 profile.status = 1
                 profile.save()
-                # frm = settings.DEFAULT_FROM_EMAIL
-                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                # html_content = render_to_string('users/email.html',ctx)
-                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                # email.content_subtype = "html" 
-                # email.send()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'pk':profile.id}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Attach Id and Registered certificate to click on this link", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
             except Exception as e:
-                messages.error(self.request, 'Email already exists')
+                messages.error(self.request, 'Invalid')
                 return HttpResponseRedirect('/insurance/signup/step2/')
         else:
             return render(self.request,'registration/emergency_service.html',
@@ -268,14 +271,14 @@ class EmergencyServiceSignupStep3View(View):
                 service_obj = service_form.save(commit=False)
                 service_obj.user = user
                 service_obj.save()
-                # frm = settings.DEFAULT_FROM_EMAIL
-                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                # html_content = render_to_string('users/email.html',ctx)
-                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                # email.content_subtype = "html" 
-                # email.send()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'pk':pk}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Attach Id and Registered certificate to click on this link", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
             except Exception as e:
-                messages.error(self.request, 'Email already exists')
+                messages.error(self.request, 'Invalid')
                 return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
         else:
             return render(self.request,'registration/emergency_service.html',
@@ -326,7 +329,6 @@ class ProfessionalOverviewUpdate(UpdateView):
     template_name = 'dashboard/overview.html'
     success_url = '/create/overview/'
     def form_valid(self, form, **kwargs):
-        # import pdb; pdb.set_trace()
         overview = form.save(commit=False)
         overview.description = self.request.POST.get('description')
         overview.experience = self.request.POST.get('experience')
