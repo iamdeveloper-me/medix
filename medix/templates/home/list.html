@@ -34,7 +34,7 @@
 							<a href="{% url 'users:book' user.pk %}"><img src="/static/html_menu_1/img/images.jpeg" alt=""></a>
 						</figure>
 						<small>{{user.get_practice_display}}</small>
-						<h3>{{user.user.first_name}}</h3>
+						<h3>{{user.user.first_name}}</h3><h3>{{user.user.last_name}}</h3>
 						<p>{{user.description}}</p>
 						<p>Year Of Experience - {{user.experience}}</p>
 						<span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>

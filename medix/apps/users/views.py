@@ -422,22 +422,63 @@ class BlogPost(TemplateView):
 class Faq(TemplateView):
         template_name = 'home/faq.html'
 
+class Specialisation(TemplateView):
+        template_name = 'home/all-specialization.html'
+
 # class BookNow(View):
 #     def get(self, request, pk):
 #         import pdb; pdb.set_trace()
 #         user = Profile.objects.get(pk = pk)
 #         return render(request,'home/detail-page.html')
 #         # return render(request,'home/detail-page.html')
-#         # template_name = 'home/detail-page.html'
+      
 
 class FindBySpecialisation(View):
-    def get(self, request, *args, **kwargs):
-        profile = Profile.objects.filter(practice=2)
+    def get(self,request):
+        specialisation = request.GET.get('find-by-specialisation')
+        if specialisation == 'GeneralPractitioner':
+            profile = Profile.objects.filter(practice=0)
+        if specialisation == 'Dentistry':
+            profile = Profile.objects.filter(practice=1)
+        if specialisation == 'Cardiologist':
+            profile = Profile.objects.filter(practice=2)
+        if specialisation == 'Dermatologist':
+            profile = Profile.objects.filter(practice=3)
+        if specialisation == 'Ear-Nose-Throat':
+            profile = Profile.objects.filter(practice=4)
+        if specialisation == 'Endocrinologist':
+            profile = Profile.objects.filter(practice=5)
+        if specialisation == 'GeneralSurgeon':
+            profile = Profile.objects.filter(practice=6)
+        if specialisation == 'Gynaecologist':
+            profile = Profile.objects.filter(practice=7)
+        if specialisation == 'Nephrologist':
+            profile = Profile.objects.filter(practice=8)
+        if specialisation == 'Oncologist':
+            profile = Profile.objects.filter(practice=9)
+        if specialisation == 'Ophthalmologist':
+            profile = Profile.objects.filter(practice=10)
+        if specialisation == 'Paediatrist':
+            profile = Profile.objects.filter(practice=11)
+        if specialisation == 'Physiotherapist':
+            profile = Profile.objects.filter(practice=12)
+        if specialisation == 'Podiatrist':
+            profile = Profile.objects.filter(practice=13)
+        if specialisation == 'Psychologist':
+            profile = Profile.objects.filter(practice=14)
+        if specialisation == 'Radiologist':
+            profile = Profile.objects.filter(practice=15)  
         return render(request,'home/list.html',{'profile' : profile})     
-        
+
 class BookNow(DetailView):
     model = Profile
     template_name = 'home/detail-page.html'
+    def get_context_data(self, **kwargs):
+         context = super(BookNow, self).get_context_data(**kwargs)
+         # import pdb; pdb.set_trace()
+         context['qualification'] = Education.objects.all()
+         return context
+
 
 
 
