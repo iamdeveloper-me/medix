@@ -57,19 +57,19 @@ urlpatterns = [
 
     path('dashboard/practice/<int:pk>',views.PracticeProfileDetailView.as_view(), name='profile-dashboard'),
 
-    path('user-type/home/',views.Home.as_view(), name='home-1'),
-    path('user-type/about/',views.About_us.as_view(), name='about-1'),
-    path('user-type/blog/',views.Blog.as_view(), name='blog-1'),
-    path('user-type/blog-post/',views.BlogPost.as_view(), name='blog-post'),
-    path('user-type/faq/',views.Faq.as_view(), name='faq-1'),
+    path('home/',views.Home.as_view(), name='home-1'),
+    path('about/',views.About_us.as_view(), name='about-1'),
+    path('blog/',views.Blog.as_view(), name='blog-1'),
+    path('blog-post/',views.BlogPost.as_view(), name='blog-post'),
+    path('faq/',views.Faq.as_view(), name='faq-1'),
 
     #---see all specilization
-    path('user-type/specialisation/',views.Specialisation.as_view(), name='all-specialisation'),
-    path('user-type/',views.FindBySpecialisation.as_view(), name='find-by-specialisation'),
+    path('specialisation/',views.Specialisation.as_view(), name='all-specialisation'),
+    path('list/',views.FindBySpecialisation.as_view(), name='find-by-specialisation'),
 
     
 
-    path('user-type/profile-detail/<int:pk>/',views.ProfileDetail.as_view(), name='book'),
+    path('profile-detail/<int:pk>/',views.ProfileDetail.as_view(), name='book'),
 
 
 ]

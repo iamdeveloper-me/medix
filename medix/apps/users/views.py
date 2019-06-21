@@ -479,7 +479,7 @@ class ProfileDetail(DetailView):
 
         context = super(ProfileDetail, self).get_context_data(**kwargs)
         # context['qualification'] = Education.objects.all()
-        # import pdb; pdb.set_trace()
+        # # import pdb; pdb.set_trace()
         # qualification = Education.objects.filter(qualification=self.get_object('qualification'))
         return context
 
