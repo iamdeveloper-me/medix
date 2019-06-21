@@ -57,8 +57,6 @@ urlpatterns = [
 
     path('dashboard/practice/<int:pk>',views.PracticeProfileDetailView.as_view(), name='profile-dashboard'),
 
-    path('file/upload/<int:pk>',views.file_upload, name='file-upload'),
-
     path('user-type/home/',views.Home.as_view(), name='home-1'),
     path('user-type/about/',views.About_us.as_view(), name='about-1'),
     path('user-type/blog/',views.Blog.as_view(), name='blog-1'),
