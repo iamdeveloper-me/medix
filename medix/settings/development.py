@@ -27,12 +27,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
 
-DEFAULT_FROM_EMAIL = 'vinod.dangi@thoughtwin.com'
+DEFAULT_FROM_EMAIL = 'conipixeji@mailsoul.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
 
 ROOT_URL = 'http://18.218.141.80'
