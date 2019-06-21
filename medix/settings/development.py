@@ -15,6 +15,16 @@ DATABASES = {
     }
 }
 
+
+DEFAULT_FROM_EMAIL = 'preetamthoughtwin@mailinator.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_PORT = 587
+
+ROOT_URL = 'http://18.218.141.80'
 # local settings
 try:
     from .local import *
