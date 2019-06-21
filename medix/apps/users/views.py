@@ -152,7 +152,7 @@ class PracticeSignupStep3View(View):
                 frm = settings.DEFAULT_FROM_EMAIL
                 ctx = {'root_url':settings.ROOT_URL,'pk':pk}
                 html_content = render_to_string('users/email.html',ctx)
-                email = EmailMessage("Attach Id and Registered certificate to click on this link", html_content,frm,to=[user.email])
+                email = EmailMessage("Attach Id and Registered certificate", html_content,frm,to=[user.email])
                 email.content_subtype = "html" 
                 email.send()
             except Exception as e:
@@ -198,7 +198,7 @@ class InstitutionSignupStep3View(View):
                 frm = settings.DEFAULT_FROM_EMAIL
                 ctx = {'root_url':settings.ROOT_URL,'pk':pk}
                 html_content = render_to_string('users/email.html',ctx)
-                email = EmailMessage("Attach Id and Registered certificate to click on this link", html_content,frm,to=[user.email])
+                email = EmailMessage("Attach Id and Registered certificate", html_content,frm,to=[user.email])
                 email.content_subtype = "html" 
                 email.send()
             except Exception as e:
@@ -237,7 +237,7 @@ class InsuranceProviderSignupStep2View(View):
                 frm = settings.DEFAULT_FROM_EMAIL
                 ctx = {'root_url':settings.ROOT_URL,'pk':profile.id}
                 html_content = render_to_string('users/email.html',ctx)
-                email = EmailMessage("Attach Id and Registered certificate to click on this link", html_content,frm,to=[user.email])
+                email = EmailMessage("Attach Id and Registered certificate", html_content,frm,to=[user.email])
                 email.content_subtype = "html" 
                 email.send()
             except Exception as e:
@@ -275,7 +275,7 @@ class EmergencyServiceSignupStep3View(View):
                 frm = settings.DEFAULT_FROM_EMAIL
                 ctx = {'root_url':settings.ROOT_URL,'pk':pk}
                 html_content = render_to_string('users/email.html',ctx)
-                email = EmailMessage("Attach Id and Registered certificate to click on this link", html_content,frm,to=[user.email])
+                email = EmailMessage("Attach Id and Registered certificate", html_content,frm,to=[user.email])
                 email.content_subtype = "html" 
                 email.send()
             except Exception as e:
