@@ -16,6 +16,15 @@ DATABASES = {
 }
 
 
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    PROJECT_APPS.child("static"),
+)
+
+MEDIA_ROOT = PROJECT_APPS.child("media")
+MEDIA_URL = '/media/'
+
+
 DEFAULT_FROM_EMAIL = 'preetamthoughtwin@mailinator.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
