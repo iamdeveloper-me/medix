@@ -18,9 +18,9 @@ def file_upload(request,pk):
         profile = Profile.objects.get(pk=pk)
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            aa=form.save(commit=False)
-            aa.profile = profile
-            aa.save()
+            fileForm=form.save(commit=False)
+            fileForm.profile = profile
+            fileForm.save()
             messages.success(request, 'Successfully uploaded')
             return redirect('/file/upload/'+str(pk))
         else:
