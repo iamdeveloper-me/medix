@@ -27,13 +27,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
 
-DEFAULT_FROM_EMAIL = 'conipixeji@mailsoul.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_USER = 'iamdeveloper_me'
+EMAIL_HOST_PASSWORD = 'Pass@12345'
 EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 ROOT_URL = 'http://18.218.141.80'
 # local settings
