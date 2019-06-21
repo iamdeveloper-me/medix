@@ -37,6 +37,20 @@
                             <li><strong>Service Type</strong> {{emergency_user.get_emergency_services_display}}</li>
                             <li><strong>Telephone</strong> {{emergency_user.phone}}</li>
                             <li><strong>Email</strong> {{emergency_user.user.email}}</li>
+                            <li><strong>Document</strong>
+                            
+                            {% for doc in emergency_user.Attachment.all %}
+                              <a href="{{ doc.document.url }}">
+                                
+                                {{ doc.document.url|slice:"7:" }},
+                                &nbsp;
+                                
+                              </a>
+                              {% empty %}
+                              <!-- no entries -->
+                            {% endfor %}
+                           
+                          </li>
                         </ul>
                     <ul class="buttons">
                       <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> Activate</a></li>

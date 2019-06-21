@@ -92,6 +92,7 @@ class PatientListingView(View):
 class PracticeListingView(View):
     def get(self, request, *args, **kwargs):
         practice    = Profile.objects.filter(custom_role__contains=1)
+        
         page = request.GET.get('page', 1)
         paginator = Paginator(practice, 2)
         try:

@@ -35,7 +35,6 @@ class Profile(BaseModel):
     # def __str__(self):
     #     return self.user.email
 
-
 class Education(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='education', blank = True, null = True)
     qualification = models.CharField(_("Doctor qualification"), max_length=254, blank = True, null = True)
@@ -55,7 +54,6 @@ class OperatingHours(BaseModel):
     # day = models.IntegerField(verbose_name=_('Day Type'), choices=Day_CHOICES, blank = True, null = True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location_hour', blank = True, null = True)
     
-
 class Product(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Product', blank = True, null = True)
     price = models.FloatField(_("Product Pricing"), blank = True, null = True)
@@ -71,3 +69,11 @@ class Keywords(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Keyword', blank = True, null = True)
     keyword = models.CharField(_("Keyword"), max_length=50, blank = True, null = True)
 
+class Attachment(BaseModel):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='Attachment', blank = True, null = True)
+    document = models.FileField(blank=True)
+
+class ServiceRequest(BaseModel):
+    service_provider = models.ForeignKey(User, related_name='Service_Provider',on_delete=models.CASCADE, blank = True, null = True)
+    service_member = models.ForeignKey(User, related_name='Service_Member',on_delete=models.CASCADE, blank = True, null = True)
+    is_accept = models.BooleanField(default=False)

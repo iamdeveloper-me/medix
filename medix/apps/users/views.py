@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
-from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords
+from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords, Attachment, ServiceRequest
 from django.contrib.auth.models import User
-from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm
+from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm,PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm, DocumentForm
 from django.views import View
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import messages
@@ -11,6 +11,27 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q, Count
+
+
+def file_upload(request,pk):
+    if request.method == 'POST':
+        profile = Profile.objects.get(pk=pk)
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            fileForm=form.save(commit=False)
+            fileForm.profile = profile
+            fileForm.save()
+            messages.success(request, 'Successfully uploaded')
+            return redirect('/file/upload/'+str(pk))
+        else:
+            messages.error(request, 'Invalid')
+            return redirect('/file/upload/'+str(pk))
+    else:
+        form = DocumentForm()
+        
+    return render(request, 'users/file_upload.html', {
+        'form': form
+    })
 
 def index(request):
     if request.user.is_authenticated:
@@ -34,16 +55,17 @@ class PracticeProfileDetailView(View):
             product = Product.objects.filter(user=user)
             location_obj = Location.objects.filter(user=user)
             keyword = Keywords.objects.filter(user=user)
+            instList = Profile.objects.filter(custom_role=2)
             for loc in location_obj:
                 loc_list.append(loc)
             for val in loc_list:    
                 opratHour = OperatingHours.objects.filter(location=val)
                 for vals in opratHour:  
                     hour_list.append(vals)   
-
+            
             hour = TradingHourForm 
             proInfo = ProfileInfoForm
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list }
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list,'instList':instList }
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 
@@ -126,14 +148,14 @@ class PracticeSignupStep3View(View):
                 practice_obj.user = user
                 practice_obj.gender = request.POST.get('gender')
                 practice_obj.save()
-                # frm = settings.DEFAULT_FROM_EMAIL
-                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                # html_content = render_to_string('users/email.html',ctx)
-                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                # email.content_subtype = "html" 
-                # email.send()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'pk':pk}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Attach Id and Registered certificate", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
             except Exception as e:
-                messages.error(self.request, 'Email already exists')
+                messages.error(self.request, 'Invalid')
                 return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
         else:
             form = PracticeSignupForm
@@ -172,14 +194,14 @@ class InstitutionSignupStep3View(View):
                 institution_obj = institution_form.save(commit=False)
                 institution_obj.user = user
                 institution_obj.save()
-                # frm = settings.DEFAULT_FROM_EMAIL
-                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                # html_content = render_to_string('users/email.html',ctx)
-                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                # email.content_subtype = "html" 
-                # email.send()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'pk':pk}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Attach Id and Registered certificate", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
             except Exception as e:
-                messages.error(self.request, 'Email already exists')
+                messages.error(self.request, 'Invalid')
                 return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
         else:
             return render(self.request,'registration/institution.html',
@@ -211,14 +233,14 @@ class InsuranceProviderSignupStep2View(View):
                 profile = Profile.objects.get(user=user)
                 profile.status = 1
                 profile.save()
-                # frm = settings.DEFAULT_FROM_EMAIL
-                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                # html_content = render_to_string('users/email.html',ctx)
-                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                # email.content_subtype = "html" 
-                # email.send()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'pk':profile.id}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Attach Id and Registered certificate", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
             except Exception as e:
-                messages.error(self.request, 'Email already exists')
+                messages.error(self.request, 'Invalid')
                 return HttpResponseRedirect('/insurance/signup/step2/')
         else:
             return render(self.request,'registration/emergency_service.html',
@@ -249,14 +271,14 @@ class EmergencyServiceSignupStep3View(View):
                 service_obj = service_form.save(commit=False)
                 service_obj.user = user
                 service_obj.save()
-                # frm = settings.DEFAULT_FROM_EMAIL
-                # ctx = {'root_url':settings.ROOT_URL,'email':request.POST.get('email'),'password':request.POST.get('password')}
-                # html_content = render_to_string('users/email.html',ctx)
-                # email = EmailMessage("Password and email id send on your authorised mail", html_content,frm,to=[user.email])
-                # email.content_subtype = "html" 
-                # email.send()
+                frm = settings.DEFAULT_FROM_EMAIL
+                ctx = {'root_url':settings.ROOT_URL,'pk':pk}
+                html_content = render_to_string('users/email.html',ctx)
+                email = EmailMessage("Attach Id and Registered certificate", html_content,frm,to=[user.email])
+                email.content_subtype = "html" 
+                email.send()
             except Exception as e:
-                messages.error(self.request, 'Email already exists')
+                messages.error(self.request, 'Invalid')
                 return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
         else:
             return render(self.request,'registration/emergency_service.html',
@@ -307,7 +329,6 @@ class ProfessionalOverviewUpdate(UpdateView):
     template_name = 'dashboard/overview.html'
     success_url = '/create/overview/'
     def form_valid(self, form, **kwargs):
-        # import pdb; pdb.set_trace()
         overview = form.save(commit=False)
         overview.description = self.request.POST.get('description')
         overview.experience = self.request.POST.get('experience')
@@ -347,6 +368,7 @@ class InstitutionDashboardView(View):
             product = Product.objects.filter(user=user)
             ambulanceInfo = AmbulanceService.objects.filter(user=user)
             keyword = Keywords.objects.filter(user=user)
+            doctorList = ServiceRequest.objects.filter(service_provider=user)
             hour = TradingHourForm 
             ambulance = AmbulanceForm
             location_obj = Location.objects.filter(user=user)
@@ -356,7 +378,7 @@ class InstitutionDashboardView(View):
                 opratHour = OperatingHours.objects.filter(location=val)
                 for vals in opratHour:  
                     hour_list.append(vals)
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk, 'hour':hour, 'ambulance':ambulance, 'ambulanceInfo':ambulanceInfo,'opratHour':hour_list }
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk, 'hour':hour, 'ambulance':ambulance, 'ambulanceInfo':ambulanceInfo,'opratHour':hour_list , "doctorList":doctorList}
             return render(request, 'dashboard/institution.html', context)
         return redirect('user-type/step1/')
         
