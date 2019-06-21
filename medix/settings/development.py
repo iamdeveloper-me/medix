@@ -16,12 +16,15 @@ DATABASES = {
 }
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    PROJECT_APPS.child("static"),
-)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_ROOT = PROJECT_APPS.child("media")
+STATICFILES_DIRS = [
+   os.path.join(BASE_DIR, "static"),
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
+
 
 DEFAULT_FROM_EMAIL = 'anmol.thoughtwin@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
