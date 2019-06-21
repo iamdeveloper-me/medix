@@ -15,6 +15,7 @@ DATABASES = {
     }
 }
 
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -26,12 +27,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
 
-DEFAULT_FROM_EMAIL = 'anmol.thoughtwin@gmail.com'
+DEFAULT_FROM_EMAIL = 'vinod.dangi@thoughtwin.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
 
 ROOT_URL = 'http://18.218.141.80'
