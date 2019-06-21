@@ -10,7 +10,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
-from django.db.models import Q
+from django.db.models import Q, Count
 
 def index(request):
     if request.user.is_authenticated:
@@ -407,8 +407,9 @@ class LogoutView(View):
         return HttpResponseRedirect('/user-type/step1/')
 
 
-class Home(TemplateView):
-        template_name = 'home/home.html'
+class Home(View):
+    def get(self,request):
+        return render(request,'home/home.html')    
 
 class About_us(TemplateView):
         template_name = 'home/about.html'
@@ -467,17 +468,19 @@ class FindBySpecialisation(View):
         if specialisation == 'Psychologist':
             profile = Profile.objects.filter(practice=14)
         if specialisation == 'Radiologist':
-            profile = Profile.objects.filter(practice=15)  
+            profile = Profile.objects.filter(practice=15)
         return render(request,'home/list.html',{'profile' : profile})     
 
-class BookNow(DetailView):
+
+class ProfileDetail(DetailView):
     model = Profile
     template_name = 'home/detail-page.html'
     def get_context_data(self, **kwargs):
-         context = super(BookNow, self).get_context_data(**kwargs)
-         # import pdb; pdb.set_trace()
-         context['qualification'] = Education.objects.all()
-         return context
+
+        context = super(ProfileDetail, self).get_context_data(**kwargs)
+        # context['qualification'] = Education.objects.all()
+        # qualification = Education.objects.filter(qualification=self.get_object('qualification'))
+        return context
 
 
 

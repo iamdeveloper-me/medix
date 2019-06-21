@@ -71,7 +71,7 @@ urlpatterns = [
 
     
 
-    path('user-type/book-now/<int:pk>/',views.BookNow.as_view(), name='book'),
+    path('user-type/profile-detail/<int:pk>/',views.ProfileDetail.as_view(), name='book'),
 
 
 ]
