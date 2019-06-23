@@ -7,6 +7,30 @@ from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect,HttpResponse
 
+def requested_user(request):
+    service_id = request.POST.get("service_id")
+    service    = ServiceRequest.objects.get(pk=service_id)
+    action_is  = request.POST.get("action_is") #activate/pending
+    if action_is == "acccept":
+        if service.is_accept == True:
+            #User is already Active. Raise Exception
+            raise Exception("This Profile is already ACTIVE!!!")
+        else:
+            service.is_accept = True
+            service.save()
+            res = {'status'  : 200,'message' : "Successfully Activated"}
+    else:
+        # For action_is = pending
+        if service.is_accept == False:
+            #User is already Deactive. Raise Exception
+            raise Exception("This Profile is already PENDING!!!")
+        else:
+            service.is_accept = False
+            service.save()
+            res = {'status'  : 200,'message' : "Changed to Pending!!"}
+    return JsonResponse(res)
+        
+    
 def service_request(request):
     trad_name = request.POST.get("trading_name")
     s_member = User.objects.get(pk=request.POST.get("user_id"))
