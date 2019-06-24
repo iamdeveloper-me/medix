@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
-from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords
+from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords ,ServiceRequest
 from django.contrib.auth.models import User
 from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm, PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm
 from django.views import View
@@ -47,6 +47,7 @@ class PracticeProfileDetailView(View):
             proInfo = ProfileInfoForm
             
             context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list,'instList':instList, 'serviceMember':serviceMember }
+
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 
