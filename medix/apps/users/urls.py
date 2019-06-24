@@ -69,7 +69,8 @@ urlpatterns = [
     path('about/',views.About_us.as_view(), name='about-1'),
     path('blog/',views.Blog.as_view(), name='blog-1'),
     path('blog-post/',views.BlogPost.as_view(), name='blog-post'),
-   path('faq/',views.Faq.as_view(), name='faq-1'),
+    path('faq/',views.Faq.as_view(), name='faq-1'),
+     path('search-keyword/', search_keyword, name='search-keyword'),
 ]
 
 

@@ -121,9 +121,9 @@
                 <div class="col-lg-3 col-md-4">
                     <h5>About</h5>
                     <ul class="links">
-                        <li><a href="#">About us</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="#">FAQ</a></li>
+                         <li><a href="{% url 'users:about-1' %}">About us</a></li>
+                        <li><a href="{% url 'users:blog-1' %}">Blog</a></li>
+                        <li><a href="{% url 'users:faq-1' %}">FAQ</a></li>
                         {% if request.user %}
                             <li><a href="{% url 'users:users-logout' %}">Logout</a></li>
                         {% else %}
