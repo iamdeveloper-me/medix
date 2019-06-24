@@ -57,19 +57,17 @@ urlpatterns = [
 
     path('dashboard/practice/<int:pk>',views.PracticeProfileDetailView.as_view(), name='profile-dashboard'),
 
-    path('home/',views.Home.as_view(), name='home-1'),
-    path('about/',views.About_us.as_view(), name='about-1'),
-    path('blog/',views.Blog.as_view(), name='blog-1'),
-    path('blog-post/',views.BlogPost.as_view(), name='blog-post'),
-    path('faq/',views.Faq.as_view(), name='faq-1'),
-
-    #---see all specilization
-    path('specialisation/',views.Specialisation.as_view(), name='all-specialisation'),
-    path('list/',views.FindBySpecialisation.as_view(), name='find-by-specialisation'),
-
+    path('file/upload/<int:pk>',views.file_upload, name='file-upload'),
+    #-------home-----about
     
-
-    path('profile-detail/<int:pk>/',views.ProfileDetail.as_view(), name='book'),
+  
+    path('user-type/home/',views.Home.as_view(), name='home-1'),
+    path('user-type/about/',views.About_us.as_view(), name='about-1'),
+    path('user-type/blog/',views.Blog.as_view(), name='blog-1'),
+    path('user-type/blog-post/',views.BlogPost.as_view(), name='blog-post'),
+    path('user-type/faq/',views.Faq.as_view(), name='faq-1'),
+    path('user-type/specialisation/',views.FindBySpecification.as_view(), name='specification'),
+    path('user-type/book-now/',views.BookNow.as_view(), name='book'),
 
 
 ]
