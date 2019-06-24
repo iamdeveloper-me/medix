@@ -44,8 +44,11 @@
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
-                                                  <div class="popup_close">x</div>
-                                                   <p>Trading Name</p>
+                                                    <div class="popuptitle">
+                                                      <div class="popup_close">x</div>  
+                                                    </div>
+                                                  <div class="popupbody">
+                                                     <p>Trading Name</p>
                                                    <input type="text" name="trading_name" value="{{trading_name}}" id="tradName">
                                                    <ul class="contacts">
                                                     <p>Address Of Institution</p> 
@@ -62,8 +65,12 @@
                                                    <ul class="contacts">
                                                     <h6>Contact Person</h6> 
                                                     <input type="text" name="contact_person" value="{{contact_person}}" id="contactp">
-                                                   </ul>
-                                                   <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-insurance-profile' %}" class="save_btn">save</button>
+                                                   </ul> 
+                                                  </div>
+                                                   <div class="popupfooter">
+                                                     <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-insurance-profile' %}" class="save_btn">save</button>  
+                                                   </div>
+                                                   
                                                 </div>
                                             </div>
                                           </div>
@@ -109,50 +116,55 @@
                             
                             <!-- /profile -->
                             <div class="indent_title_in">
-                                <i class="pe-7s-user"></i>
-                                <h3>Overview</h3>
-                                <div class="popup_main">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
-                                            <div class="popup_body">
-                                              <div class="popup_back"></div>
-                                                <div class="popup_contain popup_width">
-                                                  <div class="popup_close">x</div>
-                                                   <ul class="contacts">
-                                                    <h6>Description</h6>
-                                                    <textarea type="text" rows="5" cols="22" value="{{description}}" name="description" id="description">{{description}}
-                                                    </textarea>
-                                                   
-                                                    </ul>
-                                                    <ul class="contacts">
-                                                    <h6>Year Of Experience</h6>
-                                                    <input type="text" value="{{experience}}" name="experience" id="experience">
-                                                    </ul>
-                                                    <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-insurance-overview' %}" class="save_overview">save</button>
-                                                </div>
-                                            </div>
-                                          </div>    
+                            <i class="pe-7s-user"></i>
+                            <h3>Overview</h3>
+                            <div class="popup_main">
+                                <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                <div class="popup_body">
+                                    <div class="popup_back"></div>
+                                    <div class="popup_contain popup_width">
+                                        <div class="popuptitle">
+                                            Overview
+                                            <div class="popup_close">x</div>
                                         </div>
-                            <div class="wrapper_indent">
-                                <p id="pra_{{request.user.profile.id}}">
-                                    {% if description != None %}
-                                        {{description}}
-                                        <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-description' %}" class="delete_des popup_main">
-                                            <img src="../../../static/html_menu_1/img/delete.png">
-                                        </a>
-                                    {% endif %}
-                                </p>
-                                
-                            <p id="exp_ptag">
+                                        <div class="popupbody">
+                                            <ul class="contacts">
+                                            <h6>Description</h6>
+                                            <textarea type="text" rows="5" cols="22" value="{{description}}" name="description" id="description">{{description}}
+                                            </textarea>
 
-                                {% if experience != None %}
-                                    Year Of Experience-{{experience}}
-                                    <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-experience' %}" class="delete_exp popup_main">
-                                        <img src="../../../static/html_menu_1/img/delete.png">
-                                    </a>
+                                        </ul>
+                                        <ul class="contacts">
+                                            <h6>Year Of Experience</h6>
+                                            <input type="text" value="{{experience}}" name="experience" id="experience">
+                                        </ul>
+                                        </div>
+                                        <div class="popupfooter">
+                                           <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-insurance-overview' %}" class="save_overview btnsave">save</button> 
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wrapper_indent">
+                            <p id="pra_{{request.user.profile.id}}">
+                                {% if description != None %} {{description}}
+                                <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-description' %}" class="delete_des popup_main">
+                                    <img src="../../../static/html_menu_1/img/delete.png">
+                                </a>
                                 {% endif %}
                             </p>
-                                
-                            </div>
+
+                            <p id="exp_ptag">
+                                {% if experience != None %} Year Of Experience-{{experience}}
+
+                                <a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-experience' %}" class="delete_exp popup_main">
+                                    <img src="../../../static/html_menu_1/img/delete.png">
+                                </a>
+                                {% endif %}
+                            </p>
+                        </div>
                             <!-- /wrapper indent -->
 
                             <hr>
@@ -248,7 +260,7 @@
                             <!--  /wrapper_indent -->
                             <hr>
 
-                            <div class="indent_title_in">
+                             <div class="indent_title_in">
                                 <i class="far fa-map-marker-alt"></i>
                                 <h3>Location & Trading Hours</h3>
                                 <div class="popup_main">
@@ -256,10 +268,16 @@
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
-                                          <div class="popup_close">x</div>
-                                           <ul class="contacts">
+
+                                            <div class="popuptitle">
+                                                Location & Trading Hours
+                                                <div class="popup_close">x</div>
+                                            </div>
+                                          <div class="popupbody">
+                                            <div class="popupscroll">
+                                            <ul class="contacts">
                                             
-                                            <form id="save_location22"  method="post" role="form" style="display: block;">{% csrf_token %}
+                                            
                                             <div class="row">
                                                 <div class="col-md-6">
                                                 <h6>Location</h6>
@@ -358,10 +376,16 @@
                                                 <input type="text" name="satCls" value="{{close_time}}" id="satCls" >
                                             </li>
                                             </ul>
-                                            
-                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location save_btncss">save</button>
+                                            </div>
+                                              
+                                          </div>
+                                           
+                                            <div class="popupfooter">
+                                                <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location btnsave">save</button>
 
-                                        </form>
+                                            </div>
+                                            
+                                        
                                         </div>
                                     </div>
                                   </div>
@@ -392,8 +416,13 @@
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
-                                                  <div class="popup_close">x</div>
-                                             <div class="row">
+                                                <div class="popuptitle">
+                                                    Edit Location & Trading Hours
+                                                    <div class="popup_close">x</div>
+                                                </div>
+                                                <div class="popupbody">
+                                                    <div class="popupscroll">
+                                                        <div class="row">
                                                 <div class="col-md-6">
                                                 <h6>Location</h6>
                                                 <input type="text" value="" name="locationAdd" class="locId">
@@ -491,8 +520,14 @@
                                                 <input type="text" name="mySatCls" value="" class="mySatCls" >
                                             </li>
                                             </ul>
-                                                <button type="submit" class="edit_hours save_btncss" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location-hour' %}">save</button>
+                                               
                                                 </div>
+                                                 <div class="popupfooter">
+                                                     <button type="submit" class="edit_hours save_btncss" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location-hour' %}">save</button>
+                                                </div>
+                                                </div>
+                                               
+                                                </div> 
                                             </div>
                                           </div>
                                         {% endifchanged %}
@@ -523,24 +558,40 @@
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
-                                          <div class="popup_close">x</div>
-                                           <ul class="contacts">
+                                        <div class="popuptitle">
+                                            Keywords
+                                            <div class="popup_close">x</div>
+                                        </div>
+                                          <div class="popupbody">
+                                            <ul class="contacts">
                                             <h6>keyword</h6>
                                             <input type="text" value="" name="keyword" id="keyword">
                                             </ul>
-                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-insurance-keyword' %}" class="save_keyword">save</button>
+                                          </div>
+                                           <div class="popupfooter">
+                                               <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-keyword' %}" class="save_keyword save_btncss">save</button> 
+                                           </div>
+                                           
                                         </div>
                                     </div>
-                                  </div>
-                                
+                                  </div>  
                             </div>
-                            <div class="wrapper_indent padding_bottom">
+                            <div class="wrapper_indent">
                                 <p></p>
                                 
                                 <ul class="" id="delekeyul">
-                                    
                                     {% for key in keyword %}
+                                    {% if key.keyword != None %}
+                                    
                                     <li class="popup_spanlist"><span id="rmoveChip"> {{key.keyword}} <a data-id="{{key.id}}" data-url="{% url 'users:delete-keyword' %}" class="delete_keyword chipsCLose" >×</a></span></li>
+                                    
+                                    <!--<a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-keyword' %}" class="delete_keyword popup_main" >
+                                       <img src="../../../static/html_menu_1/img/delete.png">
+                                    </a>
+
+                                    <li class="popup_spanlist"><span id="rmoveChip"> {{key.keyword}} <i class="chipsCLose">×</i></span></li>
+                                     -->
+                                    {% endif %}
                                     {% endfor %}
                                 </ul>
                             </div>

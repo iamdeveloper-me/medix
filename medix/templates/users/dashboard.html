@@ -57,8 +57,12 @@
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
-                                                  <div class="popup_close">x</div>
-                                                   <p>First Name</p>
+                                                    <div class="popuptitle">
+                                                        Edit Profile Details
+                                                      <div class="popup_close">x</div>  
+                                                    </div>
+                                                  <div class="popupbody">
+                                                      <p>First Name</p>
                                                    <input type="text" name="first_name" value="{{first_name}}" id="firstName">
                                                    <ul class="contacts">
                                                     <p>Last Name</p> 
@@ -77,7 +81,11 @@
                                                     {{gender}}
                                                     {{proInfo.gender}}
                                                     </ul>
-                                                   <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-profile' %}" class="save_btn save_btncss">save</button>
+                                                  </div>
+                                                   <div class="popupfooter">
+                                                     <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-profile' %}" class="save_btn btnsave">save</button>  
+                                                   </div>
+                                                   
                                                 </div>
                                             </div>
                                           </div>
@@ -127,8 +135,12 @@
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
-                                                  <div class="popup_close">x</div>
-                                                   <ul class="contacts">
+                                                <div class="popuptitle">
+                                                    Professional statement
+                                                   <div class="popup_close">x</div> 
+                                                </div>
+                                                  <div class="popupbody">
+                                                     <ul class="contacts">
                                                     <h6>Description</h6>
                                                     <textarea type="text" rows="5" cols="22" value="{{description}}" name="description" id="description">{{description}}
                                                     </textarea>
@@ -137,8 +149,12 @@
                                                     <ul class="contacts">
                                                     <h6>Year Of Experience</h6>
                                                     <input type="text" value="{{experience}}" name="experience" id="experience">
-                                                    </ul>
-                                                    <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-statement' %}" class="save_des save_btncss">save</button>
+                                                    </ul> 
+                                                  </div>
+                                                   <div class="popupfooter">
+                                                     <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-statement' %}" class="save_des save_btncss">save</button>  
+                                                   </div>
+                                                    
                                                 </div>
                                             </div>
                                           </div>    
@@ -176,12 +192,20 @@
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
-                                          <div class="popup_close">x</div>
-                                           <ul class="contacts">
-                                            <h6>Qualification</h6>
-                                            <input type="text" value="{{qualification}}" name="qualification" id="qualification">
-                                            </ul>
-                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-education' %}" class="save_edu save_btncss">save</button>
+                                            <div class="popuptitle">
+                                                Education
+                                                <div class="popup_close">x</div>
+                                            </div>
+                                            <div class="popupbody">
+                                               <ul class="contacts">
+                                                <h6>Qualification</h6>
+                                                <input type="text" value="{{qualification}}" name="qualification" id="qualification">
+                                                </ul> 
+                                            </div>
+                                           <div class="popupfooter">
+                                              <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-education' %}" class="save_edu btnsave">save</button> 
+                                           </div>
+                                            
                                         </div>
                                     </div>
                                   </div>
@@ -202,9 +226,17 @@
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
-                                                  <div class="popup_close">x</div>
-                                                   <input type="text" value="{{education.qualification}}" class="mycloseclass" name="qualification">
-                                                <button data-id="{{education.id}}"  data-url="{% url 'users:edit-education' %}" class="edit_btn save_btncss">save</button>
+                                                    <div class="popuptitle">
+                                                        Edit Education Detail
+                                                        <div class="popup_close">x</div>
+                                                    </div>
+                                                  <div class="popupbody">
+                                                     <input type="text" value="{{education.qualification}}" class="mycloseclass" name="qualification"> 
+                                                  </div>
+                                                   <div class="popupfooter">
+                                                       <button data-id="{{education.id}}"  data-url="{% url 'users:edit-education' %}" class="edit_btn btnsave">save</button>
+                                                   </div>
+                                                
                                                 </div>
                                             </div>
                                           </div>
@@ -221,93 +253,106 @@
                             <div class="indent_title_in">
                                 <i class="pe-7s-cash"></i>
                                 <h3>Items & Prices</h3>
-
                                 <div class="popup_main position_div">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
-
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png">
+                                    </button>
                                     <div class="popup_body">
-                                      <div class="popup_back"></div>
-                                        <div class="popup_contain popup_width">
-                                          <div class="popup_close">x</div>
-                                           <ul class="contacts">
-                                            <h6>Item</h6>
-                                            <input type="text" value="{{item}}" name="item" id="item">
-                                        </ul>
-                                        <ul class="contacts">
-                                            <h6>Price</h6>
-                                            <input type="text" value="{{price}}" name="price" id="price">
-                                        </ul>
-                                        <ul class="contacts">
-                                            <h6>On Request</h6>
-                                            <input type="checkbox" name="on_request" >
-                                        </ul>
-                                         
-                                        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-product' %}" class="save_product save_btncss">save</button>
-                                    </div>
-                                </div>
-                            </div>
-                                
-                            </div>
-                            <div class="wrapper_indent">
-                                
-                                <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Items</th>
-                                            <th>Price</th>
-                                            <th>On Request</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                        {% for product in products %}
-                                        <tr id="education_li_{{product.id}}">
-                                            <td>{{product.item}}</td>
-                                            <td>${{product.price}}</td>
-
-                                            <td>
-                                            {% if product.on_request == True %}
-                                            <input type="checkbox" name="on_request" value="{{product.on_request}}" class="disOnReq" checked>
-                                            {% else %}
-                                            <input type="checkbox" name="on_request" value="{{product.on_request}}" class="disOnReq">
-                                            {%endif%}
-                                            </td>
-                                            <td>
-                                            <div class="popup_main">
-                                            <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
-                                            <a data-id="{{product.id}}" data-url="{% url 'users:product-delete' %}" class="delete_product">
-                                                <img src="../../../static/html_menu_1/img/delete.png">
-                                            </a>
-                                            <div class="popup_body">
-                                              <div class="popup_back"></div>
-                                                <div class="popup_contain popup_width">
-                                                  <div class="popup_close">x</div>
-                                                   <ul class="contacts">
-                                                    <h6>Item</h6>
-                                                    <input type="text" value="{{product.item}}" name="item" class="editItem">
-                                                    </ul>
+                                        <div class="popup_back"></div>
+                                            <div class="popup_contain popup_width">
+                                                <div class="popuptitle">
+                                                    Item & Prices
+                                                    <div class="popup_close">x</div>
+                                                </div>
+                                                <div class="popupbody">
                                                     <ul class="contacts">
-                                                    <h6>Price</h6>
-                                                   <input type="text" value="{{product.price}}" name="price" class="editPrice">
+                                                    <h6>Item</h6>
+                                                    <input type="text" value="{{item}}" name="item" id="item">
                                                 </ul>
                                                 <ul class="contacts">
-                                                <h6>On Request</h6>
-                                                {% if product.on_request == True %}
-                                                <input type="checkbox" name="on_req" value="{{product.on_request}}" checked>
-                                                {% else %}
-                                                <input type="checkbox" name="on_req" value="{{product.on_request}}" >
-                                                {% endif %}
+                                                    <h6>Price</h6>
+                                                    <input type="text" value="{{price}}" name="price" id="price">
                                                 </ul>
-                                                <button data-id="{{product.id}}" data-url="{% url 'users:edit-product' %}" class="edit_pro save_btncss">save</button>
+                                                <ul class="contacts">
+                                                    <h6>On Request</h6>
+                                                    <input type="checkbox" name="on_request" >
+                                                </ul>
                                                 </div>
+                                               <div class="popupfooter">
+                                                   <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-product' %}" class="save_product btnsave">save</button>
+                                               </div>
+                                             
+                                                
                                             </div>
-                                          </div>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}  
-                                    </tbody>
-                                </table>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="wrapper_indent">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Items</th>
+                                                <th>Price</th>
+                                                <th>On Request</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            {% for product in products %}
+                                            <tr id="education_li_{{product.id}}">
+                                                <td>{{product.item}}</td>
+                                                <td>${{product.price}}</td>
+
+                                                <td>
+                                                {% if product.on_request == True %}
+                                                <input type="checkbox" name="on_request" value="{{product.on_request}}" class="disOnReq" checked>
+                                                {% else %}
+                                                <input type="checkbox" name="on_request" value="{{product.on_request}}" class="disOnReq">
+                                                {%endif%}
+                                                </td>
+                                                <td>
+                                                <div class="popup_main">
+                                                <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                                <a data-id="{{product.id}}" data-url="{% url 'users:product-delete' %}" class="delete_product">
+                                                    <img src="../../../static/html_menu_1/img/delete.png">
+                                                </a>
+                                                <div class="popup_body">
+                                                  <div class="popup_back"></div>
+                                                    <div class="popup_contain popup_width">
+                                                    <div class="popuptitle">
+                                                        Edit Item & Prices
+                                                        <div class="popup_close">x</div>
+                                                    </div>
+                                                    <div class="popupbody">
+                                                         <ul class="contacts">
+                                                        <h6>Item</h6>
+                                                        <input type="text" value="{{product.item}}" name="item" class="editItem">
+                                                        </ul>
+                                                        <ul class="contacts">
+                                                        <h6>Price</h6>
+                                                       <input type="text" value="{{product.price}}" name="price" class="editPrice">
+                                                    </ul>
+                                                    <ul class="contacts">
+                                                    <h6>On Request</h6>
+                                                    {% if product.on_request == True %}
+                                                    <input type="checkbox" name="on_req" value="{{product.on_request}}" checked>
+                                                    {% else %}
+                                                    <input type="checkbox" name="on_req" value="{{product.on_request}}" >
+                                                    {% endif %}
+                                                    </ul> 
+                                                    </div>
+                                                     <div class="popupfooter">
+                                                        <button data-id="{{product.id}}" data-url="{% url 'users:edit-product' %}" class="edit_pro btnsave">save</button>  
+                                                     </div>  
+                                                   
+                                                    </div>
+                                                </div>
+                                              </div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}  
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <!--  /wrapper_indent -->
@@ -322,10 +367,16 @@
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
-                                          <div class="popup_close">x</div>
-                                           <ul class="contacts">
+
+                                            <div class="popuptitle">
+                                                Location & Trading Hours
+                                                <div class="popup_close">x</div>
+                                            </div>
+                                          <div class="popupbody">
+                                            <div class="popupscroll">
+                                            <ul class="contacts">
                                             
-                                            <form id="save_location22"  method="post" role="form" style="display: block;">{% csrf_token %}
+                                            
                                             <div class="row">
                                                 <div class="col-md-6">
                                                 <h6>Location</h6>
@@ -424,10 +475,16 @@
                                                 <input type="text" name="satCls" value="{{close_time}}" id="satCls" >
                                             </li>
                                             </ul>
-                                            
-                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location save_btncss">save</button>
+                                            </div>
+                                              
+                                          </div>
+                                           
+                                            <div class="popupfooter">
+                                                <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location btnsave">save</button>
 
-                                        </form>
+                                            </div>
+                                            
+                                        
                                         </div>
                                     </div>
                                   </div>
@@ -458,8 +515,13 @@
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
-                                                  <div class="popup_close">x</div>
-                                             <div class="row">
+                                                <div class="popuptitle">
+                                                    Edit Location & Trading Hours
+                                                    <div class="popup_close">x</div>
+                                                </div>
+                                                <div class="popupbody">
+                                                    <div class="popupscroll">
+                                                        <div class="row">
                                                 <div class="col-md-6">
                                                 <h6>Location</h6>
                                                 <input type="text" value="" name="locationAdd" class="locId">
@@ -557,8 +619,14 @@
                                                 <input type="text" name="mySatCls" value="" class="mySatCls" >
                                             </li>
                                             </ul>
-                                                <button type="submit" class="edit_hours save_btncss" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location-hour' %}">save</button>
+                                               
                                                 </div>
+                                                 <div class="popupfooter">
+                                                     <button type="submit" class="edit_hours save_btncss" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location-hour' %}">save</button>
+                                                </div>
+                                                </div>
+                                               
+                                                </div> 
                                             </div>
                                           </div>
                                         {% endifchanged %}
@@ -577,7 +645,6 @@
                                     </ul>
 
                                 </div>
-                           
                                
                             <hr>
 
@@ -589,16 +656,23 @@
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
-                                          <div class="popup_close">x</div>
-                                           <ul class="contacts">
+                                        <div class="popuptitle">
+                                            Keywords
+                                            <div class="popup_close">x</div>
+                                        </div>
+                                          <div class="popupbody">
+                                            <ul class="contacts">
                                             <h6>keyword</h6>
                                             <input type="text" value="" name="keyword" id="keyword">
                                             </ul>
-                                            <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-keyword' %}" class="save_keyword save_btncss">save</button>
+                                          </div>
+                                           <div class="popupfooter">
+                                               <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-keyword' %}" class="save_keyword save_btncss">save</button> 
+                                           </div>
+                                           
                                         </div>
                                     </div>
-                                  </div>
-                                
+                                  </div>  
                             </div>
                             <div class="wrapper_indent">
                                 <p></p>
@@ -630,8 +704,11 @@
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
-                                          <div class="popup_close">x</div>
-                                           <ul class="contacts">
+                                        <div class="popuptitle">
+                                            Add to institution
+                                            <div class="popup_close">x</div>
+                                        </div>
+                                        <div class="popupbody">
                                             <h6>Institution Name</h6>
 
                                             <select class="instName" name="trading_name">
@@ -642,25 +719,28 @@
                                                 {% endfor %}
                                             </select>
                                             
-                                            <button data-id="{{request.user.id}}" data-url="{% url 'users:service-request' %}" class="inst_list save_btncss">Request</button>
-                                            <div>
-                                                <ul>
-                                                {%for service in serviceMember%}
-                                                {% if service.is_accept == True %}
-                                                <li>Accepted by {{service.service_provider.profile.trading_name}} Institution</li>
-                                                {% endif %}
-                                            {%endfor%}
-                                            </ul>
-                                            </div>
-                                            </ul>
+                                        </div>
+                                           <div class="popupfooter">
+                                               <button data-id="{{request.user.id}}" data-url="{% url 'users:service-request' %}" class="inst_list save_btncss">Request</button>
+                                           </div>
+                                            
+                                            
+                                            
                                         </div>
                                     </div>
                                   </div>
                                  
                             </div>
                             <div class="wrapper_indent">
-                                
-                                  
+                                <div>
+                                    <ul>
+                                        {%for service in serviceMember%}
+                                            {% if service.is_accept == True %}
+                                                <li>Accepted by {{service.service_provider.profile.trading_name}} Institution</li>
+                                            {% endif %}
+                                        {%endfor%}
+                                    </ul>
+                                </div> 
                             </div>
                         </div>
                         <!-- /section_1 -->
