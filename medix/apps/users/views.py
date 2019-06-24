@@ -430,17 +430,21 @@ class LogoutView(View):
             logout(request)
         return HttpResponseRedirect('/user-type/step1/')
 
+class Home(View):
+    def get(self,request):
+        return render(request,'home/home.html')
+
 class About_us(TemplateView):
-        template_name = 'users/about.html'
+        template_name = 'home/about.html'
 
 class Blog(TemplateView):
-        template_name = 'users/blog-1.html'
+        template_name = 'home/blog-1.html'
 
 class BlogPost(TemplateView):
-        template_name = 'users/blog-post.html'
+        template_name = 'home/blog-post.html'
 
 class Faq(TemplateView):
-        template_name = 'users/faq.html'
+        template_name = 'home/faq.html'
 
 class FindBySpecification(TemplateView):
         template_name = 'home/list.html'
@@ -448,47 +452,6 @@ class FindBySpecification(TemplateView):
 class BookNow(TemplateView):
         template_name = 'home/detail-page.html'
 
-
 # class Home(View):
 #     def get(request,self):
 #         return render(request,'html_menu_2/index-2.html')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
