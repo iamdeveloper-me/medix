@@ -212,27 +212,5 @@ function active_deactive_user(profile_id,action_is) {
     });
 }
 
-function readURL(input) {
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-            // debugger
-          $('.logohandler img').attr('src', e.target.result);
-          $('.logohandler').attr("style", "display: block;");
-          $('.whitelinkbtn-hide').addClass("whitelinkbtn");
-          $('.whitelinkbtn').removeClass("whitelinkbtn-hide");
-          
-
-        }
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-
-    $("#fileUpload").change(function() {
-      readURL(this);
-    });
 </script>
 {% endblock %}

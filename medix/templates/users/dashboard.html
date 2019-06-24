@@ -633,15 +633,25 @@
                                           <div class="popup_close">x</div>
                                            <ul class="contacts">
                                             <h6>Institution Name</h6>
-                                            
+
                                             <select class="instName" name="trading_name">
+                                                <option>Select</option>
                                                 {% for list in instList%}
+
                                                 <option  value="{{list.trading_name}}">{{list.trading_name}}</option>
                                                 {% endfor %}
                                             </select>
                                             
                                             <button data-id="{{request.user.id}}" data-url="{% url 'users:service-request' %}" class="inst_list save_btncss">Request</button>
-                                            
+                                            <div>
+                                                <ul>
+                                                {%for service in serviceMember%}
+                                                {% if service.is_accept == True %}
+                                                <li>Accepted by {{service.service_provider.profile.trading_name}} Institution</li>
+                                                {% endif %}
+                                            {%endfor%}
+                                            </ul>
+                                            </div>
                                             </ul>
                                         </div>
                                     </div>
@@ -894,22 +904,22 @@ $("select.instName").change(function(){
     $(document).on("click", ".inst_list", function(e){
     url = $(this).data('url');
     user_id = $(this).data('id');
-        $.ajax({
-            type: "POST",
-            url: url,
-            headers:{
-                "X-CSRFToken": '{{csrf_token}}' 
-            },
-            dataType: "json",
-            data: {"user_id":user_id,"trading_name":trad_name},
-            success: function(response) {
-                if(response.status == 200){
-                    window.location.reload()
-                   }  
-                }
-            });
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"user_id":user_id,"trading_name":trad_name},
+        success: function(response) {
+            if(response.status == 200){
+                window.location.reload()
+               }  
+            }
         });
     });
+});
 
 
 $(document).on("click", ".save_des", function(e){

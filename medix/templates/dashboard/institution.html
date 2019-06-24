@@ -689,19 +689,29 @@
 
                                             <h6>Speciality</h6>
                                             
-                                            
+                                            <li>
                                             {% if list.is_accept == False %}
                                                 <i class="pending">Pending</i>
                                             {% else %}
                                                 <i class="approved">Active</i>
                                             {% endif %}
+                                            </li>
+                                             
+                    <li class="linkid" >
 
-
+                        <input type="hidden" name="service_id" id="service_id" value="{{list.id}}">
+                        <a href="#0" class="btn_1 gray approve" ><i class="fa fa-fw fa-check-circle-o"></i> Accept</a>
+                   
+                        <input type="hidden" name="service_pen" id="service_pen" value="{{list.id}}">
+                        <a href="#0" class="btn_1 gray pending"><i class="fa fa-fw fa-times-circle-o"></i> Pending</a>
+                    
+                    </li>
+                    
                                             <li>{{list.service_member.profile.get_practice_display}}</li>
 
                                             <h6>Name</h6>
                                             <li>{{list.service_member.first_name}}&nbsp;{{list.service_member.last_name}}</li>
-                                            
+                                           
                                             {% endfor %}
                                             </ul>
                                         </div>
@@ -923,6 +933,18 @@
    $(".popup_body").removeClass("popup_body_show");
    });
 
+$(document).on("click", ".approve", function(e){
+    e.preventDefault();
+    service_id = $(this).parents(".linkid").find("#service_id").val();
+    active_deactive_user(service_id,"acccept");
+})
+
+$(document).on("click", ".pending", function(e){
+    e.preventDefault();
+    service_id = $(this).parents(".linkid").find("#service_pen").val();
+    // Call Common Function here
+    active_deactive_user(service_id,"pending");
+});
 
 $(document).on("click", ".save_btn", function(e){
     e.preventDefault();
@@ -1440,6 +1462,33 @@ $(document).on("click", ".edit_hours", function(e){
 
 
 $('.mobVist').attr('disabled',true);
+
+</script>
+
+<script type="text/javascript">
+function active_deactive_user(service_id,action_is) {
+    url = "/requested/user/";
+    $.ajax({
+    type: "POST",
+    url: url,
+    headers:{
+        "X-CSRFToken": '{{csrf_token}}' 
+    },
+    data: {
+        "service_id":service_id,
+        "action_is" :action_is,
+    },
+    success: function(res) {
+            if(res.status == 200){
+                alert(res.message)
+                window.location.reload();
+               }
+            else{
+                alert(res.message)
+            }
+        }
+    });
+}
 
 </script>
 

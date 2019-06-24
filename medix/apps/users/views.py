@@ -34,6 +34,8 @@ class PracticeProfileDetailView(View):
             product = Product.objects.filter(user=user)
             location_obj = Location.objects.filter(user=user)
             keyword = Keywords.objects.filter(user=user)
+            instList = Profile.objects.filter(custom_role=2)
+            serviceMember = ServiceRequest.objects.filter(service_member=user)
             for loc in location_obj:
                 loc_list.append(loc)
             for val in loc_list:    
@@ -43,7 +45,8 @@ class PracticeProfileDetailView(View):
 
             hour = TradingHourForm 
             proInfo = ProfileInfoForm
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list }
+            
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list,'instList':instList, 'serviceMember':serviceMember }
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 
