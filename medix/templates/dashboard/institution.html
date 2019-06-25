@@ -788,7 +788,7 @@
                                                         <h1>{{list.service_member.first_name}}&nbsp;{{list.service_member.last_name}}
                                                             
                                                             {% if list.is_accept == False %}
-                                                            <span class="badge badge-info">Rejected</span>
+                                                            <span class="badge badge-info">Pending</span>
                                                             {% else %}
                                                             <span class="badge badge-success">Accepted</span>
                                                             {% endif %}
@@ -1039,7 +1039,6 @@ $(document).on("click", ".approve", function(e){
 $(document).on("click", ".pending", function(e){
     e.preventDefault();
     service_id = $(this).parents(".linkid1").find("#service_pen").val();
-    alert(service_id);
     // Call Common Function here
     active_deactive_user(service_id,"pending");
 });
