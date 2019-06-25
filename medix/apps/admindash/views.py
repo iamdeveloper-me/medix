@@ -169,22 +169,22 @@ def activate_user_ajax(request):
         action_is  = request.POST.get("action_is") #activate/deactivate/pending
 
         if action_is == "activate":
-            if profile.status == 0:
+            if profile.status == 1:
                 #User is already Active. Raise Exception
                 raise Exception("This Profile is already ACTIVE!!!")
             else:
-                profile.status = 0
+                profile.status = 1
                 profile.save()
                 user.is_active = True
                 user.save()
             res = {'status'  : 200,'message' : "Successfully Activated"}
         elif action_is == "pending":
             # For action_is = pending
-            if profile.status == 1:
+            if profile.status == 0:
                 #User is already in Pending Status. Raise Exception
                 raise Exception("This Profile is already in PENDING!!!")
             else:
-                profile.status = 1
+                profile.status = 0
                 profile.save()
                 user.is_active = False
                 user.save()

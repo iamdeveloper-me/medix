@@ -260,7 +260,7 @@ button.open_popup {
 .popup_body{
   display:none;
   position:fixed;
-  top:0;left:0;right:0;bottom:0;
+  top:60px!important;left:0;right:0;bottom:0;
   -webkit-transition: 300ms;
     -moz-transition: 300ms;
     -o-transition: 300ms;
@@ -524,4 +524,17 @@ margin-left: 10px;
 
 .listcircle{
   list-style-type: none;
+}
+.doctor_list{
+  color:blue!important;
+  cursor: pointer;
+  float: left;
+}
+.doctor_div{
+  padding: 0;
+  margin: 0;
+}
+.price_list{
+  color:blue!important;
+  cursor: pointer;
 }

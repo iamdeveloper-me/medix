@@ -121,7 +121,8 @@ ajaxpatterns = [
     path('search-keyword/', search_keyword, name='search-keyword'),
     path('institution/list/', service_request, name='service-request'),
     path('requested/user/', requested_user, name='requested-user'),
-
+    path('send/email/', price_request_mail, name='send-email'),
+    
     
    
 ]    

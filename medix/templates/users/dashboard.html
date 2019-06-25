@@ -62,14 +62,14 @@
                                                       <div class="popup_close">x</div>  
                                                     </div>
                                                   <div class="popupbody">
-                                                      <p>First Name</p>
+                                                      <h6>First Name</h6>
                                                    <input type="text" name="first_name" value="{{first_name}}" id="firstName">
                                                    <ul class="contacts">
-                                                    <p>Last Name</p> 
+                                                    <h6>Last Name</h6> 
                                                     <input type="text" name="last_name" value="{{last_name}}" id="lastName">
                                                    </ul>
                                                    <ul class="contacts">
-                                                    <p>Email</p> 
+                                                    <h6>Email</h6> 
                                                     <input type="text" name="email" value="{{email}}" id="email">
                                                    </ul>
                                                    <ul class="contacts">
@@ -696,16 +696,16 @@
 
                             <hr>
 
-                            <div class="indent_title_in">
+                            <div class="indent_title_in doctor_div">
                                
-                                <div class="popup_main">
-                                    <a class="open_popup">Add to institution</a>
+                                <div class="popup_main doctor_list">
+                                    <a class="open_popup">Add To Institution</a>
                                     
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
-                                            Add to institution
+                                            Add To Institution
                                             <div class="popup_close">x</div>
                                         </div>
                                         <div class="popupbody">
@@ -730,13 +730,13 @@
                                     </div>
                                   </div>
                                  
-                            </div>
-                            <div class="wrapper_indent">
+                            </div><br><br>
+                            <div class="wrapper_indent doctor_div">
                                 <div>
                                     <ul>
                                         {%for service in serviceMember%}
                                             {% if service.is_accept == True %}
-                                                <li>Accepted by {{service.service_provider.profile.trading_name}} Institution</li>
+                                                <li>Approved by {{service.service_provider.profile.trading_name}} Institution</li>
                                             {% endif %}
                                         {%endfor%}
                                     </ul>

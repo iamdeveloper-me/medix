@@ -76,4 +76,4 @@ class Attachment(BaseModel):
 class ServiceRequest(BaseModel):
     service_provider = models.ForeignKey(User, related_name='Service_Provider',on_delete=models.CASCADE, blank = True, null = True)
     service_member = models.ForeignKey(User, related_name='Service_Member',on_delete=models.CASCADE, blank = True, null = True)
-    is_accept = models.BooleanField(default=False)
+    is_accept = models.IntegerField(verbose_name=_('Doctor Status'), choices=PROFILE_STATUS_CHOICES, default=0,null=True,blank=True)

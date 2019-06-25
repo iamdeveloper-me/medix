@@ -767,10 +767,10 @@
                             </div>
                             <hr>
 
-                            <div class="indent_title_in">
+                            <div class="indent_title_in doctor_div">
                                
                                 <div class="popup_main">
-                                    <a class="open_popup">View Doctors List</a>
+                                    <a class="open_popup doctor_list">View Doctors List</a>
                                     
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
@@ -787,8 +787,10 @@
                                                     <div class="detailbox">
                                                         <h1>{{list.service_member.first_name}}&nbsp;{{list.service_member.last_name}}
                                                             
-                                                            {% if list.is_accept == False %}
+                                                            {% if list.is_accept == 0 %}
                                                             <span class="badge badge-info">Pending</span>
+                                                            {% elif list.is_accept == 2 %}
+                                                            <span class="badge badge-warning">Rejected</span>
                                                             {% else %}
                                                             <span class="badge badge-success">Accepted</span>
                                                             {% endif %}
@@ -798,18 +800,18 @@
                                                         <h3>{{list.service_member.profile.get_practice_display}}</h3>
                                                         
                                                     </div>
-                                                    {% if list.is_accept == False %}
+                                                    
                                                     <li class="linkid listcircle" >
                                                     <input type="hidden" name="service_id" id="service_id" value="{{list.id}}">
                                                     <button class="btn btn-success approve">Accept</button>
                                                     </li>
-                                                    {% else %}
+                                                    
                                                     <li class="linkid1 listcircle">
-                                                    <input type="hidden" name="service_pen" id="service_pen" value="{{list.id}}">
-                                                    <button class="btn btn-warning pending">Reject</button>
+                                                    <input type="hidden" name="service_reject" id="service_reject" value="{{list.id}}">
+                                                    <button class="btn btn-warning reject">Reject</button>
                                                     </li>
                                                     
-                                                    {% endif %}
+                                                    
                                                 </div> 
                                                 {% endfor %}
                                             </div>
@@ -1036,12 +1038,13 @@ $(document).on("click", ".approve", function(e){
     active_deactive_user(service_id,"acccept");
 })
 
-$(document).on("click", ".pending", function(e){
+$(document).on("click", ".reject", function(e){
     e.preventDefault();
-    service_id = $(this).parents(".linkid1").find("#service_pen").val();
+    service_id = $(this).parents(".linkid1").find("#service_reject").val();
     // Call Common Function here
-    active_deactive_user(service_id,"pending");
+    active_deactive_user(service_id,"reject");
 });
+
 
 $(document).on("click", ".save_btn", function(e){
     e.preventDefault();

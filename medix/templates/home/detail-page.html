@@ -95,6 +95,28 @@
 							<div class="indent_title_in">
 								<i class="pe-7s-cash"></i>
 								<h3>Items & Prices</h3>
+								<div class="popup_main">
+                                    <a class="open_popup price_list">Click here for price request</a>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                        <div class="popuptitle">
+                                            Email
+                                            <div class="popup_close">x</div>
+                                        </div>
+                                          <div class="popupbody">
+                                            <ul class="contacts">
+                                            <h6>Email</h6>
+                                            <input type="text" value="" name="email" id="email" placeholder="Enter Email">
+                                            </ul>
+                                          </div>
+                                           <div class="popupfooter">
+                                               <button data-id="{{object.user.profile.id}}" data-url="{% url 'users:send-email' %}" class="send_email save_btncss">Submit</button> 
+                                           </div>
+                                           
+                                        </div>
+                                    </div>
+                                  </div>  
 							</div>
 							<div class="wrapper_indent">
 								<div class="table-responsive">
@@ -107,10 +129,18 @@
 									</thead>
 									<tbody>
 									{% for detail in product %}
+										
 										<tr>
+
 											<td>{{detail.item}}</td>
+											{% if detail.on_request == False %}
+											<td>On Request</td>
+											{% endif %}
+											{% if detail.on_request == True %}
 											<td>{{detail.price}}</td>
+											{% endif %}
 										</tr>
+										
 								{% endfor %}
 									</tbody>
 								</table>
@@ -314,5 +344,39 @@
 	
 	<div id="toTop"></div>
 	<!-- Back to top button -->
+<script type="text/javascript">
+    $(".open_popup").click(function () {
+   $(this).parent(".popup_main").children(".popup_body").addClass("popup_body_show");
+   });
+ $(".popup_close").click(function () {
+   $(".popup_body").removeClass("popup_body_show");
+   });
+ $(".popup_back").click(function () {
+   $(".popup_body").removeClass("popup_body_show");
+   });
 
+$(document).on("click", ".send_email", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    profile_id = $(this).data('id');
+    email = $("#email").val();
+    
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"profile_id":profile_id, 'email':email},
+        success: function(response) {
+                if(response.status == 200){
+                    window.location.reload()
+                    alert(response.message)
+                   }  
+            }
+        });
+});
+
+</script>
 {% endblock %}
