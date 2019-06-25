@@ -66,7 +66,8 @@ class PracticeProfileDetailView(View):
             
             hour = TradingHourForm 
             proInfo = ProfileInfoForm
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list,'instList':instList, 'serviceMember':serviceMember }
+
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list,'instList' : instList, 'serviceMember':serviceMember }
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 
@@ -438,70 +439,67 @@ class About_us(TemplateView):
        template_name = 'home/about.html'
 
 class Blog(TemplateView):
-       template_name = 'home/blog.html'
+    template_name = 'home/blog.html'
+
 
 class BlogPost(TemplateView):
-       template_name = 'home/blog-post.html'
+    template_name = 'home/blog-post.html'
 
 class Faq(TemplateView):
-       template_name = 'home/faq.html'
+    template_name = 'home/faq.html'
 
 class Specialisation(TemplateView):
-       template_name = 'home/all-specialization.html'
-
-# class BookNow(View):
-#     def get(self, request, pk):
-#         import pdb; pdb.set_trace()
-#         user = Profile.objects.get(pk = pk)
-#         return render(request,'home/detail-page.html')
-#         # return render(request,'home/detail-page.html')
-
+    template_name = 'home/all-specialization.html'
 
 class FindBySpecialisation(View):
-   def get(self,request):
-       specialisation = request.GET.get('find-by-specialisation')
-       if specialisation == 'GeneralPractitioner':
-           profile = Profile.objects.filter(practice=0)
-       if specialisation == 'Dentistry':
-           profile = Profile.objects.filter(practice=1)
-       if specialisation == 'Cardiologist':
-           profile = Profile.objects.filter(practice=2)
-       if specialisation == 'Dermatologist':
-           profile = Profile.objects.filter(practice=3)
-       if specialisation == 'Ear-Nose-Throat':
-           profile = Profile.objects.filter(practice=4)
-       if specialisation == 'Endocrinologist':
-           profile = Profile.objects.filter(practice=5)
-       if specialisation == 'GeneralSurgeon':
-           profile = Profile.objects.filter(practice=6)
-       if specialisation == 'Gynaecologist':
-           profile = Profile.objects.filter(practice=7)
-       if specialisation == 'Nephrologist':
-           profile = Profile.objects.filter(practice=8)
-       if specialisation == 'Oncologist':
-           profile = Profile.objects.filter(practice=9)
-       if specialisation == 'Ophthalmologist':
-           profile = Profile.objects.filter(practice=10)
-       if specialisation == 'Paediatrist':
-           profile = Profile.objects.filter(practice=11)
-       if specialisation == 'Physiotherapist':
-           profile = Profile.objects.filter(practice=12)
-       if specialisation == 'Podiatrist':
-           profile = Profile.objects.filter(practice=13)
-       if specialisation == 'Psychologist':
-           profile = Profile.objects.filter(practice=14)
-       if specialisation == 'Radiologist':
-           profile = Profile.objects.filter(practice=15)
-       return render(request,'home/list.html',{'profile' : profile})
+    def get(self,request):
+        specialisation = request.GET.get('find-by-specialisation')
+        # profile = Profile.objects.filter(id=request.POST.get("specialisation"))
+        # profile = Profile.objects.filter(practice=specialisation)
+        # objects = Profile.objects.filter(id__in=object_ids)
+        if specialisation == 'GeneralPractitioner':
+            profile = Profile.objects.filter(practice=0)
+        if specialisation == 'Dentist':
+            profile = Profile.objects.filter(practice=1)
+        if specialisation == 'Cardiologist':
+            profile = Profile.objects.filter(practice=2)
+        if specialisation == 'Dermatologist':
+            profile = Profile.objects.filter(practice=3)
+        if specialisation == 'Ear-Nose-Throat':
+            profile = Profile.objects.filter(practice=4)
+        if specialisation == 'Endocrinologist':
+            profile = Profile.objects.filter(practice=5)
+        if specialisation == 'GeneralSurgeon':
+            profile = Profile.objects.filter(practice=6)
+        if specialisation == 'Gynaecologist':
+            profile = Profile.objects.filter(practice=7)
+        if specialisation == 'Nephrologist':
+            profile = Profile.objects.filter(practice=8)
+        if specialisation == 'Oncologist':
+            profile = Profile.objects.filter(practice=9)
+        if specialisation == 'Ophthalmologist':
+            profile = Profile.objects.filter(practice=10)
+        if specialisation == 'Paediatrist':
+            profile = Profile.objects.filter(practice=11)
+        if specialisation == 'Physiotherapist':
+            profile = Profile.objects.filter(practice=12)
+        if specialisation == 'Podiatrist':
+            profile = Profile.objects.filter(practice=13)
+        if specialisation == 'Psychologist':
+            profile = Profile.objects.filter(practice=14)
+        if specialisation == 'Radiologist':
+            profile = Profile.objects.filter(practice=15)
+        return render(request,'home/list.html',{'profile' : profile})     
+
 
 
 class ProfileDetail(DetailView):
-   model = Profile
-   template_name = 'home/detail-page.html'
-   def get_context_data(self, **kwargs):
+    model = Profile
+    template_name = 'home/detail-page.html'
+    def get_context_data(self, **kwargs):
+        context = super(ProfileDetail, self).get_context_data(**kwargs)
+        context['education'] = Education.objects.filter(user_id=self.object.user)
+        context['product'] = Product.objects.filter(user_id=self.object.user)
+        return context 
 
-       context = super(ProfileDetail, self).get_context_data(**kwargs)
-       # context['qualification'] = Education.objects.all()
-       # # import pdb; pdb.set_trace()
-       # qualification = Education.objects.filter(qualification=self.get_object('qualification'))
-       return context
+

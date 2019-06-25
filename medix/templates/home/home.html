@@ -1,4 +1,4 @@
-{% extends 'layout/layout.html' %}
+{% extends 'layout/profile_layout.html' %}
 {% load widget_tweaks %}
 {% load staticfiles %}
 {% load i18n %}
@@ -27,23 +27,23 @@
                             <ul class='searchtype'>
                                 <li class="search_keyword" onClick="searchKeyword('patient')">
                                     <input type="radio" id="patient" name="radio_search" value="" checked>
-                                    <label for="patient">Patient</label>
+                                    <label for="patient">All</label>
                                 </li>
-                                <li onClick="searchKeyword('practice')" class="search_keyword">
-                                    <input type="radio" id="practice" name="radio_search" value="">
-                                    <label for="practice">Practice</label>
+                                <li onClick="searchKeyword('Practice')" class="search_keyword">
+                                    <input type="radio" id="Practice" name="radio_search" value="">
+                                    <label for="Practice">Doctors</label>
                                 </li>
-                                <li onClick="searchKeyword('institution')" class="search_keyword">
-                                    <input type="radio" id="institution" name="radio_search" value="">
-                                    <label for="institution">Institution</label>
+                                <li onClick="searchKeyword('Pharmacy')" class="search_keyword">
+                                    <input type="radio" id="Pharmacy" name="radio_search" value="">
+                                    <label for="Pharmacy">Pharmacy</label>
                                 </li>
-                                <li onClick="searchKeyword('emergency')" class="search_keyword">
-                                    <input type="radio" id="emergency" name="radio_search" value="">
-                                    <label for="emergency">Emergency Services</label>
+                                <li onClick="searchKeyword('Clinic')" class="search_keyword">
+                                    <input type="radio" id="Clinic" name="radio_search" value="">
+                                    <label for="Clinic">Clinic</label>
                                 </li>
                                 <li onClick="searchKeyword('health-insurance')" class="search_keyword">
                                     <input type="radio" id="health-insurance" name="radio_search" value="">
-                                    <label for="health-insurance">Health Insurance Providers</label>
+                                    <label for="health-insurance">Health Insurance</label>
                                 </li>
                             </ul>
                         </div>
@@ -71,7 +71,7 @@
                     <a href="{% url 'users:find-by-specialisation' %}?find-by-specialisation=Cardiologist" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="/static/html_menu_1/img/icon_cat_2.svg" width="60" height="60" alt="">
-                        <h3>Cardiology</h3>
+                        <h3>Cardiologist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -96,10 +96,10 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="{% url 'users:find-by-specialisation' %}?find-by-specialisation=Dentistry" class="box_cat_home">
+                    <a href="{% url 'users:find-by-specialisation' %}?find-by-specialisation=Dentist" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="/static/html_menu_1/img/icon_cat_5.svg" width="60" height="60" alt="">
-                        <h3>Dentistry</h3>
+                        <h3>Dentist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -251,6 +251,8 @@
     <script src="/static/html_menu_1/js/video_header.js"></script>
     <script>
         let searchtype = 'patient'
+        var mysearchtype = '';
+
         'use strict';
         HeaderVideo.init({
             container: $('.header-video'),
@@ -260,17 +262,15 @@
         });
 
         function searchKeyword(name) {
-            
             let searchtype = $('#'+name).val(name);
             searchtype = name;
+            mysearchtype = searchtype;
         }
         
     
         $('.search-query').keyup(function(){
-            // debugger
             var query = $(this).val();
-            // var searchtype  = $(this).val();
-            // var searchtype  = $(this).val().toLowerCase();
+            var searchtype  = mysearchtype.toLowerCase();
 
               $.ajax({
                 type: "POST",

@@ -1,4 +1,4 @@
-{% extends 'layout/layout.html' %}
+{% extends 'layout/profile_layout.html' %}
 {% load widget_tweaks %}
 {% load staticfiles %}
 {% load i18n %}
@@ -82,11 +82,11 @@
 								<p></p>
 							</div>
 							<div class="wrapper_indent">
-								{{qualification}}
-								<p>{{object.user.education.qualification}}</p>
+								{% for detail in education %}
 								<ul class="list_edu">
-									<li><strong>{{object.user.education.qualification}}</strong></li>
+									<li><strong>{{detail.qualification}}</strong></li>
 								</ul>
+								{% endfor %}
 							</div>
 							<!--  End wrapper indent -->
 
@@ -106,30 +106,12 @@
 										</tr>
 									</thead>
 									<tbody>
+									{% for detail in product %}
 										<tr>
-											<td>{{object.user.Product.item}}</td>
-											<td>{{object.user.Product.price}}</td>
+											<td>{{detail.item}}</td>
+											<td>{{detail.price}}</td>
 										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td></td>
-										</tr>
+								{% endfor %}
 									</tbody>
 								</table>
 								</div>

@@ -349,9 +349,18 @@ def edit_location_hour(request):
 def search_keyword(request):
     suggestion = request.POST.get('suggestion')
     searchtype = request.POST.get('searchtype')
-    if searchtype == 'Patient':
-        profiles = Profile.objects.filter(practice__contains = suggestion)
-    elif searchtype == 'Practice':
-        profiles = Profile.objects.filter(practice__contains = suggestion)
+
+    if searchtype == 'practice':
+        suggestion_list = Profile.objects.filter(custom_role = 1,user__first_name__contains=suggestion)
+        json_res = []
+        json_obj = {}
+        for record in suggestion_list:
+            json_obj = dict(
+            first_name = record.user.first_name
+        )
+        json_res.append(json_obj)
+        return JsonResponse({'status':200,'suggestion':json_res})
 
     return JsonResponse({'status':200}) 
+
+    
