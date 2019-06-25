@@ -460,9 +460,12 @@ class Specialisation(TemplateView):
 class FindBySpecialisation(View):
     def get(self,request):
         specialisation = request.GET.get('find-by-specialisation')
+        # profile = Profile.objects.filter(id=request.POST.get("specialisation"))
+        # profile = Profile.objects.filter(practice=specialisation)
+        # objects = Profile.objects.filter(id__in=object_ids)
         if specialisation == 'GeneralPractitioner':
             profile = Profile.objects.filter(practice=0)
-        if specialisation == 'Dentistry':
+        if specialisation == 'Dentist':
             profile = Profile.objects.filter(practice=1)
         if specialisation == 'Cardiologist':
             profile = Profile.objects.filter(practice=2)

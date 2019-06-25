@@ -351,7 +351,6 @@ def search_keyword(request):
     searchtype = request.POST.get('searchtype')
 
     if searchtype == 'practice':
-        # import pdb; pdb.set_trace()
         suggestion_list = Profile.objects.filter(custom_role = 1,user__first_name__contains=suggestion)
         json_res = []
         json_obj = {}
@@ -359,7 +358,6 @@ def search_keyword(request):
             json_obj = dict(
             first_name = record.user.first_name
         )
-        # import pdb; pdb.set_trace()
         json_res.append(json_obj)
         return JsonResponse({'status':200,'suggestion':json_res})
 
