@@ -722,10 +722,7 @@
                                         </div>
                                            <div class="popupfooter">
                                                <button data-id="{{request.user.id}}" data-url="{% url 'users:service-request' %}" class="inst_list save_btncss">Request</button>
-                                           </div>
-                                            
-                                            
-                                            
+                                           </div>   
                                         </div>
                                     </div>
                                   </div>
@@ -734,8 +731,8 @@
                             <div class="wrapper_indent doctor_div">
                                 <div>
                                     <ul>
-                                        {%for service in serviceMember%}
-                                            {% if service.is_accept == True %}
+                                        {%for service in serviceMember %}
+                                            {% if service.is_accept == 1 %}
                                                 <li>Approved by {{service.service_provider.profile.trading_name}} Institution</li>
                                             {% endif %}
                                         {%endfor%}
@@ -993,8 +990,12 @@ $("select.instName").change(function(){
         data: {"user_id":user_id,"trading_name":trad_name},
         success: function(response) {
             if(response.status == 200){
+                alert(response.message)
                 window.location.reload()
-               }  
+               }
+            else{
+                alert(response.message)
+              }  
             }
         });
     });

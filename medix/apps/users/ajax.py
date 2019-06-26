@@ -49,8 +49,11 @@ def service_request(request):
     s_member = User.objects.get(pk=request.POST.get("user_id"))
     profile = Profile.objects.filter(trading_name=trad_name).values('user')
     s_provider = User.objects.get(pk=profile[0]['user'])
+    if ServiceRequest.objects.filter(service_member=s_member,service_provider=s_provider).exists():
+        return JsonResponse({'status':400,'message':'Already sent request'})
     service = ServiceRequest.objects.create(service_member=s_member,service_provider=s_provider,is_accept=False)
-    return JsonResponse({'status':200})  
+    return JsonResponse({'status':200,'message':'Successfully submited request'}) 
+       
 
 def edit_profile(request):
     if request.method == 'POST':
