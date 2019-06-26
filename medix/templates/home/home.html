@@ -23,19 +23,19 @@
                                 <input type="text" class="search-query" placeholder="Ex. Name, Specialization ....">
                                 <input type="submit" class="btn_search" value="Search">
                             </div>
-                            <table id="mysuggestionsselect">
+                            <table id="mysuggestionsselect" autocomplete="off" value="">
+
                                 <tbody id="tbodyid"> 
                                 </tbody>
                             </table>
-
                             <ul class='searchtype'>
                                 <li class="search_keyword" onClick="searchKeyword('All')">
                                     <input type="radio" id="All" name="radio_search" value="" checked>
                                     <label for="All">All</label>
                                 </li>
-                                <li onClick="searchKeyword('Practice')" class="search_keyword">
-                                    <input type="radio" id="Practice" name="radio_search" value="">
-                                    <label for="Practice">Doctors</label>
+                                <li onClick="searchKeyword('Doctors')" class="search_keyword">
+                                    <input type="radio" id="Doctors" name="radio_search" value="">
+                                    <label for="Doctors">Doctors</label>
                                 </li>
                                 <li onClick="searchKeyword('Pharmacy')" class="search_keyword">
                                     <input type="radio" id="Pharmacy" name="radio_search" value="">
@@ -68,56 +68,56 @@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6">
-                    <a href="{% url 'users:find-by-specialisation' %}?find-by-specialisation=GeneralPractitioner " class="box_cat_home">
+                    <a href="{% url 'users:find-by-specialization' %}?specialization=GeneralPractitioner " class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="/static/html_menu_1/img/icon_cat_1.svg" width="60" height="60" alt="">
                         <h3>General Practitioner</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="{% url 'users:find-by-specialisation' %}?find-by-specialisation=Cardiologist" class="box_cat_home">
+                    <a href="{% url 'users:find-by-specialization' %}?specialization=Cardiologist" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="/static/html_menu_1/img/icon_cat_2.svg" width="60" height="60" alt="">
                         <h3>Cardiologist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="{% url 'users:find-by-specialisation' %}?find-by-specialisation=Ophthalmologist" class="box_cat_home">
+                    <a href="{% url 'users:find-by-specialization' %}?specialization=Ophthalmologist" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="/static/html_menu_1/img/icon_cat_3.svg" width="60" height="60" alt="">
                         <h3>Ophthalmologist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="{% url 'users:find-by-specialisation' %}?find-by-specialisation=Dermatologist" class="box_cat_home">
+                    <a href="{% url 'users:find-by-specialization' %}?specialization=Dermatologist" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="/static/html_menu_1/img/icon_cat_4.svg" width="60" height="60" alt="">
                         <h3>Dermatologist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="{% url 'users:find-by-specialisation' %}?find-by-specialisation=Ear-Nose-Throat" class="box_cat_home">
+                    <a href="{% url 'users:find-by-specialization' %}?specialization=Ear-Nose-Throat" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="/static/html_menu_1/img/icon_cat_7.svg" width="60" height="60" alt="">
                         <h3>Ear-Nose-Throat</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="{% url 'users:find-by-specialisation' %}?find-by-specialisation=Dentist" class="box_cat_home">
+                    <a href="{% url 'users:find-by-specialization' %}?specialization=Dentist" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="/static/html_menu_1/img/icon_cat_5.svg" width="60" height="60" alt="">
                         <h3>Dentist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="{% url 'users:find-by-specialisation' %}?find-by-specialisation=Paediatrist" class="box_cat_home">
+                    <a href="{% url 'users:find-by-specialization' %}?specialization=Paediatrist" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="/static/html_menu_1/img/icon_cat_6.svg" width="60" height="60" alt="">
                         <h3>Paediatrist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <a href="{% url 'users:find-by-specialisation' %}?find-by-specialisation=Psychologist" class="box_cat_home">
+                    <a href="{% url 'users:find-by-specialization' %}?specialization=Psychologist" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="/static/html_menu_1/img/icon_cat_8.svg" width="60" height="60" alt="">
                         <h3>Psychologist</h3>
@@ -125,7 +125,7 @@
                 </div>
             </div>
             <!-- /row -->
-            <p class="text-center"><a href="{% url 'users:all-specialisation' %}" class="btn_1 medium">See All</a></p>
+            <p class="text-center"><a href="{% url 'users:all-specialization' %}" class="btn_1 medium">See All</a></p>
         </div>
         <!-- /container -->
 
@@ -268,7 +268,7 @@
             autoPlayVideo: true
         });
 
-        $('#mysuggestionsselect').hide();
+        $('#mysuggestionsselect').hide().attr("autocomplete", "off");
         function searchKeyword(name) {
             let searchtype = $('#'+name).val(name);
             searchtype = name;
@@ -276,7 +276,8 @@
         }
         $('.search-query').keyup(function(){
             
-            var query = $(this).val();
+            var query = $(this).val().toLowerCase();
+            // var query = query.toLowerCase();
             if(mysearchtype == ""){
                 mysearchtype = "All".toLowerCase();
             }
@@ -286,7 +287,6 @@
                 type: "POST",
                 url: "/search-keyword/",
                 data: {
-
                     'suggestion': query,
                     'searchtype': searchtype,
                     'csrfmiddlewaretoken': '{{ csrf_token }}',
@@ -296,14 +296,15 @@
                     console.log(data);
                     $('#mysuggestionsselect').show();
                     $.each(data.suggestion, function(key,val) {
-                          $("#mysuggestionsselect tbody").append(
-                              "<tr>" +
-                                "<td>" + val.first_name + "</td>" +
-                                "<td>" + val.specialization + "</td>" +
-                              "</tr>"
-                          );
+                        $("#mysuggestionsselect tbody").append(
+                          "<tr class='trdata'>" +
+                            "<td class='suggetionname'" + val.name + "</td>" +
+                            "<td>" + val.specialization + "</td>" +
+                          "</tr>"
+                        );
                     });
                 },
+
                 failure: function(data){
                     console.log("FAIL");
                     console.log(data);
@@ -311,7 +312,13 @@
             });
         });
     
-
+    </script>
+    <script type="text/javascript">
+        $(document).on("click",".trdata",function(){
+           
+             var query =  $(".suggetionname").val()
+                
+        });
     </script>
 
 {% endblock %}

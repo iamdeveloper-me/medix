@@ -74,7 +74,7 @@
                     <ul>
                         {% if request.user.is_authenticated == False %}
                             <li class="submenu">
-                                <a href="#" class="show-submenu">Home</i></a>
+                                <a href="{% url 'users:home-1' %}" class="show-submenu">Home</i></a>
                             </li>
                         {% endif %}
                         <li class="submenu">
