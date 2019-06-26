@@ -8,8 +8,7 @@
     <div id="preloader" class="Fixed">
         <div data-loader="circle-side"></div>
     </div>
-    <!-- /Preload-->
-   
+    <!-- /Preload-->  
     <main>
         <div class="header-video">
             <div id="hero_video">
@@ -18,16 +17,21 @@
                     <p>
                         Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.
                     </p>
-                    <form method="get" action="#">
+                    <form method="get" action="/">
                         <div id="custom-search-input">
                             <div class="input-group">
                                 <input type="text" class="search-query" placeholder="Ex. Name, Specialization ....">
                                 <input type="submit" class="btn_search" value="Search">
                             </div>
+                            <table id="mysuggestionsselect">
+                                <tbody id="tbodyid"> 
+                                </tbody>
+                            </table>
+
                             <ul class='searchtype'>
-                                <li class="search_keyword" onClick="searchKeyword('patient')">
-                                    <input type="radio" id="patient" name="radio_search" value="" checked>
-                                    <label for="patient">All</label>
+                                <li class="search_keyword" onClick="searchKeyword('All')">
+                                    <input type="radio" id="All" name="radio_search" value="" checked>
+                                    <label for="All">All</label>
                                 </li>
                                 <li onClick="searchKeyword('Practice')" class="search_keyword">
                                     <input type="radio" id="Practice" name="radio_search" value="">
@@ -53,7 +57,10 @@
             <img src="/static/html_menu_1/img/video_fix.png" alt="" class="header-video--media" data-video-src="video/intro" data-teaser-source="video/intro" data-provider="" data-video-width="1920" data-video-height="750">
         </div>
         <!-- /Header video -->
-        
+        <div>
+            <span id="mysuggestions"></span>
+
+        </div>
         <div class="container margin_120_95">
             <div class="main_title">
                 <h2>Find by specialization</h2>
@@ -250,7 +257,7 @@
     <script src="/static/html_menu_1/js/modernizr.js"></script>
     <script src="/static/html_menu_1/js/video_header.js"></script>
     <script>
-        let searchtype = 'patient'
+        let searchtype = 'All'
         var mysearchtype = '';
 
         'use strict';
@@ -261,17 +268,20 @@
             autoPlayVideo: true
         });
 
+        $('#mysuggestionsselect').hide();
         function searchKeyword(name) {
             let searchtype = $('#'+name).val(name);
             searchtype = name;
             mysearchtype = searchtype;
         }
-        
-    
         $('.search-query').keyup(function(){
+            
             var query = $(this).val();
+            if(mysearchtype == ""){
+                mysearchtype = "All".toLowerCase();
+            }
             var searchtype  = mysearchtype.toLowerCase();
-
+            var obj = [];
               $.ajax({
                 type: "POST",
                 url: "/search-keyword/",
@@ -282,8 +292,17 @@
                     'csrfmiddlewaretoken': '{{ csrf_token }}',
                 },
                 success: function(data){
-                    console.log("SUCCESS");
+                    $("#tbodyid").empty();
                     console.log(data);
+                    $('#mysuggestionsselect').show();
+                    $.each(data.suggestion, function(key,val) {
+                          $("#mysuggestionsselect tbody").append(
+                              "<tr>" +
+                                "<td>" + val.first_name + "</td>" +
+                                "<td>" + val.specialization + "</td>" +
+                              "</tr>"
+                          );
+                    });
                 },
                 failure: function(data){
                     console.log("FAIL");

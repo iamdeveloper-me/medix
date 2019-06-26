@@ -525,6 +525,30 @@ margin-left: 10px;
 .listcircle{
   list-style-type: none;
 }
+/*span#mysuggestions{
+  position: absolute;
+    top: 6%;
+    left: 26%;
+    background: #fff;
+    width: 40.1%;
+    padding: 13px;
+    z-index: 9999;
+}*/
+
+#mysuggestionsselect{
+    width: 100%;
+    background-color: white;
+    height: 38px;
+    position: absolute;
+    color: black;
+    text-align: left;
+}
+#mysuggestionsselect tr:hover{
+  color:red;
+  cursor: pointer;
+  background-color: #d4d4d4;
+}
+
 .doctor_list{
   color:blue!important;
   cursor: pointer;

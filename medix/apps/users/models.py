@@ -34,6 +34,7 @@ class Profile(BaseModel):
     
     # def __str__(self):
     #     return self.user.email
+    
 
 class Education(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='education', blank = True, null = True)

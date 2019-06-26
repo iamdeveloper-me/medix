@@ -359,18 +359,45 @@ def edit_location_hour(request):
 def search_keyword(request):
     suggestion = request.POST.get('suggestion')
     searchtype = request.POST.get('searchtype')
+    json_res = []
+    json_obj = {}
 
-    if searchtype == 'practice':
-        suggestion_list = Profile.objects.filter(custom_role = 1,user__first_name__contains=suggestion)
-        json_res = []
-        json_obj = {}
+    if searchtype == 'all':
+        role = [1, 2]
+        suggestion_list = Profile.objects.filter(custom_role__in=[1, 2], user__first_name__contains=suggestion, trading_name__contains=suggestion)
+        
         for record in suggestion_list:
             json_obj = dict(
-            first_name = record.user.first_name
-        )
-        json_res.append(json_obj)
+                first_name      = record.user.first_name,
+                specialization  = record.get_practice_display(),
+                institution  = record.get_institution_display()
+                )
+            json_res.append(json_obj)
+
+
+    elif searchtype == 'practice':
+        suggestion_list = Profile.objects.filter(custom_role = 1,user__first_name__contains=suggestion)
+        for record in suggestion_list:
+            json_obj = dict(
+                first_name      = record.user.first_name,
+                specialization  = record.get_practice_display()
+                )
+            json_res.append(json_obj)
+
+        return JsonResponse({'status':200,'suggestion':json_res})
+
+    elif searchtype == 'pharmacy':
+        suggestion_list = Profile.objects.filter(custom_role = 2,trading_name__contains=suggestion)        
+        for record in suggestion_list:
+            json_obj = dict(
+                trading_name =  record.trading_name,
+                institution  = record.get_institution_display()
+                )
+            json_res.append(json_obj)
+
         return JsonResponse({'status':200,'suggestion':json_res})
 
     return JsonResponse({'status':200}) 
+
 
     
