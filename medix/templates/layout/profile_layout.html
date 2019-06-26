@@ -37,7 +37,7 @@
         <div class="row">
             <div class="col-lg-3 col-6">
                 <div id="logo">
-                    <a href="index.html" title="Findoctor"><img src="../../../static/html_menu_1/img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
+                    <a href="#" title="Findoctor"><img src="../../../static/html_menu_1/img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
                 </div>
             </div>
             <nav class="col-lg-9 col-6">
@@ -46,12 +46,12 @@
                     <ul id="top_access">
                         <li class="submenu">
                             <a href="" class="show-submenu"><i class="pe-7s-add-user"></i>
-                                {% if request.user %}
+                                {% if request.user.is_authenticated %}
                                     {{ request.user.username }}
                                 {% endif %}
                             </a>
                             <ul class="mainmenu_list">
-                                {% if request.user %}
+                                {% if request.user.is_authenticated %}
                                     <li><a href="{% url 'users:users-logout' %}">Logout</a></li>
                                 {% else %}
                                     <li><a href="{% url 'users:registration-step1' %}">Login</a></li>
@@ -72,9 +72,11 @@
                 </ul> -->
                 <div class="main-menu">
                     <ul>
-                        <li class="submenu">
-                            <a href="#" class="show-submenu">Home</i></a>
-                        </li>
+                        {% if request.user.is_authenticated == False %}
+                            <li class="submenu">
+                                <a href="#" class="show-submenu">Home</i></a>
+                            </li>
+                        {% endif %}
                         <li class="submenu">
                             <a href="#" class="show-submenu">Pages<i class="icon-down-open-mini"></i></a>
                             
@@ -124,7 +126,7 @@
                          <li><a href="{% url 'users:about-1' %}">About us</a></li>
                         <li><a href="{% url 'users:blog-1' %}">Blog</a></li>
                         <li><a href="{% url 'users:faq-1' %}">FAQ</a></li>
-                        {% if request.user %}
+                        {% if request.user.is_authenticated %}
                             <li><a href="{% url 'users:users-logout' %}">Logout</a></li>
                         {% else %}
                             <li><a href="{% url 'users:registration-step1' %}">Login</a></li>

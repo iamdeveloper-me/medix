@@ -355,6 +355,7 @@ def search_keyword(request):
     if searchtype == 'all':
         role = [1, 2]
         suggestion_list = Profile.objects.filter(custom_role__in=[1, 2], user__first_name__contains=suggestion, trading_name__contains=suggestion)
+        
         for record in suggestion_list:
             json_obj = dict(
                 first_name      = record.user.first_name,
@@ -362,6 +363,7 @@ def search_keyword(request):
                 institution  = record.get_institution_display()
                 )
             json_res.append(json_obj)
+
 
     elif searchtype == 'practice':
         suggestion_list = Profile.objects.filter(custom_role = 1,user__first_name__contains=suggestion)
