@@ -141,7 +141,7 @@
 											{% endif %}
 										</tr>
 										
-								{% endfor %}
+									{% endfor %}
 									</tbody>
 								</table>
 								</div>
@@ -360,7 +360,6 @@ $(document).on("click", ".send_email", function(e){
     url = $(this).data('url');
     profile_id = $(this).data('id');
     email = $("#email").val();
-    
     $.ajax({
         type: "POST",
         url: url,
@@ -371,8 +370,9 @@ $(document).on("click", ".send_email", function(e){
         data: {"profile_id":profile_id, 'email':email},
         success: function(response) {
                 if(response.status == 200){
+                	alert(response.message)
                     window.location.reload()
-                    alert(response.message)
+                    
                    }  
             }
         });
