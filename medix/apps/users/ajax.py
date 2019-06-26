@@ -6,31 +6,44 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect,HttpResponse
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
+
+def price_request_mail(request):
+    profile = Profile.objects.get(id=request.POST.get("profile_id"))
+    user = User.objects.get(id=profile.user.id)
+    price = Product.objects.filter(user=user)
+    frm = settings.EMAIL_HOST_USER
+    ctx = {'products':price}
+    html_content = render_to_string('users/product_list.html',ctx)
+    email = EmailMessage("List of Item & Price", html_content,frm,to=[request.POST.get("email")])
+    email.content_subtype = "html" 
+    email.send()
+    return JsonResponse({'status':200,'message' : "Price list successfully submited on your email"}) 
 
 def requested_user(request):
     service_id = request.POST.get("service_id")
     service    = ServiceRequest.objects.get(pk=service_id)
     action_is  = request.POST.get("action_is") #activate/pending
     if action_is == "acccept":
-        if service.is_accept == True:
-            #User is already Active. Raise Exception
-            raise Exception("This Profile is already ACTIVE!!!")
+        if service.is_accept == 1:
+            #Doctor is already Active. Raise Exception
+            raise Exception("This Doctor is already Accepted!!!")
         else:
-            service.is_accept = True
+            service.is_accept = 1
             service.save()
-            res = {'status'  : 200,'message' : "Successfully Activated"}
+            res = {'status'  : 200,'message' : "Successfully Accepted"}
     else:
-        # For action_is = pending
-        if service.is_accept == False:
-            #User is already Deactive. Raise Exception
-            raise Exception("This Profile is already PENDING!!!")
+        if service.is_accept == 2:
+            #Doctor is already Active. Raise Exception
+            raise Exception("This Doctor is already Rejected!!!")
         else:
-            service.is_accept = False
+            service.is_accept = 2
             service.save()
-            res = {'status'  : 200,'message' : "Changed to Pending!!"}
+            res = {'status'  : 200,'message' : "Successfully Rejected!!!"}
     return JsonResponse(res)
-        
-    
+            
 def service_request(request):
     trad_name = request.POST.get("trading_name")
     s_member = User.objects.get(pk=request.POST.get("user_id"))
@@ -38,7 +51,6 @@ def service_request(request):
     s_provider = User.objects.get(pk=profile[0]['user'])
     service = ServiceRequest.objects.create(service_member=s_member,service_provider=s_provider,is_accept=False)
     return JsonResponse({'status':200})  
-
 
 def edit_profile(request):
     if request.method == 'POST':
@@ -73,11 +85,9 @@ def add_education(request):
         return JsonResponse({'status':200}) 
 
 def add_product(request):
-    # import pdb; pdb.set_trace()
     profile = Profile.objects.get(id=request.POST.get("profile_id"))
     user = User.objects.get(id=profile.user.id)
     try:
-        product = Product.objects.filter(user=user)
         Product.objects.create(user=user,item=request.POST.get("item"),price=request.POST.get("price"),on_request=request.POST.get("onRequest").title())
     except Exception as e:
         Product.objects.create(user=user,item=request.POST.get("item"),price=request.POST.get("price"),on_request=request.POST.get("onRequest")) 

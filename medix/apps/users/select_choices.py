@@ -64,7 +64,7 @@ STATUS_CHOICES=(
 )
 
 PROFILE_STATUS_CHOICES=(
-    (0, _("Active")),
-    (1, _("Pending")),
+    (0, _("Pending")),
+    (1, _("Active")),
     (2, _("Deactive"))
 )
