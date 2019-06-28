@@ -36,7 +36,7 @@
                                         <!-- <figure>
                                             <img src="../../../static/html_menu_1/img/images.jpeg" alt="" class="img-fluid">
                                         </figure> -->
-                                    <div class="avatar-upload">
+                                  <div class="avatar-upload">
                                      <div class="avatar-edit">
 
                                   <div class="popup_main">
@@ -45,13 +45,13 @@
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
-                                            <div class="popup_close">x</div>
+                                        <div class="popup_close">x</div>
                                         </div>
                                         <div class="popupbody">
                                         <form id="add-picture" method="POST" action="/upload/image/" enctype="multipart/form-data">{% csrf_token %}
                                          
                                           <input type='file' id="imageUpload" class="crop_upload" name="image">
-                                         
+                                          <input type="hidden" name="practice" value="practice">
                                           </div>
                                           <div class="popupfooter">
                                           <button type="submit" class="add-picture save_btncss">save</button> 

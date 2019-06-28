@@ -28,11 +28,48 @@
                         <div class="profile">
                             <div class="row">
                                 <div class="col-lg-5 col-md-4">
-                                    <figure>
-                                        <img src="../../../static/html_menu_1/img/images.jpeg" alt="" class="img-fluid">
+                                        <!-- <figure>
+                                            <img src="../../../static/html_menu_1/img/images.jpeg" alt="" class="img-fluid">
+                                        </figure> -->
+                                  <div class="avatar-upload">
+                                     <div class="avatar-edit">
 
-                                    </figure>
-                                </div>
+                                  <div class="popup_main">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                        <div class="popuptitle">
+                                        <div class="popup_close">x</div>
+                                        </div>
+                                        <div class="popupbody">
+                                        <form id="add-picture" method="POST" action="/upload/image/" enctype="multipart/form-data">{% csrf_token %}
+                                         
+                                          <input type='file' id="imageUpload" class="crop_upload" name="image">
+                                          <input type="hidden" name="emergency" value="emergency">
+                                          </div>
+                                          <div class="popupfooter">
+                                          <button type="submit" class="add-picture save_btncss">save</button> 
+                                          </div>
+                                          </form> 
+                                        </div>
+                                    </div>
+                                  </div>
+
+                                     </div>
+                                     <div class="avatar-preview">
+                                      {% if  image.image %}
+                                        
+                                        <img src="{{image.image.url}}">
+                                      {% else %}
+                                      <img src="{% static 'html_menu_1/img/images.jpeg' %}">
+                                      {% endif %}
+                                      <div id="imagePreview" style="background-image: url(../../../static/html_menu_1/img/female.jpg);">
+
+                                      </div>
+                                     </div>
+                                    </div>
+                                  </div>
                                 <div class="col-lg-7 col-md-8" id="primary_care">
                                     <small>{{services}}
                                             <div class="popup_main">
