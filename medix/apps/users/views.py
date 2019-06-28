@@ -18,7 +18,14 @@ def upload_user_image(request):
         profile = Profile.objects.get(pk=request.user.profile.id)
         profile.image = request.FILES['image']
         profile.save()
-        return render(request, 'users/dashboard.html',{'image':profile.image})
+        if request.POST.get('practice') == 'practice':
+            return redirect('/dashboard/practice/'+str(request.user.profile.id))
+        if request.POST.get('institution') == 'institution':
+            return redirect('/dashboard/institution/'+str(request.user.profile.id))
+        if request.POST.get('emergency') == 'emergency':
+            return redirect('/dashboard/emergency-service/'+str(request.user.profile.id))
+        if request.POST.get('health') == 'health':
+            return redirect('/dashboard/health-insurance/'+str(request.user.profile.id))
     return render(request, 'users/dashboard.html') 
 
 def file_upload(request,pk):
@@ -390,7 +397,7 @@ class InstitutionDashboardView(View):
                 opratHour = OperatingHours.objects.filter(location=val)
                 for vals in opratHour:  
                     hour_list.append(vals)
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk, 'hour':hour, 'ambulance':ambulance, 'ambulanceInfo':ambulanceInfo,'opratHour':hour_list , "doctorList":doctorList}
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk, 'hour':hour, 'ambulance':ambulance, 'ambulanceInfo':ambulanceInfo,'opratHour':hour_list , "doctorList":doctorList, 'image': profileInfo}
             return render(request, 'dashboard/institution.html', context)
         return redirect('user-type/step1/')
         
@@ -410,7 +417,7 @@ class EmergencyServicesDashboard(View):
                 opratHour = OperatingHours.objects.filter(location=val)
                 for vals in opratHour:  
                     hour_list.append(vals)
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'services':profileInfo.get_emergency_services_display(),'pk':pk, 'opratHour':hour_list}
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'services':profileInfo.get_emergency_services_display(),'pk':pk, 'opratHour':hour_list,'image': profileInfo}
             return render(request, 'dashboard/emergency-services.html',context)
         return redirect('user-type/step1/')
 
@@ -430,7 +437,7 @@ class HealthInsuranceDashboard(View):
                 opratHour = OperatingHours.objects.filter(location=val)
                 for vals in opratHour:  
                     hour_list.append(vals)
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'pk':pk, 'opratHour':hour_list}
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'pk':pk, 'opratHour':hour_list,'image': profileInfo}
             return render(request, 'dashboard/health_insurance.html', context)
         return redirect('user-type/step1/')
 
