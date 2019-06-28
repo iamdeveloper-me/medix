@@ -174,7 +174,7 @@ class PracticeSignupStep3View(View):
                 email.content_subtype = "html" 
                 email.send()
             except Exception as e:
-                messages.error(self.request, 'Invalid')
+                messages.error(self.request, 'Email not sent')
                 return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
         else:
             form = PracticeSignupForm
@@ -220,7 +220,7 @@ class InstitutionSignupStep3View(View):
                 email.content_subtype = "html" 
                 email.send()
             except Exception as e:
-                messages.error(self.request, 'Invalid')
+                messages.error(self.request, 'Email not sent')
                 return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
         else:
             return render(self.request,'registration/institution.html',
@@ -259,7 +259,7 @@ class InsuranceProviderSignupStep2View(View):
                 email.content_subtype = "html" 
                 email.send()
             except Exception as e:
-                messages.error(self.request, 'Invalid')
+                messages.error(self.request, 'Email not sent')
                 return HttpResponseRedirect('/insurance/signup/step2/')
         else:
             return render(self.request,'registration/emergency_service.html',
@@ -297,7 +297,7 @@ class EmergencyServiceSignupStep3View(View):
                 email.content_subtype = "html" 
                 email.send()
             except Exception as e:
-                messages.error(self.request, 'Invalid')
+                messages.error(self.request, 'Email not sent')
                 return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
         else:
             return render(self.request,'registration/emergency_service.html',
