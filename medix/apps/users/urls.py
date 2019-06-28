@@ -71,6 +71,7 @@ urlpatterns = [
     path('blog-post/',views.BlogPost.as_view(), name='blog-post'),
     path('faq/',views.Faq.as_view(), name='faq-1'),
     path('search-keyword/', search_keyword, name='search-keyword'),
+    # path('search-result/<int:pk>/', views.SearchListView.as_view(), name='search-result'),
 ]
 
 

@@ -277,7 +277,12 @@
         $('.search-query').keyup(function(){
             
             var query = $(this).val().toLowerCase();
-            // var query = query.toLowerCase();
+            // var query = query.toLowerCase();         
+            if (query == ""){
+                $("#tbodyid").empty();
+                return false
+            }
+
             if(mysearchtype == ""){
                 mysearchtype = "All".toLowerCase();
             }
@@ -296,11 +301,14 @@
                     console.log(data);
                     $('#mysuggestionsselect').show();
                     $.each(data.suggestion, function(key,val) {
+
+                        // if (val.name == trading_name)
+                        //     var dynamicurl = "/home/list/"
+
+                        // if (val.name == user.first_name)
+                        //     var dynamicurl = "/profile-detail/<int:id>/"
                         $("#mysuggestionsselect tbody").append(
-                          "<tr class='trdata'>" +
-                            "<td class='suggetionname'" + val.name + "</td>" +
-                            "<td>" + val.specialization + "</td>" +
-                          "</tr>"
+                          "<tr><td><a href=/profile-detail/"+val.user_id+">" + val.name + "</a></td><td>" + val.specialization + "</td></tr>"
                         );
                     });
                 },
@@ -313,13 +321,15 @@
         });
     
     </script>
-    <script type="text/javascript">
+     <script type="text/javascript">
+
         $(document).on("click",".trdata",function(){
-           
-             var query =  $(".suggetionname").val()
-                
+            // $('.suggestionname').change(function (name){
+            //     var selectedvalue = $(this).val(name);
+            // });
+             // var query =  $(".suggetionname").val()        
         });
-    </script>
+    // </script>
 
 {% endblock %}
 

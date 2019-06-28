@@ -378,10 +378,12 @@ def search_keyword(request):
             json_res.append(json_obj)
 
     elif searchtype == 'doctors':
-        suggestion_list = Profile.objects.filter(custom_role = 1, user__first_name__contains=suggestion)
+        suggestion_list = Profile.objects.filter(custom_role = 1, user__first_name__startswith=suggestion)
         for record in suggestion_list:
-            json_obj = dict(
-                name      = record.user.first_name,
+            # import pdb; pdb.set_trace()
+            json_obj = dict(              
+                user_id = record.id,
+                name = record.user.first_name,
                 specialization  = record.get_practice_display()
                 )
             json_res.append(json_obj)
@@ -389,9 +391,11 @@ def search_keyword(request):
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'pharmacy':
-        suggestion_list = Profile.objects.filter(Q(institution = 4) | Q(trading_name__contains=suggestion))        
+        suggestion_list = Profile.objects.filter(Q(institution = 4)| Q(trading_name__startswith=suggestion))        
         for record in suggestion_list:
+
             json_obj = dict(
+                user_id = record.user_id,
                 name =  record.trading_name,
                 specialization  = record.get_institution_display()
                 )
@@ -400,9 +404,11 @@ def search_keyword(request):
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'clinic':
-        suggestion_list = Profile.objects.filter(Q(institution = 2) | Q(trading_name__contains=suggestion)) 
+        suggestion_list = Profile.objects.filter(Q(institution = 2) | Q(trading_name__startswith=suggestion))
         for record in suggestion_list:
+            print(record.user_id)
             json_obj = dict(
+                user_id = record.user_id,
                 name =  record.trading_name,
                 specialization  = record.get_institution_display()
                 )
@@ -410,9 +416,10 @@ def search_keyword(request):
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'health-insurance':
-        suggestion_list = Profile.objects.filter(Q(custom_role = 4) | Q(trading_name__contains=suggestion)) 
+        suggestion_list = Profile.objects.filter(Q(custom_role = 4) | Q(trading_name__startswith=suggestion)) 
         for record in suggestion_list:
             json_obj = dict(
+                user_id = record.user_id,
                 name =  record.trading_name,
                 specialization  = record.get_institution_display()
                 )
