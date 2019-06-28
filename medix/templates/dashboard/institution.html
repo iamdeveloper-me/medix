@@ -31,12 +31,49 @@
                         <div class="box_general_3">
                             <div class="profile">
                                 <div class="row">
-                                    <div class="col-lg-5 col-md-4">
-                                        <figure>
+                                   <div class="col-lg-5 col-md-4">
+                                        <!-- <figure>
                                             <img src="../../../static/html_menu_1/img/images.jpeg" alt="" class="img-fluid">
+                                        </figure> -->
+                                  <div class="avatar-upload">
+                                     <div class="avatar-edit">
 
-                                        </figure>
+                                  <div class="popup_main">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                        <div class="popuptitle">
+                                        <div class="popup_close">x</div>
+                                        </div>
+                                        <div class="popupbody">
+                                        <form id="add-picture" method="POST" action="/upload/image/" enctype="multipart/form-data">{% csrf_token %}
+                                         
+                                          <input type='file' id="imageUpload" class="crop_upload" name="image">
+                                         <input type="hidden" name="institution" value="institution">
+                                          </div>
+                                          <div class="popupfooter">
+                                          <button type="submit" class="add-picture save_btncss">save</button> 
+                                          </div>
+                                          </form> 
+                                        </div>
                                     </div>
+                                  </div>
+
+                                     </div>
+                                     <div class="avatar-preview">
+                                      {% if  image.image %}
+                                        
+                                        <img src="{{image.image.url}}">
+                                      {% else %}
+                                      <img src="{% static 'html_menu_1/img/images.jpeg' %}">
+                                      {% endif %}
+                                      <div id="imagePreview" style="background-image: url(../../../static/html_menu_1/img/female.jpg);">
+
+                                      </div>
+                                     </div>
+                                    </div>
+                                  </div>
                                     <div class="col-lg-7 col-md-8" id="primary_care">
                                         <small>{{institution}}
                                             <div class="popup_main">
@@ -953,8 +990,16 @@
                         </div>
                     </div>
                 </div>
-                <aside class="col-xl-4 col-lg-4" id="sidebar">
-                        <div class="box_general_3 booking">
+               
+                <div class="clearfix"></div>
+                <!--box_general -->
+                
+                    <!-- /section_2 -->
+            </div>
+
+            <aside class="col-xl-4 col-lg-4" id="sidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+                        
+                <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;"><div class="box_general_3 booking">
                             <form>
                                 <div class="title">
                                 <h3>Book a Visit</h3>
@@ -963,12 +1008,12 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <input class="form-control" type="text" id="booking_date" data-lang="en" data-min-year="2017" data-max-year="2020" data-disabled-days="10/17/2017,11/18/2017">
+                                            <input class="form-control picker-input" type="text" id="booking_date" data-lang="en" data-min-year="2017" data-max-year="2020" data-disabled-days="10/17/2017,11/18/2017" data-id="datedropper-0" readonly="">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <input class="form-control" type="text" id="booking_time" value="9:00 am">
+                                            <input class="form-control td-input" type="text" id="booking_time" value="9:00 am" readonly="">
                                         </div>
                                     </div>
                                 </div>
@@ -1002,18 +1047,13 @@
                                 <hr>
                                 <a href="booking-page.html" class="btn_1 full-width">Book Now</a>
                             </form>
-                        </div>
-                </aside>
-                <div class="clearfix"></div>
-                <!--box_general -->
-                
-                    <!-- /section_2 -->
-            </div>
+                        </div><div class="resize-sensor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 253px; height: 624px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div></aside>
                 <!-- /col -->
                
                 <!-- /asdide -->
             </div>
             <!-- /row -->
+
         </div>
         <!-- /container -->
 </main>
