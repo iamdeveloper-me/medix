@@ -147,7 +147,7 @@ class PracticeSignupStep3View(View):
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
-                profile.status = 1
+                profile.status = 0
                 profile.save()
                 practice_obj = practice_form.save(commit=False)
                 practice_obj.user = user
@@ -194,7 +194,7 @@ class InstitutionSignupStep3View(View):
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
-                profile.status = 1
+                profile.status = 0
                 profile.save()
                 institution_obj = institution_form.save(commit=False)
                 institution_obj.user = user
@@ -236,7 +236,7 @@ class InsuranceProviderSignupStep2View(View):
                 insurance_obj.user = user
                 insurance_obj.save()
                 profile = Profile.objects.get(user=user)
-                profile.status = 1
+                profile.status = 0
                 profile.save()
                 frm = settings.DEFAULT_FROM_EMAIL
                 ctx = {'root_url':settings.ROOT_URL,'pk':profile.id}
@@ -271,7 +271,7 @@ class EmergencyServiceSignupStep3View(View):
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
-                profile.status = 1
+                profile.status = 0
                 profile.save()
                 service_obj = service_form.save(commit=False)
                 service_obj.user = user

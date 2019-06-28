@@ -380,7 +380,6 @@ def search_keyword(request):
     elif searchtype == 'doctors':
         suggestion_list = Profile.objects.filter(custom_role = 1, user__first_name__startswith=suggestion)
         for record in suggestion_list:
-            # import pdb; pdb.set_trace()
             json_obj = dict(              
                 user_id = record.id,
                 name = record.user.first_name,
@@ -393,9 +392,8 @@ def search_keyword(request):
     elif searchtype == 'pharmacy':
         suggestion_list = Profile.objects.filter(Q(institution = 4)| Q(trading_name__startswith=suggestion))        
         for record in suggestion_list:
-
             json_obj = dict(
-                user_id = record.user_id,
+                user_id = record.user.id,
                 name =  record.trading_name,
                 specialization  = record.get_institution_display()
                 )
@@ -408,7 +406,7 @@ def search_keyword(request):
         for record in suggestion_list:
             print(record.user_id)
             json_obj = dict(
-                user_id = record.user_id,
+                user_id = record.user.id,
                 name =  record.trading_name,
                 specialization  = record.get_institution_display()
                 )
@@ -419,7 +417,7 @@ def search_keyword(request):
         suggestion_list = Profile.objects.filter(Q(custom_role = 4) | Q(trading_name__startswith=suggestion)) 
         for record in suggestion_list:
             json_obj = dict(
-                user_id = record.user_id,
+                user_id = record.user.id,
                 name =  record.trading_name,
                 specialization  = record.get_institution_display()
                 )
