@@ -14,13 +14,10 @@ from django.db.models import Q
 from users.utils import specialization_value
 
 def upload_user_image(request):
-    # import pdb; pdb.set_trace()
     if request.method == 'POST' and request.FILES['image']:
         profile = Profile.objects.get(pk=request.user.profile.id)
         profile.image = request.FILES['image']
         profile.save()
-        # filename = fs.save(myfile.name, myfile)
-        # uploaded_file_url = fs.url(filename)
         return render(request, 'users/dashboard.html',{'image':profile.image})
     return render(request, 'users/dashboard.html') 
 

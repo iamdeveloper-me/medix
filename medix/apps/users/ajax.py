@@ -13,14 +13,6 @@ import twilio
 from twilio.rest import Client
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
-# @csrf_exempt
-# def upload_user_image(request):
-#     # import pdb; pdb.set_trace()
-    
-#     profile = Profile.objects.get(id=request.POST.get("profile_id"))
-#     profile.image = request.POST.get('image')
-#     profile.save()
-#     return JsonResponse({'status':200,'message':'Message Sent Successfully'})
 
 def send_url_sms(request):
     accountSid = 'ACb56f8ce5605c39b516633fc3058d8550'
