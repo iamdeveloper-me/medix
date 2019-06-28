@@ -32,8 +32,15 @@ class Profile(BaseModel):
 
     status = models.IntegerField(verbose_name=_('Profile Status'), choices=PROFILE_STATUS_CHOICES, default=0,null=True,blank=True)
     
-    # def __str__(self):
-    #     return self.user.email
+    def __str__(self):
+        return self.user.email
+
+    @property
+    def full_name(self):
+        if self.user.first_name != '' or self.user.last_name != '' :
+           return "%s %s" % (self.user.first_name, self.user.last_name)
+        else:
+           return self.trading_name
     
 
 class Education(BaseModel):

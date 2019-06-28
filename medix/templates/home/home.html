@@ -23,7 +23,7 @@
                                 <input type="text" class="search-query" placeholder="Ex. Name, Specialization ....">
                                 <input type="submit" class="btn_search" value="Search">
                             </div>
-                            <table id="mysuggestionsselect" autocomplete="off" value="">
+                            <table id="mysuggestionsselect">
 
                                 <tbody id="tbodyid"> 
                                 </tbody>
@@ -268,7 +268,7 @@
             autoPlayVideo: true
         });
 
-        $('#mysuggestionsselect').hide().attr("autocomplete", "off");
+        $('#mysuggestionsselect').hide();
         function searchKeyword(name) {
             let searchtype = $('#'+name).val(name);
             searchtype = name;
@@ -301,12 +301,13 @@
                     console.log(data);
                     $('#mysuggestionsselect').show();
                     $.each(data.suggestion, function(key,val) {
-
+                        // if (val.name == trading_name)
                         // if (val.name == trading_name)
                         //     var dynamicurl = "/home/list/"
 
                         // if (val.name == user.first_name)
                         //     var dynamicurl = "/profile-detail/<int:id>/"
+                        
                         $("#mysuggestionsselect tbody").append(
                           "<tr><td><a href=/profile-detail/"+val.user_id+">" + val.name + "</a></td><td>" + val.specialization + "</td></tr>"
                         );
