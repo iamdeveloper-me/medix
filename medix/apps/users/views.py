@@ -57,7 +57,6 @@ class PracticeProfileDetailView(View):
         loc_list = []
         hour_list = []
         if request.user.is_authenticated:
-            # import pdb; pdb.set_trace()
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
             education = Education.objects.filter(user=user)
@@ -76,7 +75,7 @@ class PracticeProfileDetailView(View):
             hour = TradingHourForm 
             proInfo = ProfileInfoForm
 
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list,'instList' : instList, 'serviceMember':serviceMember, 'image': profileInfo.image}
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list,'instList' : instList, 'serviceMember':serviceMember, 'image': profileInfo}
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 

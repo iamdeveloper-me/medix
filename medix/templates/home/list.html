@@ -140,6 +140,8 @@
 							
 							
 						</ul>
+
+                    {% endfor %}   
 					</div>
 					{% endfor %}
 					
@@ -175,7 +177,7 @@
    	});
 
 
-$(document).on("click", ".sendSms", function(e){
+    $(document).on("click", ".sendSms", function(e){
     e.preventDefault();
     url = $(this).data('url');
     drUrl = $("#drurl").val();
