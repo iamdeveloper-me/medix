@@ -582,15 +582,15 @@ margin-left: 10px;
 .sharebtnlisting.in {
     height: inherit!important;
     overflow: inherit!important;
-    margin-top:20px!important;
+    margin-top:5px!important;
     opacity: 1;
     transition: ease all 1s;
 
 }
 .sharebtnlisting li{
   display: inline-block!important;
-  width:44px!important;
-  height: 44px!important;
+  width:32px!important;
+  height: 32px!important;
   float: left!important;
 }
 .sharebtnlisting li:first-child{
@@ -605,9 +605,9 @@ margin-left: 10px;
   color: #efefef!important;
     border-radius: 50%;
     text-decoration: none;
-    width: 2.5rem;
-    height: 2.5rem;
-    line-height: 44px;
+    width: 2rem;
+    height: 2rem;
+    line-height: 32px;
     text-align: center;
     cursor: pointer;
 }
@@ -618,15 +618,25 @@ margin-left: 10px;
     color: #efefef!important;
     border-radius: 50%;
     text-decoration: none;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     font-size: 0.45;
     cursor: pointer;
 }
 .fa.fa-share-alt:before{
   position: absolute;
-    margin-top: 12px !important;
-    margin-left: 12px;
+    margin-top: 9px !important;
+    margin-left: 8px;
+}
+.strip_list ul {
+    overflow: hidden;
+}
+.strip_list ul li {
+    float: left;
+    line-height: 32px;
+}
+.strip_list ul.sharebtnlisting li:last-child a{
+    padding: 5px 15px;
 }
 #share-facebook {
 background: #3b5998;
@@ -636,9 +646,7 @@ margin-top:-10px;
 background: #00acee;
 margin-top:-20px;
 }
-#share-linkedin {
-background: #0077b5;margin-top:-25px;
-}
+
 #share-pocket {
 background: #EE4056;margin-top:-30px;
 }
