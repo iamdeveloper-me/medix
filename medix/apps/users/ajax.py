@@ -385,7 +385,7 @@ def search_keyword(request):
             if record.trading_name:
 
                 json_obj = dict(
-                    # is_institution = "yes",
+                    is_institution = "yes",
                     user_id = record.id,
                     name =  record.trading_name,
                     specialization  = record.get_institution_display()                   

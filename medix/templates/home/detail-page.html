@@ -37,7 +37,8 @@
 										</figure>
 									</div>
 									<div class="col-lg-7 col-md-8">
-										<small>{{object.user.profile.get_practice_display}}</small>
+										 
+										<small>{{object.user.profile.get_institution_display}}</small>
 										<h1>{{object.full_name}}</h1>
 										<span class="rating">
 											<i class="icon_star voted"></i>
@@ -52,6 +53,25 @@
 											<li>854 Views</li>
 											<li>124 Patients</li>
 										</ul>
+										{% if custom_role.is_institution  %}
+										<ul class="contacts">
+                                            <li>
+                                                <h6>Email</h6>
+                                                {{object.email}}   
+                                            </li>
+                                            <li>
+                                                <h6>Phone</h6> <a href="tel://{{phone}}">{{phone}}</a> 
+                                            </li>
+                                            <li>
+                                                <h6>Address Of Institution</h6> 
+                                                {{object.address_of_institution}}
+                                            </li>
+                                            <li>
+                                                <h6>Contact Person</h6> 
+                                                {{contact_person}}
+                                            </li>
+                                        </ul>
+                                        {% endif %}
 										<ul class="contacts">
 											<li>
 												<h6>Phone</h6><a>{{object.user.profile.phone}}</a></li>
