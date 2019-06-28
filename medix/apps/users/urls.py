@@ -123,7 +123,8 @@ ajaxpatterns = [
     path('institution/list/', service_request, name='service-request'),
     path('requested/user/', requested_user, name='requested-user'),
     path('send/email/', price_request_mail, name='send-email'),
-    
+    path('send/sms/', send_url_sms, name='send_sms'),
+    path('upload/image/', views.upload_user_image, name='upload-user-image')
     
    
 ]    

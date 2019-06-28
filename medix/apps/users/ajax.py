@@ -9,7 +9,21 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
+import twilio
+from twilio.rest import Client
+from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
+
+def send_url_sms(request):
+    accountSid = 'ACb56f8ce5605c39b516633fc3058d8550'
+    authToken = '26b82a1a98a34e8acd3d30ac5a6bc480'
+    twilioClient = Client(accountSid, authToken)
+    myTwilioNumber = '+12052878954'
+    sendTo = request.POST.get('sendTo')
+    drUrl = request.POST.get('drUrl')
+    myMessage = twilioClient.messages.create(body = settings.ROOT_URL+drUrl, from_=myTwilioNumber, to=sendTo)
+    return JsonResponse({'status':200,'message':'Message Sent Successfully'})
+
 def price_request_mail(request):
     profile = Profile.objects.get(id=request.POST.get("profile_id"))
     user = User.objects.get(id=profile.user.id)

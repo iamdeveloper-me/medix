@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'users',
     'admindash',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +60,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+#Authentication backends
+AUTHENTICATION_BACKENDS = (
+   'social_core.backends.linkedin.LinkedinOAuth2',
+   'social_core.backends.instagram.InstagramOAuth2',
+   'social_core.backends.facebook.FacebookOAuth2',
+   'django.contrib.auth.backends.ModelBackend',
+   )
 
 ROOT_URLCONF = 'medix.urls'
 
@@ -73,6 +82,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends', # add this
+               'social_django.context_processors.login_redirect', # add this
             ],
         },
     },
@@ -138,3 +149,18 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
+'social_django.context_processors.backends', # add this
+'social_django.context_processors.login_redirect', # add this
+SOCIAL_AUTH_FACEBOOK_KEY = "411222986147088"        # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = "4926d2565f49336b2034e3ccefefb3d1"
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] # add this
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
+ 'fields': 'id, name, email, picture.type(large), link'
+}
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
+   ('name', 'name'),
+   ('email', 'email'),
+   ('picture', 'picture'),
+   ('link', 'profile_url'),
+]

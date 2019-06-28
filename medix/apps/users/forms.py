@@ -3,7 +3,10 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-
+class ImageUpload(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('image',)
 
 class DocumentForm(forms.ModelForm):
     class Meta:
