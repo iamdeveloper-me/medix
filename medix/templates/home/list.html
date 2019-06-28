@@ -27,9 +27,10 @@
 		<div class="container margin_60_35">
 			<div class="row">
 				<div class="col-lg-7">
-					{% for user in profile %}
+					
 					<div class="strip_list wow fadeIn">
 						<a href="#" class="wish_bt"></a>
+						{% for user in profile %}
 						<figure>
 							<a href="{% url 'users:book' user.pk %}"><img src="/static/html_menu_1/img/images.jpeg" alt=""></a>
 						</figure>
@@ -37,12 +38,105 @@
 						<h3>{{user.user.first_name}}</h3><h3>{{user.user.last_name}}</h3>
 						<p>{{user.description}}</p>
 						<p>Year Of Experience - {{user.experience}}</p>
+						
 						<span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
 						<a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="/static/html_menu_1/img/badges/badge_1.svg" width="15" height="15" alt=""></a>
 						<ul>
 							<li><a href="#0" onclick="onHtmlClick('Doctors', 0)" class="btn_listing">View on Map</a></li>
 							<li><a href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x0:0xa6a9af76b1e2d899!2sAssistance+%E2%80%93+H%C3%B4pitaux+De+Paris!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361" target="_blank">Directions</a></li>
-							<li><a href="#">Book now</a></li>
+							<li>
+								<div id="share-wrapper">
+  									<i data-toggle="tooltip" data-placement="left" title="Click to share" class="fa fa-share-alt" id="share"></i>
+								    <ul class="sharebtnlisting">
+
+								        <!-- facebook -->
+
+								        <li>
+								            <a id="share-facebook" class="mb-2 d-flex justify-content-center align-items-center" href="{% url 'social:begin' 'facebook' %}" data-toggle="tooltip" data-placement="left" title="Share this page!">
+								        <i class="fab fa-facebook-f"></i>
+								      </a>
+								        </li>
+								        
+								        <!-- twitter -->
+								        
+								        <li>
+								            <a id="share-twitter" class="mb-2 d-flex justify-content-center align-items-center tw" href="https://twitter.com/share?url=URLTOSHARE" data-toggle="tooltip" data-placement="left" title="Tweet this page!">
+								        <i class="fab fa-twitter"></i>
+								      </a>
+								        </li>
+								        <!-- linkedin -->
+								        
+								        <li>
+								            <a id="share-linkedin" class="mb-2 d-flex justify-content-center align-items-center li" href="https://www.linkedin.com/shareArticle?mini=true&url=URLTOSHARE" data-toggle="tooltip" data-placement="left" title="Share this page!">
+								        <i class="fab fa-linkedin-in"></i>
+								      </a>
+								        </li>
+								        
+								        
+								        <!-- pocket -->
+								        
+								        <li>
+								        	<div class="popup_main share_popup">
+                                    <a id="share-pocket" class="mb-2 d-flex justify-content-center align-items-center li open_popup" data-toggle="tooltip" data-placement="left" title="Share this page!">
+								        <i class="fab fa-get-pocket"></i>
+								      </a>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                        <div class="popuptitle">
+                                           Sms Sharing
+                                            <div class="
+                                            popup_close">x</div>
+                                        </div>
+                                          <div class="popupbody">
+                                            
+											<input type="hidden" class="form-control col-md-4" name="drurl" id="drurl" value="{% url 'users:book' user.pk %}" >
+											
+											<label>To</label>
+												<input type="text" class="form-control col-md-4" name="sendto" id="sendto" placeholder="Ex.+919779601580" size="100" ><br><br>	
+											 
+                                           </div>
+                                           <div class="popupfooter">
+                                               <button data-url="{% url 'users:send_sms' %}" class="sendSms save_btncss">Send</button>
+                                           </div>
+                                           
+                                        </div>
+                                    </div>
+                                  </div>  
+                                </div>
+								       
+								        </li>
+								        <li><a href="#">Book now</a></li>
+								    </ul>
+								</div>
+							<!-- <div class="indent_title_in share_indent">  
+                                <div class="popup_main share_popup">
+                                    <a class="open_popup">Share</a>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                        <div class="popuptitle">
+                                           
+                                            <div class="popup_close">x</div>
+                                        </div>
+                                          <div class="popupbody">
+                                            
+											<input type="hidden" class="form-control col-md-4" name="drurl" id="drurl" value="{% url 'users:book' user.pk %}" >
+											
+											<label>To</label>
+												<input type="text" class="form-control col-md-4" name="sendto" id="sendto" placeholder="Send To" size="100" ><br><br>	
+											 
+                                           </div>
+                                           <div class="popupfooter">
+                                               <button data-url="{% url 'users:send_sms' %}" class="sendSms save_btncss">Send</button>
+                                           </div>
+                                           
+                                        </div>
+                                    </div>
+                                  </div>  
+                                </div>-->
+							
+							
 						</ul>
 					</div>
 					{% endfor %}
@@ -52,10 +146,10 @@
 				</div>
 				<!-- /col -->
 				
-				<aside class="col-lg-5" id="sidebar">
+				<!--<aside class="col-lg-5" id="sidebar">
 					<div id="map_listing" class="normal_list">
 					</div>
-				</aside>
+				</aside>-->
 				<!-- /aside -->
 				
 			</div>
@@ -67,7 +161,50 @@
 	<!-- /main -->
 	<div id="toTop"></div>
 	<!-- Back to top button -->
+<script type="text/javascript">
+    $(".open_popup").click(function () {
+   	$(this).parent(".popup_main").children(".popup_body").addClass("popup_body_show");
+   	});
+ 	$(".popup_close").click(function () {
+   	$(".popup_body").removeClass("popup_body_show");
+   	});
+ 	$(".popup_back").click(function () {
+   	$(".popup_body").removeClass("popup_body_show");
+   	});
 
+
+$(document).on("click", ".sendSms", function(e){
+    e.preventDefault();
+    url = $(this).data('url');
+    drUrl = $("#drurl").val();
+    sendTo = $("#sendto").val();
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers:{
+            "X-CSRFToken": '{{csrf_token}}' 
+        },
+        dataType: "json",
+        data: {"sendTo":sendTo,'drUrl':drUrl},
+        success: function(response) {
+            if(response.status == 200){
+                window.location.reload()
+                alert(response.message)
+               }  
+            }
+        });
+});
+
+</script>
+<script type="text/javascript">
+	$('[data-toggle="tooltip"]').tooltip();
+</script>
+<script type="text/javascript">
+	$("#share").click(function(){
+		//alert("hi");
+  		$(".sharebtnlisting").toggleClass("in");
+	});
+</script>
 {% endblock %}
 
 

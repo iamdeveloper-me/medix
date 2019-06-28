@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
 from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords, Attachment, ServiceRequest
 from django.contrib.auth.models import User
-from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm,PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm, DocumentForm
+from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm,PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm, DocumentForm, ImageUpload
 from django.views import View
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import messages
@@ -12,6 +12,31 @@ from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 
+# def upload_user_image(request,pk):
+#     if request.method == 'POST':
+#         profile = Profile.objects.get(pk=pk)
+#         form = ImageUpload(request.POST, request.FILES)
+#         if form.is_valid():
+#             fileForm=form.save(commit=False)
+#             fileForm.profile = profile
+#             fileForm.save()
+#             messages.success(request, 'Successfully uploaded')
+#             return redirect('/file/upload/'+str(pk))
+#     return render(request, 'users/dashboard.html', {
+#         'form': form
+#     })
+
+
+def upload_user_image(request):
+    # import pdb; pdb.set_trace()
+    if request.method == 'POST' and request.FILES['image']:
+        profile = Profile.objects.get(pk=request.user.profile.id)
+        profile.image = request.FILES['image']
+        profile.save()
+        # filename = fs.save(myfile.name, myfile)
+        # uploaded_file_url = fs.url(filename)
+        return render(request, 'users/dashboard.html',{'image':profile.image})
+    return render(request, 'users/dashboard.html') 
 
 def file_upload(request,pk):
     if request.method == 'POST':
@@ -49,6 +74,7 @@ class PracticeProfileDetailView(View):
         loc_list = []
         hour_list = []
         if request.user.is_authenticated:
+            # import pdb; pdb.set_trace()
             user = User.objects.get(id=request.user.id)
             profileInfo = Profile.objects.get(user=user)
             education = Education.objects.filter(user=user)
@@ -67,7 +93,7 @@ class PracticeProfileDetailView(View):
             hour = TradingHourForm 
             proInfo = ProfileInfoForm
 
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list,'instList' : instList, 'serviceMember':serviceMember }
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list,'instList' : instList, 'serviceMember':serviceMember, 'image': profileInfo.image}
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 
@@ -150,6 +176,7 @@ class PracticeSignupStep3View(View):
                 practice_obj = practice_form.save(commit=False)
                 practice_obj.user = user
                 practice_obj.gender = request.POST.get('gender')
+                # practice_obj.image = request.FILES.get('uimage')
                 practice_obj.save()
                 frm = settings.DEFAULT_FROM_EMAIL
                 ctx = {'root_url':settings.ROOT_URL,'pk':pk}

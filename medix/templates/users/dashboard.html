@@ -38,13 +38,34 @@
                                         </figure> -->
                                     <div class="avatar-upload">
                                      <div class="avatar-edit">
-                                         <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-                                         <label for="imageUpload">
-                                          <img src="../../../static/html_menu_1/img/edit.png">
-                                         </label>
+
+                                  <div class="popup_main">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                        <div class="popuptitle">
+                                            <div class="popup_close">x</div>
+                                        </div>
+                                        <div class="popupbody">
+                                        <form id="add-picture" method="POST" action="/upload/image/" enctype="multipart/form-data">{% csrf_token %}
+                                         
+                                          <input type='file' id="imageUpload" class="crop_upload" name="image">
+                                         
+                                          </div>
+                                          <div class="popupfooter">
+                                          <button type="submit" class="add-picture save_btncss">save</button> 
+                                          </div>
+                                          </form> 
+                                        </div>
+                                    </div>
+                                  </div>
+
                                      </div>
                                      <div class="avatar-preview">
+                                      <img src="{{image.url}}">
                                       <div id="imagePreview" style="background-image: url(../../../static/html_menu_1/img/female.jpg);">
+
                                       </div>
                                      </div>
                                     </div>
@@ -1428,20 +1449,21 @@ $('.mobVist').attr('disabled',true);
 </script>
 
 <script>
- function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
-            $('#imagePreview').hide();
-            $('#imagePreview').fadeIn(650);
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-$("#imageUpload").change(function() {
-    readURL(this);
-});
+//  function readURL(input) {
+//     if (input.files && input.files[0]) {
+//         var reader = new FileReader();
+//         reader.onload = function(e) {
+//             $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+//             $('#imagePreview').hide();
+//             $('#imagePreview').fadeIn(650);
+//         }
+//         reader.readAsDataURL(input.files[0]);
+//     }
+// }
+// $("#imageUpload").change(function() {
+//     readURL(this);
+// });
+
 </script>
 
 {% endblock %}
