@@ -11,21 +11,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
-
-# def upload_user_image(request,pk):
-#     if request.method == 'POST':
-#         profile = Profile.objects.get(pk=pk)
-#         form = ImageUpload(request.POST, request.FILES)
-#         if form.is_valid():
-#             fileForm=form.save(commit=False)
-#             fileForm.profile = profile
-#             fileForm.save()
-#             messages.success(request, 'Successfully uploaded')
-#             return redirect('/file/upload/'+str(pk))
-#     return render(request, 'users/dashboard.html', {
-#         'form': form
-#     })
-
+from users.utils import specialization_value
 
 def upload_user_image(request):
     # import pdb; pdb.set_trace()
@@ -478,50 +464,19 @@ class Faq(TemplateView):
 class Specialisation(TemplateView):
     template_name = 'home/all-specialization.html'
 
-class FindBySpecialisation(View):
-    def get(self,request):
-        specialisation = request.GET.get('find-by-specialisation')
-        # profile = Profile.objects.filter(id=request.POST.get("specialisation"))
-        # profile = Profile.objects.filter(practice=specialisation)
-        # objects = Profile.objects.filter(id__in=object_ids)
-        if specialisation == 'GeneralPractitioner':
-            profile = Profile.objects.filter(practice=0)
-        if specialisation == 'Dentist':
-            profile = Profile.objects.filter(practice=1)
-        if specialisation == 'Cardiologist':
-            profile = Profile.objects.filter(practice=2)
-        if specialisation == 'Dermatologist':
-            profile = Profile.objects.filter(practice=3)
-        if specialisation == 'Ear-Nose-Throat':
-            profile = Profile.objects.filter(practice=4)
-        if specialisation == 'Endocrinologist':
-            profile = Profile.objects.filter(practice=5)
-        if specialisation == 'GeneralSurgeon':
-            profile = Profile.objects.filter(practice=6)
-        if specialisation == 'Gynaecologist':
-            profile = Profile.objects.filter(practice=7)
-        if specialisation == 'Nephrologist':
-            profile = Profile.objects.filter(practice=8)
-        if specialisation == 'Oncologist':
-            profile = Profile.objects.filter(practice=9)
-        if specialisation == 'Ophthalmologist':
-            profile = Profile.objects.filter(practice=10)
-        if specialisation == 'Paediatrist':
-            profile = Profile.objects.filter(practice=11)
-        if specialisation == 'Physiotherapist':
-            profile = Profile.objects.filter(practice=12)
-        if specialisation == 'Podiatrist':
-            profile = Profile.objects.filter(practice=13)
-        if specialisation == 'Psychologist':
-            profile = Profile.objects.filter(practice=14)
-        if specialisation == 'Radiologist':
-            profile = Profile.objects.filter(practice=15)
-        return render(request,'home/list.html',{'profile' : profile})     
-
-
+class SpecialisationListView(ListView):
+    model = Profile
+    queryset = Profile.objects.all()
+    template_name = 'home/list.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(SpecialisationListView, self).get_context_data(**kwargs)
+        specialization = self.request.GET['specialization']
+        context['specialization'] = self.queryset.filter(practice=specialization_value(specialization))
+        return context
 
 class ProfileDetail(DetailView):
-    model = Profile
+    model = Profile 
     template_name = 'home/detail-page.html'
     def get_context_data(self, **kwargs):
         context = super(ProfileDetail, self).get_context_data(**kwargs)
@@ -530,3 +485,14 @@ class ProfileDetail(DetailView):
         return context 
 
 
+# class SearchListView(DetailView):
+#     model = Profile
+#     template_name = 'home/detail-page.html'
+#     queryset = Profile.objects.all()
+#     def get_context_data(self, **kwargs):
+#         context = super(SearchListView, self).get_context_data(**kwargs)
+#         context['profile'] = self.queryset.filter(user_id=self.object.user)
+#         # context['profile'] = self.queryset.filter(user_id=self.kwargs['pk'])
+#         return context
+
+        

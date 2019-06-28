@@ -76,7 +76,7 @@
                     <ul>
                         {% if request.user.is_authenticated == False %}
                             <li class="submenu">
-                                <a href="#" class="show-submenu">Home</i></a>
+                                <a href="{% url 'users:home-1' %}" class="show-submenu">Home</i></a>
                             </li>
                         {% endif %}
                         <li class="submenu">
@@ -117,7 +117,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-12">
                     <p>
-                        <a href="index.html" title="Findoctor">
+                        <a href="{% url 'users:home-1' %}" title="Findoctor">
                             <img src="{% static 'html_menu_1/img/logo.png' %}" data-retina="true" alt="" width="163" height="36">
                         </a>
                     </p>
@@ -139,11 +139,11 @@
                 <div class="col-lg-3 col-md-4">
                     <h5>Useful links</h5>
                     <ul class="links">
-                        <li><a href="#0">Doctors</a></li>
-                        <li><a href="#0">Clinics</a></li>
-                        <li><a href="#0">Specialization</a></li>
-                        <li><a href="#0">Join as a Doctor</a></li>
-                        <li><a href="#0">Download App</a></li>
+                        <li><a href="{% url 'users:home-1' %}">Doctors</a></li>
+                        <li><a href="{% url 'users:home-1' %}">Clinics</a></li>
+                        <li><a href="{% url 'users:all-specialization' %}">Specialization</a></li>
+                        <li><a href="{% url 'users:home-1' %}">Join as a Doctor</a></li>
+                        <li><a href="#">Download App</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-4">

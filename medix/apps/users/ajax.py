@@ -12,7 +12,7 @@ from django.conf import settings
 import twilio
 from twilio.rest import Client
 from django.views.decorators.csrf import csrf_exempt
-
+from django.db.models import Q
 # @csrf_exempt
 # def upload_user_image(request):
 #     # import pdb; pdb.set_trace()
@@ -386,25 +386,28 @@ def search_keyword(request):
     searchtype = request.POST.get('searchtype')
     json_res = []
     json_obj = {}
-
     if searchtype == 'all':
-        role = [1, 2]
-        suggestion_list = Profile.objects.filter(custom_role__in=[1, 2], user__first_name__contains=suggestion, trading_name__contains=suggestion)
-        
+        suggestion_list = Profile.objects.filter(Q(custom_role__in = [1, 4]) | Q(institution__in = [2, 4]) | Q(user__first_name__contains=suggestion) | Q(trading_name__contains=suggestion))
         for record in suggestion_list:
-            json_obj = dict(
-                first_name      = record.user.first_name,
-                specialization  = record.get_practice_display(),
-                institution  = record.get_institution_display()
-                )
+            if record.trading_name != '':
+                pass
+                json_obj = dict(
+                    name      = record.user.first_name,
+                    specialization  = record.get_practice_display(),
+                    )
+            else:
+                json_obj = dict(
+                    trading_name =  record.trading_name,
+                    specialization  = record.get_institution_display()
+                    )
             json_res.append(json_obj)
 
-
-    elif searchtype == 'practice':
-        suggestion_list = Profile.objects.filter(custom_role = 1,user__first_name__contains=suggestion)
+    elif searchtype == 'doctors':
+        suggestion_list = Profile.objects.filter(custom_role = 1, user__first_name__startswith=suggestion)
         for record in suggestion_list:
-            json_obj = dict(
-                first_name      = record.user.first_name,
+            json_obj = dict(              
+                user_id = record.id,
+                name = record.user.first_name,
                 specialization  = record.get_practice_display()
                 )
             json_res.append(json_obj)
@@ -412,15 +415,40 @@ def search_keyword(request):
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'pharmacy':
-        suggestion_list = Profile.objects.filter(custom_role = 2,trading_name__contains=suggestion)        
+        suggestion_list = Profile.objects.filter(Q(institution = 4)| Q(trading_name__startswith=suggestion))        
         for record in suggestion_list:
             json_obj = dict(
-                trading_name =  record.trading_name,
-                institution  = record.get_institution_display()
+                user_id = record.user.id,
+                name =  record.trading_name,
+                specialization  = record.get_institution_display()
                 )
             json_res.append(json_obj)
 
         return JsonResponse({'status':200,'suggestion':json_res})
+
+    elif searchtype == 'clinic':
+        suggestion_list = Profile.objects.filter(Q(institution = 2) | Q(trading_name__startswith=suggestion))
+        for record in suggestion_list:
+            print(record.user_id)
+            json_obj = dict(
+                user_id = record.user.id,
+                name =  record.trading_name,
+                specialization  = record.get_institution_display()
+                )
+            json_res.append(json_obj)
+        return JsonResponse({'status':200,'suggestion':json_res})
+
+    elif searchtype == 'health-insurance':
+        suggestion_list = Profile.objects.filter(Q(custom_role = 4) | Q(trading_name__startswith=suggestion)) 
+        for record in suggestion_list:
+            json_obj = dict(
+                user_id = record.user.id,
+                name =  record.trading_name,
+                specialization  = record.get_institution_display()
+                )
+            json_res.append(json_obj)
+        return JsonResponse({'status':200,'suggestion':json_res})
+
 
     return JsonResponse({'status':200}) 
 

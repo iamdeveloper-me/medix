@@ -60,8 +60,8 @@ urlpatterns = [
     path('file/upload/<int:pk>',views.file_upload, name='file-upload'),
     #-------home-----about
     #---see all specilization
-    path('specialisation/',views.Specialisation.as_view(), name='all-specialisation'),
-    path('list/',views.FindBySpecialisation.as_view(), name='find-by-specialisation'),
+    path('specialization/',views.Specialisation.as_view(), name='all-specialization'),
+    path('find-by-specialization/list/',views.SpecialisationListView.as_view(), name='find-by-specialization'),
     
     path('profile-detail/<int:pk>/',views.ProfileDetail.as_view(), name='book'),
 
@@ -71,6 +71,7 @@ urlpatterns = [
     path('blog-post/',views.BlogPost.as_view(), name='blog-post'),
     path('faq/',views.Faq.as_view(), name='faq-1'),
     path('search-keyword/', search_keyword, name='search-keyword'),
+    # path('search-result/<int:pk>/', views.SearchListView.as_view(), name='search-result'),
 ]
 
 

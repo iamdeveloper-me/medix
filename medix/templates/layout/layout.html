@@ -138,7 +138,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-12">
                     <p>
-                        <a href="" title="Findoctor">
+                        <a href="{% url 'users:home-1' %}" title="Findoctor">
 
                             <img src="../../../static/html_menu_1/img/logo.png" data-retina="true" alt="" width="163" height="36" class="img-fluid">
 
@@ -158,10 +158,10 @@
                 <div class="col-lg-3 col-md-4">
                     <h5>Useful links</h5>
                     <ul class="links">
-                        <li><a href="#">Doctors</a></li>
-                        <li><a href="#">Clinics</a></li>
-                        <li><a href="#">Specialization</a></li>
-                        <li><a href="#">Join as a Doctor</a></li>
+                        <li><a href="{% url 'users:home-1' %}">Doctors</a></li>
+                        <li><a href="{% url 'users:home-1' %}">Clinics</a></li>
+                        <li><a href="{% url 'users:all-specialization' %}">Specialization</a></li>
+                        <li><a href="{% url 'users:home-1' %}">Join as a Doctor</a></li>
                         <li><a href="#">Download App</a></li>
                     </ul>
                 </div>
