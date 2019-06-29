@@ -307,10 +307,22 @@
 
                         // if (val.name == user.first_name)
                         //     var dynamicurl = "/profile-detail/<int:id>/"
+
+                        if (val.is_institution == "yes"){
+                            var dynamicurl = "/institution-detail/"+val.user_id
                         
                         $("#mysuggestionsselect tbody").append(
-                          "<tr><td><a href=/profile-detail/"+val.user_id+">" + val.name + "</a></td><td>" + val.specialization + "</td></tr>"
-                        );
+                          "<tr><td><a href="+dynamicurl+">" + val.name + "</a></td><td>" + val.specialization + "</td></tr>"
+                            );
+                        }
+                        else
+                        {
+                          var dynamicurl = "/profile-detail/"+val.user_id
+                          $("#mysuggestionsselect tbody").append(
+                          "<tr><td><a href="+dynamicurl+">" + val.name + "</a></td><td>" + val.specialization + "</td></tr>"
+                            );
+                            
+                        }
                     });
                 },
 

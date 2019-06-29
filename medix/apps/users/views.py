@@ -90,15 +90,6 @@ class PracticeProfileDetailView(View):
 class UserTypeStep1View(TemplateView):
     template_name = 'users/user_type_form.html'
 
-class Home(TemplateView):
-        template_name = 'users/index-2.html'
-        
-# def search(request):
-#     query = request.GET.get('q')
-#     results = Profile.objects.filter(Q(practice__icontains=query))
-#     return render(request, 'users/index-2.html', {'results': results})
-
-
 
 class PracticeStep2CreateView(CreateView):
     model = Profile
@@ -484,19 +475,16 @@ class ProfileDetail(DetailView):
         context = super(ProfileDetail, self).get_context_data(**kwargs)
         context['education'] = Education.objects.filter(user_id=self.object.user)
         context['product'] = Product.objects.filter(user_id=self.object.user)
-       
-        # context['ambulance']=AmbulanceService.objects.filter(user_id=self.object.user)
-        # context['time']=OperatingHours.objects.filter(user_id=self.object.user)
         return context 
 
-# class SearchTemplateView(TemplateView):
-    # model = Profile
-    # template_name = 'home/institute-detail.html'
-    # queryset = Profile.objects.all()
-    # def get_context_data(self, **kwargs):
-    #     context = super(SearchListView, self).get_context_data(**kwargs)
-    #     context['profile'] = self.queryset.filter(user_id=self.object.user)
-    #     # context['profile'] = self.queryset.filter(user_id=self.kwargs['pk'])
-    #     return context
+class InstitutionDetailView(DetailView):
+    model = Profile
+    template_name = 'home/institution-detail.html'
+    def get_context_data(self, **kwargs):
+        context = super(InstitutionDetailView, self).get_context_data(**kwargs)
+        context['product'] = Product.objects.filter(user_id=self.object.user)
+        context['ambulanceInfo'] = AmbulanceService.objects.filter(user_id=self.object.user)
+        context['keywords'] = Keywords.objects.filter(user=self.object.user)
+        context['opratHour'] = OperatingHours.objects.filter(location__user=self.object.user)   
+        return context
 
-        
