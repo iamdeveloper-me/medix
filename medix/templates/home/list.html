@@ -82,11 +82,13 @@
 								      		</a>
 								        </li>
 								        <!-- linkedin -->
-								        
-								        <li>
-								        	
 
-								           <a id="share-linkedin" class="mb-2 d-flex justify-content-center align-items-center li" data-toggle="tooltip" data-placement="left" title="Share this page!">
+								        
+								        <li onclick="copyToClipboard('#user{{ user.id }}')">
+
+								        	<p style="display:none" id="user{{ user.id }}">http://localhost:8000/profile-detail/{{ user.id }}</p>
+								        
+								        	<a id="share-linkedin" class="mb-2 d-flex justify-content-center align-items-center li" data-toggle="tooltip" data-placement="left" title="Share this page!">
 								        		<img src="{% static 'html_menu_1/img/copy_link_image.png' %}"/>
 								      		</a>
 								        </li>
@@ -215,10 +217,19 @@
 </script>
 <script type="text/javascript">	
 
-$('button.copyButton').click(function(){
-	document.getElementById("link-to-copy").value = window.location.href;
-    $(this).siblings('input.linkToCopy').select();     
-    document.execCommand("copy");
+function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
+
+
+$('.copy_link').click(function(){
+	debugger
+	var user_link = $(this).children("input");
+	user_link.select();
 });
  </script>
 <script type="text/javascript">

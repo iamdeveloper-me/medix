@@ -5,16 +5,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-DATABASES = {
-    'default': {
-        'ENGINE':   'django.db.backends.postgresql',
-        'NAME':     'medix',
-        'USER':     'postgres',
-        'PASSWORD': 'psql',
-        'HOST':     'localhost',
-        'PORT':     5432,
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE':   'django.db.backends.postgresql',
+#         'NAME':     'medix',
+#         'USER':     'postgres',
+#         'PASSWORD': 'psql',
+#         'HOST':     'localhost',
+#         'PORT':     5432,
+#     }
+# }
 
 STATIC_URL = '/static/'
 STATIC_ROOT = PROJECT_DIR.child("collected_static")
