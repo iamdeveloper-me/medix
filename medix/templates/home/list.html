@@ -33,7 +33,17 @@
 					<div class="strip_list wow fadeIn">
 						<a href="#" class="wish_bt"></a>
 						<figure>
-							<a href="{% url 'users:book' user.pk %}"><img src="{% static 'html_menu_1/img/images.jpeg' %}" alt=""></a>
+							<a href="{% url 'users:book' user.pk %}">
+							<div class="avatar-preview">
+                              {% if  user.image %}
+                                
+                                <img src="{{user.image.url}}">
+                              {% else %}
+                              <img src="{% static 'html_menu_1/img/images.jpeg' %}">
+                              {% endif %}
+                              
+                              </div>
+							</a>
 						</figure>
 						<small>{{user.get_practice_display}}</small>
 						<h3>{{user.user.first_name}}</h3><h3>{{user.user.last_name}}</h3>
