@@ -413,8 +413,6 @@
                                                 <input type="checkbox" name="mobility">  Mobility
                                                 </div>
                                                 </div>
-                                            
-                                            
                                             </ul>
                                             <ul class="contacts open_time">
                                             <li>
@@ -428,6 +426,12 @@
                                             <li>
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="monCls" value="{{close_time}}" id="monCls" >
+                                            </li>
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="monTog">
+                                                <span  class="slider round"></span>
+                                              </label>
                                             </li>
                                             
                                             </ul>
@@ -444,6 +448,12 @@
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="tueCls" value="{{close_time}}" id="tueCls" >
                                             </li>
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="tueTog">
+                                                <span class="slider round"></span>
+                                              </label>
+                                            </li>
                                             </ul>
                                             <ul class="contacts open_time">
                                             <li>
@@ -457,6 +467,12 @@
                                             <li>
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="wedCls" value="{{close_time}}" id="wedCls" >
+                                            </li>
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="wedTog">
+                                                <span class="slider round"></span>
+                                              </label>
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
@@ -472,6 +488,12 @@
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="thuCls" value="{{close_time}}" id="thuCls" >
                                             </li>
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="thuTog">
+                                                <span class="slider round"></span>
+                                              </label>
+                                            </li>
                                             </ul>
                                             <ul class="contacts open_time">
                                             <li>
@@ -485,6 +507,12 @@
                                             <li>
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="friCls" value="{{close_time}}" id="friCls" >
+                                            </li>
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="friTog">
+                                                <span class="slider round"></span>
+                                              </label>
                                             </li>
                                             </ul>
                                            <ul class="contacts open_time">
@@ -500,6 +528,12 @@
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="satCls" value="{{close_time}}" id="satCls" >
                                             </li>
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="satTog">
+                                                <span class="slider round"></span>
+                                              </label>
+                                            </li>
                                             </ul>
                                             </div>
                                               
@@ -509,8 +543,6 @@
                                                 <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location btnsave">save</button>
 
                                             </div>
-                                            
-                                        
                                         </div>
                                     </div>
                                   </div>
@@ -573,7 +605,12 @@
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="myMonCls" value="" class="myMonCls" >
                                             </li>
-                                            
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="myMonTog">
+                                                <span  class="slider round"></span>
+                                              </label>
+                                            </li>
                                             </ul>
                                             <ul class="contacts open_time">
                                             <li>
@@ -587,6 +624,12 @@
                                             <li>
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="myTueCls" value="" class="myTueCls" >
+                                            </li>
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="myTueTog">
+                                                <span  class="slider round"></span>
+                                              </label>
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
@@ -602,6 +645,12 @@
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="myWedCls" value="{{close_time}}" class="myWedCls" >
                                             </li>
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="myWedTog">
+                                                <span  class="slider round"></span>
+                                              </label>
+                                            </li>
                                             </ul>
                                             <ul class="contacts open_time">
                                             <li>
@@ -615,6 +664,12 @@
                                             <li>
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="myThuCls" value="{{close_time}}" class="myThuCls" >
+                                            </li>
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="myThuTog">
+                                                <span  class="slider round"></span>
+                                              </label>
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
@@ -630,6 +685,13 @@
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="myFriCls" value="{{close_time}}" class="myFriCls" >
                                             </li>
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="myFriTog">
+                                                <span  class="slider round"></span>
+                                              </label>
+                                            </li>
+                                           
                                             </ul>
                                            <ul class="contacts open_time">
                                             <li>
@@ -643,6 +705,12 @@
                                             <li>
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="mySatCls" value="" class="mySatCls" >
+                                            </li>
+                                            <li>
+                                              <label class="switch">
+                                                <input type="checkbox" name="mySatTog">
+                                                <span  class="slider round"></span>
+                                              </label>
                                             </li>
                                             </ul>
                                                
@@ -659,14 +727,15 @@
                                     </strong>  
                                     <li id="location_li_{{val.location.id}}">
 
-                                        {% if val.open_time != None%}
-                                            {{val.day}}-{{val.open_time}}-{{val.close_time}} 
-                                    
+                                        {% if val.open_time != None and val.status == True %}
+                                            {{val.day}}-{{val.open_time}}-{{val.close_time}}
+                                          {% else %}
+                                              {{val.day}}-<li>Closed</li>
                                         {%endif%} 
                              
                                     </li>
                                     
-                                      {% endfor %} 
+                                    {% endfor %} 
                                       
                                     </ul>
 
@@ -1286,8 +1355,14 @@ $(document).on("click", ".save_location", function(e){
     profile_id = $(this).data('id');
     locationVal = $("#locationId").val();
     mobility=$('input[name="mobility"]').prop('checked');
+    monTog = $('input[name="monTog"]').prop('checked');
+    tueTog = $('input[name="tueTog"]').prop('checked');
+    wedTog = $('input[name="wedTog"]').prop('checked');
+    thuTog = $('input[name="thuTog"]').prop('checked');
+    friTog = $('input[name="friTog"]').prop('checked');
+    satTog = $('input[name="satTog"]').prop('checked');
     monOpn = $("#monOpn").val();
-    monClos = $("#monCls").val();
+    monClos= $("#monCls").val();
     monday = $("#mon").val();
     tueOpn = $("#tueOpn").val();
     tueCls = $("#tueCls").val();
@@ -1332,7 +1407,14 @@ $(document).on("click", ".save_location", function(e){
             "satOpn" : satOpn,
             "satCls" : satCls,
             "satday" : satday,
-            "mobility":mobility
+            "mobility":mobility,
+            "monTog":monTog,
+            "tueTog":tueTog,
+            "wedTog":wedTog,
+            "thuTog":thuTog,
+            "friTog":friTog,
+            "satTog":satTog
+
         },
         success: function(response) {
                 if(response.status == 200){

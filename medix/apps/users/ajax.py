@@ -275,7 +275,6 @@ def delete_location(request):
 def add_location(request):
     if request.method == 'POST':
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
-
         user = profile.user
         day_list = []
         day_list.append(request.POST.get('monday'))
@@ -300,18 +299,28 @@ def add_location(request):
         close_list.append(request.POST.get('thuCls'))
         close_list.append(request.POST.get('friCls'))
         close_list.append(request.POST.get('satCls'))
+
+        toggle_list = []
+        toggle_list.append(request.POST.get('monTog').title())
+        toggle_list.append(request.POST.get('tueTog').title())
+        toggle_list.append(request.POST.get('wedTog').title())
+        toggle_list.append(request.POST.get('thuTog').title())
+        toggle_list.append(request.POST.get('friTog').title())
+        toggle_list.append(request.POST.get('satTog').title())
         location_obj = Location.objects.create(user=user,location=request.POST.get("locations"),mobility = request.POST.get('mobility').title())
         try:
-
-            for day, openl, closel in zip(day_list,open_list,close_list):
-                OperatingHours.objects.create(
-                    open_time = openl,
-                    close_time = closel,
-                    day = day,
-                    location = location_obj,
-                    
-                )
-
+            for day, openl, closel,toggle in zip(day_list,open_list,close_list,toggle_list):
+                if toggle == 'False':
+                    OperatingHours.objects.create(location = location_obj,day = day,status = toggle)
+                else: 
+                    OperatingHours.objects.create(
+                        open_time = openl,
+                        close_time = closel,
+                        day = day,
+                        location = location_obj,
+                        status = toggle
+                    )
+                
             return JsonResponse({'status':200}) 
         except Exception as e:
             print("Uh oh, Error : ", str(e))
@@ -361,13 +370,19 @@ def edit_location_hour(request):
     close_list.append(request.POST.get('friCls'))
     close_list.append(request.POST.get('satCls'))
     hom = request.POST.get('homVist').title()
+    
     location_obj = Location.objects.get(id=request.POST.get("location_id"))
     Location.objects.filter(id=request.POST.get("location_id")).update(location = request.POST.get('loc_add'),mobility=request.POST.get('homVist').title())
-    for dayl, openl, closel in zip(day_list,open_list,close_list):
-        
+    for dayl, openl, closel in zip(day_list,open_list,close_list,):
         try:
-            OperatingHours.objects.filter(location=location_obj,day=dayl).update(open_time=openl,close_time=closel)
-
+            operating_obj = OperatingHours.objects.filter(location=location_obj,day=dayl).update(open_time=openl,close_time=closel)
+            if operating_obj == 0:
+                OperatingHours.objects.create(
+                    open_time = openl,
+                    close_time = closel,
+                    day = dayl,
+                    location = location_obj,   
+                )
         except Exception as e:
             return JsonResponse({'status':200})
     return JsonResponse({'status':200}) 
