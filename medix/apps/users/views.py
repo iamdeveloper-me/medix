@@ -484,6 +484,9 @@ class ProfileDetail(DetailView):
         context = super(ProfileDetail, self).get_context_data(**kwargs)
         context['education'] = Education.objects.filter(user_id=self.object.user)
         context['product'] = Product.objects.filter(user_id=self.object.user)
+        import pdb; pdb.set_trace()
+        context['ambulance']=AmbulanceService.objects.filter(user_id=self.object.user)
+        context['time']=OperatingHours.objects.filter(user_id=self.object.user)
         return context 
 
 # class SearchTemplateView(TemplateView):
