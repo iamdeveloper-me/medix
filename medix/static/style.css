@@ -152,7 +152,7 @@ p.error {
   text-align: center;
   margin: auto;
 }*/
-.avatar-upload .avatar-preview img {
+ .avatar-preview img {
   width: 192px;
   height: 192px;
   position: relative;

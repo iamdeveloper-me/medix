@@ -33,7 +33,16 @@
 								<div class="row">
 									<div class="col-lg-5 col-md-4">
 										<figure>
-											<a href="#"><img src="/static/html_menu_1/img/images.jpeg" alt="" class="img-fluid">
+											<a href="#">
+											<div class="avatar-preview">
+			                              {% if  object.image %}
+			                                
+			                               <img src="{{object.image.url}}">
+			                              {% else %}
+			                              <img src="{% static 'html_menu_1/img/images.jpeg' %}">
+			                              {% endif %}
+			                              
+			                              </div>
 										</figure>
 									</div>
 									<div class="col-lg-7 col-md-8">
