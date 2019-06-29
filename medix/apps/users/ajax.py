@@ -446,8 +446,6 @@ def search_keyword(request):
                 )
             json_res.append(json_obj)
         return JsonResponse({'status':200,'suggestion':json_res})
-
-
     return JsonResponse({'status':200}) 
 
 

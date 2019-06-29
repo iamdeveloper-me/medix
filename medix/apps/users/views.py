@@ -478,14 +478,25 @@ class SpecialisationListView(ListView):
         return context
 
 class ProfileDetail(DetailView):
-    model = Profile 
+    model = Profile  
     template_name = 'home/detail-page.html'
     def get_context_data(self, **kwargs):
         context = super(ProfileDetail, self).get_context_data(**kwargs)
         context['education'] = Education.objects.filter(user_id=self.object.user)
         context['product'] = Product.objects.filter(user_id=self.object.user)
+        import pdb; pdb.set_trace()
+        context['ambulance']=AmbulanceService.objects.filter(user_id=self.object.user)
+        context['time']=OperatingHours.objects.filter(user_id=self.object.user)
         return context 
 
-
+# class SearchTemplateView(TemplateView):
+    # model = Profile
+    # template_name = 'home/institute-detail.html'
+    # queryset = Profile.objects.all()
+    # def get_context_data(self, **kwargs):
+    #     context = super(SearchListView, self).get_context_data(**kwargs)
+    #     context['profile'] = self.queryset.filter(user_id=self.object.user)
+    #     # context['profile'] = self.queryset.filter(user_id=self.kwargs['pk'])
+    #     return context
 
         
