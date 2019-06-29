@@ -379,7 +379,6 @@ def search_keyword(request):
     json_res = []
     json_obj = {}
     if searchtype == 'all':
-        # import pdb; pdb.set_trace()
         suggestion_list = Profile.objects.filter(Q(user__first_name__startswith=suggestion) | Q(trading_name__startswith=suggestion))
         for record in suggestion_list:
             if record.trading_name:
