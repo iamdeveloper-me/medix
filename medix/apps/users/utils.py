@@ -1,34 +1,63 @@
 
 def specialization_value(specialization):
     if specialization == 'GeneralPractitioner':
-        return 0
+        return 11
     elif specialization == 'Dentist':
-        return 1
+        return 5
     elif specialization == 'Cardiologist':
         return 2
     elif specialization == 'Dermatologist':
-        return 3
-    elif specialization == 'Ear-Nose-Throat':
-        return 4
-    elif specialization == 'Endocrinologist':
-        return 5
-    elif specialization == 'GeneralSurgeon':
         return 6
-    elif specialization == 'Gynaecologist':
+    elif specialization == 'Ear-Nose-Throat(otolaryngologists)':
         return 7
-    elif specialization == 'Nephrologist':
+    elif specialization == 'Endocrinologist':
         return 8
-    elif specialization == 'Oncologist':
-        return 9
-    elif specialization == 'Ophthalmologist':
-        return 10
-    elif specialization == 'Paediatrist':
-        return 11
-    elif specialization == 'Physiotherapist':
+    elif specialization == 'GeneralSurgeon':
         return 12
-    elif specialization == 'Podiatrist':
+    elif specialization == 'Gynaecologist Obstetrician':
+        return 10
+    elif specialization == 'Nephrologist':
         return 13
-    elif specialization == 'Psychologist':
-        return 14
-    elif specialization == 'Radiologist':
+    elif specialization == 'Oncologist':
         return 15
+    elif specialization == 'Ophthalmologist':
+        return 16
+    elif specialization == 'Paediatrist':
+        return 19
+    elif specialization == 'Physiotherapist':
+        return 22
+    elif specialization == 'Podiatrist':
+        return 23
+    elif specialization == 'Psychologist & Psychiatrist':
+        return 24
+    elif specialization == 'Radiologist':
+        return 25
+    elif specialization == 'Ayurvedic Medicine':
+        return 0
+    elif specialization == 'Anaesthesiologist':
+        return 1
+    elif specialization == 'Chiropractor':
+        return 3
+    elif specialization == 'Cosmetic Surgeon':
+        return 4
+    elif specialization == 'Gastroenterologist':
+        return 9
+    elif specialization == 'Neurologist & Neuro Surgeon':
+        return 14
+    elif specialization == 'Optometrics':
+        return 17
+    elif specialization == 'Orthopaedist':
+        return 18
+    elif specialization == 'Pulmonologist':
+        return 21
+    elif specialization == 'Podiatrist':
+        return 20
+    elif specialization == 'Rheumatologists':
+        return 26
+    elif specialization == 'Sports Medicine Specialist':
+        return 27
+    elif specialization == 'Urologist':
+        return 28
+    else:
+        specialization == 'Pathologist'
+        return 20

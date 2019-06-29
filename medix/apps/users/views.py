@@ -137,11 +137,6 @@ class EmergencyServiceStep2CreateView(CreateView):
         form.save()
         return redirect(self.success_url+str(form.id))
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(SavedOffLineListView, self).get_context_data(**kwargs)
-    #     context['object_list'] = self.model.objects.filter(created_by=self.request.user)
-    #     return context
-
 class PracticeSignupStep3View(View):
     def get(self,request,pk):
         form = PracticeSignupForm
@@ -165,7 +160,6 @@ class PracticeSignupStep3View(View):
                 practice_obj = practice_form.save(commit=False)
                 practice_obj.user = user
                 practice_obj.gender = request.POST.get('gender')
-                # practice_obj.image = request.FILES.get('uimage')
                 practice_obj.save()
                 frm = settings.DEFAULT_FROM_EMAIL
                 ctx = {'root_url':settings.ROOT_URL,'pk':pk}
@@ -179,7 +173,7 @@ class PracticeSignupStep3View(View):
         else:
             form = PracticeSignupForm
             userform = UserForm
-            messages.error(self.request, 'Please select gender')
+            messages.error(self.request, 'Invalid form')
             return render(self.request,'registration/practice.html',
                 {'form':form,'userform':userform,'pk':pk})
         # messages.success(self.request, 'Successfully registered.Please check your authorised email')
