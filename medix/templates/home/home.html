@@ -15,15 +15,15 @@
                 <div class="content">
                     <h3>Find a Doctor!</h3>
                     <p>
-                        Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.
+                        Chavez hymenaeos running and not running the thermal care vehicles.
                     </p>
-                    <form method="get" action="/find">
+                    <form method="get" action="#">
                         <div id="custom-search-input">
                             <div class="input-group">
                                 <input type="text" class="search-query" placeholder="Ex. Name, Specialization ....">
                                 
                             </div>
-                            <table id="mysuggestionsselect">
+                            <table  id="mysuggestionsselect">
 
                                 <tbody id="tbodyid"> 
                                 </tbody>
@@ -77,49 +77,49 @@
                 <div class="col-lg-3 col-md-6">
                     <a href="{% url 'users:find-by-specialization' %}?specialization=Cardiologist" class="box_cat_home">
                         <i class="icon-info-4"></i>
-                        <img src="/static/html_menu_1/img/icon_cat_2.svg" width="60" height="60" alt="">
+                        <img src="{% static 'html_menu_1/img/icon_cat_2.svg' %}" width="60" height="60" alt="">
                         <h3>Cardiologist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <a href="{% url 'users:find-by-specialization' %}?specialization=Ophthalmologist" class="box_cat_home">
                         <i class="icon-info-4"></i>
-                        <img src="/static/html_menu_1/img/icon_cat_3.svg" width="60" height="60" alt="">
+                        <img src="{% static 'html_menu_1/img/icon_cat_3.svg' %}" width="60" height="60" alt="">
                         <h3>Ophthalmologist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <a href="{% url 'users:find-by-specialization' %}?specialization=Dermatologist" class="box_cat_home">
                         <i class="icon-info-4"></i>
-                        <img src="/static/html_menu_1/img/icon_cat_4.svg" width="60" height="60" alt="">
+                        <img src="{% static 'html_menu_1/img/icon_cat_4.svg' %}" width="60" height="60" alt="">
                         <h3>Dermatologist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <a href="{% url 'users:find-by-specialization' %}?specialization=Ear-Nose-Throat" class="box_cat_home">
                         <i class="icon-info-4"></i>
-                        <img src="/static/html_menu_1/img/icon_cat_7.svg" width="60" height="60" alt="">
+                        <img src="{% static 'html_menu_1/img/icon_cat_7.svg' %}" width="60" height="60" alt="">
                         <h3>Ear-Nose-Throat</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <a href="{% url 'users:find-by-specialization' %}?specialization=Dentist" class="box_cat_home">
                         <i class="icon-info-4"></i>
-                        <img src="/static/html_menu_1/img/icon_cat_5.svg" width="60" height="60" alt="">
+                        <img src="{% static 'html_menu_1/img/icon_cat_5.svg' %}" width="60" height="60" alt="">
                         <h3>Dentist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <a href="{% url 'users:find-by-specialization' %}?specialization=Paediatrist" class="box_cat_home">
                         <i class="icon-info-4"></i>
-                        <img src="/static/html_menu_1/img/icon_cat_6.svg" width="60" height="60" alt="">
+                        <img src="{% static 'html_menu_1/img/icon_cat_6.svg' %}" width="60" height="60" alt="">
                         <h3>Paediatrist</h3>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <a href="{% url 'users:find-by-specialization' %}?specialization=Psychologist" class="box_cat_home">
                         <i class="icon-info-4"></i>
-                        <img src="/static/html_menu_1/img/icon_cat_8.svg" width="60" height="60" alt="">
+                        <img src="{% static 'html_menu_1/img/icon_cat_8.svg' %}" width="60" height="60" alt="">
                         <h3>Psychologist</h3>
                     </a>
                 </div>
@@ -300,18 +300,15 @@
                     $("#tbodyid").empty();
                     console.log(data);
                     $('#mysuggestionsselect').show();
+                    var test = ""
                     $.each(data.suggestion, function(key,val) {
-                        // if (val.name == trading_name)
-                        // if (val.name == trading_name)
-                        //     var dynamicurl = "/home/list/"
+                        test += '<tr>'                            
+                        test += '<td><a href="/profile-detail/'+val.user_id+'">'+val.name+'</a></td>'
+                        test += '<td><a href="/profile-detail/'+val.user_id+'">'+val.specialization+'</a></td>'
+                        test += '</tr>'                            
 
-                        // if (val.name == user.first_name)
-                        //     var dynamicurl = "/profile-detail/<int:id>/"
-                        
-                        $("#mysuggestionsselect tbody").append(
-                          "<tr><td><a href=/profile-detail/"+val.user_id+">" + val.name + "</a></td><td>" + val.specialization + "</td></tr>"
-                        );
                     });
+                    $("#mysuggestionsselect tbody").append(test);
                 },
 
                 failure: function(data){
