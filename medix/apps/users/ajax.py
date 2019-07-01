@@ -414,7 +414,7 @@ def search_keyword(request):
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'doctors':
-        suggestion_list = Profile.objects.filter(custom_role = 1, user__first_name__istartswith=suggestion,status=1)
+        suggestion_list = Profile.objects.filter(custom_role = 1, user__first_name__istartswith=suggestion, status=1)
         for record in suggestion_list:
             json_obj = dict(              
                 user_id = record.id,
@@ -426,7 +426,7 @@ def search_keyword(request):
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'pharmacy':
-        suggestion_list = Profile.objects.filter(Q(institution = 4)| Q(trading_name__istartswith=suggestion,status=1))        
+        suggestion_list = Profile.objects.filter(Q(institution = 4)| Q(trading_name__istartswith=suggestion), status=1)
         for record in suggestion_list:
             json_obj = dict(
                 is_institution = "yes",
@@ -439,22 +439,25 @@ def search_keyword(request):
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'clinic':
-        suggestion_list = Profile.objects.filter(Q(institution = 2) | Q(trading_name__istartswith=suggestion,status=1))
+        suggestion_list = Profile.objects.filter(Q(institution = 2)| Q(trading_name__istartswith=suggestion), status=1)
         for record in suggestion_list:
-            print(record.user_id)
             json_obj = dict(
+                # institution = 2,
                 is_institution = "yes",
                 user_id = record.id,
                 name =  record.trading_name,
                 specialization  = record.get_institution_display()
                 )
             json_res.append(json_obj)
+
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'health-insurance':
-        suggestion_list = Profile.objects.filter(custom_role = 4 , trading_name__istartswith=suggestion,status=1)
+        
+        suggestion_list = Profile.objects.filter(custom_role = 4 , trading_name__istartswith=suggestion, status=1)
         for record in suggestion_list:
             json_obj = dict(
+                # custom_role = 4,
                 is_institution = "yes",
                 user_id = record.id,
                 name =  record.trading_name,

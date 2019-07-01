@@ -603,6 +603,7 @@ ul#top_access li#user figure img {
 footer {
   background-color: #fff;
   color: #555;
+  width: 100%!important;
 }
 footer h5 {
   font-size: 14px;

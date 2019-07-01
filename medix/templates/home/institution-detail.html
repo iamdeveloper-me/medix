@@ -54,8 +54,9 @@
                                     </div>
                                   </div>
                                     <div class="col-lg-7 col-md-8" id="primary_care">
+                                        {% if object.custom_role == 2 %}
                                         <small>{{object.get_institution_display}}</small>
-
+                                        {% endif %}
 
                                         <h1>{{object.trading_name}}</h1>
                                         <span class="rating">
@@ -132,12 +133,11 @@
                                 </div>
                             </div>
                             <!--  /wrapper_indent -->
+                            {% if object.custom_role == 2 %}
                             <hr>
-                           
                             <div class="indent_title_in">
                                 <i class="pe-7s-cash"></i>
                                 <h3>Ambulances</h3>
-  
                             </div>
                             <div class="wrapper_indent">
                                 
@@ -162,9 +162,8 @@
                                 </table>
                                 </div>
                             </div>
-                           
+                            {% endif %}
                             <hr>
-
                             <div class="indent_title_in">
                                 <i class="far fa-map-marker-alt"></i>
                                 <h3>Location & Trading Hours</h3>                                        
@@ -204,7 +203,7 @@
                             <hr>
                             <div class="indent_title_in">
                                 <i class="pe-7s-news-paper"></i>
-                                <h3>Keywords</h3>
+                                <h3>Services</h3>
                                 {% for info in keywords %}                              
                                         {{info.keyword}}     
                                 {% endfor %} 
@@ -221,9 +220,8 @@
                                     {% endfor %}
                                 </ul>
                             </div>
-
+                            {% if object.custom_role == 2 %}
                             <hr>
-
                             <div class="indent_title_in">
                                 <i class="pe-7s-news-paper"></i>
                                 <h3>Facilities</h3>
@@ -253,12 +251,9 @@
                                     </div>
                                   </div>
                             </div>
-                            <div class="wrapper_indent padding_bottom">
-                                
+                            <div class="wrapper_indent padding_bottom">   
                             </div>
-
                             <hr>
-
                             <div class="indent_title_in">
                                 <i class="pe-7s-news-paper"></i>
                                 <h3>AREAS OF SPECIALISATION</h3>
@@ -287,6 +282,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {% endif %}
                             <div class="wrapper_indent padding_bottom">
                                 
                             </div>

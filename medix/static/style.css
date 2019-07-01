@@ -599,8 +599,6 @@ margin-left: 10px;
 .sharebtnlisting li:after{
   display: none!important;
 }
-
-
 .sharebtnlisting li a{
   color: #efefef!important;
     border-radius: 50%;
@@ -645,6 +643,9 @@ margin-top:-10px;
 #share-twitter {
 background: #00acee;
 margin-top:-20px;
+}
+.footer{
+  width: 100%!important;
 }
 
 #share-pocket {
