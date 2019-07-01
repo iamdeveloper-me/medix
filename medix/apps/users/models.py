@@ -52,6 +52,8 @@ class Location(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='location', blank = True, null = True)
     location = models.TextField(_("Clinic location"), blank = True, null = True)
     mobility = models.BooleanField(default=False)
+    class Meta:
+        ordering = ['id']
 
 class OperatingHours(BaseModel):
 
@@ -61,6 +63,8 @@ class OperatingHours(BaseModel):
     status = models.BooleanField(default=False)
     # day = models.IntegerField(verbose_name=_('Day Type'), choices=Day_CHOICES, blank = True, null = True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location_hour', blank = True, null = True)
+    class Meta:
+        ordering = ['id']
     
 class Product(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Product', blank = True, null = True)

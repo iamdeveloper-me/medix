@@ -308,6 +308,7 @@ button.save_price{
     display: block;
     margin-right: 0 !important;
     margin: 25px auto;
+    border:none;
 }
 button.edit_ambuinfo{
     background: #e74e84;
@@ -337,6 +338,7 @@ button.save_btn {
     display: block;
     margin-right: 0 !important;
     margin: 25px auto;
+    border:none;
 }
 button.save_des{
  background: #e74e84;
@@ -442,6 +444,7 @@ a.forgot {
 }
 .homVist{
   margin-left:200px;
+  margin-right: 6px;
 }
 .popupscroll{
   max-height: 300px;
@@ -735,3 +738,33 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.switch_label{
+  vertical-align: top!important;
+  margin-top: -7px!important;
+}
+.width_29{
+  width:29%!important;
+}
+.width_10{
+  width:10%!important;
+}
+.checkbox_input input{
+  height: inherit!important;
+  line-height: inherit!important;
+  margin-right: 0px!important;
+}
+.checkbox_input {
+    text-align: right;
+    right: 30px;
+    margin-top: 20px;
+}
+.specialisation_form input{
+  height: inherit;
+  line-height: inherit;
+  margin: 6px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+
