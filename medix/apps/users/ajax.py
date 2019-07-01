@@ -379,7 +379,6 @@ def edit_location_hour(request):
         toggle_list.append(request.POST.get('satTog').title())
           
         hom = request.POST.get('homVist').title()
-        # import pdb; pdb.set_trace()
         location_obj = Location.objects.get(id=request.POST.get("location_id"))
         Location.objects.filter(id=request.POST.get("location_id")).update(location = request.POST.get('loc_add'),mobility=request.POST.get('homVist').title())
         try:
