@@ -379,22 +379,21 @@ def edit_location_hour(request):
         toggle_list.append(request.POST.get('satTog').title())
           
         hom = request.POST.get('homVist').title()
-        
+        # import pdb; pdb.set_trace()
         location_obj = Location.objects.get(id=request.POST.get("location_id"))
         Location.objects.filter(id=request.POST.get("location_id")).update(location = request.POST.get('loc_add'),mobility=request.POST.get('homVist').title())
         try:
             for dayl, openl, closel, toggle in zip(day_list,open_list,close_list,toggle_list):
-                if openl == '' or closel == '':
-                    pass
-                operating_obj = OperatingHours.objects.filter(location=location_obj,day=dayl).update(open_time=openl,close_time=closel, status=toggle)
-                if operating_obj == 0:
-                    OperatingHours.objects.create(
-                        open_time = openl,
-                        close_time = closel,
-                        day = dayl,
-                        location = location_obj, 
-                        status=toggle  
-                    )
+                if openl != '' or closel != '':
+                    operating_obj = OperatingHours.objects.filter(location=location_obj,day=dayl).update(open_time=openl,close_time=closel, status=toggle)
+                # if operating_obj == 0:
+                #     OperatingHours.objects.create(
+                #         open_time = openl,
+                #         close_time = closel,
+                #         day = dayl,
+                #         location = location_obj, 
+                #         status=toggle  
+                #     )
             return JsonResponse({'status':200})
         except Exception as e:
             print(e)
