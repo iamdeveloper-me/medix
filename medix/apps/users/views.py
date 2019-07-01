@@ -459,7 +459,7 @@ class SpecialisationListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(SpecialisationListView, self).get_context_data(**kwargs)
         specialization = self.request.GET['specialization']
-        context['specialization'] = self.queryset.filter(practice=specialization_value(specialization))
+        context['specialization'] = self.queryset.filter(status=1, practice=specialization_value(specialization))
         return context
 
 class ProfileDetail(DetailView):
