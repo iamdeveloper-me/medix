@@ -71,10 +71,9 @@ urlpatterns = [
     path('blog-post/',views.BlogPost.as_view(), name='blog-post'),
     path('faq/',views.Faq.as_view(), name='faq-1'),
     path('search-keyword/', search_keyword, name='search-keyword'),
-    # path('institution-detail/<int:pk>/', views.SearchTemplateView.as_view(), name='search-result'),
+    path('institution-detail/<int:pk>/', views.InstitutionDetailView.as_view(), name='search-institution'),
+
 ]
-
-
 
 ajaxpatterns = [
     #practice add ,edit ,delete ajax

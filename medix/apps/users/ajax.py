@@ -397,9 +397,8 @@ def search_keyword(request):
         suggestion_list = Profile.objects.filter(Q(user__first_name__startswith=suggestion) | Q(trading_name__startswith=suggestion))
         for record in suggestion_list:
             if record.trading_name:
-
                 json_obj = dict(
-                    # is_institution = "yes",
+                    is_institution = "yes",
                     user_id = record.id,
                     name =  record.trading_name,
                     specialization  = record.get_institution_display()                   
@@ -430,7 +429,8 @@ def search_keyword(request):
         suggestion_list = Profile.objects.filter(Q(institution = 4)| Q(trading_name__startswith=suggestion))        
         for record in suggestion_list:
             json_obj = dict(
-                user_id = record.user.id,
+                is_institution = "yes",
+                user_id = record.id,
                 name =  record.trading_name,
                 specialization  = record.get_institution_display()
                 )
@@ -443,6 +443,7 @@ def search_keyword(request):
         for record in suggestion_list:
             print(record.user_id)
             json_obj = dict(
+                is_institution = "yes",
                 user_id = record.user.id,
                 name =  record.trading_name,
                 specialization  = record.get_institution_display()
@@ -454,7 +455,8 @@ def search_keyword(request):
         suggestion_list = Profile.objects.filter(custom_role = 4 , trading_name__startswith=suggestion)
         for record in suggestion_list:
             json_obj = dict(
-                user_id = record.user.id,
+                is_institution = "yes",
+                user_id = record.id,
                 name =  record.trading_name,
                 specialization  = record.get_institution_display()
                 )
