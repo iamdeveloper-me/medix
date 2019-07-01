@@ -609,7 +609,7 @@
                                                 <h6>Location</h6>
                                                 <input type="text" value="" name="locationAdd" class="locId">
                                                 </div>
-                                              <div class="col-md-6">
+                                              <div class="col-md-6 checkbox_input">
                                                 {% if val.location.mobility == True %}
                                                 <input type="checkbox" name="hom_visit" value="" class="homVist" checked>Mobility
                                                 {% else %}
@@ -618,31 +618,31 @@
                                               </div>
                                              </div>       
                                             <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="mon" value="mon" id="mondy" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="myMonOpn" value="" class="myMonOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="myMonCls" value="" class="myMonCls" >
                                             </li>
-                                            <li>
+                                            <li class="width_10">
                                               
                                              
                                               {% for val in opratHour %}
                                         
                                               {% if forloop.counter == 1 %}
                                               {% if val.status == True  %}
-                                              <label class="switch">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="myMonTog" class="myMonTog" value="" checked>
                                                 <span  class="slider round"></span>
                                               </label>
                                               {% else %}
-                                              <label class="switch">
+                                              <label class=class="switch switch_label">
                                                 <input type="checkbox" name="myMonTog" class="myMonTog" value="">
                                                 <span  class="slider round"></span>
                                               </label>
@@ -652,29 +652,29 @@
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="tue" value="tue" id="tuedy" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="myTueOpn" value="" class="myTueOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="myTueCls" value="" class="myTueCls" >
                                             </li>
-                                            <li>
+                                            <li class="width_10">
                                             {% for val in opratHour %}
                                             
                                             {% if forloop.counter == 2 %}
                                             {% if val.status == True %}
-                                              <label class="switch">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="myTueTog" class="myTueTog" value="" checked>
                                                 <span  class="slider round"></span>
                                               </label>
                                             {% else %}
-                                              <label class="switch">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="myTueTog" class="myTueTog" value="">
                                                 <span  class="slider round"></span>
                                               </label>
@@ -684,29 +684,29 @@
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="wed" value="wed" id="wedy" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29" >
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="myWedOpn" value="" class="myWedOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="myWedCls" value="{{close_time}}" class="myWedCls" >
                                             </li>
-                                            <li>
+                                            <li class="width_10">
                                               {% for val in opratHour %}
-                                              
+
                                               {% if forloop.counter == 3 %}
                                               {% if val.status == True %}
-                                              <label class="switch">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="myWedTog" class="myWedTog" value="" checked>
                                                 <span  class="slider round"></span>
                                               </label>
                                               {% else %}
-                                              <label class="switch">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="myWedTog" class="myWedTog" value="">
                                                 <span  class="slider round"></span>
                                               </label>
@@ -716,28 +716,28 @@
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="thus" value="thu" id="thusdy" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="myThuOpn" value="{{open_time}}" class="myThuOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="myThuCls" value="{{close_time}}" class="myThuCls" >
                                             </li>
-                                            <li>
+                                            <li class="width_10">
                                               {% for val in opratHour %}
                                               {% if forloop.counter == 4 %}
                                               {% if val.status == True %}
-                                              <label class="switch">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="myThuTog" class="myThuTog" value="" chekced>
                                                 <span  class="slider round"></span>
                                               </label>
                                               {% else %}
-                                              <label class="switch">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="myThuTog" class="myThuTog" value="">
                                                 <span  class="slider round"></span>
                                               </label>
@@ -747,29 +747,29 @@
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="friday" value="fri" id="frdy" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="myFriOpn" value="{{open_time}}" class="myFriOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="myFriCls" value="{{close_time}}" class="myFriCls" >
                                             </li>
-                                            <li>
+                                            <li class="width_10">
 
                                               {% for val in opratHour %}
                                               {% if forloop.counter == 5 %}
                                               {% if val.status == True %}
-                                              <label class="switch">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="myFriTog" class="myFriTog" value="True" checked>
                                                 <span  class="slider round"></span>
                                               </label>
                                               {% else %}
-                                              <label class="switch">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="myFriTog" class="myFriTog" value="">
                                                 <span  class="slider round"></span>
                                               {% endif %}
@@ -779,28 +779,28 @@
                                            
                                             </ul>
                                            <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="sat" value="sat" id="satdy" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="mySatOpn" value="" class="mySatOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="mySatCls" value="" class="mySatCls" >
                                             </li>
-                                            <li>
+                                            <li class="width_10">
                                               {% for val in opratHour %}
                                               {% if forloop.counter == 6 %}
                                               {% if val.status == True %}
-                                              <label class="switch">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="mySatTog" class="mySatTog" value="" checked="true">
                                                 <span  class="slider round"></span>
                                               </label>
                                               {% else %}
-                                              <label class="switch">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="mySatTog" class="mySatTog" value="">
                                                 <span  class="slider round"></span>
                                               </label>
