@@ -209,29 +209,36 @@
                             <div class="indent_title_in">
                                 <i class="pe-7s-cash"></i>
                                 <h3>Items & Prices</h3>
+
                                 <div class="popup_main">
                                     <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
-                                          <div class="popup_close">x</div>
-                                           <ul class="contacts">
-                                            <h6>Item</h6>
-                                            <input type="text" value="{{item}}" name="item" id="item">
-                                        </ul>
-                                        <ul class="contacts">
-                                            <h6>Price</h6>
-                                            <input type="text" value="{{price}}" name="price" id="price">
-                                        </ul>
-                                        <ul class="contacts">
-                                            <h6>On Request</h6>
-                                            <input type="checkbox" name="on_request" >
-                                        </ul>
-                                        <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-insurance-product' %}" class="save_price">save</button>
+                                            <div class="popuptitle">
+                                                Items & Prices
+                                                <div class="popup_close">x</div>
+                                            </div>
+                                            <div class="popupbody">
+                                               <ul class="contacts">
+                                                    <h6>Item</h6>
+                                                    <input type="text" value="{{item}}" name="item" id="item">
+                                                </ul>
+                                                <ul class="contacts">
+                                                    <h6>Price</h6>
+                                                    <input type="text" value="{{price}}" name="price" id="price">
+                                                </ul>
+                                                <ul class="contacts">
+                                                    <h6>On Request</h6>
+                                                    <input type="checkbox" name="on_request" >
+                                                </ul>
+                                            </div>
+                                            <div class="popupfooter">
+                                                <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-insurance-product' %}" class="save_price">save</button>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
-                                
                             </div>
                             <div class="wrapper_indent">
                                 
@@ -320,27 +327,27 @@
                                                 <h6>Location</h6>
                                             <input type="text" value="{{location}}" name="location" id="locationId">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 checkbox_input">
                                                         
                                                 <input type="checkbox" name="mobility">  Mobility
                                                 </div>
                                                 </div>
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="mon" value="mon" id="mon" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="monOpn" value="{{open_time}}" id="monOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="monCls" value="{{close_time}}" id="monCls" >
                                             </li>
-                                            <li>
-                                              <label class="switch">
+                                            <li class="width_10">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="monTog">
                                                 <span  class="slider round"></span>
                                               </label>
@@ -348,100 +355,100 @@
                                             
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="tue" value="tue" id="tue" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="tueOpn" value="{{open_time}}" id="tueOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="tueCls" value="{{close_time}}" id="tueCls" >
                                             </li>
-                                            <li>
-                                              <label class="switch">
+                                            <li class="width_10">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="tueTog">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="wed" value="wed" id="wed" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="wedOpn" value="{{open_time}}" id="wedOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29"> 
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="wedCls" value="{{close_time}}" id="wedCls" >
                                             </li>
-                                            <li>
-                                              <label class="switch">
+                                            <li class="width_10">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="wedTog">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="thus" value="thu" id="thus" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="thuOpn" value="{{open_time}}" id="thuOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="thuCls" value="{{close_time}}" id="thuCls" >
                                             </li>
-                                            <li>
-                                              <label class="switch">
+                                            <li class="width_10">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="thuTog">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="friday" value="fri" id="friday" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="friOpn" value="{{open_time}}" id="friOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="friCls" value="{{close_time}}" id="friCls" >
                                             </li>
-                                            <li>
-                                              <label class="switch">
+                                            <li class="width_10">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="friTog">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
                                             </ul>
                                            <ul class="contacts open_time">
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Day</h6>
                                                 <input type="text" name="sat" value="sat" id="sat" disabled>
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Opening Time</h6>
                                                 <input type="text" name="satOpn" value="{{open_time}}" id="satOpn" >
                                             </li>
-                                            <li>
+                                            <li class="width_29">
                                                 <h6>Closing Time</h6>
                                                 <input type="text" name="satCls" value="{{close_time}}" id="satCls" >
                                             </li>
-                                            <li>
-                                              <label class="switch">
+                                            <li class="width_10">
+                                              <label class="switch switch_label">
                                                 <input type="checkbox" name="satTog">
                                                 <span class="slider round"></span>
                                               </label>
