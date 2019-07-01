@@ -34,7 +34,7 @@ SPECIALISATION_TYPE_CHOICES = (
     (16, _("Ophthalmologist")),
     (17, _("Optometrics")),
     (18, _("Orthopaedist")),
-    (19, _("Paediatrist")),
+    (19, _("Paediatric")),
     (20, _("Pathologist")),
     (21, _("Pulmonologist")),
     (22, _("Physiotherapist")),
@@ -56,9 +56,7 @@ INSTITUTION_TYPE_CHOICES = (
 )
 
 SERVICES_TYPE_CHOICES = (
-    (0, _("Private Ambulance Independent")),
     (1, _("Private Ambulance")),
-    (2, _("Public Ambulance "))
 )
 
 Day_CHOICES = (

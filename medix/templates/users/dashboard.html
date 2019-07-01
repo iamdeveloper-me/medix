@@ -554,9 +554,7 @@
                                 <ul class="">
                                     
                                     {% for val in opratHour %}
-                                        
-                                    <strong>
-                                        
+                                    <strong> 
                                     {% ifchanged val.location.location %}
                                         
                                         {{val.location.location}}
@@ -565,11 +563,14 @@
                                         {% else %}
                                         <input type="checkbox" name="mobility" value="{{val.location.mobility}}" class="homVist mobVist">Mobility
                                         {% endif %}
+                                      {% endifchanged %}
                                         <div class="popup_main">
+                                          {% ifchanged val.location.location %}
                                             <a data-id="{{val.location.id}}" data-url="{% url 'users:delete-location' %}" class="delete_location popup_main" >
                                             <img src="../../../static/html_menu_1/img/delete.png">
                                             </a>
                                             <button class="open_popup float_right edit_location" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location' %}"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            {% endifchanged %}
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
@@ -579,18 +580,18 @@
                                                 </div>
                                                 <div class="popupbody">
                                                     <div class="popupscroll">
-                                                        <div class="row">
+                                                    <div class="row">
                                                 <div class="col-md-6">
                                                 <h6>Location</h6>
                                                 <input type="text" value="" name="locationAdd" class="locId">
                                                 </div>
-                                            <div class="col-md-6">
+                                              <div class="col-md-6">
                                                 {% if val.location.mobility == True %}
                                                 <input type="checkbox" name="hom_visit" value="" class="homVist" checked>Mobility
                                                 {% else %}
                                                 <input type="checkbox" name="hom_visit" value="" class="homVist">Mobility
                                                 {% endif %} 
-                                             </div>
+                                              </div>
                                              </div>       
                                             <ul class="contacts open_time">
                                             <li>
@@ -606,10 +607,23 @@
                                                 <input type="text" name="myMonCls" value="" class="myMonCls" >
                                             </li>
                                             <li>
+                                              
+                                             
+                                              {% for val in opratHour %}
+                                              {% if forloop.counter == 1 %}
+                                              {% if val.status == True  %}
                                               <label class="switch">
-                                                <input type="checkbox" name="myMonTog">
+                                                <input type="checkbox" name="myMonTog" value="" checked>
                                                 <span  class="slider round"></span>
                                               </label>
+                                              {% else %}
+                                              <label class="switch">
+                                                <input type="checkbox" name="myMonTog" value="">
+                                                <span  class="slider round"></span>
+                                              </label>
+                                              {% endif %}
+                                              {% endif %}
+                                            {% endfor %}
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
@@ -626,10 +640,22 @@
                                                 <input type="text" name="myTueCls" value="" class="myTueCls" >
                                             </li>
                                             <li>
+                                            {% for val in opratHour %}
+                                            
+                                            {% if forloop.counter == 2 %}
+                                            {% if val.status == True %}
                                               <label class="switch">
-                                                <input type="checkbox" name="myTueTog">
+                                                <input type="checkbox" name="myTueTog" value="" checked>
                                                 <span  class="slider round"></span>
                                               </label>
+                                            {% else %}
+                                              <label class="switch">
+                                                <input type="checkbox" name="myTueTog" value="">
+                                                <span  class="slider round"></span>
+                                              </label>
+                                            {% endif %}
+                                            {% endif %}
+                                            {% endfor %}
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
@@ -646,10 +672,21 @@
                                                 <input type="text" name="myWedCls" value="{{close_time}}" class="myWedCls" >
                                             </li>
                                             <li>
+                                              {% for val in opratHour %}
+                                              {% if forloop.counter == 3 %}
+                                              {% if val.status == True %}
                                               <label class="switch">
-                                                <input type="checkbox" name="myWedTog">
+                                                <input type="checkbox" name="myWedTog" value="" checked>
                                                 <span  class="slider round"></span>
                                               </label>
+                                              {% else %}
+                                              <label class="switch">
+                                                <input type="checkbox" name="myWedTog" value="">
+                                                <span  class="slider round"></span>
+                                              </label>
+                                              {% endif %}
+                                              {% endif %}
+                                              {% endfor %}
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
@@ -666,10 +703,21 @@
                                                 <input type="text" name="myThuCls" value="{{close_time}}" class="myThuCls" >
                                             </li>
                                             <li>
+                                              {% for val in opratHour %}
+                                              {% if forloop.counter == 4 %}
+                                              {% if val.status == True %}
                                               <label class="switch">
-                                                <input type="checkbox" name="myThuTog">
+                                                <input type="checkbox" name="myThuTog" value="" chekced>
                                                 <span  class="slider round"></span>
                                               </label>
+                                              {% else %}
+                                              <label class="switch">
+                                                <input type="checkbox" name="myThuTog" value="">
+                                                <span  class="slider round"></span>
+                                              </label>
+                                              {% endif %}
+                                              {% endif %}
+                                              {% endfor %}
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
@@ -686,10 +734,20 @@
                                                 <input type="text" name="myFriCls" value="{{close_time}}" class="myFriCls" >
                                             </li>
                                             <li>
+                                              {% for val in opratHour %}
+                                              {% if forloop.counter == 5 %}
+                                              {% if val.status == True %}
                                               <label class="switch">
-                                                <input type="checkbox" name="myFriTog">
+                                                <input type="checkbox" name="myFriTog" value="True" checked>
                                                 <span  class="slider round"></span>
                                               </label>
+                                              {% else %}
+                                              <label class="switch">
+                                                <input type="checkbox" name="myFriTog" value="">
+                                                <span  class="slider round"></span>
+                                              {% endif %}
+                                              {% endif %}
+                                              {% endfor %}
                                             </li>
                                            
                                             </ul>
@@ -707,30 +765,40 @@
                                                 <input type="text" name="mySatCls" value="" class="mySatCls" >
                                             </li>
                                             <li>
+                                              {% for val in opratHour %}
+                                              {% if forloop.counter == 6 %}
+                                              {% if val.status == True %}
                                               <label class="switch">
-                                                <input type="checkbox" name="mySatTog">
+                                                <input type="checkbox" name="mySatTog" value="" checked="true">
                                                 <span  class="slider round"></span>
                                               </label>
+                                              {% else %}
+                                              <label class="switch">
+                                                <input type="checkbox" name="mySatTog" value="">
+                                                <span  class="slider round"></span>
+                                              </label>
+                                              {% endif %}
+                                              {% endif %}
+                                              {% endfor %}
                                             </li>
                                             </ul>
-                                               
-                                                </div>
-                                                 <div class="popupfooter">
-                                                     <button type="submit" class="edit_hours save_btncss" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location-hour' %}">save</button>
-                                                </div>
-                                                </div>
-                                               
-                                                </div> 
+                                            </div>
+                                            <div class="popupfooter">
+                                              <button type="submit" class="edit_hours save_btncss" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location-hour' %}">save</button>
+                                            </div>
+                                            </div>
+                                              </div> 
                                             </div>
                                           </div>
-                                        {% endifchanged %}
-                                    </strong>  
+                                        
+                                    </strong> 
+                                    
                                     <li id="location_li_{{val.location.id}}">
 
                                         {% if val.open_time != None and val.status == True %}
-                                            {{val.day}}-{{val.open_time}}-{{val.close_time}}
-                                          {% else %}
-                                              {{val.day}}-<li>Closed</li>
+                                          {{val.day}}-{{val.open_time}}-{{val.close_time}}
+                                        {% else %}
+                                          {{val.day}}-Closed
                                         {%endif%} 
                              
                                     </li>
@@ -1456,28 +1524,34 @@ $(document).on("click", ".edit_location", function(e){
                         $(".hom_visit").val(hour_list[i].mobility)
                         
                         if(hour_list[i].day == 'mon'){
-                            $(".myMonOpn").val(hour_list[i].open_time)
-                            $(".myMonCls").val(hour_list[i].close_time)
+                          $(".myMonOpn").val(hour_list[i].open_time)
+                          $(".myMonCls").val(hour_list[i].close_time)
+                          $(".myMonTog").val(hour_list[i].status)
                         }
                         if(hour_list[i].day == 'tue'){
                           $(".myTueOpn").val(hour_list[i].open_time)
-                            $(".myTueCls").val(hour_list[i].close_time)  
+                          $(".myTueCls").val(hour_list[i].close_time)
+                          $(".myTueTog").val(hour_list[i].status)  
                         }
                         if(hour_list[i].day == 'wed'){
                           $(".myWedOpn").val(hour_list[i].open_time)
-                            $(".myWedCls").val(hour_list[i].close_time)  
+                          $(".myWedCls").val(hour_list[i].close_time)
+                          $(".myWedTog").val(hour_list[i].status)  
                         }
                         if(hour_list[i].day == 'thu'){
                           $(".myThuOpn").val(hour_list[i].open_time)
-                            $(".myThuCls").val(hour_list[i].close_time)  
+                          $(".myThuCls").val(hour_list[i].close_time)
+                          $(".myThuTog").val(hour_list[i].status)   
                         }
                         if(hour_list[i].day == 'fri'){
                           $(".myFriOpn").val(hour_list[i].open_time)
-                            $(".myFriCls").val(hour_list[i].close_time)  
+                          $(".myFriCls").val(hour_list[i].close_time)
+                          $(".myFriTog").val(hour_list[i].status)
                         }
                         if(hour_list[i].day == 'sat'){
                           $(".mySatOpn").val(hour_list[i].open_time)
-                            $(".mySatCls").val(hour_list[i].close_time)  
+                          $(".mySatCls").val(hour_list[i].close_time)
+                          $(".mySatTog").val(hour_list[i].status)   
                         }
                    }
                    }
@@ -1515,6 +1589,13 @@ $(document).on("click", ".edit_hours", function(e){
     satdy   = $("#satdy").val();
     loc_add = $(".locId").val();
     homVist = $('input[name="hom_visit"]').prop('checked');
+    monTog = $('input[name="myMonTog"]').prop('checked');
+    tueTog = $('input[name="myTueTog"]').prop('checked');
+  
+    wedTog = $('input[name="myWedTog"]').prop('checked');
+    thuTog = $('input[name="myThuTog"]').prop('checked');
+    friTog = $('input[name="myFriTog"]').prop('checked');
+    satTog = $('input[name="mySatTog"]').prop('checked');
     $.ajax({
         type: "POST",
         url: url,
@@ -1522,7 +1603,7 @@ $(document).on("click", ".edit_hours", function(e){
             "X-CSRFToken": '{{csrf_token}}' 
         },
         dataType: "json",
-        data: {"location_id":location_id,"monOpn":monOpn,"monCls":monCls,"tueOpn":tueOpn,"tueCls":tueCls,"wedOpn":wedOpn,"wedCls":wedCls,"thuOpn":thuOpn,"thuCls":thuCls,"friOpn":friOpn,"friCls":friCls,"satOpn":satOpn ,"satCls":satCls,"mondy":mondy,"tuedy":tuedy,"wedy":wedy,"thusdy":thusdy,"frdy":frdy,"satdy":satdy,"loc_add":loc_add,"homVist":homVist},
+        data: {"location_id":location_id,"monOpn":monOpn,"monCls":monCls,"tueOpn":tueOpn,"tueCls":tueCls,"wedOpn":wedOpn,"wedCls":wedCls,"thuOpn":thuOpn,"thuCls":thuCls,"friOpn":friOpn,"friCls":friCls,"satOpn":satOpn ,"satCls":satCls,"mondy":mondy,"tuedy":tuedy,"wedy":wedy,"thusdy":thusdy,"frdy":frdy,"satdy":satdy,"loc_add":loc_add,"homVist":homVist,"monTog":monTog,"tueTog":tueTog,"wedTog":wedTog,"thuTog":thuTog,"friTog":friTog,"satTog":satTog},
         success: function(response) {
                 if(response.status == 200){
                     window.location.reload()

@@ -332,12 +332,12 @@ def edit_location(request):
     if request.method == 'POST':
         location_obj = Location.objects.get(id=request.POST.get("location_id"))
         tradHour_obj = OperatingHours.objects.filter(location=location_obj)
-
         loc_hour_list = [{
             'pk'        : hour.pk,
             'open_time' : hour.open_time,
             'close_time': hour.close_time,
             'day'       : hour.day,
+            'status'    : hour.status,
             'location'  : hour.location.location,
             'mobility'  : hour.location.mobility
         } for hour in tradHour_obj]
@@ -348,44 +348,58 @@ def edit_location_hour(request):
     day_list = []
     open_list = []
     close_list = []
-    
-    day_list.append(request.POST.get('mondy'))
-    day_list.append(request.POST.get('tuedy'))
-    day_list.append(request.POST.get('wedy'))
-    day_list.append(request.POST.get('thusdy'))
-    day_list.append(request.POST.get('frdy'))
-    day_list.append(request.POST.get('satdy'))
+    if request.method == 'POST':
+        day_list.append(request.POST.get('mondy'))
+        day_list.append(request.POST.get('tuedy'))
+        day_list.append(request.POST.get('wedy'))
+        day_list.append(request.POST.get('thusdy'))
+        day_list.append(request.POST.get('frdy'))
+        day_list.append(request.POST.get('satdy'))
 
-    open_list.append(request.POST.get('monOpn'))
-    open_list.append(request.POST.get('tueOpn'))
-    open_list.append(request.POST.get('wedOpn'))
-    open_list.append(request.POST.get('thuOpn'))
-    open_list.append(request.POST.get('friOpn'))
-    open_list.append(request.POST.get('satOpn'))
-  
-    close_list.append(request.POST.get('monCls'))
-    close_list.append(request.POST.get('tueCls'))
-    close_list.append(request.POST.get('wedCls'))
-    close_list.append(request.POST.get('thuCls'))
-    close_list.append(request.POST.get('friCls'))
-    close_list.append(request.POST.get('satCls'))
-    hom = request.POST.get('homVist').title()
-    
-    location_obj = Location.objects.get(id=request.POST.get("location_id"))
-    Location.objects.filter(id=request.POST.get("location_id")).update(location = request.POST.get('loc_add'),mobility=request.POST.get('homVist').title())
-    for dayl, openl, closel in zip(day_list,open_list,close_list,):
+        open_list.append(request.POST.get('monOpn'))
+        open_list.append(request.POST.get('tueOpn'))
+        open_list.append(request.POST.get('wedOpn'))
+        open_list.append(request.POST.get('thuOpn'))
+        open_list.append(request.POST.get('friOpn'))
+        open_list.append(request.POST.get('satOpn'))
+      
+        close_list.append(request.POST.get('monCls'))
+        close_list.append(request.POST.get('tueCls'))
+        close_list.append(request.POST.get('wedCls'))
+        close_list.append(request.POST.get('thuCls'))
+        close_list.append(request.POST.get('friCls'))
+        close_list.append(request.POST.get('satCls'))
+
+        toggle_list = []
+        toggle_list.append(request.POST.get('monTog').title())
+        toggle_list.append(request.POST.get('tueTog').title())
+        toggle_list.append(request.POST.get('wedTog').title())
+        toggle_list.append(request.POST.get('thuTog').title())
+        toggle_list.append(request.POST.get('friTog').title())
+        toggle_list.append(request.POST.get('satTog').title())
+          
+        hom = request.POST.get('homVist').title()
+        
+        location_obj = Location.objects.get(id=request.POST.get("location_id"))
+        Location.objects.filter(id=request.POST.get("location_id")).update(location = request.POST.get('loc_add'),mobility=request.POST.get('homVist').title())
         try:
-            operating_obj = OperatingHours.objects.filter(location=location_obj,day=dayl).update(open_time=openl,close_time=closel)
-            if operating_obj == 0:
-                OperatingHours.objects.create(
-                    open_time = openl,
-                    close_time = closel,
-                    day = dayl,
-                    location = location_obj,   
-                )
-        except Exception as e:
+            for dayl, openl, closel, toggle in zip(day_list,open_list,close_list,toggle_list):
+                if openl == '' or closel == '':
+                    pass
+                operating_obj = OperatingHours.objects.filter(location=location_obj,day=dayl).update(open_time=openl,close_time=closel, status=toggle)
+                if operating_obj == 0:
+                    OperatingHours.objects.create(
+                        open_time = openl,
+                        close_time = closel,
+                        day = dayl,
+                        location = location_obj, 
+                        status=toggle  
+                    )
             return JsonResponse({'status':200})
-    return JsonResponse({'status':200}) 
+        except Exception as e:
+            print(e)
+            return JsonResponse({'status':200})
+    return JsonResponse({'status':400}) 
 
 
 def search_keyword(request):
