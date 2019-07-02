@@ -301,32 +301,33 @@
                     console.log(data);
                     $('#mysuggestionsselect').show();
                     $.each(data.suggestion, function(key,val) {
-                        // if (val.name == trading_name)
-                        // if (val.name == trading_name)
-                        //     var dynamicurl = "/home/list/"
-
-                        // if (val.name == user.first_name)
-                        //     var dynamicurl = "/profile-detail/<int:id>/"
-                            
+                        
+                        
                         if (val.custom_role == 4 && val.is_institution == "yes"){
                             var dynamicurl = "/institution-detail/"+val.user_id
                             
                             $("#mysuggestionsselect tbody").append(
-                          "<tr><td><a href="+dynamicurl+">" + val.name + "</a></td></tr>"
+                          "<tr onclick=window.location='" + dynamicurl + "'><td>" + val.name + "</td><td>" + 'Health-Insurance' + "</td></tr>"
                             );
                         }
                         else if (val.is_institution == "yes"){
                             var dynamicurl = "/institution-detail/"+val.user_id
                             $("#mysuggestionsselect tbody").append(
-                          "<tr><td><a href="+dynamicurl+">" + val.name + "</a></td><td>" + val.specialization + "</td></tr>"
+                          "<tr onclick=window.location='" + dynamicurl +"'><td>" + val.name + "</td><td>" + val.specialization + "</td></tr>"
                             );
                         }
-
+                        else if (val.custom_role == 4 && val.searchtype == "all" && val.is_institution == "yes"){
+                            var dynamicurl = "/institution-detail/"+val.user_id
+                            
+                            $("#mysuggestionsselect tbody").append(
+                          "<tr onclick=window.location='" +dynamicurl +"'><td>" + val.name + "</td><td>" + 'Health-Insurance' + "</td></tr>"
+                            );
+                        }
                         else
                         {
                           var dynamicurl = "/profile-detail/"+val.user_id
                           $("#mysuggestionsselect tbody").append(
-                          "<tr><td><a href="+dynamicurl+">" + val.name + "</a></td><td>" + val.specialization + "</td></tr>"
+                          "<tr onclick=window.location='" + dynamicurl +"'><td>" + val.name + "</td><td>" + val.specialization + "</td></tr>"
                             );
                             
                         }

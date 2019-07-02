@@ -415,6 +415,8 @@ def search_keyword(request):
         for record in suggestion_list:
             if record.trading_name:
                 json_obj = dict(
+                    custom_role = 4,
+                    searchtype = 'all',
                     is_institution = "yes",
                     user_id = record.id,
                     name =  record.trading_name,

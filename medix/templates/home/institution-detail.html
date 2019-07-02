@@ -110,7 +110,29 @@
 
                             <div class="indent_title_in">
                                 <i class="pe-7s-cash"></i>
-                                <h3>Items & Prices</h3>       
+                                <h3>Items & Prices</h3>
+                                <div class="popup_main">
+                                    <a class="open_popup price_list">Click here for price request</a>
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                        <div class="popuptitle">
+                                            Email
+                                            <div class="popup_close">x</div>
+                                        </div>
+                                          <div class="popupbody">
+                                            <ul class="contacts">
+                                            <h6>Email</h6>
+                                            <input type="text" value="" name="email" id="email" placeholder="Enter Email">
+                                            </ul>
+                                          </div>
+                                           <div class="popupfooter">
+                                               <button data-id="{{object.user.profile.id}}" data-url="{% url 'users:send-email' %}" class="send_email save_btncss">Submit</button> 
+                                           </div>
+                                           
+                                        </div>
+                                    </div>
+                                  </div>         
                             </div>
                             <div class="wrapper_indent">
                                 <div class="table-responsive">
@@ -122,13 +144,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
-                                            {% for detail in product %}                           
-                                        <tr>
-                                            <td>{{detail.item}}</td>
-                                            <td>{{detail.price}}</td>
-                                    {% endfor %}
-                                        </tbody>
+                                        {% for detail in product %} 
+                                            <tr>
+                                                <td>{{detail.item}}</td>
+                                                {% if detail.on_request == False %}
+                                                <td>On Request</td>
+                                                {% endif %}
+                                                {% if detail.on_request == True %}
+                                                <td>{{detail.price}}</td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -165,25 +192,22 @@
                             {% endif %}
                             <hr>
                             <div class="indent_title_in">
-                                <i class="far fa-map-marker-alt"></i>
+                                <i class="pe-7s-map-marker"></i>
                                 <h3>Location & Trading Hours</h3>                                        
                             </div>
                             <div class="wrapper_indent padding_bottom">
                                 <ul class="">
                                     {% for val in opratHour %}                                       
                                     <strong>                                      
-                                    {# {% ifchanged val.location.location %} #}
+                                    {% ifchanged val.location.location %}
                                         {{val.location.location}}
                                         {% if val.location.mobility == True %}
                                         <input type="checkbox" name="mobility" value="{{val.location.mobility}}" class="homVist mobVist" checked>Mobility
                                         {% else %}
                                         <input type="checkbox" name="mobility" value="{{val.location.mobility}}" class="homVist mobVist">Mobility
                                         {% endif %}
-                                        <div class="popup_main">
-                                            <a data-id="{{val.location.id}}" data-url="{% url 'users:delete-location' %}" class="delete_location popup_main" >
-                                            <img src="../../../static/html_menu_1/img/delete.png">
-                                            </a> 
-                                        {# {% endifchanged %} #}
+                                        
+                                        {% endifchanged %}
                                     </strong>  
                                     <li id="location_li_{{val.location.id}}">
 
@@ -197,7 +221,7 @@
                                     
                                       {% endfor %} 
                                       
-                                    </ul>
+                                </ul>
 
                                 </div>
                             <hr>
@@ -288,8 +312,7 @@
                             </div>
                             <hr>
 
-                            <div class="indent_title_in doctor_div">
-                               
+                            <div class="indent_title_in doctor_div">       
                                 <div class="popup_main">
                                     <a class="open_popup doctor_list">View Doctors List</a>
                                     
@@ -303,37 +326,17 @@
                                         <div class="popupbody">
                                             <div class="popupscroll">
                                                 {% for list in doctorList %}
+                                                {% if list.is_accept == 1 %}
                                                 <div class="popupdrlist">
-                                                    <img src="../../../static/html_menu_1/img/images.jpeg"/>
-                                                    <div class="detailbox">
-                                                        <h1>{{list.service_member.first_name}}&nbsp;{{list.service_member.last_name}}
-                                                            
-                                                            {% if list.is_accept == 0 %}
-                                                            <span class="badge badge-info">Pending</span>
-                                                            {% elif list.is_accept == 2 %}
-                                                            <span class="badge badge-warning">Rejected</span>
-                                                            {% else %}
-                                                            <span class="badge badge-success">Accepted</span>
-                                                            {% endif %}
-                                                            
-                                                        </h1>
                                                     
+                                                    <img src="../../../static/html_menu_1/img/images.jpeg"/>
+                                                    <div class="detailbox"> 
+                                                        <h1>{{list.service_member.first_name}}&nbsp;{{list.service_member.last_name}}</h1>
                                                         <h3>{{list.service_member.profile.get_practice_display}}</h3>
                                                         
-                                                    </div>
-                                                    
-                                                    <li class="linkid listcircle" >
-                                                    <input type="hidden" name="service_id" id="service_id" value="{{list.id}}">
-                                                    <button class="btn btn-success approve">Accept</button>
-                                                    </li>
-                                                    
-                                                    <li class="linkid1 listcircle">
-                                                    <input type="hidden" name="service_reject" id="service_reject" value="{{list.id}}">
-                                                    <button class="btn btn-warning reject">Reject</button>
-                                                    </li>
-                                                    
-                                                    
-                                                </div> 
+                                                    </div> 
+                                                </div>
+                                                {% endif %}  
                                                 {% endfor %}
                                             </div>
                                         </div>       
