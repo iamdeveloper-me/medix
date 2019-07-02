@@ -210,8 +210,8 @@ def activate_user_ajax(request):
 class StatisticsView(View):
     def get(self, request, *args, **kwargs):
         profiles     = Profile.objects.all()
-        active_users    = profiles.filter(status=0).count()
-        pending_users   = profiles.filter(status=1).count()
+        active_users    = profiles.filter(status=1).count()
+        pending_users   = profiles.filter(status=0).count()
         deactive_users  = profiles.filter(status=2).count()
         data = {
             "active_users"   : active_users,
@@ -224,7 +224,7 @@ class StatisticsView(View):
 @method_decorator(staff_member_required, name='dispatch')
 class ActiveAccountStatusView(View):
     def get(self, request, *args, **kwargs):
-        user    = Profile.objects.filter(status=0)
+        user    = Profile.objects.filter(status=1)
         page = request.GET.get('page', 1)
         paginator = Paginator(user, 2)
         try:
@@ -242,7 +242,7 @@ class ActiveAccountStatusView(View):
 @method_decorator(staff_member_required, name='dispatch')
 class PendingStatusView(View):
     def get(self, request, *args, **kwargs):
-        user    = Profile.objects.filter(status=1)
+        user    = Profile.objects.filter(status=0)
         page = request.GET.get('page', 1)
         paginator = Paginator(user, 2)
         try:

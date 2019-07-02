@@ -155,6 +155,59 @@
 								</div>
 							</div>
 							<!--  /wrapper_indent -->
+							 <hr>
+							 <div class="indent_title_in">
+                                <i class="pe-7s-map-marker"></i>
+                                <h3>Location & Trading Hours</h3>                                        
+                            </div>
+                            <div class="wrapper_indent padding_bottom">
+                                <ul class="">
+                                    {% for val in opratHour %}                                       
+                                    <strong>                                      
+                                    {% ifchanged val.location.location %}
+                                        {{val.location.location}}
+                                        {% if val.location.mobility == True %}
+                                        <input type="checkbox" name="mobility" value="{{val.location.mobility}}" class="homVist mobVist" checked>Mobility
+                                        {% else %}
+                                        <input type="checkbox" name="mobility" value="{{val.location.mobility}}" class="homVist mobVist">Mobility
+                                    	{% endif %}
+                                    {% endifchanged %}
+                                    </strong>  
+                                    <li id="location_li_{{val.location.id}}">
+
+                                        {% if val.open_time != None%}
+
+                                            {{val.day}}-{{val.open_time}}-{{val.close_time}} 
+                                    
+                                        {%endif%} 
+                             
+                                    </li>
+                                    
+                                      {% endfor %} 
+                                      
+                                    </ul>
+
+                                </div>
+                            <hr>
+                            <div class="indent_title_in">
+                                <i class="pe-7s-news-paper"></i>
+                                <h3>Services</h3>
+                                {% for info in keywords %}                              
+                                        {{info.keyword}}     
+                                {% endfor %} 
+                            </div>
+                            <div class="wrapper_indent">
+                                <p></p>
+                                
+                                <ul class="" id="delekeyul">
+                            
+                                    {% for key in keyword %}
+                                    
+                                    <li class="popup_spanlist"><span id="rmoveChip"> {{key.keyword}} <a data-id="{{key.id}}" data-url="{% url 'users:delete-keyword' %}" class="delete_keyword chipsCLose" >×</a></span></li>
+                                
+                                    {% endfor %}
+                                </ul>
+                            </div>
 						</div>
 						<!-- /section_1 -->
 					</div>

@@ -40,7 +40,11 @@
         <div class="row">
             <div class="col-lg-3 col-6">
                 <div id="logo">
+                    {% if request.user.is_authenticated == True %}
                     <a href="#" title="Findoctor"><img src="../../../static/html_menu_1/img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
+                    {%else%}
+                    <a href="{% url 'users:home-1' %}" title="Findoctor"><img src="../../../static/html_menu_1/img/logo.png" data-retina="true" alt="" width="163" height="36"></a>
+                    {% endif %}
                 </div>
             </div>
             <nav class="col-lg-9 col-6">

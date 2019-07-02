@@ -469,6 +469,8 @@ class ProfileDetail(DetailView):
         context = super(ProfileDetail, self).get_context_data(**kwargs)
         context['education'] = Education.objects.filter(user_id=self.object.user)
         context['product'] = Product.objects.filter(user_id=self.object.user)
+        context['keywords'] = Keywords.objects.filter(user=self.object.user)
+        context['opratHour'] = OperatingHours.objects.filter(location__user=self.object.user)
         return context 
 
 class InstitutionDetailView(DetailView):
@@ -479,6 +481,7 @@ class InstitutionDetailView(DetailView):
         context['product'] = Product.objects.filter(user_id=self.object.user)
         context['ambulanceInfo'] = AmbulanceService.objects.filter(user_id=self.object.user)
         context['keywords'] = Keywords.objects.filter(user=self.object.user)
-        context['opratHour'] = OperatingHours.objects.filter(location__user=self.object.user)   
+        context['opratHour'] = OperatingHours.objects.filter(location__user=self.object.user)
+        context['doctorList'] = ServiceRequest.objects.filter(service_provider=self.object.user) 
         return context
 
