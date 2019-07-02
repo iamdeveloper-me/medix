@@ -406,7 +406,7 @@ def search_keyword(request):
     json_res = []
     json_obj = {}
     if searchtype == 'all':
-        suggestion_list = Profile.objects.filter(Q(user__first_name__istartswith=suggestion) | Q(trading_name__startswith=suggestion), status=1)
+        suggestion_list = Profile.objects.filter(Q(user__first_name__istartswith=suggestion) | Q(trading_name__istartswith=suggestion), status=1)
         for record in suggestion_list:
             if record.trading_name:
                 json_obj = dict(
