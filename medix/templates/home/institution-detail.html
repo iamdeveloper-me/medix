@@ -41,9 +41,9 @@
                                 
                                      </div>
                                      <div class="avatar-preview">
-                                      {% if  image.image %}
+                                      {% if  object.image %}
                                         
-                                        <img src="{{image.image.url}}">
+                                        <img src="{{object.image.url}}">
                                       {% else %}
                                       <img src="{% static 'html_menu_1/img/images.jpeg' %}">
                                       {% endif %}
