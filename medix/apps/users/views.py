@@ -50,9 +50,9 @@ def file_upload(request,pk):
 
 def index(request):
     if request.user.is_authenticated:
-        return redirect('user-type/step1/')
+        return redirect('home/')
     else:
-        return redirect('user-type/step1/')
+        return redirect('home/')
 
 class UserFormSubmitView(View):
     def get(self,request):
