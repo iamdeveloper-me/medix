@@ -379,7 +379,6 @@ def edit_location_hour(request):
         toggle_list.append(request.POST.get('satTog').title())
           
         hom = request.POST.get('homVist').title()
-        # import pdb; pdb.set_trace()
         location_obj = Location.objects.get(id=request.POST.get("location_id"))
         Location.objects.filter(id=request.POST.get("location_id")).update(location = request.POST.get('loc_add'),mobility=request.POST.get('homVist').title())
         try:
@@ -439,7 +438,7 @@ def search_keyword(request):
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'pharmacy':
-        suggestion_list = Profile.objects.filter(Q(institution = 4)| Q(trading_name__istartswith=suggestion), status=1)
+        suggestion_list = Profile.objects.filter(trading_name__istartswith=suggestion,institution = 4, status=1)
         for record in suggestion_list:
             json_obj = dict(
                 is_institution = "yes",
@@ -452,10 +451,11 @@ def search_keyword(request):
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'clinic':
-        suggestion_list = Profile.objects.filter(Q(institution = 2)| Q(trading_name__istartswith=suggestion), status=1)
+        # suggestion_list = Profile.objects.filter(Q(institution = 2)| Q(trading_name__istartswith=suggestion), status=1)
+        suggestion_list = Profile.objects.filter(trading_name__istartswith=suggestion,institution=2,status=1)
         for record in suggestion_list:
             json_obj = dict(
-                # institution = 2,
+                institution = 2,
                 is_institution = "yes",
                 user_id = record.id,
                 name =  record.trading_name,
@@ -466,11 +466,10 @@ def search_keyword(request):
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'health-insurance':
-        
         suggestion_list = Profile.objects.filter(custom_role = 4 , trading_name__istartswith=suggestion, status=1)
         for record in suggestion_list:
             json_obj = dict(
-                # custom_role = 4,
+                custom_role = 4,
                 is_institution = "yes",
                 user_id = record.id,
                 name =  record.trading_name,
