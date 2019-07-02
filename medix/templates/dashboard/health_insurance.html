@@ -156,7 +156,7 @@
                             <i class="pe-7s-user"></i>
                             <h3>Overview</h3>
                             <div class="popup_main">
-                                <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                <button class="open_popup editView"><img src="../../../static/html_menu_1/img/edit.png"></button>
                                 <div class="popup_body">
                                     <div class="popup_back"></div>
                                     <div class="popup_contain popup_width">
@@ -1441,6 +1441,19 @@ $(document).on("click", ".edit_hours", function(e){
 });
 $('.mobVist').attr('disabled',true);
 
+$(document).on("click", ".editView", function(e){
+  var des = $('#description').val();
+  var exp = $('#experience').val()
+  // des.trim();
+  // debugger 
+  if( des.trim() == "None" ){
+    $('textarea').val('')
+  }
+  if(exp.trim() == "None"){
+    $('#experience').val('')
+  }
+
+});
 </script>
 
 {% endblock %}

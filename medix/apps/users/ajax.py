@@ -14,6 +14,7 @@ from twilio.rest import Client
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 
+
 def send_url_sms(request):
     accountSid = 'ACb56f8ce5605c39b516633fc3058d8550'
     authToken = '26b82a1a98a34e8acd3d30ac5a6bc480'
@@ -105,9 +106,13 @@ def add_product(request):
     profile = Profile.objects.get(id=request.POST.get("profile_id"))
     user = User.objects.get(id=profile.user.id)
     try:
+        if Product.objects.filter(user=user,item=request.POST.get("item")).exists(): 
+            return JsonResponse({'status':400,'message':'Already exists'}) 
         Product.objects.create(user=user,item=request.POST.get("item"),price=request.POST.get("price"),on_request=request.POST.get("onRequest").title())
+
     except Exception as e:
-        Product.objects.create(user=user,item=request.POST.get("item"),price=request.POST.get("price"),on_request=request.POST.get("onRequest")) 
+        # Product.objects.create(user=user,item=request.POST.get("item"),price=request.POST.get("price"),on_request=request.POST.get("onRequest")) 
+        print(e)
     return JsonResponse({'status':200}) 
 
 

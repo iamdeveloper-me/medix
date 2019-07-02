@@ -159,7 +159,7 @@
                                 <i class="pe-7s-user"></i>
                                 <h3>Overview</h3>
                                 <div class="popup_main">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png">
+                                    <button class="open_popup editView"><img src="../../../static/html_menu_1/img/edit.png">
                                     </button>
                                     <div class="popup_body">
                                               <div class="popup_back">
@@ -1797,6 +1797,19 @@ function active_deactive_user(service_id,action_is) {
     });
 }
 
+$(document).on("click", ".editView", function(e){
+  var des = $('#description').val();
+  var exp = $('#experience').val()
+  // des.trim();
+  // debugger 
+  if( des.trim() == "None" ){
+    $('textarea').val('')
+  }
+  if(exp.trim() == "None"){
+    $('#experience').val('')
+  }
+
+});
 </script>
 
 

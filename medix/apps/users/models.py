@@ -32,6 +32,9 @@ class Profile(BaseModel):
 
     status = models.IntegerField(verbose_name=_('Profile Status'), choices=PROFILE_STATUS_CHOICES, default=0,null=True,blank=True)
     
+    class Meta:
+        ordering = ['id']
+
     # def __str__(self):
     #     return self.user.email
 
@@ -47,11 +50,15 @@ class Education(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='education', blank = True, null = True)
     qualification = models.CharField(_("Doctor qualification"), max_length=254, blank = True, null = True)
     specialisation = models.CharField(_("Doctor specialisation"), max_length=254, blank = True, null = True)
+    
+    class Meta:
+        ordering = ['id']
 
 class Location(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='location', blank = True, null = True)
     location = models.TextField(_("Clinic location"), blank = True, null = True)
     mobility = models.BooleanField(default=False)
+    
     class Meta:
         ordering = ['id']
 
@@ -63,6 +70,7 @@ class OperatingHours(BaseModel):
     status = models.BooleanField(default=False)
     # day = models.IntegerField(verbose_name=_('Day Type'), choices=Day_CHOICES, blank = True, null = True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location_hour', blank = True, null = True)
+    
     class Meta:
         ordering = ['id']
     
@@ -72,6 +80,9 @@ class Product(BaseModel):
     item = models.CharField(_("Product Item"), max_length=254, blank = True, null = True)
     on_request = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['id']
+
 class AmbulanceService(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Ambulance', blank = True, null = True)
     location = models.TextField(_("Ambulance location"), blank = True, null = True)
@@ -80,12 +91,21 @@ class AmbulanceService(BaseModel):
 class Keywords(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Keyword', blank = True, null = True)
     keyword = models.CharField(_("Keyword"), max_length=50, blank = True, null = True)
+    
+    class Meta:
+        ordering = ['id']
 
 class Attachment(BaseModel):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='Attachment', blank = True, null = True)
     document = models.FileField(blank=True)
+    
+    class Meta:
+        ordering = ['id']
 
 class ServiceRequest(BaseModel):
     service_provider = models.ForeignKey(User, related_name='Service_Provider',on_delete=models.CASCADE, blank = True, null = True)
     service_member = models.ForeignKey(User, related_name='Service_Member',on_delete=models.CASCADE, blank = True, null = True)
     is_accept = models.IntegerField(verbose_name=_('Doctor Status'), choices=PROFILE_STATUS_CHOICES, default=0,null=True,blank=True)
+    
+    class Meta:
+        ordering = ['id']

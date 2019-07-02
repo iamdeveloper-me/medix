@@ -107,6 +107,7 @@
                                                     {{gender}}
                                                     {{proInfo.gender}}
                                                     </ul>
+                                                    
                                                   </div>
                                                    <div class="popupfooter">
                                                      <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:edit-profile' %}" class="save_btn btnsave">save</button>  
@@ -157,7 +158,7 @@
                                 <i class="pe-7s-user"></i>
                                 <h3>Professional statement</h3>
                                 <div class="popup_main">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                    <button class="open_popup editProf"><img src="../../../static/html_menu_1/img/edit.png"></button>
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
@@ -361,9 +362,9 @@
                                                     <ul class="contacts">
                                                     <h6>On Request</h6>
                                                     {% if product.on_request == True %}
-                                                    <input type="checkbox" name="on_req" value="{{product.on_request}}" checked>
+                                                    <input type="checkbox" class="onCheckReq" name="on_req" value="{{product.on_request}}" checked>
                                                     {% else %}
-                                                    <input type="checkbox" name="on_req" value="{{product.on_request}}" >
+                                                    <input type="checkbox" class="onCheckReq" name="on_req" value="{{product.on_request}}" >
                                                     {% endif %}
                                                     </ul> 
                                                     </div>
@@ -1213,27 +1214,29 @@ $(document).on("click", ".save_edu", function(e){
 });
 
 $(document).on("click", ".save_product", function(e){
-    e.preventDefault();
-    url = $(this).data('url');
-    profile_id = $(this).data('id');
-    price = $("#price").val();
-    item = $("#item").val();
-    onRequest=$('input[name="on_request"]').prop('checked');
-    
-    $.ajax({
-        type: "POST",
-        url: url,
-        headers:{
-            "X-CSRFToken": '{{csrf_token}}' 
-        },
-        dataType: "json",
-        data: {"profile_id":profile_id,"price":price,"item":item,"onRequest":onRequest},
-        success: function(response) {
-                if(response.status == 200){
-                    window.location.reload()
-                   }  
-            }
-        });
+  e.preventDefault();
+  url = $(this).data('url');
+  profile_id = $(this).data('id');
+  price = $("#price").val();
+  item = $("#item").val();
+  onRequest=$('input[name="on_request"]').prop('checked');
+  $.ajax({
+      type: "POST",
+      url: url,
+      headers:{
+          "X-CSRFToken": '{{csrf_token}}' 
+      },
+      dataType: "json",
+      data: {"profile_id":profile_id,"price":price,"item":item,"onRequest":onRequest},
+      success: function(response) {
+              if(response.status == 200){
+                  window.location.reload()
+                 }
+              else{
+                alert(response.message);
+              }  
+          }
+      });
 });
 
 $(document).on("click", ".edit_btn", function(e){
@@ -1616,6 +1619,21 @@ $(document).on("click", ".edit_hours", function(e){
 $('.disOnReq').attr('disabled',true);
 
 $('.mobVist').attr('disabled',true);
+
+
+$(document).on("click", ".editProf", function(e){
+  var des = $('#description').val();
+  var exp = $('#experience').val()
+  // des.trim();
+  // debugger 
+  if( des.trim() == "None" ){
+    $('textarea').val('')
+  }
+  if(exp.trim() == "None"){
+    $('#experience').val('')
+  }
+
+});
 </script>
 
 <script>
