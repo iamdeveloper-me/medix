@@ -35,8 +35,7 @@
 						<figure>
 							<a href="{% url 'users:book' user.pk %}">
 							<div class="avatar-preview">
-                              {% if  user.image %}
-                                
+                              {% if  user.image %}      
                                 <img src="{{user.image.url}}">
                               {% else %}
                               <img src="{% static 'html_menu_1/img/images.jpeg' %}">
@@ -52,11 +51,6 @@
 						
 						<span class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></span>
 						<a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Badge Level" class="badge_list_1"><img src="{% static 'html_menu_1/img/badges/badge_1.svg' %}" width="15" height="15" alt=""></a>
-
-
-
-						
-
 
 						<ul>
 							<li><a href="#0" onclick="onHtmlClick('Doctors', 0)" class="btn_listing">View on Map</a></li>
