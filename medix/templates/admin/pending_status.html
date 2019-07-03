@@ -23,7 +23,7 @@
                         <input type="hidden" name="profile_id" id="profile_id" value="{{pending_user.pk}}">
                         <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
                         <h4>
-                            {{pending_user.user.first_name}} {{pending_user.user.last_name}}
+                            {{pending_user.full_name}}
                   {% if pending_user.get_status_display == "Active" %}
                       <i class="approved">Active</i>
                   {% elif pending_user.get_status_display == "Pending" %}

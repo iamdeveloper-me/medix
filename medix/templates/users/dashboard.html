@@ -96,7 +96,7 @@
                                                    </ul>
                                                    <ul class="contacts">
                                                     <h6>Phone</h6> 
-                                                    <input type="number" name="phone" value="{{phone}}" id="phone">
+                                                    <input type="text" name="phone" value="{{phone}}" id="phone">
                                                    </ul>
                                                    <ul class="contacts">
                                                     <h6>Gender</h6> 
@@ -1192,7 +1192,11 @@ $(document).on("click", ".save_des", function(e){
 
                 if(response.status == 200){
                     window.location.reload()
-                   }  
+                  } 
+                else{
+                  alert(response.message);
+                  
+                } 
             }
         });
 });
@@ -1215,7 +1219,9 @@ $(document).on("click", ".save_edu", function(e){
                     window.location.reload()
                    } 
                 if(response.status == 400){
-                  alert(response.message)
+                  window.location.reload();
+                  alert(response.message);
+
                 } 
             }
         });
@@ -1275,7 +1281,7 @@ $(document).on("click", ".edit_pro", function(e){
     product_id = $(this).data('id');
     item = $(this).parents('.popup_contain').find(".editItem").val();
     price = $(this).parents('.popup_contain').find(".editPrice").val();
-    onRequest=$(this).parents('.onReqUl').find(".onCheckReq").val();
+    onRequest=$(this).parents('.popup_contain').find('.onCheckReq').prop('checked');
     $.ajax({
         type: "POST",
         url: url,
@@ -1634,8 +1640,6 @@ $('.mobVist').attr('disabled',true);
 $(document).on("click", ".editProf", function(e){
   var des = $('#description').val();
   var exp = $('#experience').val()
-  // des.trim();
-  // debugger 
   if( des.trim() == "None" ){
     $('textarea').val('')
   }

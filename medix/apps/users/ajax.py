@@ -85,11 +85,13 @@ def edit_profile(request):
 
 def add_statement(request):  
     if request.method == 'POST':
-        profile = Profile.objects.get(id=request.POST.get("profile_id"))
-        profile.description = request.POST.get("description")
-        profile.experience = request.POST.get("experience")
-        profile.save()
-        return JsonResponse({'status':200}) 
+        if request.POST.get("description") and request.POST.get("experience"): 
+            profile = Profile.objects.get(id=request.POST.get("profile_id"))
+            profile.description = request.POST.get("description")
+            profile.experience = request.POST.get("experience")
+            profile.save()
+            return JsonResponse({'status':200})
+        return JsonResponse({'status':400,'message':'Please Fill Fields'})  
 
 def add_education(request):
     if request.method == 'POST':
@@ -101,8 +103,10 @@ def add_education(request):
                 Education.objects.create(user=user,qualification=request.POST.get("qualification"))
         except Exception as e:
             print(e)
-            return JsonResponse({'status':400,'message':'Please fill qualification'}) 
-            # Education.objects.create(user=user,qualification=request.POST.get("qualification"))
+            if request.POST.get("qualification"):
+                Education.objects.create(user=user,qualification=request.POST.get("qualification"))
+                return JsonResponse({'status':200}) 
+            return JsonResponse({'status':400,'message':'Please fill qualification'})  
         return JsonResponse({'status':200}) 
 
 def add_product(request):
@@ -113,8 +117,7 @@ def add_product(request):
             return JsonResponse({'status':400,'message':'Already exists'}) 
         Product.objects.create(user=user,item=request.POST.get("item"),price=request.POST.get("price"),on_request=request.POST.get("onRequest").title())
 
-    except Exception as e:
-        # Product.objects.create(user=user,item=request.POST.get("item"),price=request.POST.get("price"),on_request=request.POST.get("onRequest")) 
+    except Exception as e: 
         print(e)
     return JsonResponse({'status':200}) 
 
