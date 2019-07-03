@@ -23,7 +23,7 @@
                         <input type="hidden" name="profile_id" id="profile_id" value="{{patient_user.pk}}">
                         <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
                         <h4>
-                            {{patient_user.user.first_name}} {{patient_user.user.last_name}}
+                            {{patient_user.user.full_name}}
                   {% if patient_user.get_status_display == "Active" %}
                       <i class="approved">Active</i>
                   {% elif patient_user.get_status_display == "Pending" %}
@@ -34,7 +34,9 @@
                         </h4>
                         <ul class="booking_details">
                             <li><strong>Joined date</strong> {{patient_user.created_at}}</li>
-                            <li><strong>Service Type</strong> {{patient_user.get_emergency_services_display}}</li>
+                            {% if patient_user.emergency_services != None %}
+                                <li><strong>Service Type</strong> {{patient_user.get_emergency_services_display}}</li>
+                            {% endif %}
                             <li><strong>Experience</strong> {{patient_user.experience}}</li>
                             <li><strong>Telephone</strong> {{patient_user.phone}}</li>
                             <li><strong>Email</strong> {{patient_user.user.email}}</li>

@@ -23,7 +23,7 @@
                         <input type="hidden" name="profile_id" id="profile_id" value="{{deactive_user.pk}}">
                         <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
                         <h4>
-                            {{deactive_user.user.first_name}} {{deactive_user.user.last_name}}
+                            {{deactive_user.full_name}}
                   {% if deactive_user.get_status_display == "Active" %}
                       <i class="approved">Active</i>
                   {% elif deactive_user.get_status_display == "Pending" %}
@@ -34,7 +34,9 @@
                         </h4>
                         <ul class="booking_details">
                             <li><strong>Joined date</strong> {{deactive_user.created_at}}</li>
-                            <li><strong>Service Type</strong> {{deactive_user.get_emergency_services_display}}</li>
+                            {% if deactive_user.emergency_services != None %}
+                                 <li><strong>Service Type</strong> {{deactive_user.get_emergency_services_display}}</li>
+                             {% endif %}
                             <li><strong>Experience</strong> {{deactive_user.experience}}</li>
                             <li><strong>Telephone</strong> {{deactive_user.phone}}</li>
                             <li><strong>Email</strong> {{deactive_user.user.email}}</li>

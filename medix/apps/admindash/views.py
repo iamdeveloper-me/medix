@@ -57,7 +57,7 @@ class AccountManagementView(View):
     def get(self, request, *args, **kwargs):
         account = Profile.objects.all()
         page = request.GET.get('page', 1)
-        paginator = Paginator(account, 2)
+        paginator = Paginator(account, 10)
         try:
             users = paginator.page(page)
         except PageNotAnInteger:
@@ -75,7 +75,7 @@ class PatientListingView(View):
     def get(self, request, *args, **kwargs):
         institution    = Profile.objects.filter(custom_role__contains=0)
         page = request.GET.get('page', 1)
-        paginator = Paginator(institution, 2)
+        paginator = Paginator(institution, 10)
         try:
             users = paginator.page(page)
         except PageNotAnInteger:
@@ -94,7 +94,7 @@ class PracticeListingView(View):
         practice    = Profile.objects.filter(custom_role__contains=1)
         
         page = request.GET.get('page', 1)
-        paginator = Paginator(practice, 2)
+        paginator = Paginator(practice, 10)
         try:
             users = paginator.page(page)
         except PageNotAnInteger:
@@ -112,7 +112,7 @@ class InstitutionListingView(View):
     def get(self, request, *args, **kwargs):
         institution    = Profile.objects.filter(custom_role__contains=2)
         page = request.GET.get('page', 1)
-        paginator = Paginator(institution, 2)
+        paginator = Paginator(institution, 10)
         try:
             users = paginator.page(page)
         except PageNotAnInteger:
@@ -130,7 +130,7 @@ class EmergencyListingView(View):
     def get(self, request, *args, **kwargs):
         emergency    = Profile.objects.filter(custom_role__contains=3)
         page = request.GET.get('page', 1)
-        paginator = Paginator(emergency, 2)
+        paginator = Paginator(emergency, 10)
         try:
             users = paginator.page(page)
         except PageNotAnInteger:
@@ -148,7 +148,7 @@ class InsuranceProvidersListingView(View):
     def get(self, request, *args, **kwargs):
         insurance = Profile.objects.filter(custom_role__contains=4)
         page = request.GET.get('page', 1)
-        paginator = Paginator(insurance, 2)
+        paginator = Paginator(insurance, 10)
         try:
             users = paginator.page(page)
         except PageNotAnInteger:
@@ -226,7 +226,7 @@ class ActiveAccountStatusView(View):
     def get(self, request, *args, **kwargs):
         user    = Profile.objects.filter(status=1)
         page = request.GET.get('page', 1)
-        paginator = Paginator(user, 2)
+        paginator = Paginator(user, 10)
         try:
             users = paginator.page(page)
         except PageNotAnInteger:
@@ -244,7 +244,7 @@ class PendingStatusView(View):
     def get(self, request, *args, **kwargs):
         user    = Profile.objects.filter(status=0)
         page = request.GET.get('page', 1)
-        paginator = Paginator(user, 2)
+        paginator = Paginator(user, 10)
         try:
             users = paginator.page(page)
         except PageNotAnInteger:
@@ -262,7 +262,7 @@ class DeactiveAccountStatusView(View):
     def get(self, request, *args, **kwargs):
         user    = Profile.objects.filter(status=2)
         page = request.GET.get('page', 1)
-        paginator = Paginator(user, 2)
+        paginator = Paginator(user, 10)
         try:
             users = paginator.page(page)
         except PageNotAnInteger:
