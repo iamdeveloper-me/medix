@@ -85,7 +85,7 @@ def edit_profile(request):
 
 def add_statement(request):  
     if request.method == 'POST':
-        if request.POST.get("description") or request.POST.get("experience"): 
+        if request.POST.get("description") and request.POST.get("experience"): 
             profile = Profile.objects.get(id=request.POST.get("profile_id"))
             profile.description = request.POST.get("description")
             profile.experience = request.POST.get("experience")
@@ -103,8 +103,10 @@ def add_education(request):
                 Education.objects.create(user=user,qualification=request.POST.get("qualification"))
         except Exception as e:
             print(e)
-            return JsonResponse({'status':400,'message':'Please fill qualification'}) 
-            # Education.objects.create(user=user,qualification=request.POST.get("qualification"))
+            if request.POST.get("qualification"):
+                Education.objects.create(user=user,qualification=request.POST.get("qualification"))
+                return JsonResponse({'status':200}) 
+            return JsonResponse({'status':400,'message':'Please fill qualification'})  
         return JsonResponse({'status':200}) 
 
 def add_product(request):

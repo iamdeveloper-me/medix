@@ -96,7 +96,7 @@
                                                    </ul>
                                                    <ul class="contacts">
                                                     <h6>Phone</h6> 
-                                                    <input type="number" name="phone" value="{{phone}}" id="phone">
+                                                    <input type="text" name="phone" value="{{phone}}" id="phone">
                                                    </ul>
                                                    <ul class="contacts">
                                                     <h6>Gender</h6> 
@@ -1195,6 +1195,7 @@ $(document).on("click", ".save_des", function(e){
                   } 
                 else{
                   alert(response.message);
+                  
                 } 
             }
         });
@@ -1218,7 +1219,9 @@ $(document).on("click", ".save_edu", function(e){
                     window.location.reload()
                    } 
                 if(response.status == 400){
-                  alert(response.message)
+                  window.location.reload();
+                  alert(response.message);
+
                 } 
             }
         });
