@@ -1279,7 +1279,7 @@ $(document).on("click", ".edit_pro", function(e){
     product_id = $(this).data('id');
     item = $(this).parents('.popup_contain').find(".editItem").val();
     price = $(this).parents('.popup_contain').find(".editPrice").val();
-    onRequest=$(this).parents('.onReqUl').find(".onCheckReq").val();
+    onRequest=$(this).parents('.popup_contain').find('.onCheckReq').prop('checked');
     $.ajax({
         type: "POST",
         url: url,
