@@ -1192,7 +1192,10 @@ $(document).on("click", ".save_des", function(e){
 
                 if(response.status == 200){
                     window.location.reload()
-                   }  
+                  } 
+                else{
+                  alert(response.message);
+                } 
             }
         });
 });
@@ -1634,8 +1637,6 @@ $('.mobVist').attr('disabled',true);
 $(document).on("click", ".editProf", function(e){
   var des = $('#description').val();
   var exp = $('#experience').val()
-  // des.trim();
-  // debugger 
   if( des.trim() == "None" ){
     $('textarea').val('')
   }
