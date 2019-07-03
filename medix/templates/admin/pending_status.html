@@ -34,7 +34,9 @@
                         </h4>
                         <ul class="booking_details">
                             <li><strong>Joined date</strong> {{pending_user.created_at}}</li>
-                            <li><strong>Service Type</strong> {{pending_user.get_emergency_services_display}}</li>
+                            {% if pending_user.emergency_services != None %}
+                                  <li><strong>Service Type</strong> {{pending_user.get_emergency_services_display}}</li>
+                            {% endif %}
                             <li><strong>Experience</strong> {{pending_user.experience}}</li>
                             <li><strong>Telephone</strong> {{pending_user.phone}}</li>
                             <li><strong>Email</strong> {{pending_user.user.email}}</li>
