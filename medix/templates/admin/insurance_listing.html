@@ -34,7 +34,9 @@
                         </h4>
                         <ul class="booking_details">
                             <li><strong>Joined date</strong> {{insurance_user.created_at}}</li>
-                            <li><strong>Service Type</strong> Health Insurance Provider</li>
+                            {% if active_user.emergency_services != None %}
+                                <li><strong>Service Type</strong> {{active_user.get_emergency_services_display}}</li>
+                            {% endif %}
                             <li><strong>Telephone</strong> {{insurance_user.phone}}</li>
                             <li><strong>Email</strong> {{insurance_user.user.email}}</li>
                             <li><strong>Document</strong>
