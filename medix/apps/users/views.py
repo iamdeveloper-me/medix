@@ -121,12 +121,15 @@ class EmergencyServiceStep2CreateView(CreateView):
     form_class = EmergencyServiceForm
     template_name = 'registration/select_emergency_service.html'
     success_url = '/emergency-service/signup/step3/'
+    
     def form_valid(self, form, **kwargs):
-        form = form.save(commit=False)
-        form.custom_role = 3
-        form.emergency_services = self.request.POST.get('emergency_services')
-        form.save()
-        return redirect(self.success_url+str(form.id))
+    
+        emrg_form = form.save(commit=False)
+        emrg_form.custom_role = 3
+        # form.emergency_services = self.request.POST.get('emergency_services')
+        emrg_form.emergency_services = 1
+        emrg_form.save()
+        return redirect(self.success_url+str(emrg_form.id))
 
 class PracticeSignupStep3View(View):
     def get(self,request,pk):
@@ -484,4 +487,5 @@ class InstitutionDetailView(DetailView):
         context['opratHour'] = OperatingHours.objects.filter(location__user=self.object.user)
         context['doctorList'] = ServiceRequest.objects.filter(service_provider=self.object.user) 
         return context
+
 

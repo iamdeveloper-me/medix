@@ -328,8 +328,11 @@
                                                 {% for list in doctorList %}
                                                 {% if list.is_accept == 1 %}
                                                 <div class="popupdrlist">
-                                                    
-                                                    <img src="../../../static/html_menu_1/img/images.jpeg"/>
+                                                    {% if  user.image %}
+                                                    <img src="{{user.image.url}}">
+                                                     {% else %}
+                                                    <img src="{% static 'html_menu_1/img/images.jpeg' %}">
+                                                    {% endif %}
                                                     <div class="detailbox"> 
                                                         <h1>{{list.service_member.first_name}}&nbsp;{{list.service_member.last_name}}</h1>
                                                         <h3>{{list.service_member.profile.get_practice_display}}</h3>

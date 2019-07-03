@@ -141,10 +141,10 @@
 									{% for detail in product %}	
 										<tr>
 											<td>{{detail.item}}</td>
-											{% if detail.on_request == False %}
+											{% if detail.on_request == True %}
 											<td>On Request</td>
 											{% endif %}
-											{% if detail.on_request == True %}
+											{% if detail.on_request == False %}
 											<td>{{detail.price}}</td>
 											{% endif %}
 										</tr>

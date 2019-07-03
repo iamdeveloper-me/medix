@@ -108,7 +108,7 @@ class EmergencyServiceSignupForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['emergency_services','trading_name','address_of_institution','contact_person','phone']
+        fields = ['trading_name','address_of_institution','contact_person','phone']
 
 
 class EmergencyServiceForm(forms.ModelForm):

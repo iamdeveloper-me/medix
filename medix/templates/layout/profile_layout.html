@@ -85,14 +85,18 @@
                             </li>
                         {% endif %}
                         <li class="submenu">
-                            <a href="#" class="show-submenu">Pages<i class="icon-down-open-mini"></i></a>
+                            <a href="#" class="show-submenu"></a>
                             
                         </li>
                         <li class="submenu">
-                            <a href="#" class="show-submenu">Extra Elements<i class="icon-down-open-mini"></i></a>
-                            
+                            <a href="#" class="show-submenu"></a> 
                         </li>
-                        <li><a href="#">Buy this template</a></li>
+                        {% if request.user.is_authenticated %}
+                            
+                        <li><a href="{% url 'users:profile-dashboard' request.user.profile.id %}">Go To Dashboard</a></li>
+                            
+
+                        {% endif %}
                     </ul>
                 </div>
                 <!-- /main-menu -->
