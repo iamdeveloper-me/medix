@@ -105,7 +105,7 @@
                                                    <ul class="contacts">
                                                     <h6>Gender</h6> 
                                                     {{gender}}
-                                                    {{proInfo.gender}}
+                                                    
                                                     </ul>
                                                     
                                                   </div>
@@ -359,7 +359,7 @@
                                                         <h6>Price</h6>
                                                        <input type="text" value="{{product.price}}" name="price" class="editPrice">
                                                     </ul>
-                                                    <ul class="contacts">
+                                                    <ul class="contacts onReqUl">
                                                     <h6>On Request</h6>
                                                     {% if product.on_request == True %}
                                                     <input type="checkbox" class="onCheckReq" name="on_req" value="{{product.on_request}}" checked>
@@ -556,6 +556,7 @@
                                     
                                     {% for val in opratHour %}
                                     <strong> 
+
                                     {% ifchanged val.location.location %}
                                         
                                         {{val.location.location}}
@@ -611,8 +612,9 @@
                                               
                                              
                                               {% for val in opratHour %}
-                                        
+                                              
                                               {% if forloop.counter == 1 %}
+                                          
                                               {% if val.status == True  %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myMonTog" class="myMonTog" value="" checked>
@@ -625,6 +627,7 @@
                                               </label>
                                               {% endif %}
                                               {% endif %}
+                                              
                                             {% endfor %}
                                             </li>
                                             </ul>
@@ -645,6 +648,7 @@
                                             {% for val in opratHour %}
                                             
                                             {% if forloop.counter == 2 %}
+                                            
                                             {% if val.status == True %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myTueTog" class="myTueTog" value="" checked>
@@ -653,10 +657,11 @@
                                             {% else %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myTueTog" class="myTueTog" value="">
-                                                <span  class="slider round"></span>
+                                                <span class="slider round"></span>
                                               </label>
                                             {% endif %}
                                             {% endif %}
+                                            
                                             {% endfor %}
                                             </li>
                                             </ul>
@@ -677,6 +682,7 @@
                                               {% for val in opratHour %}
 
                                               {% if forloop.counter == 3 %}
+                                              
                                               {% if val.status == True %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myWedTog" class="myWedTog" value="" checked>
@@ -708,6 +714,7 @@
                                             <li class="width_10">
                                               {% for val in opratHour %}
                                               {% if forloop.counter == 4 %}
+                                              
                                               {% if val.status == True %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myThuTog" class="myThuTog" value="" chekced>
@@ -740,6 +747,7 @@
 
                                               {% for val in opratHour %}
                                               {% if forloop.counter == 5 %}
+                                              
                                               {% if val.status == True %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myFriTog" class="myFriTog" value="True" checked>
@@ -771,6 +779,7 @@
                                             <li class="width_10">
                                               {% for val in opratHour %}
                                               {% if forloop.counter == 6 %}
+                                              <p>{{val.location.location}}</p>
                                               {% if val.status == True %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="mySatTog" class="mySatTog" value="" checked="true">
@@ -1208,7 +1217,10 @@ $(document).on("click", ".save_edu", function(e){
         success: function(response) {
                 if(response.status == 200){
                     window.location.reload()
-                   }  
+                   } 
+                if(response.status == 400){
+                  alert(response.message)
+                } 
             }
         });
 });
@@ -1262,11 +1274,12 @@ $(document).on("click", ".edit_btn", function(e){
 
 $(document).on("click", ".edit_pro", function(e){
     e.preventDefault();
+
     url = $(this).data('url');
     product_id = $(this).data('id');
     item = $(this).parents('.popup_contain').find(".editItem").val();
     price = $(this).parents('.popup_contain').find(".editPrice").val();
-    onRequest=$('input[name="on_req"]').prop('checked');
+    onRequest=$(this).parents('.onReqUl').find(".onCheckReq").val();
     $.ajax({
         type: "POST",
         url: url,
@@ -1281,7 +1294,7 @@ $(document).on("click", ".edit_pro", function(e){
                    }  
             }
         });
-});
+    });
 
 
 $(document).on("click", ".save_keyword", function(e){
@@ -1495,7 +1508,8 @@ $(document).on("click", ".save_location", function(e){
                    window.location.reload() 
                    }
                    else if (response.status == 400){
-                    window.location.reload() 
+                    alert(response.message);
+                    
                    }     
                 }
 
@@ -1522,52 +1536,52 @@ $(document).on("click", ".edit_location", function(e){
         },
         success: function(res) {
             
-                if(res.status == 200){
-                   var hour_list = res.loc_hour_list;
-                   
-                   for (var i = 0; i < hour_list.length; i++) {
-                        $(".locId").val(hour_list[i].location)
-                        $(".hom_visit").val(hour_list[i].mobility)
-                        
-                        if(hour_list[i].day == 'mon'){
-                          $(".myMonOpn").val(hour_list[i].open_time)
-                          $(".myMonCls").val(hour_list[i].close_time)
-                          $(".myMonTog").val(hour_list[i].status)
-                        }
-                        if(hour_list[i].day == 'tue'){
-                          $(".myTueOpn").val(hour_list[i].open_time)
-                          $(".myTueCls").val(hour_list[i].close_time)
-                          $(".myTueTog").val(hour_list[i].status)  
-                        }
-                        if(hour_list[i].day == 'wed'){
-                          $(".myWedOpn").val(hour_list[i].open_time)
-                          $(".myWedCls").val(hour_list[i].close_time)
-                          $(".myWedTog").val(hour_list[i].status)  
-                        }
-                        if(hour_list[i].day == 'thu'){
-                          $(".myThuOpn").val(hour_list[i].open_time)
-                          $(".myThuCls").val(hour_list[i].close_time)
-                          $(".myThuTog").val(hour_list[i].status)   
-                        }
-                        if(hour_list[i].day == 'fri'){
-                          $(".myFriOpn").val(hour_list[i].open_time)
-                          $(".myFriCls").val(hour_list[i].close_time)
-                          $(".myFriTog").val(hour_list[i].status)
-                        }
-                        if(hour_list[i].day == 'sat'){
-                          $(".mySatOpn").val(hour_list[i].open_time)
-                          $(".mySatCls").val(hour_list[i].close_time)
-                          $(".mySatTog").val(hour_list[i].status)   
-                        }
-                   }
-                   }
-                   else if (response.status == 400){
-                    window.location.reload() 
-                   }     
-                }
+            if(res.status == 200){
+               var hour_list = res.loc_hour_list;
+               
+               for (var i = 0; i < hour_list.length; i++) {
+                    $(".locId").val(hour_list[i].location)
+                    $(".hom_visit").val(hour_list[i].mobility)
+                    
+                    if(hour_list[i].day == 'mon'){
+                      $(".myMonOpn").val(hour_list[i].open_time)
+                      $(".myMonCls").val(hour_list[i].close_time)
+                      $(".myMonTog").val(hour_list[i].status)
+                    }
+                    if(hour_list[i].day == 'tue'){
+                      $(".myTueOpn").val(hour_list[i].open_time)
+                      $(".myTueCls").val(hour_list[i].close_time)
+                      $(".myTueTog").val(hour_list[i].status)  
+                    }
+                    if(hour_list[i].day == 'wed'){
+                      $(".myWedOpn").val(hour_list[i].open_time)
+                      $(".myWedCls").val(hour_list[i].close_time)
+                      $(".myWedTog").val(hour_list[i].status)  
+                    }
+                    if(hour_list[i].day == 'thu'){
+                      $(".myThuOpn").val(hour_list[i].open_time)
+                      $(".myThuCls").val(hour_list[i].close_time)
+                      $(".myThuTog").val(hour_list[i].status)   
+                    }
+                    if(hour_list[i].day == 'fri'){
+                      $(".myFriOpn").val(hour_list[i].open_time)
+                      $(".myFriCls").val(hour_list[i].close_time)
+                      $(".myFriTog").val(hour_list[i].status)
+                    }
+                    if(hour_list[i].day == 'sat'){
+                      $(".mySatOpn").val(hour_list[i].open_time)
+                      $(".mySatCls").val(hour_list[i].close_time)
+                      $(".mySatTog").val(hour_list[i].status)   
+                    }
+               }
+               }
+               else if (response.status == 400){
+                window.location.reload() 
+               }     
+            }
 
-            });
-        });
+          });
+      });
 
 
 $(document).on("click", ".edit_hours", function(e){
