@@ -421,10 +421,17 @@ def search_keyword(request):
     json_obj = {}
     if searchtype == 'all':
         suggestion_list = Profile.objects.filter(Q(user__first_name__istartswith=suggestion) | Q(trading_name__istartswith=suggestion), status=1)
+        import pdb; pdb.set_trace()
+        suggestion_list = Keywords.objects.filter(keyword__istartswith=suggestion)
         for record in suggestion_list:
             if record.trading_name:
+                if record.custom_role == 4:
+                    is_health = "yes"
+                else:
+                    is_health = "No"
+
                 json_obj = dict(
-                    custom_role = 4,
+                    is_health = is_health,
                     searchtype = 'all',
                     is_institution = "yes",
                     user_id = record.id,
