@@ -22,8 +22,9 @@
                     <li class="profiles">
                         <input type="hidden" name="profile_id" id="profile_id" value="{{patient_user.pk}}">
                         <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
-                        <h4>
-                            {{patient_user.user.full_name}}
+                        {% if patient_user.full_name != None %}
+                            <a href="{% url 'book' patient_user.pk %}">{{patient_user.full_name}}</a>
+                        {% endif %}
                   {% if patient_user.get_status_display == "Active" %}
                       <i class="approved">Active</i>
                   {% elif patient_user.get_status_display == "Pending" %}

@@ -4,8 +4,9 @@ from django.http import HttpResponse,JsonResponse
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-
-from users.models import Profile
+from django.views.generic import CreateView, ListView, DetailView
+from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords, Attachment, ServiceRequest
+#from users.models import Profile
 from .forms import CustomAuthForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.admin.views.decorators import staff_member_required
@@ -273,3 +274,15 @@ class DeactiveAccountStatusView(View):
             'users' : users
         }
         return render(request,'admin/deactive_status_listing.html',data)
+
+
+class ProfileDetail(DetailView):
+    model = Profile
+    template_name = 'admin/detail-page.html'
+    def get_context_data(self, **kwargs):
+        context = super(ProfileDetail, self).get_context_data(**kwargs)
+        context['education'] = Education.objects.filter(user_id=self.object.user)
+        context['product'] = Product.objects.filter(user_id=self.object.user)
+        context['keywords'] = Keywords.objects.filter(user=self.object.user)
+        context['opratHour'] = OperatingHours.objects.filter(location__user=self.object.user)
+        return context 

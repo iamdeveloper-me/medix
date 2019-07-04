@@ -22,8 +22,9 @@
                     <li class="profiles">
                         <input type="hidden" name="profile_id" id="profile_id" value="{{account.pk}}">
                         <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
-                        <h4>
-                            {{account.user.first_name}} {{account.user.last_name}}
+                        {% if account.full_name != None %}
+                          <a href="{% url 'book' account.pk %}">  {{account.full_name}} </a>
+                        {% endif %}
                   {% if account.get_status_display == "Active" %}
                       <i class="approved">Active</i>
                   {% elif account.get_status_display == "Pending" %}

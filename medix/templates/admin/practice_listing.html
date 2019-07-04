@@ -24,8 +24,9 @@
                     <li class="profiles">
                         <input type="hidden" name="profile_id" id="profile_id" value="{{practice.pk}}">
                         <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
-                        <h4>
-                            {{practice.full_name}}
+                        {% if practice.full_name != None %}
+                            <a href="{% url 'book' practice.pk %}">{{practice.full_name}}</a>
+                        {% endif %}
 
             {% if practice.get_status_display == "Active" %}
                 <i class="approved">Active</i>
