@@ -976,12 +976,12 @@
                                                         
                                                     </div>
                                                     
-                                                    <li class="linkid listcircle" >
+                                                    <li class="linkid listcircle" id="accli">
                                                     <input type="hidden" name="service_id" id="service_id" value="{{list.id}}">
                                                     <button class="btn btn-success approve">Accept</button>
                                                     </li>
                                                     
-                                                    <li class="linkid1 listcircle">
+                                                    <li class="linkid1 listcircle" id="rejli">
                                                     <input type="hidden" name="service_reject" id="service_reject" value="{{list.id}}">
                                                     <button class="btn btn-warning reject">Reject</button>
                                                     </li>
@@ -1210,10 +1210,26 @@
    $(".popup_body").removeClass("popup_body_show");
    });
 
+
+$('input[type="file"]').change(function () {
+  var ext = this.value.match(/\.(.+)$/)[1];
+  switch (ext) {
+  case 'jpg':
+  case 'jpeg':
+  case 'png':
+  $('#uploadButton').attr('disabled', false);
+  break;
+  default:
+  alert('Please select jpg or jpeg or png file');
+  this.value = '';
+  }
+});
+
 $(document).on("click", ".approve", function(e){
     e.preventDefault();
     service_id = $(this).parents(".linkid").find("#service_id").val();
     active_deactive_user(service_id,"acccept");
+    $("#accli").css("display", "none");
 })
 
 $(document).on("click", ".reject", function(e){
@@ -1221,6 +1237,8 @@ $(document).on("click", ".reject", function(e){
     service_id = $(this).parents(".linkid1").find("#service_reject").val();
     // Call Common Function here
     active_deactive_user(service_id,"reject");
+    $("#rejli").css("display", "none");
+    return false;
 });
 
 

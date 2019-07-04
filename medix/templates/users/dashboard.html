@@ -1120,6 +1120,20 @@
    $(".popup_body").removeClass("popup_body_show");
    });
 
+$('input[type="file"]').change(function () {
+  var ext = this.value.match(/\.(.+)$/)[1];
+  switch (ext) {
+  case 'jpg':
+  case 'jpeg':
+  case 'png':
+  $('#uploadButton').attr('disabled', false);
+  break;
+  default:
+  alert('Please select jpg or jpeg or png file');
+  this.value = '';
+  }
+});
+
 
 $(document).on("click", ".save_btn", function(e){
     e.preventDefault();
