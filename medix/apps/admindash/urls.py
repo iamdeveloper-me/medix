@@ -27,4 +27,6 @@ urlpatterns = [
     # Ajax Calls
     path('activate_user/', activate_user_ajax, name='activate-user'),
 
+    # Profile View
+    path('profile/detail/<int:pk>/', ProfileDetail.as_view(), name='book'),
 ]
