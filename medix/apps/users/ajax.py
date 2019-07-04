@@ -421,15 +421,12 @@ def search_keyword(request):
     json_obj = {}
     if searchtype == 'all':
         suggestion_list = Profile.objects.filter(Q(user__first_name__istartswith=suggestion) | Q(trading_name__istartswith=suggestion), status=1)
-        import pdb; pdb.set_trace()
-        suggestion_list = Keywords.objects.filter(keyword__istartswith=suggestion)
         for record in suggestion_list:
             if record.trading_name:
                 if record.custom_role == 4:
                     is_health = "yes"
                 else:
                     is_health = "No"
-
                 json_obj = dict(
                     is_health = is_health,
                     searchtype = 'all',
@@ -445,7 +442,14 @@ def search_keyword(request):
                     specialization  = record.get_practice_display(),
                     )
             json_res.append(json_obj)
-
+        suggestion_list = Keywords.objects.filter(keyword__istartswith=suggestion)
+        for record in suggestion_list:
+           
+            json_obj = dict(
+                    name      = record.keyword,
+                    searchtype = 'all',
+                    )
+            json_res.append(json_obj)
         return JsonResponse({'status':200,'suggestion':json_res})
 
     elif searchtype == 'doctors':

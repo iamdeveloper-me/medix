@@ -275,9 +275,10 @@
             mysearchtype = searchtype;
         }
         $('.search-query').keyup(function(){
-
+            
             var query = $(this).val();
-            // var query = query.toLowerCase();       
+            // var query = query.toLowerCase();
+                 
             if (query == ""){
                 $("#tbodyid").empty();
                 return false
@@ -322,7 +323,12 @@
                           "<tr onclick=window.location='" + dynamicurl +"'><td>" + val.name + "</td><td>" + val.specialization + "</td></tr>"
                             );
                         }
-                        
+                        else if (val.searchtype == "all"){
+                            var dynamicurl = "/service-list/"+val.name
+                            $("#mysuggestionsselect tbody").append(
+                          "<tr onclick=window.location='" +dynamicurl +"'><td>" + val.name + "</td><td>" + 'services' + "</td></tr>"
+                            );
+                        }
                         else
                         {
                           var dynamicurl = "/profile-detail/"+val.user_id
@@ -342,15 +348,6 @@
         });
     
     </script>
-     <script type="text/javascript">
-
-        $(document).on("click",".trdata",function(){
-            // $('.suggestionname').change(function (name){
-            //     var selectedvalue = $(this).val(name);
-            // });
-             // var query =  $(".suggetionname").val()        
-        });
-    // </script>
 
 {% endblock %}
 

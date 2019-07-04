@@ -485,4 +485,3 @@ class InstitutionDetailView(DetailView):
         context['doctorList'] = ServiceRequest.objects.filter(service_provider=self.object.user)
         return context
 
-
