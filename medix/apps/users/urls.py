@@ -73,6 +73,7 @@ urlpatterns = [
     path('search-keyword/', search_keyword, name='search-keyword'),
     path('institution-detail/<int:pk>/', views.InstitutionDetailView.as_view(), name='search-institution'),
    
+   
 ]
 
 ajaxpatterns = [

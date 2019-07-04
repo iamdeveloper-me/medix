@@ -24,8 +24,10 @@
                     <li class="profiles">
                         <input type="hidden" name="profile_id" id="profile_id" value="{{practice.pk}}">
                         <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
+                        {% if practice.full_name != None %}
                         <h4>
                             {{practice.full_name}}
+                        {% endif %}
 
             {% if practice.get_status_display == "Active" %}
                 <i class="approved">Active</i>

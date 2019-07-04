@@ -93,20 +93,20 @@
                         </li>
                         {% if request.user.is_authenticated and user.profile.custom_role == 1 %}
 
-                            <li><a href="{% url 'users:profile-dashboard' request.user.profile.id %}">Go To Dashboard</a></li>  
+                            <li><a href="{% url 'users:profile-dashboard' request.user.profile.id %}"></a></li>  
                         {% endif %}
 
                         {% if request.user.is_authenticated and user.profile.custom_role == 2 %}
 
-                            <li><a href="{% url 'users:institution-dashboard' request.user.profile.id %}">Go To Dashboard</a></li>
+                            <li><a href="{% url 'users:institution-dashboard' request.user.profile.id %}"></a></li>
                         {% endif %}
 
                         {% if request.user.is_authenticated and user.profile.custom_role == 3 %}
-                            <li><a href="{% url 'users:emergency-service-dashboard' request.user.profile.id %}">Go To Dashboard</a></li>
+                            <li><a href="{% url 'users:emergency-service-dashboard' request.user.profile.id %}"></a></li>
                         {% endif %}
 
                         {% if request.user.is_authenticated and user.profile.custom_role == 4 %}
-                            <li><a href="{% url 'users:health-insurance-dashboard' request.user.profile.id %}">Go To Dashboard</a></li>
+                            <li><a href="{% url 'users:health-insurance-dashboard' request.user.profile.id %}"></a></li>
                         {% endif %}
                         
                     </ul>
