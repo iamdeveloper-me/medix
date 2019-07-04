@@ -22,8 +22,9 @@
                     <li class="profiles">
                         <input type="hidden" name="profile_id" id="profile_id" value="{{insurance_user.pk}}">
                         <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
-                        <h4>
-                          {{insurance_user.trading_name}}
+                        {% if insurance_user.full_name != None %}
+                            <a href="{% url 'book' insurance_user.pk %}">{{insurance_user.full_name}}</a>
+                        {% endif %}
                   {% if insurance_user.get_status_display == "Active" %}
                       <i class="approved">Active</i>
                   {% elif insurance_user.get_status_display == "Pending" %}

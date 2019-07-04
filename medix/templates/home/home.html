@@ -302,8 +302,14 @@
                     $('#mysuggestionsselect').show();
                     $.each(data.suggestion, function(key,val) {
                         
-                        
-                        if (val.custom_role == 4 && val.is_institution == "yes"){
+                        if (val.searchtype == "all" && val.is_health == "yes" && val.is_institution == "yes"){
+                            var dynamicurl = "/institution-detail/"+val.user_id
+                            
+                            $("#mysuggestionsselect tbody").append(
+                          "<tr onclick=window.location='" +dynamicurl +"'><td>" + val.name + "</td><td>" + 'Health-Insurance' + "</td></tr>"
+                            );
+                        }
+                        else if (val.custom_role == 4 && val.is_institution == "yes"){
                             var dynamicurl = "/institution-detail/"+val.user_id
                             
                             $("#mysuggestionsselect tbody").append(
@@ -316,13 +322,7 @@
                           "<tr onclick=window.location='" + dynamicurl +"'><td>" + val.name + "</td><td>" + val.specialization + "</td></tr>"
                             );
                         }
-                        else if (val.custom_role == 4 && val.searchtype == "all" && val.is_institution == "yes"){
-                            var dynamicurl = "/institution-detail/"+val.user_id
-                            
-                            $("#mysuggestionsselect tbody").append(
-                          "<tr onclick=window.location='" +dynamicurl +"'><td>" + val.name + "</td><td>" + 'Health-Insurance' + "</td></tr>"
-                            );
-                        }
+                        
                         else
                         {
                           var dynamicurl = "/profile-detail/"+val.user_id

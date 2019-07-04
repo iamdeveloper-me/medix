@@ -482,6 +482,7 @@ class InstitutionDetailView(DetailView):
         context['ambulanceInfo'] = AmbulanceService.objects.filter(user_id=self.object.user)
         context['keywords'] = Keywords.objects.filter(user=self.object.user)
         context['opratHour'] = OperatingHours.objects.filter(location__user=self.object.user)
-        context['doctorList'] = ServiceRequest.objects.filter(service_provider=self.object.user) 
+        context['doctorList'] = ServiceRequest.objects.filter(service_provider=self.object.user)
         return context
+
 
