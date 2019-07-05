@@ -275,9 +275,11 @@
             mysearchtype = searchtype;
         }
         $('.search-query').keyup(function(){
-
+            debugger
             var query = $(this).val();
-            // var query = query.toLowerCase();       
+            // var query = $(this).val().split(" ").join("");
+            // var query = query.toLowerCase();
+                 
             if (query == ""){
                 $("#tbodyid").empty();
                 return false
@@ -302,8 +304,14 @@
                     $('#mysuggestionsselect').show();
                     $.each(data.suggestion, function(key,val) {
                         
-                        
-                        if (val.custom_role == 4 && val.is_institution == "yes"){
+                        if (val.searchtype == "all" && val.is_health == "yes" && val.is_institution == "yes"){
+                            var dynamicurl = "/institution-detail/"+val.user_id
+                            
+                            $("#mysuggestionsselect tbody").append(
+                          "<tr onclick=window.location='" +dynamicurl +"'><td>" + val.name + "</td><td>" + 'Health-Insurance' + "</td></tr>"
+                            );
+                        }
+                        else if (val.custom_role == 4 && val.is_institution == "yes"){
                             var dynamicurl = "/institution-detail/"+val.user_id
                             
                             $("#mysuggestionsselect tbody").append(
@@ -316,11 +324,10 @@
                           "<tr onclick=window.location='" + dynamicurl +"'><td>" + val.name + "</td><td>" + val.specialization + "</td></tr>"
                             );
                         }
-                        else if (val.custom_role == 4 && val.searchtype == "all" && val.is_institution == "yes"){
-                            var dynamicurl = "/institution-detail/"+val.user_id
-                            
+                        else if (val.searchtype == "all"){
+                            var dynamicurl = "/service-list/"+val.name
                             $("#mysuggestionsselect tbody").append(
-                          "<tr onclick=window.location='" +dynamicurl +"'><td>" + val.name + "</td><td>" + 'Health-Insurance' + "</td></tr>"
+                          "<tr onclick=window.location='" +dynamicurl +"'><td>" + val.name + "</td><td>" + 'services' + "</td></tr>"
                             );
                         }
                         else
@@ -342,15 +349,6 @@
         });
     
     </script>
-     <script type="text/javascript">
-
-        $(document).on("click",".trdata",function(){
-            // $('.suggestionname').change(function (name){
-            //     var selectedvalue = $(this).val(name);
-            // });
-             // var query =  $(".suggetionname").val()        
-        });
-    // </script>
 
 {% endblock %}
 
