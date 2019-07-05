@@ -420,7 +420,7 @@ def search_keyword(request):
     json_res = []
     json_obj = {}
     if searchtype == 'all':
-        suggestion_list = Profile.objects.filter(Q(user__first_name__istartswith=suggestion) | Q(trading_name__istartswith=suggestion), status=1)
+        suggestion_list = Profile.objects.filter(Q(user__first_name__istartswith=suggestion) |Q(trading_name__istartswith=suggestion), status=1)
         for record in suggestion_list:
             if record.trading_name:
                 if record.custom_role == 4:
@@ -444,7 +444,6 @@ def search_keyword(request):
             json_res.append(json_obj)
         suggestion_list = Keywords.objects.filter(keyword__istartswith=suggestion)
         for record in suggestion_list:
-           
             json_obj = dict(
                     name      = record.keyword,
                     searchtype = 'all',
