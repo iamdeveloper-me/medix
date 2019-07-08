@@ -33,9 +33,11 @@
 		                                      {% if  object.image %}
 		                                        
 		                                        <img src="{{object.image.url}}">
-		                                      {% else %}
-		                                      <img src="{% static 'html_menu_1/img/images.jpeg' %}">
-		                                      {% endif %}
+		                                      {% elif object.gender == 1 %}
+	                                        <img src="{% static 'html_menu_1/img/female.png' %}">
+	                                      {% else %}
+	                                        <img src="{% static 'html_menu_1/img/images.jpeg' %}">
+	                                      {% endif %}
 		                                      <div id="imagePreview" style="background-image: url(../../../static/html_menu_1/img/female.jpg);">
 
 		                                    </div>

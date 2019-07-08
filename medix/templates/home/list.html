@@ -102,8 +102,10 @@
 							<div class="avatar-preview">
                               {% if  user.image %}      
                                 <img src="{{user.image.url}}">
-                              {% else %}
-                              <img src="{% static 'html_menu_1/img/images.jpeg' %}">
+                              {% elif user.gender == 1 %}
+                                <img src="{% static 'html_menu_1/img/female.png' %}">
+                              {% elif user.gender == 0 %}
+                                <img src="{% static 'html_menu_1/img/images.jpeg' %}">
                               {% endif %}
                               
                               </div>

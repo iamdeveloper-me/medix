@@ -73,7 +73,7 @@
                                         
                                         <img src="{{image.image.url}}">
                                       {% else %}
-                                      <img src="{% static 'html_menu_1/img/images.jpeg' %}">
+                                      <img src="{% static 'html_menu_1/img/institute.png' %}">
                                       {% endif %}
                                       <div id="imagePreview" style="background-image: url(../../../static/html_menu_1/img/female.jpg);">
 
@@ -955,13 +955,15 @@
                                         </div>
                                         <div class="popupbody">
                                             <div class="popupscroll">
-                                                {% for list in doctorList %}
-                                                <div class="popupdrlist">
-                                                     {% if  list.service_member.profile.image %}
-                                                    <img src="{{list.service_member.profile.image.url}}">
-                                                     {% else %}
-                                                    <img src="{% static 'html_menu_1/img/images.jpeg' %}">
-                                                    {% endif %}
+                                        {% for list in doctorList %}
+                                        <div class="popupdrlist">
+                                            {% if  list.service_member.profile.image %}
+                                            <img src="{{list.service_member.profile.image.url}}">
+                                            {% elif list.service_member.profile.gender == 1 %}
+                                        <img src="{% static 'html_menu_1/img/female.png' %}">
+                                      {% else %}
+                                        <img src="{% static 'html_menu_1/img/images.jpeg' %}">
+                                      {% endif %}
                                                     <div class="detailbox">
                                                         <h1>{{list.service_member.first_name}}&nbsp;{{list.service_member.last_name}}
                                                             
