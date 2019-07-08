@@ -64,11 +64,11 @@ class Location(BaseModel):
 
 class OperatingHours(BaseModel):
 
-    open_time = models.TimeField(_("Strat Time"), blank = True, null = True)
-    close_time = models.TimeField(_("End Time"), blank = True, null = True)
+    open_time = models.IntegerField(verbose_name=_('Doctor Opening Time'), choices=OPEN_TIME_CHOICES, default=0,null=True,blank=True)
+    close_time = models.IntegerField(verbose_name=_('Doctor Closing Time'), choices=CLOSE_TIME_CHOICES, default=0,null=True,blank=True)
     day = models.CharField(_("Day"), max_length=50, blank = True, null = True)
     status = models.BooleanField(default=False)
-    # day = models.IntegerField(verbose_name=_('Day Type'), choices=Day_CHOICES, blank = True, null = True)
+ 
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location_hour', blank = True, null = True)
     
     class Meta:

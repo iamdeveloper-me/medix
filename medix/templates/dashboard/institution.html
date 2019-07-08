@@ -3,6 +3,17 @@
 {% load staticfiles %}
 {% load i18n %}
 {% block content %}
+{% if messages %}
+  {% for message in messages %}
+      <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{ message }}</p>
+  {% endfor %}
+  <script type="text/javascript">
+      setTimeout(function(){
+      $(".success").hide();
+      $(".error").hide();  
+      }, 5000);
+  </script>
+{% endif %}
 <main>
         <div id="breadcrumb">
             <div class="container">
@@ -1238,7 +1249,6 @@ $(document).on("click", ".reject", function(e){
     // Call Common Function here
     active_deactive_user(service_id,"reject");
     $("#rejli").css("display", "none");
-    return false;
 });
 
 
@@ -1356,7 +1366,10 @@ $(document).on("click", ".edit_btn", function(e){
         success: function(response) {
                 if(response.status == 200){
                     window.location.reload()
-                   }  
+                   }
+                else{
+                  alert(response.message);
+                }   
             }
         });
 });

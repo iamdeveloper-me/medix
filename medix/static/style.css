@@ -183,7 +183,7 @@ p.error {
     margin-top: 10px;
 }
 .open_time li {
-    display: inline-block !important;
+    display: inline-block;
     width: 32.33%;
     margin: 0px;
 }

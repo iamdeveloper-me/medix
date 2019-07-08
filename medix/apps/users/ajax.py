@@ -75,7 +75,7 @@ def edit_profile(request):
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
         user = User.objects.get(id=profile.user.id)
         profile.phone = request.POST.get("phone")
-        profile.gender = request.POST.get("gender")
+        # profile.gender = request.POST.get("gender")
         profile.save()
         user.first_name = request.POST.get("firstName")
         user.last_name = request.POST.get("lastName")
@@ -124,12 +124,16 @@ def add_product(request):
 
 def edit_education(request):
     if request.method == 'POST':
-        edu = Education.objects.get(id=request.POST.get("edu_id"))
-        user = User.objects.get(id=edu.user.id)
-        edu.qualification = request.POST.get("qualification")
-        edu.user = user
-        edu.save()
-        return JsonResponse({'status':200})
+        if request.POST.get("qualification"):
+            edu = Education.objects.get(id=request.POST.get("edu_id"))
+            user = User.objects.get(id=edu.user.id)
+            edu.qualification = request.POST.get("qualification")
+            edu.user = user
+            edu.save()
+            return JsonResponse({'status':200})
+        else:
+
+            return JsonResponse({'status':400,'message':'Please fill qualification'})
 
 def edit_product(request):
     if request.method == 'POST':
@@ -283,64 +287,65 @@ def delete_location(request):
             print("Uh oh, Error : ", str(e))
             return JsonResponse({'status':400})
 
-def add_location(request):
-    if request.method == 'POST':
-        profile = Profile.objects.get(id=request.POST.get("profile_id"))
-        user = profile.user
-        day_list = []
-        day_list.append(request.POST.get('monday'))
-        day_list.append(request.POST.get('tueday'))
-        day_list.append(request.POST.get('wedday'))
-        day_list.append(request.POST.get('thuday'))
-        day_list.append(request.POST.get('friday'))
-        day_list.append(request.POST.get('satday'))
+# def add_location(request):
+#     if request.method == 'POST':
+#         profile = Profile.objects.get(id=request.POST.get("profile_id"))
+#         user = profile.user
+#         day_list = []
+#         day_list.append(request.POST.get('monday'))
+#         day_list.append(request.POST.get('tueday'))
+#         day_list.append(request.POST.get('wedday'))
+#         day_list.append(request.POST.get('thuday'))
+#         day_list.append(request.POST.get('friday'))
+#         day_list.append(request.POST.get('satday'))
 
-        open_list = []
-        open_list.append(request.POST.get('monopn'))
-        open_list.append(request.POST.get('tueOpn'))
-        open_list.append(request.POST.get('wedOpn'))
-        open_list.append(request.POST.get('thuOpn'))
-        open_list.append(request.POST.get('friOpn'))
-        open_list.append(request.POST.get('satOpn'))
+#         open_list = []
+#         open_list.append(request.POST.get('monopn'))
+#         open_list.append(request.POST.get('tueOpn'))
+#         open_list.append(request.POST.get('wedOpn'))
+#         open_list.append(request.POST.get('thuOpn'))
+#         open_list.append(request.POST.get('friOpn'))
+#         open_list.append(request.POST.get('satOpn'))
 
-        close_list = []
-        close_list.append(request.POST.get('monclos'))
-        close_list.append(request.POST.get('tueCls'))
-        close_list.append(request.POST.get('wedCls'))
-        close_list.append(request.POST.get('thuCls'))
-        close_list.append(request.POST.get('friCls'))
-        close_list.append(request.POST.get('satCls'))
+#         close_list = []
+#         close_list.append(request.POST.get('monclos'))
+#         close_list.append(request.POST.get('tueCls'))
+#         close_list.append(request.POST.get('wedCls'))
+#         close_list.append(request.POST.get('thuCls'))
+#         close_list.append(request.POST.get('friCls'))
+#         close_list.append(request.POST.get('satCls'))
 
-        toggle_list = []
-        toggle_list.append(request.POST.get('monTog').title())
-        toggle_list.append(request.POST.get('tueTog').title())
-        toggle_list.append(request.POST.get('wedTog').title())
-        toggle_list.append(request.POST.get('thuTog').title())
-        toggle_list.append(request.POST.get('friTog').title())
-        toggle_list.append(request.POST.get('satTog').title())
+#         toggle_list = []
+#         toggle_list.append(request.POST.get('monTog').title())
+#         toggle_list.append(request.POST.get('tueTog').title())
+#         toggle_list.append(request.POST.get('wedTog').title())
+#         toggle_list.append(request.POST.get('thuTog').title())
+#         toggle_list.append(request.POST.get('friTog').title())
+#         toggle_list.append(request.POST.get('satTog').title())
 
-        if request.POST.get("locations")=="":
-           return JsonResponse({'status':400,'message':'Please fill location'})  
-        location_obj = Location.objects.create(user=user,location=request.POST.get("locations"),mobility = request.POST.get('mobility').title())
-        try:
-            for day, openl, closel,toggle in zip(day_list,open_list,close_list,toggle_list):
-                if toggle == 'False':
-                    OperatingHours.objects.create(location = location_obj,day = day,status = toggle)
-                else: 
-                    OperatingHours.objects.create(
-                        open_time = openl,
-                        close_time = closel,
-                        day = day,
-                        location = location_obj,
-                        status = toggle
-                    )
+#         if request.POST.get("locations")=="":
+#            return JsonResponse({'status':400,'message':'Please fill location'})  
+#         location_obj = Location.objects.create(user=user,location=request.POST.get("locations"),mobility = request.POST.get('mobility').title())
+#         try:
+#             for day, openl, closel,toggle in zip(day_list,open_list,close_list,toggle_list):
+#                 if toggle == 'False':
+#                     OperatingHours.objects.create(location = location_obj,day = day,status = toggle)
+#                 else: 
+#                     OperatingHours.objects.create(
+#                         open_time = openl,
+#                         close_time = closel,
+#                         day = day,
+#                         location = location_obj,
+#                         status = toggle
+#                     )
                 
-            return JsonResponse({'status':200}) 
-        except Exception as e:
-            print("Uh oh, Error : ", str(e))
-            return JsonResponse({'status':200}) 
-    return JsonResponse({'status':400}) 
- 
+#             return JsonResponse({'status':200}) 
+#         except Exception as e:
+#             print("Uh oh, Error : ", str(e))
+#             return JsonResponse({'status':200}) 
+#     return JsonResponse({'status':400}) 
+
+
 def edit_location(request):
     loc_hour_list=[]
     if request.method == 'POST':

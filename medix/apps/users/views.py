@@ -13,19 +13,82 @@ from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from users.utils import specialization_value
 
-def upload_user_image(request):
-    if request.method == 'POST' and request.FILES['image']:
+
+def add_location(request):
+    
+    if request.method == 'POST':
+        # import pdb; pdb.set_trace();
         profile = Profile.objects.get(pk=request.user.profile.id)
-        profile.image = request.FILES['image']
-        profile.save()
-        if request.POST.get('practice') == 'practice':
-            return redirect('/dashboard/practice/'+str(request.user.profile.id))
-        if request.POST.get('institution') == 'institution':
-            return redirect('/dashboard/institution/'+str(request.user.profile.id))
-        if request.POST.get('emergency') == 'emergency':
-            return redirect('/dashboard/emergency-service/'+str(request.user.profile.id))
-        if request.POST.get('health') == 'health':
-            return redirect('/dashboard/health-insurance/'+str(request.user.profile.id))
+        user = profile.user
+        day_list = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+        open_list = request.POST.getlist('open_time')
+        close_list = request.POST.getlist('close_time')
+        toggle_list = []
+        try:
+            
+            toggle_list.append(request.POST.get('monTog').title()) if request.POST.get('monTog') else toggle_list.append('None')
+            toggle_list.append(request.POST.get('tueTog').title()) if request.POST.get('tueTog') else toggle_list.append('None')
+            toggle_list.append(request.POST.get('thuTog').title()) if request.POST.get('thuTog') else toggle_list.append('None') 
+            toggle_list.append(request.POST.get('friTog').title()) if request.POST.get('friTog') else toggle_list.append('None')
+            toggle_list.append(request.POST.get('satTog').title()) if request.POST.get('satTog') else toggle_list.append('None')
+            if request.POST.get("locations")=="":
+                messages.error(request, 'This field is required')
+                return redirect('/dashboard/practice/'+str(request.user.profile.id))
+            
+            if request.POST.get('mobility')!=None: 
+                location_obj = Location.objects.create(user=user,location=request.POST.get("location"),mobility = True)
+            else:
+                location_obj = Location.objects.create(user=user,location=request.POST.get("location"),mobility = False)
+            
+            for day, openl, closel, toggle in zip(day_list,open_list,close_list,toggle_list):
+                if openl=='0' or closel=='0':
+                    OperatingHours.objects.create(location = location_obj,day = day,status = False)
+                else: 
+                    OperatingHours.objects.create(
+                        open_time = openl,
+                        close_time = closel,
+                        day = day,
+                        location = location_obj,
+                        status = True
+                    )
+                
+        except Exception as e:
+            print("Uh oh, Error : ", str(e))
+
+    return redirect('/dashboard/practice/'+str(request.user.profile.id))
+
+
+
+def upload_user_image(request):
+    # import pdb; pdb.set_trace()
+    if request.method == 'POST':
+        profile = Profile.objects.get(pk=request.user.profile.id) 
+        if request.POST.get('practice') == 'practice' and request.FILES.get('image'):
+            profile.image = request.FILES['image']
+            profile.save()
+        else:
+            messages.error(request, 'Please select image')
+        return redirect('/dashboard/practice/'+str(request.user.profile.id))
+        if request.POST.get('institution') == 'institution' and request.FILES.get('image'):
+            profile.image = request.FILES['image']
+            profile.save()
+        else:
+            messages.error(request, 'Please select image')
+        return redirect('/dashboard/institution/'+str(request.user.profile.id))
+
+        if request.POST.get('emergency') == 'emergency' and request.FILES.get('image'):
+            profile.image = request.FILES['image']
+            profile.save()
+        else:
+            messages.error(request, 'Please select image')
+        return redirect('/dashboard/emergency-service/'+str(request.user.profile.id))
+        if request.POST.get('health') == 'health' and request.FILES.get('image'):
+            profile.image = request.FILES['image']
+            profile.save()
+        else:
+            messages.error(request, 'Please select image')
+        return redirect('/dashboard/health-insurance/'+str(request.user.profile.id))
+    
     return render(request, 'users/dashboard.html') 
 
 def file_upload(request,pk):
@@ -79,10 +142,10 @@ class PracticeProfileDetailView(View):
                 for vals in opratHour:  
                     hour_list.append(vals)   
             
-            hour = TradingHourForm 
+            tradHour = TradingHourForm 
             proInfo = ProfileInfoForm
 
-            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'hour':hour, 'proInfo':proInfo,'opratHour':hour_list,'instList' : instList, 'serviceMember':serviceMember, 'image': profileInfo}
+            context = {'first_name':user.first_name,'last_name':user.last_name,'phone':profileInfo.phone,'description':profileInfo.description,'experience':profileInfo.experience,'educations':education,'products':product,'email':user.email,'gender':profileInfo.get_gender_display(),'keyword':keyword, 'specialisation':profileInfo.get_practice_display(), 'pk':pk, 'tradHour':tradHour, 'proInfo':proInfo,'opratHour':hour_list,'instList' : instList, 'serviceMember':serviceMember, 'image': profileInfo}
             return render(request,"users/dashboard.html", context)
         return redirect('user-type/step1/')
 

@@ -4,6 +4,17 @@
 {% load i18n %}
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% if messages %}
+  {% for message in messages %}
+      <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{ message }}</p>
+  {% endfor %}
+  <script type="text/javascript">
+      setTimeout(function(){
+      $(".success").hide();
+      $(".error").hide();  
+      }, 5000);
+  </script>
+{% endif %}
 <main>
         <div id="breadcrumb">
             <div class="container">
@@ -113,8 +124,6 @@
                                             </div>
                                           </div>
 
-
-
                                         <h1>{{first_name}} {{last_name}}</h1>
                                         <span class="rating">
                                             <i class="icon_star voted"></i>
@@ -182,7 +191,7 @@
                                             </div>
                                           </div>    
                                         </div>
-                            <div class="wrapper_indent padding_bottom">
+                                <div class="wrapper_indent padding_bottom">
                                 <p id="pra_{{request.user.profile.id}}">
                                     {% if description != None %}
                                         {{description}}
@@ -236,7 +245,7 @@
                             </div>
                             <div class="wrapper_indent">
                                 <p></p>
-                                <h6>Curriculum</h6>
+                               
                                 <ul class="list_edu">
                                     {% for education in educations%}
                                     <li id="education_li_{{education.id}}">{{education.qualification}}
@@ -399,147 +408,129 @@
                                             <div class="popupscroll">
                                             <ul class="contacts">
                                             
-                                            
+                                          <form method="POST" role="form" enctype="multipart/form-data" id="form-location"
+                                          action="{% url 'users:add-location' %}" >{% csrf_token %}>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                              <div class="col-md-6">
                                                 <h6>Location</h6>
-                                            <input type="text" value="{{location}}" name="location" id="locationId">
-                                                </div>
-                                                <div class="col-md-6 checkbox_input">
+                                                <input type="text" value="{{location}}" name="location" id="locationId">
+                                              </div>
+                                              <div class="col-md-6 checkbox_input">
                                                         
                                                 <input type="checkbox" name="mobility">  Mobility
                                                 </div>
-                                                </div>
+                                              </div>
                                             </ul>
                                             <ul class="contacts open_time">
                                             <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="mon" value="mon" id="mon" disabled>
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="monOpn" value="{{open_time}}" id="monOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="monCls" value="{{close_time}}" id="monCls" >
+                                                
+                                              <input type="text" name="mon" value="Monday" id="mon" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="monTog">
+                                                <input type="checkbox" name="monTog" class="monIn">
                                                 <span  class="slider round"></span>
                                               </label>
                                             </li>
-                                            
+                                            <li id="monOpn">Close</li>
+                                            <li class="width_29" id="monli">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
+                                            </li>
+                                                                 
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="tue" value="tue" id="tue" disabled>
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="tueOpn" value="{{open_time}}" id="tueOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="tueCls" value="{{close_time}}" id="tueCls" >
+                                            <li class="width_29">  
+                                              <input type="text" name="tue" value="Tuesday" id="tue" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="tueTog">
+                                                <input type="checkbox" name="tueTog" class="tueIn">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
+                                            <li id="tueOpn">Close</li>
+                                            <li class="width_29" id="tueli">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
+                                            </li>
+                                           
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="wed" value="wed" id="wed" disabled>
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="wedOpn" value="{{open_time}}" id="wedOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="wedCls" value="{{close_time}}" id="wedCls" >
+                                            <li class="width_29">  
+                                              <input type="text" name="wed" value="Wednesday" id="wed" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="wedTog">
+                                                <input type="checkbox" name="wedTog" class="wedIn">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
+                                            <li id="wedOpn">Close</li>
+                                            <li class="width_29" id="wedli">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
+                                            </li>  
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="thus" value="thu" id="thus" disabled>
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="thuOpn" value="{{open_time}}" id="thuOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="thuCls" value="{{close_time}}" id="thuCls" >
+                                            <li class="width_29">  
+                                              <input type="text" name="thus" value="Thursday" id="thus" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="thuTog">
+                                                <input type="checkbox" name="thuTog" class="thuIn">
                                                 <span class="slider round"></span>
                                               </label>
+                                            </li>
+                                            <li id="thuOpn">Close</li>
+                                            <li class="width_29" id="thuli">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
                                             <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="friday" value="fri" id="friday" disabled>
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="friOpn" value="{{open_time}}" id="friOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="friCls" value="{{close_time}}" id="friCls" >
+                                                
+                                              <input type="text" name="friday" value="Friday" id="friday" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="friTog">
+                                                <input type="checkbox" name="friTog" class="friIn">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
+                                            <li id="friOpn">Close</li>
+                                            <li class="width_29" id="frili">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
+                                            </li>  
                                             </ul>
                                            <ul class="contacts open_time">
                                             <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="sat" value="sat" id="sat" disabled>
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="satOpn" value="{{open_time}}" id="satOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="satCls" value="{{close_time}}" id="satCls" >
+                                              <input type="text" name="sat" value="Saturday" id="sat" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="satTog">
+                                                <input type="checkbox" name="satTog" class="satIn">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
+                                            <li id="satOpn">Close</li>
+                                            <li class="width_29" id="satli">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
+                                            </li>
+                                            
                                             </ul>
                                             </div>
                                               
                                           </div>
-                                           
-                                            <div class="popupfooter">
-                                                <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location btnsave">save</button>
+                                           <input type="hidden" id="profile_id" name="proId" value="{{request.user.profile.id}}">
+                                          <div class="popupfooter">
+                                            <button type="submit" data-id="{{request.user.profile.id}}" class="save_location btnsave">Add</button>
 
-                                            </div>
+                                          </div>
+                                        </form>
                                         </div>
                                     </div>
                                   </div>
@@ -805,7 +796,7 @@
                                     <li id="location_li_{{val.location.id}}">
 
                                         {% if val.open_time != None and val.status == True %}
-                                          {{val.day}}-{{val.open_time}}-{{val.close_time}}
+                                          {{val.day}}-{{val.get_open_time_display}}-{{val.get_close_time_display}}
                                         {% else %}
                                           {{val.day}}-Closed
                                         {%endif%} 
@@ -1134,6 +1125,80 @@ $('input[type="file"]').change(function () {
   }
 });
 
+$("#monli").hide(); 
+$("#tueli").hide();
+$("#wedli").hide();
+$("#thuli").hide();
+$("#frili").hide();
+$("#satli").hide();
+
+$(".monIn").click(function(){
+  monTog = $('input[name="monTog"]').prop('checked');
+  if (monTog==true) {
+    $("#monli").show(); 
+    $("#monOpn").text("Open");   
+    }
+ if (monTog==false) {
+    $("#monli").hide();    
+  }
+
+});
+
+$(".tueIn").click(function(){
+  tueTog = $('input[name="tueTog"]').prop('checked');      
+  if (tueTog==true) {
+    $("#tueli").show();
+    $("#tueOpn").text("Open");    
+  }
+  if (tueTog==false){
+    $("#tueli").hide();    
+  }
+});
+
+$(".wedIn").click(function(){
+  wedTog = $('input[name="wedTog"]').prop('checked');
+  if (wedTog==true) {
+    $("#wedli").show();
+    $("#wedOpn").text("Open");    
+  }
+  if (wedTog==false){
+    $("#wedli").hide();    
+  }
+});
+
+$(".thuIn").click(function(){
+  thuTog = $('input[name="thuTog"]').prop('checked');
+  if (thuTog==true) {
+    $("#thuli").show();
+    $("#thuOpn").text("Open");    
+  }
+  if (thuTog==false) {
+    $("#thuli").hide();    
+  }
+});
+
+$(".friIn").click(function(){
+  friTog = $('input[name="friTog"]').prop('checked');
+  if (friTog==true) {
+    $("#frili").show();
+    $("#friOpn").text("Open");    
+  }
+  if (friTog==false) {
+    $("#frili").hide();    
+  }
+});
+
+$(".satIn").click(function(){ 
+  satTog = $('input[name="satTog"]').prop('checked');   
+    if (satTog==true) {
+      $("#satli").show();
+      $("#satOpn").text("Open");    
+    }
+    if (satTog==false) {
+      $("#satli").hide();    
+    }  
+});   
+
 
 $(document).on("click", ".save_btn", function(e){
     e.preventDefault();
@@ -1143,7 +1208,6 @@ $(document).on("click", ".save_btn", function(e){
     firstName = $("#firstName").val();
     lastName = $("#lastName").val();
     email = $("#email").val();
-    gender = $("#id_gender").val();
     $.ajax({
         type: "POST",
         url: url,
@@ -1151,7 +1215,7 @@ $(document).on("click", ".save_btn", function(e){
             "X-CSRFToken": '{{csrf_token}}' 
         },
         dataType: "json",
-        data: {"profile_id":profile_id,"phone":phone,"firstName":firstName,"lastName":lastName, "email":email, "gender":gender},
+        data: {"profile_id":profile_id,"phone":phone,"firstName":firstName,"lastName":lastName, "email":email},
         success: function(response) {
             if(response.status == 200){
                 window.location.reload()
@@ -1283,7 +1347,10 @@ $(document).on("click", ".edit_btn", function(e){
         success: function(response) {
                 if(response.status == 200){
                     window.location.reload()
-                   }  
+                   }
+                else{
+                  alert(response.message);
+                }  
             }
         });
 });
@@ -1451,86 +1518,105 @@ $(document).on("click", ".delete_location", function(e){
     } // confirm box end
 });
 
+// var locationForm = $('#form-location');
+//     locationForm.submit(function () {
+//     var frmData = locationForm.serialize();
+//     profile_id = $('#profile_id').val();
+//     frmData.push({name: proId, value: profile_id});
+//     $.ajax({
+//           type: locationForm.attr('method'),
+//           url: locationForm.attr('url'),
+//           data:frmData,
+//           headers:{
+//           "X-CSRFToken": '{{csrf_token}}' 
+//           },
+//           dataType: "json",
+//           success: function (response) {
 
-$(document).on("click", ".save_location", function(e){
-    e.preventDefault();
-    url = $(this).data('url');
-    profile_id = $(this).data('id');
-    locationVal = $("#locationId").val();
-    mobility=$('input[name="mobility"]').prop('checked');
-    monTog = $('input[name="monTog"]').prop('checked');
-    tueTog = $('input[name="tueTog"]').prop('checked');
-    wedTog = $('input[name="wedTog"]').prop('checked');
-    thuTog = $('input[name="thuTog"]').prop('checked');
-    friTog = $('input[name="friTog"]').prop('checked');
-    satTog = $('input[name="satTog"]').prop('checked');
-    monOpn = $("#monOpn").val();
-    monClos= $("#monCls").val();
-    monday = $("#mon").val();
-    tueOpn = $("#tueOpn").val();
-    tueCls = $("#tueCls").val();
-    tueday = $("#tue").val();
-    wedOpn = $("#wedOpn").val(); 
-    wedday = $("#wed").val();
-    wedCls = $("#wedCls").val();               
-    thuOpn = $("#thuOpn").val();  
-    thuCls = $("#thuCls").val();
-    thuday = $("#thus").val();
-    friOpn = $("#friOpn").val();  
-    friCls = $("#friCls").val();
-    friday = $("#friday").val();
-    satOpn = $("#satOpn").val();  
-    satCls = $("#satCls").val();  
-    satday = $("#sat").val();
-    $.ajax({
-        type: "POST",
-        url: url,
-        headers:{
-            "X-CSRFToken": '{{csrf_token}}' 
-        },
-        dataType: "json",
-        data: {
-            "profile_id":profile_id,
-            "locations":locationVal,
-            "monopn":monOpn,
-            "monclos":monClos,
-            "monday":monday,
-            "tueOpn":tueOpn,
-            "tueCls":tueCls,
-            "tueday":tueday,
-            "wedOpn" : wedOpn,
-            "wedday" : wedday,
-            "wedCls" : wedCls,
-            "thuOpn" : thuOpn , 
-            "thuCls" : thuCls,
-            "thuday" : thuday,
-            "friOpn" : friOpn,
-            "friCls" : friCls,
-            "friday" : friday , 
-            "satOpn" : satOpn,
-            "satCls" : satCls,
-            "satday" : satday,
-            "mobility":mobility,
-            "monTog":monTog,
-            "tueTog":tueTog,
-            "wedTog":wedTog,
-            "thuTog":thuTog,
-            "friTog":friTog,
-            "satTog":satTog
+//           }
 
-        },
-        success: function(response) {
-                if(response.status == 200){
-                   window.location.reload() 
-                   }
-                   else if (response.status == 400){
-                    alert(response.message);
+//     });
+//   });
+
+// $(document).on("click", ".save_location", function(e){
+//     e.preventDefault();
+//     url = $(this).data('url');
+//     profile_id = $(this).data('id');
+//     locationVal = $("#locationId").val();
+//     mobility=$('input[name="mobility"]').prop('checked');
+//     monTog = $('input[name="monTog"]').prop('checked');
+//     tueTog = $('input[name="tueTog"]').prop('checked');
+//     wedTog = $('input[name="wedTog"]').prop('checked');
+//     thuTog = $('input[name="thuTog"]').prop('checked');
+//     friTog = $('input[name="friTog"]').prop('checked');
+//     satTog = $('input[name="satTog"]').prop('checked');
+//     monOpn = $("#monOpn").val();
+//     monClos= $("#monCls").val();
+//     monday = $("#mon").val();
+//     tueOpn = $("#tueOpn").val();
+//     tueCls = $("#tueCls").val();
+//     tueday = $("#tue").val();
+//     wedOpn = $("#wedOpn").val(); 
+//     wedday = $("#wed").val();
+//     wedCls = $("#wedCls").val();               
+//     thuOpn = $("#thuOpn").val();  
+//     thuCls = $("#thuCls").val();
+//     thuday = $("#thus").val();
+//     friOpn = $("#friOpn").val();  
+//     friCls = $("#friCls").val();
+//     friday = $("#friday").val();
+//     satOpn = $("#satOpn").val();  
+//     satCls = $("#satCls").val();  
+//     satday = $("#sat").val();
+//     $.ajax({
+//         type: "POST",
+//         url: url,
+//         headers:{
+//             "X-CSRFToken": '{{csrf_token}}' 
+//         },
+//         dataType: "json",
+//         data: {
+//             "profile_id":profile_id,
+//             "locations":locationVal,
+//             "monopn":monOpn,
+//             "monclos":monClos,
+//             "monday":monday,
+//             "tueOpn":tueOpn,
+//             "tueCls":tueCls,
+//             "tueday":tueday,
+//             "wedOpn" : wedOpn,
+//             "wedday" : wedday,
+//             "wedCls" : wedCls,
+//             "thuOpn" : thuOpn , 
+//             "thuCls" : thuCls,
+//             "thuday" : thuday,
+//             "friOpn" : friOpn,
+//             "friCls" : friCls,
+//             "friday" : friday , 
+//             "satOpn" : satOpn,
+//             "satCls" : satCls,
+//             "satday" : satday,
+//             "mobility":mobility,
+//             "monTog":monTog,
+//             "tueTog":tueTog,
+//             "wedTog":wedTog,
+//             "thuTog":thuTog,
+//             "friTog":friTog,
+//             "satTog":satTog
+
+//         },
+//         success: function(response) {
+//                 if(response.status == 200){
+//                    window.location.reload() 
+//                    }
+//                    else if (response.status == 400){
+//                     alert(response.message);
                     
-                   }     
-                }
+//                    }     
+//                 }
 
-            });
-        });
+//             });
+//         });
 
 
 $(document).on("click", ".edit_location", function(e){

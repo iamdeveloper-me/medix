@@ -7,7 +7,7 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE':   'django.db.backends.postgresql',
-        'NAME':     'medix',
+        'NAME':     'medixdb',
         'USER':     'postgres',
         'PASSWORD': 'psql',
         'HOST':     'localhost',

@@ -73,13 +73,13 @@ urlpatterns = [
     path('search-keyword/', search_keyword, name='search-keyword'),
     path('institution-detail/<int:pk>/', views.InstitutionDetailView.as_view(), name='search-institution'),
     # path('services-list/', views.KeywordsListView.as_view(), name='services-list'),
-   
+    path('add/location', views.add_location, name='add-location'),
    
 ]
 
 ajaxpatterns = [
     #practice add ,edit ,delete ajax
-    path('add/location', add_location, name='add-location'),
+   
     path('edit/location', edit_location, name='edit-location'),
     path('delete/location', delete_location, name='delete-location'),
     path('edit/profile/', edit_profile, name='edit-profile'),
