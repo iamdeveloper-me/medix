@@ -206,7 +206,11 @@ class PracticeSignupStep3View(View):
         if user_form.is_valid() and practice_form.is_valid():
             try:
                 user = user_form.save(commit=False)
-                user.set_password(user.password)
+                if len(user.password) >= 8:
+                    user.set_password(user.password)
+                else:
+                    messages.error(request, 'Passward should be at least 8 character')
+                    return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -253,7 +257,11 @@ class InstitutionSignupStep3View(View):
         if user_form.is_valid() and institution_form.is_valid():
             try:
                 user = user_form.save(commit=False)
-                user.set_password(user.password)
+                if len(user.password) >= 8:
+                    user.set_password(user.password)
+                else:
+                    messages.error(request, 'Passward should be at least 8 character')
+                    return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -290,7 +298,11 @@ class InsuranceProviderSignupStep2View(View):
         if user_form.is_valid() and insurance_form.is_valid():
             try:
                 user = user_form.save(commit=False)
-                user.set_password(user.password)
+                if len(user.password) >= 8:
+                    user.set_password(user.password)
+                else:
+                    messages.error(request, 'Passward should be at least 8 character')
+                    return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -330,7 +342,11 @@ class EmergencyServiceSignupStep3View(View):
         if user_form.is_valid() and service_form.is_valid():
             try:
                 user = user_form.save(commit=False)
-                user.set_password(user.password)
+                if len(user.password) >= 8:
+                    user.set_password(user.password)
+                else:
+                    messages.error(request, 'Passward should be at least 8 character')
+                    return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
