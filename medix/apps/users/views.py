@@ -493,7 +493,7 @@ class LogoutView(View):
     def get(self,request):
         if request.user.username:
             logout(request)
-        return HttpResponseRedirect('/user-type/step1/')
+        return HttpResponseRedirect('/home/')
 
 class Home(View):
    def get(self,request):

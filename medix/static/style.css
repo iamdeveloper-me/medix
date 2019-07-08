@@ -495,9 +495,14 @@ margin-left: 10px;
   border-bottom: 1px solid #ccc;
   padding: 15px;
   font-weight: bold;
+  
+}
+.text_alignleft{
+  text-align: left;
 }
 .popupbody{
   padding:15px;
+
 }
 .popupfooter{
   padding:10px;
@@ -628,6 +633,7 @@ margin-left: 10px;
   position: absolute;
     margin-top: 9px !important;
     margin-left: 8px;
+    right: 25px;
 }
 .strip_list ul {
     overflow: hidden;
@@ -766,5 +772,9 @@ input:checked + .slider:before {
   margin-right: 6px;
   vertical-align: middle;
 }
-
-
+.text_align{
+  text-align: right!important;
+}
+.menutext_align{
+  right: 20px;
+}
