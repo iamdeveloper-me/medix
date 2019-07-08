@@ -194,6 +194,35 @@
                                     {% endfor %}
                                 </ul>
                             </div>
+                            <hr>
+
+                            <div class="indent_title_in doctor_div">
+                               
+                               
+                            </div>
+                            <div class="wrapper_indent doctor_div">
+                                <div>
+                                    <ul>
+                                    	{% if  serviceMember %}
+
+                                        {% for service in serviceMember %}
+
+                                            {% if service.is_accept == 1 %}
+                                            {% if forloop.first %} 
+                                             <h5>Associated Institutions</h5>
+                                             {% endif %}
+                                                <li>-{{service.service_provider.profile.trading_name}} </li>
+                                             {% else %}
+                                             <h5>Not Associated To Any Institutions</h5>
+                                            {% endif %}
+                                        {%endfor%}
+                                     {% else %}
+                                     <h5>Not Associated To Any Institutions</h5>
+                                     {% endif %}
+
+                                    </ul>
+                                </div> 
+                            </div>
 						</div>
 						<!-- /section_1 -->
 					</div>
@@ -224,7 +253,7 @@
  $(".popup_back").click(function () {
    $(".popup_body").removeClass("popup_body_show");
    });
-
+$('.mobVist').attr('disabled',true);
 $(document).on("click", ".send_email", function(e){
     e.preventDefault();
     url = $(this).data('url');

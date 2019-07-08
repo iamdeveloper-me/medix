@@ -17,7 +17,6 @@ from users.utils import specialization_value
 def add_location(request):
     
     if request.method == 'POST':
-        # import pdb; pdb.set_trace();
         profile = Profile.objects.get(pk=request.user.profile.id)
         user = profile.user
         day_list = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
@@ -60,36 +59,38 @@ def add_location(request):
 
 
 def upload_user_image(request):
-    # import pdb; pdb.set_trace()
+   
     if request.method == 'POST':
         profile = Profile.objects.get(pk=request.user.profile.id) 
-        if request.POST.get('practice') == 'practice' and request.FILES.get('image'):
-            profile.image = request.FILES['image']
-            profile.save()
-        else:
-            messages.error(request, 'Please select image')
-        return redirect('/dashboard/practice/'+str(request.user.profile.id))
-        if request.POST.get('institution') == 'institution' and request.FILES.get('image'):
-            profile.image = request.FILES['image']
-            profile.save()
-        else:
-            messages.error(request, 'Please select image')
-        return redirect('/dashboard/institution/'+str(request.user.profile.id))
-
-        if request.POST.get('emergency') == 'emergency' and request.FILES.get('image'):
-            profile.image = request.FILES['image']
-            profile.save()
-        else:
-            messages.error(request, 'Please select image')
-        return redirect('/dashboard/emergency-service/'+str(request.user.profile.id))
-        if request.POST.get('health') == 'health' and request.FILES.get('image'):
-            profile.image = request.FILES['image']
-            profile.save()
-        else:
-            messages.error(request, 'Please select image')
-        return redirect('/dashboard/health-insurance/'+str(request.user.profile.id))
+        if request.POST.get('practice') == 'practice':
+            if request.FILES.get('image'):
+                profile.image = request.FILES['image']
+                profile.save()
+            else:
+                messages.error(request, 'Please select image')
+            return redirect('/dashboard/practice/'+str(request.user.profile.id))
+        if request.POST.get('institution') == 'institution':
+            if request.FILES.get('image'):
+                profile.image = request.FILES['image']
+                profile.save()
+            else:
+                messages.error(request, 'Please select image')
+            return redirect('/dashboard/institution/'+str(request.user.profile.id))
+        if request.POST.get('emergency') == 'emergency':
+            if request.FILES.get('image'):
+                profile.image = request.FILES['image']
+                profile.save()
+            else:
+                messages.error(request, 'Please select image')
+            return redirect('/dashboard/emergency-service/'+str(request.user.profile.id))
+        if request.POST.get('health') == 'health':
+            if request.FILES.get('image'):
+                profile.image = request.FILES['image']
+                profile.save()
+            else:
+                messages.error(request, 'Please select image')
+            return redirect('/dashboard/health-insurance/'+str(request.user.profile.id))
     
-    return render(request, 'users/dashboard.html') 
 
 def file_upload(request,pk):
     if request.method == 'POST':
@@ -534,6 +535,7 @@ class ProfileDetail(DetailView):
         context['product'] = Product.objects.filter(user_id=self.object.user)
         context['keywords'] = Keywords.objects.filter(user=self.object.user)
         context['opratHour'] = OperatingHours.objects.filter(location__user=self.object.user)
+        context['serviceMember'] = ServiceRequest.objects.filter(service_member=self.object.user)
         return context 
 
 class InstitutionDetailView(DetailView):
