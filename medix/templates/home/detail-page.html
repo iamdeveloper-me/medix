@@ -160,11 +160,13 @@
                                     {% endifchanged %}
                                     </strong>  
                                     <li id="location_li_{{val.location.id}}">
+                                        {% if val.open_time != None and val.get_close_time_display != '00:00 AM' and val.status == True %}
+                                          {{val.day}}-{{val.get_open_time_display}}-{{val.get_close_time_display}}
 
-                                        {% if val.open_time != None%}
-
-                                            {{val.day}}-{{val.open_time}}-{{val.close_time}} 
-                                    
+                                        {% elif val.get_close_time_display == '00:00 AM' and val.status == True %}
+                                        {{val.day}}-{{val.get_open_time_display}}
+                                        {% else %}
+                                          {{val.day}}-Closed
                                         {%endif%} 
                              
                                     </li>
@@ -212,8 +214,7 @@
                                              <h5>Associated Institutions</h5>
                                              {% endif %}
                                                 <li>-{{service.service_provider.profile.trading_name}} </li>
-                                             {% else %}
-                                             <h5>Not Associated To Any Institutions</h5>
+                                           
                                             {% endif %}
                                         {%endfor%}
                                      {% else %}

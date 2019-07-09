@@ -633,7 +633,7 @@ margin-left: 10px;
   position: absolute;
     margin-top: 9px !important;
     margin-left: 8px;
-    right: 25px;
+    right: 12px;
 }
 .strip_list ul {
     overflow: hidden;
@@ -774,7 +774,13 @@ input:checked + .slider:before {
 }
 .text_align{
   text-align: right!important;
+  position: absolute;
+  right: 12px;
 }
 .menutext_align{
   right: 20px;
+}
+ul.contacts.open_time.width_disablediv li {
+    width: inherit;
+    margin :0 5px;
 }

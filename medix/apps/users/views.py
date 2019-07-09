@@ -15,21 +15,21 @@ from users.utils import specialization_value
 
 
 def add_location(request):
-    
     if request.method == 'POST':
         profile = Profile.objects.get(pk=request.user.profile.id)
         user = profile.user
-        day_list = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+        day_list = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
         open_list = request.POST.getlist('open_time')
         close_list = request.POST.getlist('close_time')
         toggle_list = []
         try:
-            
             toggle_list.append(request.POST.get('monTog').title()) if request.POST.get('monTog') else toggle_list.append('None')
             toggle_list.append(request.POST.get('tueTog').title()) if request.POST.get('tueTog') else toggle_list.append('None')
+            toggle_list.append(request.POST.get('wedTog').title()) if request.POST.get('wedTog') else toggle_list.append('None') 
             toggle_list.append(request.POST.get('thuTog').title()) if request.POST.get('thuTog') else toggle_list.append('None') 
             toggle_list.append(request.POST.get('friTog').title()) if request.POST.get('friTog') else toggle_list.append('None')
             toggle_list.append(request.POST.get('satTog').title()) if request.POST.get('satTog') else toggle_list.append('None')
+            toggle_list.append(request.POST.get('sunTog').title()) if request.POST.get('sunTog') else toggle_list.append('None')
             if request.POST.get("locations")=="":
                 messages.error(request, 'This field is required')
                 return redirect('/dashboard/practice/'+str(request.user.profile.id))
@@ -38,10 +38,16 @@ def add_location(request):
                 location_obj = Location.objects.create(user=user,location=request.POST.get("location"),mobility = True)
             else:
                 location_obj = Location.objects.create(user=user,location=request.POST.get("location"),mobility = False)
-            
             for day, openl, closel, toggle in zip(day_list,open_list,close_list,toggle_list):
-                if openl=='0' or closel=='0':
+                if openl=='' and closel =='':
                     OperatingHours.objects.create(location = location_obj,day = day,status = False)
+                elif openl != '' and closel=='':
+                    OperatingHours.objects.create(
+                        open_time = openl,
+                        day = day,
+                        location = location_obj,
+                        status = True
+                    )
                 else: 
                     OperatingHours.objects.create(
                         open_time = openl,

@@ -302,7 +302,7 @@
                         <hr>
 
                         <div class="indent_title_in">
-                                 <i class="pe-7s-map-marker"></i>
+                                <i class="pe-7s-map-marker"></i>
                                 <h3>Location & Trading Hours</h3>
                                 <div class="popup_main">
                                     <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
@@ -318,159 +318,142 @@
                                             <div class="popupscroll">
                                             <ul class="contacts">
                                             
-                                            
+                                          <form method="POST" role="form" enctype="multipart/form-data" id="form-location"
+                                          action="{% url 'users:add-location' %}" >{% csrf_token %}>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                              <div class="col-md-6">
                                                 <h6>Location</h6>
-                                            <input type="text" value="{{location}}" name="location" id="locationId">
-                                                </div>
-                                                <div class="col-md-6 checkbox_input">
+                                                <input type="text" value="{{location}}" name="location" id="locationId">
+                                              </div>
+                                              <div class="col-md-6 checkbox_input">
                                                         
                                                 <input type="checkbox" name="mobility">  Mobility
                                                 </div>
-                                                </div>
+                                              </div>
                                             </ul>
                                             <ul class="contacts open_time">
                                             <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="mon" value="mon" id="mon" disabled>
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="monOpn" value="{{open_time}}" id="monOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="monCls" value="{{close_time}}" id="monCls" >
+                                                
+                                              <input type="text" name="mon" value="Monday" id="mon" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="monTog">
+                                                <input type="checkbox" name="monTog" class="monIn">
                                                 <span  class="slider round"></span>
                                               </label>
                                             </li>
-                                            
+                                            <li id="monOpn">Close</li>
+                                            <li class="width_29" id="monli">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
+                                            </li>
+                                                                 
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="tue" value="tue" id="tue" disabled>
-                                            </li>
-                                            <li class="width_29"> 
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="tueOpn" value="{{open_time}}" id="tueOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="tueCls" value="{{close_time}}" id="tueCls" >
+                                            <li class="width_29">  
+                                              <input type="text" name="tue" value="Tuesday" id="tue" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="tueTog">
+                                                <input type="checkbox" name="tueTog" class="tueIn">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
+                                            <li id="tueOpn">Close</li>
+                                            <li class="width_29" id="tueli">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
+                                            </li>
+                                           
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="wed" value="wed" id="wed" disabled>
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="wedOpn" value="{{open_time}}" id="wedOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="wedCls" value="{{close_time}}" id="wedCls" >
+                                            <li class="width_29">  
+                                              <input type="text" name="wed" value="Wednesday" id="wed" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="wedTog">
+                                                <input type="checkbox" name="wedTog" class="wedIn">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
+                                            <li id="wedOpn">Close</li>
+                                            <li class="width_29" id="wedli">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
+                                            </li>  
                                             </ul>
                                             <ul class="contacts open_time">
-                                            <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="thus" value="thu" id="thus" disabled>
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="thuOpn" value="{{open_time}}" id="thuOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="thuCls" value="{{close_time}}" id="thuCls" >
+                                            <li class="width_29">  
+                                              <input type="text" name="thus" value="Thursday" id="thus" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="thuTog">
+                                                <input type="checkbox" name="thuTog" class="thuIn">
                                                 <span class="slider round"></span>
                                               </label>
+                                            </li>
+                                            <li id="thuOpn">Close</li>
+                                            <li class="width_29" id="thuli">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
                                             </li>
                                             </ul>
                                             <ul class="contacts open_time">
                                             <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="friday" value="fri" id="friday" disabled>
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="friOpn" value="{{open_time}}" id="friOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="friCls" value="{{close_time}}" id="friCls" >
+                                                
+                                              <input type="text" name="friday" value="Friday" id="friday" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="friTog">
+                                                <input type="checkbox" name="friTog" class="friIn">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
+                                            <li id="friOpn">Close</li>
+                                            <li class="width_29" id="frili">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
+                                            </li>  
                                             </ul>
                                            <ul class="contacts open_time">
                                             <li class="width_29">
-                                                <h6>Day</h6>
-                                                <input type="text" name="sat" value="sat" id="sat" disabled>
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Opening Time</h6>
-                                                <input type="text" name="satOpn" value="{{open_time}}" id="satOpn" >
-                                            </li>
-                                            <li class="width_29">
-                                                <h6>Closing Time</h6>
-                                                <input type="text" name="satCls" value="{{close_time}}" id="satCls" >
+                                              <input type="text" name="sat" value="Saturday" id="sat" disabled>
                                             </li>
                                             <li class="width_10">
                                               <label class="switch switch_label">
-                                                <input type="checkbox" name="satTog">
+                                                <input type="checkbox" name="satTog" class="satIn">
                                                 <span class="slider round"></span>
                                               </label>
                                             </li>
+                                            <li id="satOpn">Close</li>
+                                            <li class="width_29" id="satli">
+                                              {{tradHour.open_time}}
+                                              {{tradHour.close_time}}
+                                            </li>
+                                            
                                             </ul>
                                             </div>
                                               
                                           </div>
-                                           
-                                            <div class="popupfooter">
-                                                <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-location' %}" class="save_location btnsave">save</button>
+                                           <input type="hidden" id="profile_id" name="proId" value="{{request.user.profile.id}}">
+                                          <div class="popupfooter">
+                                            <button type="submit" data-id="{{request.user.profile.id}}" class="save_location btnsave">Add</button>
 
-                                            </div>
+                                          </div>
+                                        </form>
                                         </div>
                                     </div>
                                   </div>
                                 
-                        </div>
-                        <div class="wrapper_indent padding_bottom">
+                            </div>
+                            <div class="wrapper_indent padding_bottom">
                                 <p></p>
                                 
                                 <ul class="">
                                     
                                     {% for val in opratHour %}
                                     <strong> 
+
                                     {% ifchanged val.location.location %}
                                         
                                         {{val.location.location}}
@@ -526,8 +509,9 @@
                                               
                                              
                                               {% for val in opratHour %}
-                                        
+                                              
                                               {% if forloop.counter == 1 %}
+                                          
                                               {% if val.status == True  %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myMonTog" class="myMonTog" value="" checked>
@@ -540,6 +524,7 @@
                                               </label>
                                               {% endif %}
                                               {% endif %}
+                                              
                                             {% endfor %}
                                             </li>
                                             </ul>
@@ -560,6 +545,7 @@
                                             {% for val in opratHour %}
                                             
                                             {% if forloop.counter == 2 %}
+                                            
                                             {% if val.status == True %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myTueTog" class="myTueTog" value="" checked>
@@ -568,10 +554,11 @@
                                             {% else %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myTueTog" class="myTueTog" value="">
-                                                <span  class="slider round"></span>
+                                                <span class="slider round"></span>
                                               </label>
                                             {% endif %}
                                             {% endif %}
+                                            
                                             {% endfor %}
                                             </li>
                                             </ul>
@@ -592,6 +579,7 @@
                                               {% for val in opratHour %}
 
                                               {% if forloop.counter == 3 %}
+                                              
                                               {% if val.status == True %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myWedTog" class="myWedTog" value="" checked>
@@ -623,6 +611,7 @@
                                             <li class="width_10">
                                               {% for val in opratHour %}
                                               {% if forloop.counter == 4 %}
+                                              
                                               {% if val.status == True %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myThuTog" class="myThuTog" value="" chekced>
@@ -655,6 +644,7 @@
 
                                               {% for val in opratHour %}
                                               {% if forloop.counter == 5 %}
+                                              
                                               {% if val.status == True %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="myFriTog" class="myFriTog" value="True" checked>
@@ -686,6 +676,7 @@
                                             <li class="width_10">
                                               {% for val in opratHour %}
                                               {% if forloop.counter == 6 %}
+                                              <p>{{val.location.location}}</p>
                                               {% if val.status == True %}
                                               <label class="switch switch_label">
                                                 <input type="checkbox" name="mySatTog" class="mySatTog" value="" checked="true">
@@ -715,7 +706,7 @@
                                     <li id="location_li_{{val.location.id}}">
 
                                         {% if val.open_time != None and val.status == True %}
-                                          {{val.day}}-{{val.open_time}}-{{val.close_time}}
+                                          {{val.day}}-{{val.get_open_time_display}}-{{val.get_close_time_display}}
                                         {% else %}
                                           {{val.day}}-Closed
                                         {%endif%} 
@@ -871,6 +862,81 @@ $('input[type="file"]').change(function () {
   this.value = '';
   }
 });
+
+$("#monli").hide(); 
+$("#tueli").hide();
+$("#wedli").hide();
+$("#thuli").hide();
+$("#frili").hide();
+$("#satli").hide();
+
+$(".monIn").click(function(){
+  monTog = $('input[name="monTog"]').prop('checked');
+  if (monTog==true) {
+    $("#monli").show(); 
+    $("#monOpn").text("Open");   
+    }
+ if (monTog==false) {
+    $("#monli").hide();    
+  }
+
+});
+
+$(".tueIn").click(function(){
+  tueTog = $('input[name="tueTog"]').prop('checked');      
+  if (tueTog==true) {
+    $("#tueli").show();
+    $("#tueOpn").text("Open");    
+  }
+  if (tueTog==false){
+    $("#tueli").hide();    
+  }
+});
+
+$(".wedIn").click(function(){
+  wedTog = $('input[name="wedTog"]').prop('checked');
+  if (wedTog==true) {
+    $("#wedli").show();
+    $("#wedOpn").text("Open");    
+  }
+  if (wedTog==false){
+    $("#wedli").hide();    
+  }
+});
+
+$(".thuIn").click(function(){
+  thuTog = $('input[name="thuTog"]').prop('checked');
+  if (thuTog==true) {
+    $("#thuli").show();
+    $("#thuOpn").text("Open");    
+  }
+  if (thuTog==false) {
+    $("#thuli").hide();    
+  }
+});
+
+$(".friIn").click(function(){
+  friTog = $('input[name="friTog"]').prop('checked');
+  if (friTog==true) {
+    $("#frili").show();
+    $("#friOpn").text("Open");    
+  }
+  if (friTog==false) {
+    $("#frili").hide();    
+  }
+});
+
+$(".satIn").click(function(){ 
+  satTog = $('input[name="satTog"]').prop('checked');   
+    if (satTog==true) {
+      $("#satli").show();
+      $("#satOpn").text("Open");    
+    }
+    if (satTog==false) {
+      $("#satli").hide();    
+    }  
+});   
+
 $(document).on("click", ".save_btn", function(e) {
     e.preventDefault();
     url = $(this).data('url');
