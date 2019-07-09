@@ -331,7 +331,7 @@
                                                 </div>
                                               </div>
                                             </ul>
-                                            <ul class="contacts open_time">
+                                            <ul class="contacts open_time width_disablediv">
                                             <li class="width_29">
                                                 
                                               <input type="text" name="mon" value="Monday" id="mon" disabled>
@@ -344,12 +344,12 @@
                                             </li>
                                             <li id="monOpn">Close</li>
                                             <li class="width_29" id="monli">
-                                              {{tradHour.open_time}}
-                                              {{tradHour.close_time}}
+                                              {{tradHour.open_time|add_class:"mon_open_time"}}
+                                              {{tradHour.close_time|add_class:"mon_close_time" }}
                                             </li>
                                                                  
                                             </ul>
-                                            <ul class="contacts open_time">
+                                            <ul class="contacts open_time width_disablediv">
                                             <li class="width_29">  
                                               <input type="text" name="tue" value="Tuesday" id="tue" disabled>
                                             </li>
@@ -360,13 +360,13 @@
                                               </label>
                                             </li>
                                             <li id="tueOpn">Close</li>
-                                            <li class="width_29" id="tueli">
-                                              {{tradHour.open_time}}
-                                              {{tradHour.close_time}}
+                                            <li class="width_29 cls_open_time" id="tueli">
+                                              {{tradHour.open_time|add_class:"tue_open_time"}}
+                                              {{tradHour.close_time|add_class:"tue_close_time"}}
                                             </li>
                                            
                                             </ul>
-                                            <ul class="contacts open_time">
+                                            <ul class="contacts open_time width_disablediv">
                                             <li class="width_29">  
                                               <input type="text" name="wed" value="Wednesday" id="wed" disabled>
                                             </li>
@@ -377,12 +377,12 @@
                                               </label>
                                             </li>
                                             <li id="wedOpn">Close</li>
-                                            <li class="width_29" id="wedli">
-                                              {{tradHour.open_time}}
-                                              {{tradHour.close_time}}
+                                            <li class="width_29 cls_open_time" id="wedli">
+                                              {{tradHour.open_time|add_class:"wed_open_time"}}
+                                              {{tradHour.close_time|add_class:"wed_close_time"}}
                                             </li>  
                                             </ul>
-                                            <ul class="contacts open_time">
+                                            <ul class="contacts open_time width_disablediv">
                                             <li class="width_29">  
                                               <input type="text" name="thus" value="Thursday" id="thus" disabled>
                                             </li>
@@ -393,12 +393,12 @@
                                               </label>
                                             </li>
                                             <li id="thuOpn">Close</li>
-                                            <li class="width_29" id="thuli">
-                                              {{tradHour.open_time}}
-                                              {{tradHour.close_time}}
+                                            <li class="width_29 cls_open_time" id="thuli">
+                                              {{tradHour.open_time|add_class:"thu_open_time"}}
+                                              {{tradHour.close_time|add_class:"thu_close_time"}}
                                             </li>
                                             </ul>
-                                            <ul class="contacts open_time">
+                                            <ul class="contacts open_time width_disablediv">
                                             <li class="width_29">
                                                 
                                               <input type="text" name="friday" value="Friday" id="friday" disabled>
@@ -410,12 +410,12 @@
                                               </label>
                                             </li>
                                             <li id="friOpn">Close</li>
-                                            <li class="width_29" id="frili">
-                                              {{tradHour.open_time}}
-                                              {{tradHour.close_time}}
+                                            <li class="width_29 cls_open_time" id="frili">
+                                              {{tradHour.open_time|add_class:"fri_open_time"}}
+                                              {{tradHour.close_time|add_class:"fri_close_time"}}
                                             </li>  
                                             </ul>
-                                           <ul class="contacts open_time">
+                                           <ul class="contacts open_time width_disablediv">
                                             <li class="width_29">
                                               <input type="text" name="sat" value="Saturday" id="sat" disabled>
                                             </li>
@@ -426,16 +426,33 @@
                                               </label>
                                             </li>
                                             <li id="satOpn">Close</li>
-                                            <li class="width_29" id="satli">
-                                              {{tradHour.open_time}}
-                                              {{tradHour.close_time}}
+                                            <li class="width_29 cls_open_time" id="satli">
+                                              {{tradHour.open_time|add_class:"sat_open_time"}}
+                                              {{tradHour.close_time|add_class:"sat_close_time"}}
+                                            </li>
+                                            
+                                            </ul>
+                                             <ul class="contacts open_time width_disablediv">
+                                            <li class="width_29">
+                                              <input type="text" name="sun" value="Sunday" id="sun" disabled>
+                                            </li>
+                                            <li class="width_10">
+                                              <label class="switch switch_label">
+                                                <input type="checkbox" name="sunTog" class="sunIn">
+                                                <span class="slider round"></span>
+                                              </label>
+                                            </li>
+                                            <li id="sunOpn">Close</li>
+                                            <li class="width_29 cls_open_time" id="sunli">
+                                              {{tradHour.open_time|add_class:"sun_open_time"}}
+                                              {{tradHour.close_time|add_class:"sun_close_time"}}
                                             </li>
                                             
                                             </ul>
                                             </div>
                                               
                                           </div>
-                                           <input type="hidden" id="profile_id" name="proId" value="{{request.user.profile.id}}">
+                                           <input type="hidden" name="emergLoc" value="emergency">
                                           <div class="popupfooter">
                                             <button type="submit" data-id="{{request.user.profile.id}}" class="save_location btnsave">Add</button>
 
@@ -704,9 +721,11 @@
                                     </strong> 
                                     
                                     <li id="location_li_{{val.location.id}}">
-
-                                        {% if val.open_time != None and val.status == True %}
+                                        {% if val.open_time != None and val.get_close_time_display != '00:00 AM' and val.status == True %}
                                           {{val.day}}-{{val.get_open_time_display}}-{{val.get_close_time_display}}
+
+                                        {% elif val.get_close_time_display == '00:00 AM' and val.status == True %}
+                                        {{val.day}}-{{val.get_open_time_display}}
                                         {% else %}
                                           {{val.day}}-Closed
                                         {%endif%} 
@@ -869,15 +888,91 @@ $("#wedli").hide();
 $("#thuli").hide();
 $("#frili").hide();
 $("#satli").hide();
+$("#sunli").hide();
+
+$(function() {
+  $('select option:first-child').attr("selected", "selected");
+});
+
+$(".mon_open_time").click(function(){
+  valshow = $(this).val();
+  if ((valshow == 0) && (valshow != "")){
+    $(".mon_close_time").hide();  
+  }
+  else{
+    $(".mon_close_time").show(); 
+  }
+});
+
+$(".tue_open_time").click(function(){
+  valshow = $(this).val();
+  if ((valshow == 0) && (valshow != "")){
+    $(".tue_close_time").hide();  
+  }
+  else{
+    $(".tue_close_time").show(); 
+  }
+});
+
+$(".wed_open_time").click(function(){
+  valshow = $(this).val();
+  if ((valshow == 0) && (valshow != "")){
+    $(".wed_close_time").hide();  
+  }
+  else{
+    $(".wed_close_time").show(); 
+  }
+});
+
+$(".thu_open_time").click(function(){
+  valshow = $(this).val();
+  if ((valshow == 0) && (valshow != "")){
+    $(".thu_close_time").hide();  
+  }
+  else{
+    $(".thu_close_time").show(); 
+  }
+});
+
+$(".fir_open_time").click(function(){
+  valshow = $(this).val();
+  if ((valshow == 0) && (valshow != "")){
+    $(".fir_close_time").hide();  
+  }
+  else{
+    $(".fir_close_time").show(); 
+  }
+});
+
+$(".sat_open_time").click(function(){
+  valshow = $(this).val();
+  if ((valshow == 0) && (valshow != "")){
+    $(".sat_close_time").hide();  
+  }
+  else{
+    $(".sat_close_time").show(); 
+  }
+});
+
+$(".sun_open_time").click(function(){
+  valshow = $(this).val();
+  if ((valshow == 0) && (valshow != "")){
+    $(".sun_close_time").hide();  
+  }
+  else{
+    $(".sun_close_time").show(); 
+  }
+});
 
 $(".monIn").click(function(){
   monTog = $('input[name="monTog"]').prop('checked');
   if (monTog==true) {
-    $("#monli").show(); 
+    $("#monli").show();
     $("#monOpn").text("Open");   
     }
- if (monTog==false) {
-    $("#monli").hide();    
+  if (monTog==false) {
+    $("#monli").hide();
+    $("#monOpn").text("Close");    
   }
 
 });
@@ -889,7 +984,8 @@ $(".tueIn").click(function(){
     $("#tueOpn").text("Open");    
   }
   if (tueTog==false){
-    $("#tueli").hide();    
+    $("#tueli").hide();
+    $("#tueOpn").text("Close");     
   }
 });
 
@@ -900,7 +996,8 @@ $(".wedIn").click(function(){
     $("#wedOpn").text("Open");    
   }
   if (wedTog==false){
-    $("#wedli").hide();    
+    $("#wedli").hide();
+    $("#wedOpn").text("Close");    
   }
 });
 
@@ -911,7 +1008,8 @@ $(".thuIn").click(function(){
     $("#thuOpn").text("Open");    
   }
   if (thuTog==false) {
-    $("#thuli").hide();    
+    $("#thuli").hide();
+    $("#thuOpn").text("Close");    
   }
 });
 
@@ -922,7 +1020,8 @@ $(".friIn").click(function(){
     $("#friOpn").text("Open");    
   }
   if (friTog==false) {
-    $("#frili").hide();    
+    $("#frili").hide();
+    $("#friOpn").text("Close");    
   }
 });
 
@@ -933,9 +1032,21 @@ $(".satIn").click(function(){
       $("#satOpn").text("Open");    
     }
     if (satTog==false) {
-      $("#satli").hide();    
+      $("#satli").hide();
+      $("#satOpn").text("Close");    
     }  
 });   
+$(".sunIn").click(function(){ 
+  sunTog = $('input[name="sunTog"]').prop('checked');   
+    if (sunTog==true) {
+      $("#sunli").show();
+      $("#sunOpn").text("Open");    
+    }
+    if (sunTog==false) {
+      $("#sunli").hide();
+      $("#sunOpn").text("Close");    
+    }  
+});  
 
 $(document).on("click", ".save_btn", function(e) {
     e.preventDefault();
@@ -1209,84 +1320,6 @@ $(document).on("click", ".delete_location", function(e) {
     } // confirm box end
 });
 
-$(document).on("click", ".save_location", function(e){
-    e.preventDefault();
-    url = $(this).data('url');
-    profile_id = $(this).data('id');
-    locationVal = $("#locationId").val();
-    mobility=$('input[name="mobility"]').prop('checked');
-    monTog = $('input[name="monTog"]').prop('checked');
-    tueTog = $('input[name="tueTog"]').prop('checked');
-    wedTog = $('input[name="wedTog"]').prop('checked');
-    thuTog = $('input[name="thuTog"]').prop('checked');
-    friTog = $('input[name="friTog"]').prop('checked');
-    satTog = $('input[name="satTog"]').prop('checked');
-    monOpn = $("#monOpn").val();
-    monClos= $("#monCls").val();
-    monday = $("#mon").val();
-    tueOpn = $("#tueOpn").val();
-    tueCls = $("#tueCls").val();
-    tueday = $("#tue").val();
-    wedOpn = $("#wedOpn").val(); 
-    wedday = $("#wed").val();
-    wedCls = $("#wedCls").val();               
-    thuOpn = $("#thuOpn").val();  
-    thuCls = $("#thuCls").val();
-    thuday = $("#thus").val();
-    friOpn = $("#friOpn").val();  
-    friCls = $("#friCls").val();
-    friday = $("#friday").val();
-    satOpn = $("#satOpn").val();  
-    satCls = $("#satCls").val();  
-    satday = $("#sat").val();
-    $.ajax({
-        type: "POST",
-        url: url,
-        headers:{
-            "X-CSRFToken": '{{csrf_token}}' 
-        },
-        dataType: "json",
-        data: {
-            "profile_id":profile_id,
-            "locations":locationVal,
-            "monopn":monOpn,
-            "monclos":monClos,
-            "monday":monday,
-            "tueOpn":tueOpn,
-            "tueCls":tueCls,
-            "tueday":tueday,
-            "wedOpn" : wedOpn,
-            "wedday" : wedday,
-            "wedCls" : wedCls,
-            "thuOpn" : thuOpn , 
-            "thuCls" : thuCls,
-            "thuday" : thuday,
-            "friOpn" : friOpn,
-            "friCls" : friCls,
-            "friday" : friday , 
-            "satOpn" : satOpn,
-            "satCls" : satCls,
-            "satday" : satday,
-            "mobility":mobility,
-            "monTog":monTog,
-            "tueTog":tueTog,
-            "wedTog":wedTog,
-            "thuTog":thuTog,
-            "friTog":friTog,
-            "satTog":satTog
-
-        },
-        success: function(response) {
-                if(response.status == 200){
-                   window.location.reload() 
-                   }
-                   else if (response.status == 400){
-                    window.location.reload() 
-                   }     
-                }
-
-            });
-});
 
 $(document).on("click", ".edit_location", function(e){
     e.preventDefault();

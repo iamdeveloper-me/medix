@@ -30,37 +30,49 @@ def add_location(request):
             toggle_list.append(request.POST.get('friTog').title()) if request.POST.get('friTog') else toggle_list.append('None')
             toggle_list.append(request.POST.get('satTog').title()) if request.POST.get('satTog') else toggle_list.append('None')
             toggle_list.append(request.POST.get('sunTog').title()) if request.POST.get('sunTog') else toggle_list.append('None')
-            if request.POST.get("locations")=="":
-                messages.error(request, 'This field is required')
-                return redirect('/dashboard/practice/'+str(request.user.profile.id))
+            if request.POST.get("location")!=None and request.POST.get("location")!= '':       
+                if request.POST.get('mobility')!=None: 
+                    location_obj = Location.objects.create(user=user,location=request.POST.get("location"),mobility = True)
+                else:
+                    location_obj = Location.objects.create(user=user,location=request.POST.get("location"),mobility = False)
             
-            if request.POST.get('mobility')!=None: 
-                location_obj = Location.objects.create(user=user,location=request.POST.get("location"),mobility = True)
-            else:
-                location_obj = Location.objects.create(user=user,location=request.POST.get("location"),mobility = False)
-            for day, openl, closel, toggle in zip(day_list,open_list,close_list,toggle_list):
-                if openl=='' and closel =='':
-                    OperatingHours.objects.create(location = location_obj,day = day,status = False)
-                elif openl != '' and closel=='':
-                    OperatingHours.objects.create(
-                        open_time = openl,
-                        day = day,
-                        location = location_obj,
-                        status = True
-                    )
-                else: 
-                    OperatingHours.objects.create(
-                        open_time = openl,
-                        close_time = closel,
-                        day = day,
-                        location = location_obj,
-                        status = True
-                    )
-                
+                for day, openl, closel, toggle in zip(day_list,open_list,close_list,toggle_list):
+                    if openl=='' and closel =='':
+                        OperatingHours.objects.create(location = location_obj,day = day,status = False)
+                    elif openl != '' and closel=='':
+                        OperatingHours.objects.create(
+                            open_time = openl,
+                            day = day,
+                            location = location_obj,
+                            status = True
+                        )
+                    else: 
+                        OperatingHours.objects.create(
+                            open_time = openl,
+                            close_time = closel,
+                            day = day,
+                            location = location_obj,
+                            status = True
+                        )         
         except Exception as e:
             print("Uh oh, Error : ", str(e))
-
-    return redirect('/dashboard/practice/'+str(request.user.profile.id))
+      
+    if request.POST.get('practLoc') == 'practice':
+        if request.POST.get("location")==None or request.POST.get("location")=='':
+            messages.error(request, 'Please Fill Location')
+        return redirect('/dashboard/practice/'+str(request.user.profile.id))
+    if request.POST.get('instLoc') == 'institution':
+        if request.POST.get("location")==None or request.POST.get("location")=='' :
+            messages.error(request, 'Please Fill Location')
+        return redirect('/dashboard/institution/'+str(request.user.profile.id))
+    if request.POST.get('emergLoc') == 'emergency':
+        if request.POST.get("location")==None or request.POST.get("location")=='':
+            messages.error(request, 'Please Fill Location')
+        return redirect('/dashboard/emergency-service/'+str(request.user.profile.id))
+    if request.POST.get('healthLoc') == 'insurance':
+        if request.POST.get("location")==None or request.POST.get("location")=='':
+            messages.error(request, 'Please Fill Location')
+        return redirect('/dashboard/health-insurance/'+str(request.user.profile.id))
 
 
 
@@ -459,7 +471,7 @@ class InstitutionDashboardView(View):
             ambulanceInfo = AmbulanceService.objects.filter(user=user)
             keyword = Keywords.objects.filter(user=user)
             doctorList = ServiceRequest.objects.filter(service_provider=user)
-            hour = TradingHourForm 
+            tradHour = TradingHourForm  
             ambulance = AmbulanceForm
             location_obj = Location.objects.filter(user=user)
             for loc in location_obj:
@@ -468,7 +480,7 @@ class InstitutionDashboardView(View):
                 opratHour = OperatingHours.objects.filter(location=val)
                 for vals in opratHour:  
                     hour_list.append(vals)
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk, 'hour':hour, 'ambulance':ambulance, 'ambulanceInfo':ambulanceInfo,'opratHour':hour_list , "doctorList":doctorList, 'image': profileInfo}
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'institution':profileInfo.get_institution_display(),'products':product,'pk':pk, 'tradHour':tradHour, 'ambulance':ambulance, 'ambulanceInfo':ambulanceInfo,'opratHour':hour_list , "doctorList":doctorList, 'image': profileInfo}
             return render(request, 'dashboard/institution.html', context)
         return redirect('user-type/step1/')
         
@@ -488,7 +500,8 @@ class EmergencyServicesDashboard(View):
                 opratHour = OperatingHours.objects.filter(location=val)
                 for vals in opratHour:  
                     hour_list.append(vals)
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'services':profileInfo.get_emergency_services_display(),'pk':pk, 'opratHour':hour_list,'image': profileInfo}
+            tradHour = TradingHourForm 
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'services':profileInfo.get_emergency_services_display(),'pk':pk, 'opratHour':hour_list,'image': profileInfo ,'tradHour':tradHour}
             return render(request, 'dashboard/emergency-services.html',context)
         return redirect('user-type/step1/')
 
@@ -508,7 +521,8 @@ class HealthInsuranceDashboard(View):
                 opratHour = OperatingHours.objects.filter(location=val)
                 for vals in opratHour:  
                     hour_list.append(vals)
-            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'pk':pk, 'opratHour':hour_list,'image': profileInfo}
+            tradHour = TradingHourForm 
+            context = {'trading_name':profileInfo.trading_name,'phone':profileInfo.phone,'address_of_institution':profileInfo.address_of_institution,'contact_person':profileInfo.contact_person,'email':user.email,'keyword':keyword,'description':profileInfo.description,'experience':profileInfo.experience,'products':product,'pk':pk, 'opratHour':hour_list,'image': profileInfo ,'tradHour':tradHour}
             return render(request, 'dashboard/health_insurance.html', context)
         return redirect('user-type/step1/')
 

@@ -531,7 +531,7 @@
                                             </div>
                                               
                                           </div>
-                                           <input type="hidden" id="profile_id" name="proId" value="{{request.user.profile.id}}">
+                                           <input type="hidden" name="practLoc" value="practice">
                                           <div class="popupfooter">
                                             <button type="submit" data-id="{{request.user.profile.id}}" class="save_location btnsave">Add</button>
 
@@ -974,36 +974,68 @@ $(".mon_open_time").click(function(){
   if ((valshow == 0) && (valshow != "")){
     $(".mon_close_time").hide();  
   }
+  else{
+    $(".mon_close_time").show(); 
+  }
 });
+
 $(".tue_open_time").click(function(){
   valshow = $(this).val();
   if ((valshow == 0) && (valshow != "")){
     $(".tue_close_time").hide();  
   }
-});$(".wed_open_time").click(function(){
+  else{
+    $(".tue_close_time").show(); 
+  }
+});
+
+$(".wed_open_time").click(function(){
   valshow = $(this).val();
   if ((valshow == 0) && (valshow != "")){
     $(".wed_close_time").hide();  
   }
-});$(".thu_open_time").click(function(){
+  else{
+    $(".wed_close_time").show(); 
+  }
+});
+
+$(".thu_open_time").click(function(){
   valshow = $(this).val();
   if ((valshow == 0) && (valshow != "")){
     $(".thu_close_time").hide();  
   }
-});$(".fir_open_time").click(function(){
+  else{
+    $(".thu_close_time").show(); 
+  }
+});
+
+$(".fir_open_time").click(function(){
   valshow = $(this).val();
   if ((valshow == 0) && (valshow != "")){
     $(".fir_close_time").hide();  
   }
-});$(".sat_open_time").click(function(){
+  else{
+    $(".fir_close_time").show(); 
+  }
+});
+
+$(".sat_open_time").click(function(){
   valshow = $(this).val();
   if ((valshow == 0) && (valshow != "")){
     $(".sat_close_time").hide();  
   }
-});$(".sun_open_time").click(function(){
+  else{
+    $(".sat_close_time").show(); 
+  }
+});
+
+$(".sun_open_time").click(function(){
   valshow = $(this).val();
   if ((valshow == 0) && (valshow != "")){
     $(".sun_close_time").hide();  
+  }
+  else{
+    $(".sun_close_time").show(); 
   }
 });
 
@@ -1017,9 +1049,6 @@ $(".monIn").click(function(){
     $("#monli").hide();
     $("#monOpn").text("Close");    
   }
-  
-  // alert(valshow);
-  // valhide = $("#id_close_time").val();
   
 });
 
