@@ -52,7 +52,7 @@
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
-                                        <div class="popup_close">x</div>
+                                        <div class="popup_close">&times;</div>
                                         </div>
                                         <div class="popupbody">
                                         <form id="add-picture" method="POST" action="/upload/image/" enctype="multipart/form-data">{% csrf_token %}
@@ -94,7 +94,7 @@
                                                 <div class="popup_contain popup_width">
                                                     <div class="popuptitle">
                                                         Edit Profile Details
-                                                      <div class="popup_close">x</div>  
+                                                      <div class="popup_close">&times;</div>  
                                                     </div>
                                                   <div class="popupbody">
                                                       <h6>First Name</h6>
@@ -158,7 +158,7 @@
                                                 <div class="popup_contain popup_width">
                                                 <div class="popuptitle">
                                                     Professional statement
-                                                   <div class="popup_close">x</div> 
+                                                   <div class="popup_close">&times;</div> 
                                                 </div>
                                                   <div class="popupbody">
                                                      <ul class="contacts">
@@ -215,7 +215,7 @@
                                         <div class="popup_contain popup_width">
                                             <div class="popuptitle">
                                                 Education
-                                                <div class="popup_close">x</div>
+                                                <div class="popup_close">&times;</div>
                                             </div>
                                             <div class="popupbody">
                                                <ul class="contacts">
@@ -249,7 +249,7 @@
                                                 <div class="popup_contain popup_width">
                                                     <div class="popuptitle">
                                                         Edit Education Detail
-                                                        <div class="popup_close">x</div>
+                                                        <div class="popup_close">&times;</div>
                                                     </div>
                                                   <div class="popupbody">
                                                      <input type="text" value="{{education.qualification}}" class="mycloseclass" name="qualification"> 
@@ -282,7 +282,7 @@
                                             <div class="popup_contain popup_width">
                                                 <div class="popuptitle">
                                                     Item & Prices
-                                                    <div class="popup_close">x</div>
+                                                    <div class="popup_close">&times;</div>
                                                 </div>
                                                 <div class="popupbody">
                                                     <ul class="contacts">
@@ -342,7 +342,7 @@
                                                     <div class="popup_contain popup_width">
                                                     <div class="popuptitle">
                                                         Edit Item & Prices
-                                                        <div class="popup_close">x</div>
+                                                        <div class="popup_close">&times;</div>
                                                     </div>
                                                     <div class="popupbody">
                                                          <ul class="contacts">
@@ -384,21 +384,22 @@
                                 <i class="pe-7s-map-marker"></i>
                                 <h3>Location & Trading Hours</h3>
                                 <div class="popup_main">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                    <button class="open_popup">
+                                      <img src="../../../static/html_menu_1/img/edit.png">
+                                    </button>
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
-
                                             <div class="popuptitle">
                                                 Location & Trading Hours
-                                                <div class="popup_close">x</div>
+                                                <div class="popup_close">&times;</div>
                                             </div>
                                           <div class="popupbody">
                                             <div class="popupscroll">
                                             <ul class="contacts">
-                                            
                                           <form method="POST" role="form" enctype="multipart/form-data" id="form-location"
-                                          action="{% url 'users:add-location' %}" >{% csrf_token %}>
+                                          action="{% url 'users:add-location' %}">
+                                          {% csrf_token %}
                                             <div class="row">
                                               <div class="col-md-6">
                                                 <h6>Location</h6>
@@ -571,7 +572,7 @@
                                                 <div class="popup_contain popup_width">
                                                 <div class="popuptitle">
                                                     Edit Location & Trading Hours
-                                                    <div class="popup_close">x</div>
+                                                    <div class="popup_close">&times;</div>
                                                 </div>
                                                 <div class="popupbody">
                                                     <div class="popupscroll">
@@ -829,7 +830,7 @@
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
                                             Services
-                                            <div class="popup_close">x</div>
+                                            <div class="popup_close">&times;</div>
                                         </div>
                                           <div class="popupbody">
                                             <ul class="contacts">
@@ -877,7 +878,7 @@
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
                                             Add To Institution
-                                            <div class="popup_close">x</div>
+                                            <div class="popup_close">&times;</div>
                                         </div>
                                         <div class="popupbody">
                                             <h6>Institution Name</h6>

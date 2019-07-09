@@ -51,7 +51,7 @@
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
-                                        <div class="popup_close">x</div>
+                                        <div class="popup_close">&times;</div>
                                         </div>
                                         <div class="popupbody">
                                         <form id="add-picture" method="POST" action="/upload/image/" enctype="multipart/form-data">{% csrf_token %}
@@ -89,7 +89,7 @@
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
                                                     <div class="popuptitle">
-                                                      <div class="popup_close">x</div>  
+                                                      <div class="popup_close">&times;</div>  
                                                     </div>
                                                   <div class="popupbody">
                                                      <p>Trading Name</p>
@@ -157,7 +157,7 @@
                                     <div class="popup_contain popup_width">
                                         <div class="popuptitle">
                                             Overview
-                                            <div class="popup_close">x</div>
+                                            <div class="popup_close">&times;</div>
                                         </div>
                                         <div class="popupbody">
                                             <ul class="contacts">
@@ -212,7 +212,7 @@
                                         <div class="popup_contain popup_width">
                                             <div class="popuptitle">
                                                 Items & Prices
-                                                <div class="popup_close">x</div>
+                                                <div class="popup_close">&times;</div>
                                             </div>
                                             <div class="popupbody">
                                                <ul class="contacts">
@@ -268,7 +268,7 @@
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
-                                                  <div class="popup_close">x</div>
+                                                  <div class="popup_close">&times;</div>
                                                    <ul class="contacts">
                                                     <h6>Item</h6>
                                                     <input type="text" value="{{product.item}}" name="item" class="editItem">
@@ -310,14 +310,14 @@
 
                                             <div class="popuptitle">
                                                 Location & Trading Hours
-                                                <div class="popup_close">x</div>
+                                                <div class="popup_close">&times;</div>
                                             </div>
                                           <div class="popupbody">
                                             <div class="popupscroll">
                                             <ul class="contacts">
                                             
                                           <form method="POST" role="form" enctype="multipart/form-data" id="form-location"
-                                          action="{% url 'users:add-location' %}" >{% csrf_token %}>
+                                          action="{% url 'users:add-location' %}" >{% csrf_token %}
                                             <div class="row">
                                               <div class="col-md-6">
                                                 <h6>Location</h6>
@@ -490,7 +490,7 @@
                                                 <div class="popup_contain popup_width">
                                                 <div class="popuptitle">
                                                     Edit Location & Trading Hours
-                                                    <div class="popup_close">x</div>
+                                                    <div class="popup_close">&times;</div>
                                                 </div>
                                                 <div class="popupbody">
                                                     <div class="popupscroll">
@@ -748,7 +748,7 @@
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
                                             Services
-                                            <div class="popup_close">x</div>
+                                            <div class="popup_close">&times;</div>
                                         </div>
                                           <div class="popupbody">
                                             <ul class="contacts">
