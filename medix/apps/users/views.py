@@ -279,7 +279,7 @@ class InstitutionSignupStep3View(View):
                     user.set_password(user.password)
                 else:
                     messages.error(request, 'Passward should be at least 8 character')
-                    return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
+                    return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -320,7 +320,7 @@ class InsuranceProviderSignupStep2View(View):
                     user.set_password(user.password)
                 else:
                     messages.error(request, 'Passward should be at least 8 character')
-                    return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
+                    return HttpResponseRedirect('/insurance/signup/step2/'+str(pk))
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -364,7 +364,7 @@ class EmergencyServiceSignupStep3View(View):
                     user.set_password(user.password)
                 else:
                     messages.error(request, 'Passward should be at least 8 character')
-                    return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
+                    return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -586,3 +586,11 @@ class InstitutionDetailView(DetailView):
         context['doctorList'] = ServiceRequest.objects.filter(service_provider=self.object.user)
         return context
 
+class ProfileImgDetailView(DetailView):
+    model = Profile
+    template_name = 'layout/dashboard_profile_layout.html'
+    def get_context_data(self, **kwargs):
+        import pdb; pdb.set_trace()
+        context = super(ProfileImgDetailView, self).get_context_data(**kwargs)
+        context['image'] = Profile.objects.filter(user=self.object.user)
+        return context
