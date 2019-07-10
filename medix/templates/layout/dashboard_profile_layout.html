@@ -52,11 +52,26 @@
                 <div class="main-menu" style="top:0;">
                     <ul id="top_access">
                         <li class="submenu">
-
-                            <a href="" class="show-submenu"><img src="{{ request.user.profile.image.url }}" data-retina="true" alt="" width="20" height="36" alt=""> 
-                                {% if request.user.is_authenticated %}
-                                    {{ request.user.username }}
+                            
+                            <a href="" class="show-submenu">
+                                {% if request.user.profile.image %}
+                                    <img src="{{ request.user.profile.image.url }}" data-retina="true" alt="" width="20" height="36" alt="">
+                                {% elif request.user.profile.image == 1 %}
+                                        
+                                    <img src="{% static 'html_menu_1/img/female.png' %}" data-retina="true" alt="" width="20" height="36" alt="">
+                                {% elif request.user.profile.image == 0 %}      
+                                    <img src="{% static 'html_menu_1/img/images.jpeg' %}" data-retina="true" alt="" width="20" height="36" alt="">
+                                {% elif request.user.profile.custom_role  == 2 %}
+                                    <img src="{% static 'html_menu_1/img/institute.png' %}" data-retina="true" alt="" width="20" height="36" alt="">
+                                {% elif request.user.profile.custom_role  == 3 %} 
+                                   <img src="{% static 'html_menu_1/img/emergency.jpeg' %}" data-retina="true" alt="" width="20" height="36" alt="">
+                                {% else %}
+                                    <img src="{% static 'html_menu_1/img/health-insurance.png' %}" data-retina="true" alt="" width="20" height="36" alt="">
                                 {% endif %}
+
+                                    {% if request.user.is_authenticated %}
+                                        {{ request.user.username }}
+                                    {% endif %}
                             </a>
                             <ul class="mainmenu_list">
                                 {% if request.user.is_authenticated %}
