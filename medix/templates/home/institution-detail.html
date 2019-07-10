@@ -194,11 +194,13 @@
                                         {% endifchanged %}
                                     </strong>  
                                     <li id="location_li_{{val.location.id}}">
+                                        {% if val.open_time != None and val.get_close_time_display != '00:00 AM' and val.status == True %}
+                                          {{val.day}}-{{val.get_open_time_display}}-{{val.get_close_time_display}}
 
-                                        {% if val.open_time != None%}
-
-                                            {{val.day}}-{{val.open_time}}-{{val.close_time}} 
-                                    
+                                        {% elif val.get_close_time_display == '00:00 AM' and val.status == True %}
+                                        {{val.day}}-{{val.get_open_time_display}}
+                                        {% else %}
+                                          {{val.day}}-Closed
                                         {%endif%} 
                              
                                     </li>
@@ -264,14 +266,14 @@
                             <hr>
                             <div class="indent_title_in">
                                 <i class="pe-7s-news-paper"></i>
-                                <h3>AREAS OF SPECIALISATION</h3>
+                                <h3>Areas Of Specialisation</h3>
                                 <div class="popup_main">
                                   
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
-                                           AREAS OF SPECIALISATION
+                                           Areas Of Specialisation
                                            <div class="popup_close">x</div> 
                                         </div>
                                           <div class="popupbody">
@@ -564,7 +566,11 @@ $(document).on("click", ".save_keyword", function(e){
         success: function(response) {
                 if(response.status == 200){
                     window.location.reload()
-                   }  
+                }
+                else{
+                  alert(response.message);
+                }
+
             }
         });
 });

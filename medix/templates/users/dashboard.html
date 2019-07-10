@@ -394,6 +394,9 @@
                                                 Location & Trading Hours
                                                 <div class="popup_close">&times;</div>
                                             </div>
+                                            <div class="popuptitle blnkLoc" style="display:none">
+    
+                                            </div>
                                           <div class="popupbody">
                                             <div class="popupscroll">
                                             <ul class="contacts">
@@ -957,6 +960,15 @@ $('input[type="file"]').change(function () {
   }
 });
 
+$(".save_location").click(function(e){
+  locationVal = $("#locationId").val();
+  if (locationVal == ""){
+    alert("Please Fill Location")
+    e.preventDefault();
+   // $( ".blnkLoc" ).append( "<p>Please Fill Location</p>" );
+  }
+  
+});
 
 $("#monli").hide(); 
 $("#tueli").hide();
@@ -1321,7 +1333,10 @@ $(document).on("click", ".save_keyword", function(e){
         success: function(response) {
                 if(response.status == 200){
                     window.location.reload()
-                   }  
+                   }
+                else{
+                  alert(response.message);
+                }  
             }
         });
 });

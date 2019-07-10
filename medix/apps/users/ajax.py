@@ -147,6 +147,8 @@ def edit_product(request):
 def add_keyword(request):
     if request.method == 'POST':
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
+        if not request.POST.get("keyword"):
+            return JsonResponse({'status':400,'message':'Please Add Services'})
         keyword = Keywords.objects.create(user=profile.user,keyword=request.POST.get("keyword"))
         return JsonResponse({'status':200})
 

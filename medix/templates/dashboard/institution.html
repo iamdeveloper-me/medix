@@ -927,7 +927,7 @@
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
-                                           AREAS OF SPECIALISATION
+                                           Areas Of Specialisation
                                            <div class="popup_close">&times;</div> 
                                         </div>
                                           <div class="popupbody">
@@ -1046,6 +1046,15 @@
    $(".popup_body").removeClass("popup_body_show");
    });
 
+$(".save_location").click(function(e){
+  locationVal = $("#locationId").val();
+  if (locationVal == ""){
+    alert("Please Fill Location")
+    e.preventDefault();
+   // $( ".blnkLoc" ).append( "<p>Please Fill Location</p>" );
+  }
+  
+});
 
 $('input[type="file"]').change(function () {
   var ext = this.value.match(/\.(.+)$/)[1];
@@ -1409,7 +1418,10 @@ $(document).on("click", ".save_keyword", function(e){
         success: function(response) {
                 if(response.status == 200){
                     window.location.reload()
-                   }  
+                   }
+                else{
+                  alert(response.message);
+                }  
             }
         });
 });

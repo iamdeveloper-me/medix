@@ -74,7 +74,7 @@ urlpatterns = [
     path('institution-detail/<int:pk>/', views.InstitutionDetailView.as_view(), name='search-institution'),
     # path('services-list/', views.KeywordsListView.as_view(), name='services-list'),
     path('add/location', views.add_location, name='add-location'),
-   
+    
 ]
 
 ajaxpatterns = [

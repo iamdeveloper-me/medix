@@ -52,7 +52,8 @@
                 <div class="main-menu" style="top:0;">
                     <ul id="top_access">
                         <li class="submenu">
-                            <a href="" class="show-submenu"><i class="pe-7s-add-user"></i>
+
+                            <a href="" class="show-submenu"><img src="{{ request.user.profile.image.url }}" data-retina="true" alt="" width="20" height="36" alt=""> 
                                 {% if request.user.is_authenticated %}
                                     {{ request.user.username }}
                                 {% endif %}

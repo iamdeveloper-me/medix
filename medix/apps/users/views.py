@@ -585,12 +585,3 @@ class InstitutionDetailView(DetailView):
         context['opratHour'] = OperatingHours.objects.filter(location__user=self.object.user)
         context['doctorList'] = ServiceRequest.objects.filter(service_provider=self.object.user)
         return context
-
-class ProfileImgDetailView(DetailView):
-    model = Profile
-    template_name = 'layout/dashboard_profile_layout.html'
-    def get_context_data(self, **kwargs):
-        import pdb; pdb.set_trace()
-        context = super(ProfileImgDetailView, self).get_context_data(**kwargs)
-        context['image'] = Profile.objects.filter(user=self.object.user)
-        return context
