@@ -861,7 +861,7 @@
                                                 </ul> 
                                             </div>
                                             <div class="popuptitle">
-                                               <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-insurance-keyword' %}" class="save_keyword btnsave">save</button> 
+                                               <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-keyword' %}" class="save_keyword save_btncss">save</button> 
                                             </div>
                                             
                                         </div>
@@ -1426,9 +1426,11 @@ $(document).on("click", ".save_keyword", function(e){
                    }
                 else{
                   alert(response.message);
+                  $(".save_keyword").removeAttr('disabled');
                 }  
             }
         });
+    $(".save_keyword").attr('disabled','disabled');
 });
 
 $(document).on("click", ".delete_quali", function(e){

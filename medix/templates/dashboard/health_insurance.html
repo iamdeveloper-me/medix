@@ -1148,9 +1148,11 @@ $(document).on("click", ".save_keyword", function(e){
                    }
                 else{
                   alert(response.message);
+                  $(".save_keyword").removeAttr('disabled');
                 }  
             }
         });
+    $(".save_keyword").attr('disabled','disabled');
 });
 
 $(document).on("click", ".delete_quali", function(e){

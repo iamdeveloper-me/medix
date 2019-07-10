@@ -1236,10 +1236,13 @@ $(document).on("click", ".save_edu", function(e){
                 if(response.status == 400){
                   window.location.reload();
                   alert(response.message);
+                  $(".save_edu").removeAttr('disabled');
 
                 } 
             }
         });
+      $(".save_edu").attr('disabled','disabled');
+
 });
 
 $(document).on("click", ".save_product", function(e){
@@ -1336,9 +1339,11 @@ $(document).on("click", ".save_keyword", function(e){
                    }
                 else{
                   alert(response.message);
+                  $(".save_keyword").removeAttr('disabled');
                 }  
             }
         });
+    $(".save_keyword").attr('disabled','disabled');
 });
 
 $(document).on("click", ".delete_quali", function(e){

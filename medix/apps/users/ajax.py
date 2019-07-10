@@ -149,7 +149,7 @@ def add_keyword(request):
         profile = Profile.objects.get(id=request.POST.get("profile_id"))
         if not request.POST.get("keyword"):
             return JsonResponse({'status':400,'message':'Please Add Services'})
-        keyword = Keywords.objects.create(user=profile.user,keyword=request.POST.get("keyword"))
+        Keywords.objects.create(user=profile.user,keyword=request.POST.get("keyword"))
         return JsonResponse({'status':200})
 
 def delete_education(request):
@@ -213,9 +213,9 @@ def edit_insurance_product(request):
     edit_product(request)
     return JsonResponse({'status':200})
 
-def add_insurance_keyword(request):
-    add_keyword(request)
-    return JsonResponse({'status':200})
+# def add_insurance_keyword(request):
+#     add_keyword(request)
+#     return JsonResponse({'status':200})
 
 def delete_keyword(request):
     keyword = Keywords.objects.get(id=request.GET.get("keyword_id"))
