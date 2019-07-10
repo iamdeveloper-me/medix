@@ -980,9 +980,9 @@
                                                   {% if list.is_accept == 0 %}
                                                   <span class="badge badge-info">Pending</span>
                                                   {% elif list.is_accept == 2 %}
-                                                  <span class="badge badge-warning">Rejected</span>
+                                                  <span class="badge badge-warning badge-val">Rejected</span>
                                                   {% else %}
-                                                  <span class="badge badge-success">Accepted</span>
+                                                  <span class="badge badge-success badge-val">Accepted</span>
                                                   {% endif %}
                                                   
                                               </h1>
@@ -1238,19 +1238,24 @@ $(".sunIn").click(function(){
     }  
 });
 
+var badge_val = $(".badge-val").text()
+if (badge_val === "Accepted") {
+  $("#accli").hide();  
+} else if (badge_val === "Rejected") {
+  $("#rejli").hide();
+}
+
+
 $(document).on("click", ".approve", function(e){
     e.preventDefault();
     service_id = $(this).parents(".linkid").find("#service_id").val();
     active_deactive_user(service_id,"acccept");
-    $("#accli").css("display", "none");
 })
 
 $(document).on("click", ".reject", function(e){
     e.preventDefault();
     service_id = $(this).parents(".linkid1").find("#service_reject").val();
-    // Call Common Function here
     active_deactive_user(service_id,"reject");
-    $("#rejli").css("display", "none");
 });
 
 
