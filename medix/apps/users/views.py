@@ -213,7 +213,7 @@ class EmergencyServiceStep2CreateView(CreateView):
 class PracticeSignupStep3View(View):
     def get(self,request,pk):
         form = PracticeSignupForm
-        userform = PracticeUserForm
+        userform = UserForm
         return render(self.request,'registration/practice.html',
             {'form':form,'userform':userform,'pk':pk})
 
@@ -224,11 +224,6 @@ class PracticeSignupStep3View(View):
         if user_form.is_valid() and practice_form.is_valid():
             try:
                 user = user_form.save(commit=False)
-                if len(user.password) >= 8:
-                    user.set_password(user.password)
-                else:
-                    messages.error(request, 'Passward should be at least 8 character')
-                    return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -248,11 +243,9 @@ class PracticeSignupStep3View(View):
                 messages.error(self.request, 'Email not sent')
                 return HttpResponseRedirect('/practice/signup/step3/'+str(pk))
         else:
-            form = PracticeSignupForm
-            userform = UserForm
-            messages.error(self.request, 'Invalid form')
+            # messages.error(self.request, 'Invalid form')
             return render(self.request,'registration/practice.html',
-                {'form':form,'userform':userform,'pk':pk})
+                {'form':practice_form,'userform':user_form,'pk':pk})
         # messages.success(self.request, 'Successfully registered.Please check your authorised email')
         return HttpResponseRedirect('/form/submit/')
 
@@ -275,11 +268,6 @@ class InstitutionSignupStep3View(View):
         if user_form.is_valid() and institution_form.is_valid():
             try:
                 user = user_form.save(commit=False)
-                if len(user.password) >= 8:
-                    user.set_password(user.password)
-                else:
-                    messages.error(request, 'Passward should be at least 8 character')
-                    return HttpResponseRedirect('/institution/signup/step3/'+str(pk))
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -316,11 +304,6 @@ class InsuranceProviderSignupStep2View(View):
         if user_form.is_valid() and insurance_form.is_valid():
             try:
                 user = user_form.save(commit=False)
-                if len(user.password) >= 8:
-                    user.set_password(user.password)
-                else:
-                    messages.error(request, 'Passward should be at least 8 character')
-                    return HttpResponseRedirect('/insurance/signup/step2/'+str(pk))
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -341,7 +324,7 @@ class InsuranceProviderSignupStep2View(View):
                 messages.error(self.request, 'Email not sent')
                 return HttpResponseRedirect('/insurance/signup/step2/')
         else:
-            return render(self.request,'registration/emergency_service.html',
+            return render(self.request,'registration/insurance_provider.html',
                 {'user_form':user_form,'insurance_form':insurance_form})
         # messages.success(self.request, 'Successfully registered.Please check your authorised email')
         # return HttpResponseRedirect('/insurance/signup/step2/')
@@ -360,11 +343,6 @@ class EmergencyServiceSignupStep3View(View):
         if user_form.is_valid() and service_form.is_valid():
             try:
                 user = user_form.save(commit=False)
-                if len(user.password) >= 8:
-                    user.set_password(user.password)
-                else:
-                    messages.error(request, 'Passward should be at least 8 character')
-                    return HttpResponseRedirect('/emergency-service/signup/step3/'+str(pk))
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()

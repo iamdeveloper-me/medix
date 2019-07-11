@@ -50,10 +50,16 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['first_name','last_name', 'username', 'email','password']
 
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if len(password) < 8:
+            raise ValidationError("Your password should be at least 8 characters")
+        return password
+
 class PracticeUserForm(forms.ModelForm):
     
     email = forms.EmailField(required=True)
-    password = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(min_length=8,widget=forms.PasswordInput())
     first_name = forms.CharField(required=True)
     class Meta:
         model = User
@@ -68,7 +74,7 @@ class PracticeSignupForm(forms.ModelForm):
     def clean_gender(self):
         gender = self.cleaned_data.get('gender', False)
         if self.instance.gender == gender:
-            raise ValidationError("required")
+            raise ValidationError("Gender filed is required")
         return None
 
 class PatientSignupForm(forms.ModelForm):

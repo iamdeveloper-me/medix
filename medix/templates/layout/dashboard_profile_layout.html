@@ -56,10 +56,10 @@
                             <a href="" class="show-submenu">
                                 {% if request.user.profile.image %}
                                     <img src="{{ request.user.profile.image.url }}" data-retina="true" alt="" width="20" height="36" alt="">
-                                {% elif request.user.profile.image == 1 %}
+                                {% elif request.user.profile.gender == 1 %}
                                         
                                     <img src="{% static 'html_menu_1/img/female.png' %}" data-retina="true" alt="" width="20" height="36" alt="">
-                                {% elif request.user.profile.image == 0 %}      
+                                {% elif request.user.profile.gender == 0 %}      
                                     <img src="{% static 'html_menu_1/img/images.jpeg' %}" data-retina="true" alt="" width="20" height="36" alt="">
                                 {% elif request.user.profile.custom_role  == 2 %}
                                     <img src="{% static 'html_menu_1/img/institute.png' %}" data-retina="true" alt="" width="20" height="36" alt="">
