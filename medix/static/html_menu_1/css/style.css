@@ -5145,3 +5145,6 @@ ul#cat_nav li:last-child a:hover, ul#cat_nav li:last-child a#active, ul#cat_nav 
   float: right;
   color: #e74e84;
 }
+ul#top_access li a {
+  padding: 0!important;
+}
