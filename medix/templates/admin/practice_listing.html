@@ -8,12 +8,6 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">Practice Management</li>
-      </ol>
         <div class="box_general">
             <div class="header_box">
                 <h2 class="d-inline-block">Practice List</h2>
@@ -23,7 +17,14 @@
                     {% for practice in users %}
                     <li class="profiles">
                         <input type="hidden" name="profile_id" id="profile_id" value="{{practice.pk}}">
-                        <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
+                        {% if  practice.image %}      
+                            <figure><img src="{{practice.image.url}}"></figure>
+                        
+                        {% elif practice.gender == 1 %}
+                        <figure><img src="{% static 'html_menu_1/img/female.png' %}"></figure>
+                        {% else %}
+                        <figure><img src="{% static 'html_menu_1/img/images.jpeg' %}"></figure>
+                        {% endif %}
                         {% if practice.full_name != None %}
                             <a href="{% url 'book' practice.pk %}">{{practice.full_name}}</a>
                         {% endif %}

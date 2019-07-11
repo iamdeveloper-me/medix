@@ -1,17 +1,11 @@
 {% extends 'admin/admin_base.html' %}
   {% block content %}
-
+{% load staticfiles %}
  {% include 'admin/navigation.html' %}
 
   <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">Emergency Services Management</li>
-      </ol>
         <div class="box_general">
             <div class="header_box">
                 <h2 class="d-inline-block">Emergency Services List</h2>
@@ -21,7 +15,11 @@
                     {% for emergency_user in users %}
                     <li class="profiles">
                         <input type="hidden" name="profile_id" id="profile_id" value="{{emergency_user.pk}}">
-                        <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
+                        {% if  emergency_user.image %}      
+                            <figure><img src="{{emergency_user.image.url}}"></figure>
+                        {% else %}
+                        <figure><img src="{% static 'html_menu_1/img/emergency.jpeg' %}"></figure>
+                        {% endif %}
                         {% if emergency_user.full_name != None %}
                             <a href="{% url 'book' emergency_user.pk %}">{{emergency_user.full_name}}</a>
                         {% endif %}

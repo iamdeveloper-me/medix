@@ -1,4 +1,5 @@
 {% extends 'admin/admin_base.html' %}
+{% load staticfiles %}
   {% block content %}
 
  {% include 'admin/navigation.html' %}
@@ -6,12 +7,6 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">Health Insurance Providers Management</li>
-      </ol>
         <div class="box_general">
             <div class="header_box">
                 <h2 class="d-inline-block">Health Insurance Providers List</h2>
@@ -21,7 +16,11 @@
                     {% for insurance_user in users %}
                     <li class="profiles">
                         <input type="hidden" name="profile_id" id="profile_id" value="{{insurance_user.pk}}">
-                        <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
+                        {% if  insurance_user.image %}      
+                            <figure><img src="{{insurance_user.image.url}}"></figure>
+                        {% else %}
+                        <figure><img src="{% static 'html_menu_1/img/health-insurance.png' %}"></figure>
+                        {% endif %}
                         {% if insurance_user.full_name != None %}
                             <a href="{% url 'book' insurance_user.pk %}">{{insurance_user.full_name}}</a>
                         {% endif %}

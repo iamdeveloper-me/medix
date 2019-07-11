@@ -68,7 +68,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6">
-                    <a href="{% url 'users:find-by-specialization' %}?specialization=GeneralPractitioner " class="box_cat_home">
+                    <a href="{% url 'users:find-by-specialization' %}?specialization=General-Practitioner" class="box_cat_home">
                         <i class="icon-info-4"></i>
                         <img src="/static/html_menu_1/img/icon_cat_1.svg" width="60" height="60" alt="">
                         <h3>General Practitioner</h3>
@@ -304,13 +304,7 @@
                     $('#mysuggestionsselect').show();
                     $.each(data.suggestion, function(key,val) {
                         
-                        if (val.searchtype == "all" && val.is_health == "yes" && val.is_institution == "yes"){
-                            var dynamicurl = "/institution-detail/"+val.user_id
-                            
-                            $("#mysuggestionsselect tbody").append(
-                          "<tr onclick=window.location='" +dynamicurl +"'><td>" + val.name + "</td><td>" + 'Health-Insurance' + "</td></tr>"
-                            );
-                        }
+                        
                         if (val.searchtype == "all" && val.is_health == "yes" && val.is_institution == "yes"){
                             var dynamicurl = "/institution-detail/"+val.user_id
                             

@@ -56,7 +56,8 @@ class MyAdminDashboard(View):
 @method_decorator(staff_member_required, name='dispatch')
 class AccountManagementView(View):
     def get(self, request, *args, **kwargs):
-        account = Profile.objects.all()
+        account = Profile.objects.all().order_by('-modified_at')
+
         page = request.GET.get('page', 1)
         paginator = Paginator(account, 10)
         try:
@@ -74,7 +75,7 @@ class AccountManagementView(View):
 @method_decorator(staff_member_required, name='dispatch')
 class PatientListingView(View):
     def get(self, request, *args, **kwargs):
-        institution    = Profile.objects.filter(custom_role__contains=0)
+        institution    = Profile.objects.filter(custom_role__contains=0).order_by('-modified_at')
         page = request.GET.get('page', 1)
         paginator = Paginator(institution, 10)
         try:
@@ -92,7 +93,8 @@ class PatientListingView(View):
 @method_decorator(staff_member_required, name='dispatch')
 class PracticeListingView(View):
     def get(self, request, *args, **kwargs):
-        practice    = Profile.objects.filter(custom_role__contains=1)
+
+        practice    = Profile.objects.filter(custom_role__contains=1).order_by('-modified_at')
         
         page = request.GET.get('page', 1)
         paginator = Paginator(practice, 10)
@@ -111,7 +113,7 @@ class PracticeListingView(View):
 @method_decorator(staff_member_required, name='dispatch')
 class InstitutionListingView(View):
     def get(self, request, *args, **kwargs):
-        institution    = Profile.objects.filter(custom_role__contains=2)
+        institution    = Profile.objects.filter(custom_role__contains=2).order_by('-modified_at')
         page = request.GET.get('page', 1)
         paginator = Paginator(institution, 10)
         try:
@@ -129,7 +131,7 @@ class InstitutionListingView(View):
 @method_decorator(staff_member_required, name='dispatch')
 class EmergencyListingView(View):
     def get(self, request, *args, **kwargs):
-        emergency    = Profile.objects.filter(custom_role__contains=3)
+        emergency    = Profile.objects.filter(custom_role__contains=3).order_by('-modified_at')
         page = request.GET.get('page', 1)
         paginator = Paginator(emergency, 10)
         try:
@@ -147,7 +149,7 @@ class EmergencyListingView(View):
 @method_decorator(staff_member_required, name='dispatch')
 class InsuranceProvidersListingView(View):
     def get(self, request, *args, **kwargs):
-        insurance = Profile.objects.filter(custom_role__contains=4)
+        insurance = Profile.objects.filter(custom_role__contains=4).order_by('-modified_at')
         page = request.GET.get('page', 1)
         paginator = Paginator(insurance, 10)
         try:
@@ -225,7 +227,7 @@ class StatisticsView(View):
 @method_decorator(staff_member_required, name='dispatch')
 class ActiveAccountStatusView(View):
     def get(self, request, *args, **kwargs):
-        user    = Profile.objects.filter(status=1)
+        user    = Profile.objects.filter(status=1).order_by('-modified_at')
         page = request.GET.get('page', 1)
         paginator = Paginator(user, 10)
         try:
@@ -243,7 +245,7 @@ class ActiveAccountStatusView(View):
 @method_decorator(staff_member_required, name='dispatch')
 class PendingStatusView(View):
     def get(self, request, *args, **kwargs):
-        user    = Profile.objects.filter(status=0)
+        user    = Profile.objects.filter(status=0).order_by('-modified_at')
         page = request.GET.get('page', 1)
         paginator = Paginator(user, 10)
         try:
@@ -261,7 +263,7 @@ class PendingStatusView(View):
 @method_decorator(staff_member_required, name='dispatch')
 class DeactiveAccountStatusView(View):
     def get(self, request, *args, **kwargs):
-        user    = Profile.objects.filter(status=2)
+        user    = Profile.objects.filter(status=2).order_by('-modified_at')
         page = request.GET.get('page', 1)
         paginator = Paginator(user, 10)
         try:
