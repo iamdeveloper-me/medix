@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from users.select_choices import *
 from datetime import datetime
+from django.core.validators import RegexValidator
+
+phone_regex = RegexValidator(regex=r'^\+|\-?(0|9)\d{9,14}$', message="Use 0-9 digit or + or - symbol for phone number")
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name=_('Created At'))
@@ -21,7 +24,7 @@ class Profile(BaseModel):
     emergency_services = models.IntegerField(verbose_name=_('Service Type'), choices=SERVICES_TYPE_CHOICES, blank = True, null = True)
     gender = models.IntegerField(verbose_name=_('Gender'), choices=GENDER_CHOICES, blank = True, null = True)
 
-    phone = models.CharField(_("Phone Number"), max_length=254, blank = True, null = True)
+    phone = models.CharField(_("Phone Number"), max_length=254, blank = True, null = True, validators=[phone_regex])
     national_identification_number = models.CharField(_("National Identification Number"), max_length=100, blank = True, null = True)
     trading_name = models.CharField(_("Trading Name"), max_length=254, blank = True, null = True)
     address_of_institution = models.TextField(_("Address Of Institution"), blank = True, null = True)
