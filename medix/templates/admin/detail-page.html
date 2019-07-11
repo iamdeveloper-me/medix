@@ -50,8 +50,21 @@
 										</figure>
 									</div>
 									<div class="col-lg-7 col-md-8">
-										 
-										<small>{{object.user.profile.get_practice_display}}</small>
+                                        {% if object.custom_role == 0 %}
+                                        <small>Patient</small>
+                                        {% endif %}
+                                        {% if object.custom_role == 1 %}
+                                        <small>{{object.user.profile.get_practice_display}}</small>
+                                        {% endif %}
+										{% if object.custom_role == 2 %}
+                                        <small>{{object.get_institution_display}}</small>
+                                        {% endif %}
+                                        {% if object.custom_role == 3 %}
+                                        <small>{{object.get_emergency_services_display}}</small>
+                                        {% endif %}
+                                        {% if object.custom_role == 4 %}
+                                        <small>Health Insurance</small>
+                                        {% endif %}
 										<h1>{{object.full_name}}</h1>
 										<span class="rating">
 											<i class="icon_star voted"></i>

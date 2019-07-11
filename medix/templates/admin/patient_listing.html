@@ -6,12 +6,6 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">Patient Management</li>
-      </ol>
         <div class="box_general">
             <div class="header_box">
                 <h2 class="d-inline-block">Patients List</h2>
@@ -21,7 +15,11 @@
                     {% for patient_user in users %}
                     <li class="profiles">
                         <input type="hidden" name="profile_id" id="profile_id" value="{{patient_user.pk}}">
+                        {% if  patient_user.image %}      
+                            <figure><img src="{{patient_user.image.url}}"></figure>
+                        {% else %}
                         <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
+                        {% endif %}
                         {% if patient_user.full_name != None %}
                             <a href="{% url 'book' patient_user.pk %}">{{patient_user.full_name}}</a>
                         {% endif %}

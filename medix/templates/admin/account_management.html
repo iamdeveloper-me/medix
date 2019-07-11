@@ -1,17 +1,13 @@
 {% extends 'admin/admin_base.html' %}
   {% block content %}
+  {% load staticfiles %}
 
  {% include 'admin/navigation.html' %}
 
   <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item active">Account Management</li>
-      </ol>
+      
         <div class="box_general">
             <div class="header_box">
                 <h2 class="d-inline-block">Account List</h2>
@@ -21,7 +17,19 @@
                     {% for account in users %}
                     <li class="profiles">
                         <input type="hidden" name="profile_id" id="profile_id" value="{{account.pk}}">
-                        <figure><img src="/static/admin_section/img/avatar1.jpg" alt=""></figure>
+                        {% if  account.image %}      
+                            <figure><img src="{{account.image.url}}"></figure>
+                        {% elif account.gender == 1 %}
+                        <figure><img src="{% static 'html_menu_1/img/female.png' %}"></figure>
+                        {% elif account.gender == 0 %}
+                        <figure><img src="{% static 'html_menu_1/img/images.jpeg' %}"></figure>
+                        {% elif account.custom_role == 2 %}
+                        <figure><img src="{% static 'html_menu_1/img/institute.png' %}"></figure>
+                        {% elif account.custom_role == 3 %}
+                        <figure><img src="{% static 'html_menu_1/img/emergency.jpeg' %}"></figure>
+                        {% elif account.custom_role == 4 %}
+                        <figure><img src="{% static 'html_menu_1/img/health-insurance.png' %}"></figure>
+                        {% endif %}
                         {% if account.full_name != None %}
                           <a href="{% url 'book' account.pk %}">  {{account.full_name}} </a>
                         {% endif %}

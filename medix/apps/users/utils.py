@@ -1,6 +1,6 @@
 
 def specialization_value(specialization):
-    if specialization == 'GeneralPractitioner':
+    if specialization == 'General-Practitioner':
         return 11
     elif specialization == 'Dentist':
         return 5
