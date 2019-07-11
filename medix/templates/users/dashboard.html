@@ -26,7 +26,7 @@
         <div class="container margin_60">
             <div class="row">
                 <div class="col-xl-8 col-lg-8">
-                    <nav id="secondary_nav">
+                    <!-- <nav id="secondary_nav">
                         <div class="container">
                             <ul class="clearfix">
                                 <li><a href="#section_1" class="active"></a></li>
@@ -34,7 +34,7 @@
                                 <li><a href="#sidebar"></a></li>
                             </ul>
                         </div>
-                    </nav>
+                    </nav> -->
                     <div id="section_1">
                         <div class="box_general_3">
                             <div class="profile">
@@ -47,12 +47,13 @@
                                      <div class="avatar-edit">
 
                                   <div class="popup_main">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                    <button class="open_popup popup_imagewidth"><img src="../../../static/html_menu_1/img/edit.png"></button>
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
-                                        <div class="popup_close">&times;</div>
+                                                        Edit Profile Picture
+                                        <div class="popup_close popup_profile">&times;</div>
                                         </div>
                                         <div class="popupbody">
                                         <form id="add-picture" method="POST" action="/upload/image/" enctype="multipart/form-data">{% csrf_token %}
@@ -74,7 +75,7 @@
                                         
                                         <img src="{{image.image.url}}">
                                       {% elif image.gender == 1 %}
-                                        <img src="{% static 'html_menu_1/img/female.png' %}">
+                                        <img src="{% static 'html_menu_1/img/female_image.jpeg' %}">
                                       {% else %}
                                         <img src="{% static 'html_menu_1/img/images.jpeg' %}">
                                       {% endif %}
@@ -88,13 +89,13 @@
                                         <small>{{specialisation}}</small>
 
                                         <div class="popup_main">
-                                            <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <button class="open_popup popup_imagewidth"><img src="../../../static/html_menu_1/img/edit.png"></button>
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
                                                     <div class="popuptitle">
                                                         Edit Profile Details
-                                                      <div class="popup_close">&times;</div>  
+                                                      <div class="popup_close popup_profile">&times;</div>  
                                                     </div>
                                                   <div class="popupbody">
                                                       <h6>First Name</h6>
@@ -151,14 +152,14 @@
                             <div class="indent_title_in">
                                 <i class="pe-7s-user"></i>
                                 <h3>Professional statement</h3>
-                                <div class="popup_main">
-                                    <button class="open_popup editProf"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                <div class="popup_main margin_topvalue">
+                                    <button class="open_popup editProf"><img src="../../../static/html_menu_1/img/add_icon.png"></button>
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
                                                 <div class="popuptitle">
                                                     Professional statement
-                                                   <div class="popup_close">&times;</div> 
+                                                   <div class="popup_close popup_profile">&times;</div> 
                                                 </div>
                                                   <div class="popupbody">
                                                      <ul class="contacts">
@@ -208,14 +209,14 @@
                             <div class="indent_title_in">
                                 <i class="pe-7s-news-paper"></i>
                                 <h3>Education</h3>
-                                <div class="popup_main">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                <div class="popup_main margin_topvalue">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/add_icon.png"></button>
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
                                             <div class="popuptitle">
                                                 Education
-                                                <div class="popup_close">&times;</div>
+                                                <div class="popup_close popup_profile">&times;</div>
                                             </div>
                                             <div class="popupbody">
                                                <ul class="contacts">
@@ -239,7 +240,7 @@
                                     {% for education in educations%}
                                     <li id="education_li_{{education.id}}">{{education.qualification}}
                                         <div class="popup_main">
-                                            <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png">
+                                            <button class="open_popup popup_imagewidth"><img src="../../../static/html_menu_1/img/edit.png">
                                             </button>
                                             <a data-id="{{education.id}}" data-url="{% url 'users:qualification-delete' %}" class="delete_quali">
                                                 <img src="../../../static/html_menu_1/img/delete.png">
@@ -249,7 +250,7 @@
                                                 <div class="popup_contain popup_width">
                                                     <div class="popuptitle">
                                                         Edit Education Detail
-                                                        <div class="popup_close">&times;</div>
+                                                        <div class="popup_close popup_profile">&times;</div>
                                                     </div>
                                                   <div class="popupbody">
                                                      <input type="text" value="{{education.qualification}}" class="mycloseclass" name="qualification"> 
@@ -274,15 +275,15 @@
                             <div class="indent_title_in">
                                 <i class="pe-7s-cash"></i>
                                 <h3>Items & Prices</h3>
-                                <div class="popup_main position_div">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png">
+                                <div class="popup_main position_div margin_topvalue">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/add_icon.png">
                                     </button>
                                     <div class="popup_body">
                                         <div class="popup_back"></div>
                                             <div class="popup_contain popup_width">
                                                 <div class="popuptitle">
                                                     Item & Prices
-                                                    <div class="popup_close">&times;</div>
+                                                    <div class="popup_close popup_profile">&times;</div>
                                                 </div>
                                                 <div class="popupbody">
                                                     <ul class="contacts">
@@ -333,7 +334,7 @@
                                                 </td>
                                                 <td>
                                                 <div class="popup_main">
-                                                <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                                <button class="open_popup popup_imagewidth"><img src="../../../static/html_menu_1/img/edit.png"></button>
                                                 <a data-id="{{product.id}}" data-url="{% url 'users:product-delete' %}" class="delete_product">
                                                     <img src="../../../static/html_menu_1/img/delete.png">
                                                 </a>
@@ -342,7 +343,7 @@
                                                     <div class="popup_contain popup_width">
                                                     <div class="popuptitle">
                                                         Edit Item & Prices
-                                                        <div class="popup_close">&times;</div>
+                                                        <div class="popup_close popup_profile">&times;</div>
                                                     </div>
                                                     <div class="popupbody">
                                                          <ul class="contacts">
@@ -383,16 +384,16 @@
                             <div class="indent_title_in">
                                 <i class="pe-7s-map-marker"></i>
                                 <h3>Location & Trading Hours</h3>
-                                <div class="popup_main">
+                                <div class="popup_main margin_topvalue">
                                     <button class="open_popup">
-                                      <img src="../../../static/html_menu_1/img/edit.png">
+                                      <img src="../../../static/html_menu_1/img/add_icon.png">
                                     </button>
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
                                             <div class="popuptitle">
                                                 Location & Trading Hours
-                                                <div class="popup_close">&times;</div>
+                                                <div class="popup_close popup_profile">&times;</div>
                                             </div>
                                             <div class="popuptitle blnkLoc" style="display:none">
     
@@ -568,14 +569,14 @@
                                             <a data-id="{{val.location.id}}" data-url="{% url 'users:delete-location' %}" class="delete_location popup_main" >
                                             <img src="../../../static/html_menu_1/img/delete.png">
                                             </a>
-                                            <button class="open_popup float_right edit_location" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location' %}"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                            <button class="open_popup float_right edit_location popup_imagewidth" data-id="{{val.location.id}}" data-url="{% url 'users:edit-location' %}"><img src="../../../static/html_menu_1/img/edit.png"></button>
                                             
                                             <div class="popup_body">
                                               <div class="popup_back"></div>
                                                 <div class="popup_contain popup_width">
                                                 <div class="popuptitle">
                                                     Edit Location & Trading Hours
-                                                    <div class="popup_close">&times;</div>
+                                                    <div class="popup_close popup_profile">&times;</div>
                                                 </div>
                                                 <div class="popupbody">
                                                     <div class="popupscroll">
@@ -826,14 +827,14 @@
                             <div class="indent_title_in">
                                 <i class="pe-7s-news-paper"></i>
                                 <h3>Services</h3>
-                                <div class="popup_main">
-                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/edit.png"></button>
+                                <div class="popup_main margin_topvalue">
+                                    <button class="open_popup"><img src="../../../static/html_menu_1/img/add_icon.png"></button>
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
                                             Services
-                                            <div class="popup_close">&times;</div>
+                                            <div class="popup_close popup_profile">&times;</div>
                                         </div>
                                           <div class="popupbody">
                                             <ul class="contacts">
@@ -874,14 +875,14 @@
                             <div class="indent_title_in doctor_div">
                                
                                 <div class="popup_main doctor_list">
-                                    <a class="open_popup">Add To Institution</a>
+                                    <a class="open_popup add_institution">Add To Institution</a>
                                     
                                     <div class="popup_body">
                                       <div class="popup_back"></div>
                                         <div class="popup_contain popup_width">
                                         <div class="popuptitle">
                                             Add To Institution
-                                            <div class="popup_close">&times;</div>
+                                            <div class="popup_close popup_profile">&times;</div>
                                         </div>
                                         <div class="popupbody">
                                             <h6>Institution Name</h6>

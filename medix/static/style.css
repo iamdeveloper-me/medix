@@ -17,7 +17,7 @@ p.text-center.link_bright {
     margin-top: 20px;
 }
 section.header_sticky{
-      padding: 10px 0 0 0;
+      padding: 10px 0;
 }
 .ml-auto {
     margin: 0 auto;
@@ -110,6 +110,9 @@ p.error {
     float: right;
     border-radius: 50px;
 }
+.header{
+  padding: 10px 0 0 0 !important;
+}
 .avatar-upload {
   position: relative;
   max-width: 205px;
@@ -195,7 +198,7 @@ ul.contacts.open_time {
     margin: 0;
 }
 .popup_contain {
-    margin: 53px auto 50px;
+    margin: auto !important;
 }
 .padding_bottom{
     padding-bottom: 20px!important;
@@ -298,6 +301,7 @@ button.open_popup {
 
 .popup_width {
     max-width: 50% !important;
+    border-radius: 10px;
 }
 
 button.save_price{
@@ -386,7 +390,11 @@ button.save_location{
     margin: 14px auto 0px auto;
 
 }
-
+.optionerror {
+    font-size: 12px;
+    margin-top: 2px;
+    margin-left: -8px;
+}
 .popup_close{
     background: #23234714;
     position: absolute;
@@ -400,7 +408,7 @@ button.save_location{
     width: 30px;
     height: 30px;
     text-align: center;
-    line-height: 32px;
+    line-height: 21px;
 }
 .text_aligntext{
     text-align: center;
@@ -412,6 +420,7 @@ button.save_location{
 }
 .health_insurance{
     margin:20px 0;
+    font-size: 20px;
 }
 a.forgot {
     text-align: left;
@@ -423,7 +432,7 @@ a.forgot {
     
 }
 .open_popup img{
-    width:16px;
+    width:25px;
 }
 .float_right{
     float: right;
@@ -440,7 +449,7 @@ a.forgot {
   padding-bottom: 30px!important;
 }
 .mainmenu_list{
-  min-width: 150px!important;
+  min-width: 140px!important;
 }
 .homVist{
   margin-left:200px;
@@ -494,7 +503,8 @@ margin-left: 10px;
   font-size: 24px;
   border-bottom: 1px solid #ccc;
   padding: 15px;
-  font-weight: bold;
+  font-weight: 700;
+  text-transform: none;
   
 }
 .text_alignleft{
@@ -783,4 +793,79 @@ input:checked + .slider:before {
 ul.contacts.open_time.width_disablediv li {
     width: inherit;
     margin :0 5px;
+}
+.popup_close.popup_profile {
+    line-height: 31px!important;
+    font-size: 27px!important;
+}
+.add_institution{
+  font-size: 16px;
+  color: #3f4079!important;
+}
+.margin_topvalue{
+  margin-top: -24px;
+}
+.popup_imagewidth img{
+  width: 16px;
+}
+ul.mainmenu_list{
+  top: 48px!important;
+  padding: 10px 0!important;
+}
+a.show-submenu.dashboard_header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px 0 #ccc;
+    line-height: 30px;
+    margin-right: 4px;
+}
+@media only screen and (max-width: 767px) {
+  .box_general_3{
+    padding: 0 30px;
+  }
+  .avatar-upload {
+    margin: 20px auto;
+  }
+  .indent_title_in h3 {
+    padding-top: 8px!important;
+    font-size: 18px;
+    margin-left: 36px;
+  }
+  .indent_title_in i {
+    position: absolute!important;
+    font-size: 33px;
+  }
+  .table thead th {
+    padding: 10px 0;
+  }
+  .box_general_3 hr{
+    margin:16px -30px;
+  }
+  .mob_footer{
+    width: 50%;
+  }
+  .margin_60_35 {
+    padding: 30px 30px 5px 30px;
+}
+ul#additional_links{
+  text-align: center!important;
+  font-size: 16px;
+}
+footer #copy {
+    text-align: center;
+}
+.avatar-upload .avatar-edit input {
+    width: 100%;
+}
+.popupbody input {
+    width: 100%;
+    border: 1px solid #222;
+    text-indent: 10px;
+}
+.popupbody textarea {
+  width: 100%;
+  border: 1px solid #222;
+  text-indent: 10px;
+}
 }

@@ -51,23 +51,22 @@
                 <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="#0"><span>Menu mobile</span></a>
                 <div class="main-menu" style="top:0;">
                     <ul id="top_access">
-                        <li class="submenu">
-                            
-                            <a href="" class="show-submenu">
+                        <li class="submenu">                            
+                            <a href="" class="show-submenu dashboard_header">
+
                                 {% if request.user.profile.image %}
                                     <img src="{{ request.user.profile.image.url }}" data-retina="true" alt="" width="20" height="36" alt="">
-                                {% elif request.user.profile.image == 1 %}
+                                {% elif request.user.profile.gender == 1 %}
                                         
-                                    <img src="{% static 'html_menu_1/img/female.png' %}" data-retina="true" alt="" width="20" height="36" alt="">
-                                {% elif request.user.profile.image == 0 %}      
+                                    <img src="{% static 'html_menu_1/img/female_image.jpeg' %}" data-retina="true" alt="" width="20" height="36" alt="">
+                                {% elif request.user.profile.gender == 0 %}      
                                     <img src="{% static 'html_menu_1/img/images.jpeg' %}" data-retina="true" alt="" width="20" height="36" alt="">
                                 {% elif request.user.profile.custom_role  == 2 %}
                                     <img src="{% static 'html_menu_1/img/institute.png' %}" data-retina="true" alt="" width="20" height="36" alt="">
                                 {% elif request.user.profile.custom_role  == 3 %} 
                                    <img src="{% static 'html_menu_1/img/emergency.jpeg' %}" data-retina="true" alt="" width="20" height="36" alt="">
                                 {% else %}
-                                    <img src="{% static 'html_menu_1/img/health-insurance.png' %}" data-retina="true" alt="" width="20" height="36" alt="">
-                                {% endif %}
+                                    <img src="{% static 'html_menu_1/img/health-insurance.png' %}" data-retina="true" alt="" width="20" height="36" alt="">  {% endif %}       
 
                                     {% if request.user.is_authenticated %}
                                         {{ request.user.username }}
@@ -159,7 +158,7 @@
                         </a>
                     </p>
                 </div>
-                <div class="col-lg-3 col-md-4">
+                <div class="col-lg-3 col-md-4 mob_footer">
                     <h5>About</h5>
                     <ul class="links">
                          <li><a href="{% url 'users:about-1' %}">About us</a></li>
@@ -173,7 +172,7 @@
                         {% endif %}
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-4">
+                <div class="col-lg-3 col-md-4 mob_footer">
                     <h5>Useful links</h5>
                     <ul class="links">
                         <li><a href="{% url 'users:home-1' %}">Doctors</a></li>

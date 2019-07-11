@@ -15,6 +15,7 @@ from users.utils import specialization_value
 
 
 def add_location(request):
+    # import pdb;pdb.set_trace()
     if request.method == 'POST':
         profile = Profile.objects.get(pk=request.user.profile.id)
         user = profile.user
