@@ -58,7 +58,11 @@
                                     <img src="{{ request.user.profile.image.url }}" data-retina="true" alt="" width="20" height="36" alt="">
                                 {% elif request.user.profile.gender == 1 %}
                                         
+<<<<<<< HEAD
                                     <img src="{% static 'html_menu_1/img/female_image.jpeg' %}" data-retina="true" alt="" width="20" height="36" alt="">
+=======
+                                    <img src="{% static 'html_menu_1/img/female.png' %}" data-retina="true" alt="" width="20" height="36" alt="">
+>>>>>>> 7bfc838c176d2cfb3332708759f513da95dd27db
                                 {% elif request.user.profile.gender == 0 %}      
                                     <img src="{% static 'html_menu_1/img/images.jpeg' %}" data-retina="true" alt="" width="20" height="36" alt="">
                                 {% elif request.user.profile.custom_role  == 2 %}
