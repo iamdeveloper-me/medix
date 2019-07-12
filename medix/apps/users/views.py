@@ -15,7 +15,6 @@ from users.utils import specialization_value
 
 
 def add_location(request):
-    # import pdb;pdb.set_trace()
     if request.method == 'POST':
         profile = Profile.objects.get(pk=request.user.profile.id)
         user = profile.user
@@ -225,6 +224,7 @@ class PracticeSignupStep3View(View):
         if user_form.is_valid() and practice_form.is_valid():
             try:
                 user = user_form.save(commit=False)
+                user.set_password(user.password)
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -269,6 +269,7 @@ class InstitutionSignupStep3View(View):
         if user_form.is_valid() and institution_form.is_valid():
             try:
                 user = user_form.save(commit=False)
+                user.set_password(user.password)
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -305,6 +306,7 @@ class InsuranceProviderSignupStep2View(View):
         if user_form.is_valid() and insurance_form.is_valid():
             try:
                 user = user_form.save(commit=False)
+                user.set_password(user.password)
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
@@ -344,6 +346,7 @@ class EmergencyServiceSignupStep3View(View):
         if user_form.is_valid() and service_form.is_valid():
             try:
                 user = user_form.save(commit=False)
+                user.set_password(user.password)
                 user.username = request.POST.get('username')
                 user.is_active = False
                 user.save()
