@@ -304,12 +304,18 @@
                     $('#mysuggestionsselect').show();
                     $.each(data.suggestion, function(key,val) {
                         
-                        
-                        if (val.searchtype == "all" && val.is_health == "yes" && val.is_institution == "yes"){
+                        if (val.searchtype == "all" && val.is_institution == "yes" && val.is_health == "yes"){
                             var dynamicurl = "/institution-detail/"+val.user_id
                             
                             $("#mysuggestionsselect tbody").append(
                           "<tr onclick=window.location='" +dynamicurl +"'><td>" + val.name + "</td><td>" + 'Health-Insurance' + "</td></tr>"
+                            );
+                        }
+                        else if (val.searchtype == "all" && val.is_institution == "yes" && val.is_emergency == "yes"){
+                            var dynamicurl = "/institution-detail/"+val.user_id
+                            
+                            $("#mysuggestionsselect tbody").append(
+                          "<tr onclick=window.location='" +dynamicurl +"'><td>" + val.name + "</td><td>" + 'Emergency-Services' + "</td></tr>"
                             );
                         }
                         
@@ -326,6 +332,7 @@
                           "<tr onclick=window.location='" + dynamicurl +"'><td>" + val.name + "</td><td>" + val.specialization + "</td></tr>"
                             );
                         }
+
                         else if (val.searchtype == "all"){
                             var dynamicurl = "/service-list/"+val.name
                             $("#mysuggestionsselect tbody").append(

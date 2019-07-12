@@ -567,3 +567,6 @@ class InstitutionDetailView(DetailView):
         context['opratHour'] = OperatingHours.objects.filter(location__user=self.object.user)
         context['doctorList'] = ServiceRequest.objects.filter(service_provider=self.object.user)
         return context
+
+
+

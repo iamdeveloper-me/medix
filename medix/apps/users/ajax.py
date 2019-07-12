@@ -378,18 +378,33 @@ def search_keyword(request):
         suggestion_list = Profile.objects.filter(Q(user__first_name__istartswith=suggestion) | Q(trading_name__istartswith=suggestion), status=1)
         for record in suggestion_list:
             if record.trading_name:
-                if record.custom_role == 4:
-                    is_health = "yes"
-                else:
-                    is_health = "No"
                 json_obj = dict(
-                    is_health = is_health,
-                    searchtype = 'all',
-                    is_institution = "yes",
-                    user_id = record.id,
-                    name =  record.trading_name,
-                    specialization  = record.get_institution_display()                   
-                    )
+                        searchtype = 'all',
+                        is_institution = "yes",
+                        user_id = record.id,
+                        name =  record.trading_name,
+                        specialization  = record.get_institution_display()                   
+                        )
+                if record.custom_role == 3:
+                    is_emergency = "yes"
+                    json_obj = dict(
+                        is_emergency = is_emergency,
+                        searchtype = 'all',
+                        is_institution = "yes",
+                        user_id = record.id,
+                        name =  record.trading_name,
+                                           
+                        )
+                elif record.custom_role == 4:
+                    is_health = "yes"
+                    json_obj = dict(
+                        is_health = is_health,
+                        searchtype = 'all',
+                        is_institution = "yes",
+                        user_id = record.id,
+                        name =  record.trading_name,
+                                      
+                        )
             else:
                 json_obj = dict(
                     user_id = record.id,
@@ -399,7 +414,7 @@ def search_keyword(request):
             json_res.append(json_obj)
         suggestion_list = Keywords.objects.filter(keyword__istartswith=suggestion)
         for record in suggestion_list:
-           
+
             json_obj = dict(
                     name      = record.keyword,
                     searchtype = 'all',
