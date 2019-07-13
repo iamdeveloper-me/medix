@@ -21,9 +21,9 @@
                             <figure><img src="{{practice.image.url}}"></figure>
                         
                         {% elif practice.gender == 1 %}
-                        <figure><img src="{% static 'html_menu_1/img/female.png' %}"></figure>
+                        <figure><img src="{% static 'html_menu_1/img/female_image.jpeg' %}"></figure>
                         {% else %}
-                        <figure><img src="{% static 'html_menu_1/img/images.jpeg' %}"></figure>
+                        <figure><img src="{% static 'html_menu_1/img/male_image.jpeg' %}"></figure>
                         {% endif %}
                         {% if practice.full_name != None %}
                             <a href="{% url 'book' practice.pk %}">{{practice.full_name}}</a>

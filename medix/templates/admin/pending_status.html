@@ -19,9 +19,9 @@
                         {% if  pending_user.image %}      
                             <figure><img src="{{pending_user.image.url}}"></figure>
                         {% elif pending_user.gender == 1 %}
-                        <figure><img src="{% static 'html_menu_1/img/female.png' %}"></figure>
+                        <figure><img src="{% static 'html_menu_1/img/female_image.jpeg' %}"></figure>
                         {% elif pending_user.gender == 0 %}
-                        <figure><img src="{% static 'html_menu_1/img/images.jpeg' %}"></figure>
+                        <figure><img src="{% static 'html_menu_1/img/male_image.jpeg' %}"></figure>
                         {% elif pending_user.custom_role == 2 %}
                         <figure><img src="{% static 'html_menu_1/img/institute.png' %}"></figure>
                         {% elif pending_user.custom_role == 3 %}

@@ -44,7 +44,7 @@
                                       <input class="btn_1" type="submit" value="Login">
                                     </div>
                               </form>
-                            <p class="text-center link_bright">Do not have an account yet? <a href="{% url 'users:patient-signup' %}"><strong>Register now!</strong></a></p>
+                            <p class="text-center link_bright">Do not have an account yet? <a href="{% url 'users:patient-signup' %}" class="clear_session"><strong >Register now!</strong></a></p>
                           </div>
                       </div>
                     </div>
@@ -71,7 +71,7 @@
                                       <input class="btn_1" type="submit" value="Login">
                                     </div>
                               </form>
-                            <p class="text-center link_bright">Do not have an account yet? <a href="{% url 'users:select-specialisation' %}"><strong>Register now!</strong></a></p>
+                            <p class="text-center link_bright">Do not have an account yet? <a href="{% url 'users:select-specialisation' %}" class="clear_session"><strong>Register now!</strong></a></p>
                           </div>
                       </div>
                     </div>
@@ -96,7 +96,7 @@
                                       <input class="btn_1" type="submit" value="Login">
                                     </div>
                               </form>
-                            <p class="text-center link_bright">Do not have an account yet? <a href="{% url 'users:institution-step2' %}"><strong>Register now!</strong></a></p>
+                            <p class="text-center link_bright">Do not have an account yet? <a href="{% url 'users:institution-step2' %}" class="clear_session"><strong>Register now!</strong></a></p>
                           </div>
                       </div>
                     </div>
@@ -121,7 +121,7 @@
                                       <input class="btn_1" type="submit" value="Login">
                                     </div>
                               </form>
-                            <p class="text-center link_bright">Do not have an account yet? <a href="{% url 'users:select-emergency-service' %}"><strong>Register now!</strong></a></p>
+                            <p class="text-center link_bright">Do not have an account yet? <a href="{% url 'users:select-emergency-service' %}" class="clear_session"><strong>Register now!</strong></a></p>
                           </div>
                       </div>
                     </div>
@@ -171,6 +171,12 @@
  $(".popup_back").click(function () {
    $(".popup_body").removeClass("popup_body_show");
    });
+
+$('.clear_session').click(function(){
+      sessionStorage.clear();
+    });
+
+
 
 
  var frm = $('#login-practice');

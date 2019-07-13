@@ -42,5 +42,15 @@
     </div>
     <!-- /hero_register -->
 </main>
-
+<script>
+    $(function() {
+    var emergency_services = sessionStorage.getItem("emergency_services");
+    if(emergency_services != null) {
+        $("select[name=emergency_services]").val(emergency_services);
+    }
+    $("select[name=emergency_services]").on("change", function() {
+        sessionStorage.setItem("emergency_services", $(this).val());
+    });
+});
+</script>
 {% endblock %}

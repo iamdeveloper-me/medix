@@ -20,9 +20,9 @@
                         {% if  account.image %}      
                             <figure><img src="{{account.image.url}}"></figure>
                         {% elif account.gender == 1 %}
-                        <figure><img src="{% static 'html_menu_1/img/female.png' %}"></figure>
+                        <figure><img src="{% static 'html_menu_1/img/female_image.jpeg' %}"></figure>
                         {% elif account.gender == 0 %}
-                        <figure><img src="{% static 'html_menu_1/img/images.jpeg' %}"></figure>
+                        <figure><img src="{% static 'html_menu_1/img/male_image.jpeg' %}"></figure>
                         {% elif account.custom_role == 2 %}
                         <figure><img src="{% static 'html_menu_1/img/institute.png' %}"></figure>
                         {% elif account.custom_role == 3 %}

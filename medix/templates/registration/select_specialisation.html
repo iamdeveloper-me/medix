@@ -25,7 +25,7 @@
                             </div>
                             <div class="back_btn">
                                 <a href="{% url 'users:registration-step1' %}">
-                                <input type="button" class="btn_1" value="Back" >
+                                <input type="button" class="btn_1"  id="btn" value="Back" >
                                 </a>
                             </div>
                             <div class="back_btn">
@@ -44,19 +44,16 @@
     <!-- /hero_register -->
 </main>
 <script>
-//     $(function() {
-//     var practice = localStorage.getItem("practice");
-//     if(practice != null) {
-//         $("select[name=practice]").val(practice);
-//     }
-//     $("select[name=practice]").on("change", function() {
-//         localStorage.setItem("practice", $(this).val());
-//     });
-// });
-    // select = document.getElementById("mySelect");
-    // if (localStorage.mySelect) {
-    //     select.options[localStorage.mySelect].selected = true;
-    // }
+    $(function() {
+    var practice = sessionStorage.getItem("practice");
+    if(practice != null) {
+        $("select[name=practice]").val(practice);
+    }
+    $("select[name=practice]").on("change", function() {
+        sessionStorage.setItem("practice", $(this).val());
+    });
+    // $ window.location.reload();    
+    //   sessionStorage.clear();
+});
 </script>
-
 {% endblock %}

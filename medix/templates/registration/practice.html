@@ -91,7 +91,7 @@
                             </div>
                             <div class="back_btn">
                                 <a href="{% url 'users:select-specialisation' %}">
-                                <input type="button" class="btn_1" value="Back" >   
+                                <input type="button" class="btn_1" id="btn" value="Back" >   
                                 </a>
                             </div>
                             <div class="back_btn">
@@ -111,4 +111,9 @@
     <!-- /hero_register -->
 </main>
 
+<script>
+    $('#btn').click(function(){
+        $(this).data('clicked', true);
+    });
+</script>
 {% endblock %}
