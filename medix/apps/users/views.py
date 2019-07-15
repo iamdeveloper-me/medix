@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DetailView,  UpdateView, DeleteView, View, TemplateView
 from users.models import Profile, Education, Product, OperatingHours, Location, AmbulanceService, Keywords, Attachment, ServiceRequest
 from django.contrib.auth.models import User
-from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm,PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm, DocumentForm, ImageUpload
+from .forms import UserTypeForm, PracticeSignupForm, UserForm, PatientSignupForm, InstitutionSignupForm, InsuranceProviderSignupForm, EmergencyServiceSignupForm, EmergencyServiceForm,PracticeSpecialisationForm, InstitutionForm, PracticeUserForm, ProfessionalOverviewForm, ProfileInfoForm, ProfileUserForm,  EducationForm, TradingHourForm, AmbulanceForm, DocumentForm, ImageUpload, UserEditMultiForm
 from django.views import View
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import messages
@@ -12,7 +12,30 @@ from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from users.utils import specialization_value
+from django.contrib.auth import get_user_model
 
+location = get_user_model()
+
+class LocationUpdateView(UpdateView):
+    model = OperatingHours
+    template_name = 'dashboard/update_location.html'
+    
+    form_class = TradingHourForm
+    success_url = '/dashboard/practice/'
+    
+    # def get_form_kwargs(self):
+    #     kwargs = super(LocationUpdateView, self).get_form_kwargs()
+    #     kwargs.update(instance={
+    #         'location': self.object.location,
+    #         'hour': self.object.operatingHours,
+    #     })
+    #     return kwargs
+
+    def form_valid(self, form, **kwargs):
+        # import pdb; pdb.set_trace()
+        hour = form.save(commit=False)
+        hour.save()
+        return redirect(self.success_url+str(request.user.profile.id))
 
 def add_location(request):
     if request.method == 'POST':
@@ -79,9 +102,8 @@ def add_location(request):
         if request.POST.get("location")==None or request.POST.get("location")=='':
             messages.error(request, 'Please Fill Location')
         else:
-            messages.error(request, 'Location already exists')
+            messages.error(request, 'Location Already Exists')
         return redirect('/dashboard/health-insurance/'+str(request.user.profile.id))
-
 
 
 def upload_user_image(request):

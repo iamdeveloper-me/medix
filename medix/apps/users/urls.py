@@ -11,8 +11,8 @@ urlpatterns = [
     path('edit/profile/<int:pk>',views.PracticeUpdateView.as_view(), name='edit-practice'),
     path('dashboard/institution/<int:pk>',views.InstitutionDashboardView.as_view(), name='institution-dashboard'),
     path('dashboard/emergency-service/<int:pk>',views.EmergencyServicesDashboard.as_view(), name='emergency-service-dashboard'),
-    # path('dashboard/emergency-service/<int:pk>',views.EmergencyServicesDashboard.as_view(), name='admin-dashboard'),
     path('dashboard/health-insurance/<int:pk>',views.HealthInsuranceDashboard.as_view(), name='health-insurance-dashboard'),
+    path('location/update/<int:pk>',views.LocationUpdateView.as_view(), name='location-update'),
 
     #admin dashboard
     path('admin/dashboard/',views.AdminDashboardView.as_view(), name='admin-dashboard'),

@@ -47,6 +47,9 @@ class Profile(BaseModel):
            return "%s %s" % (self.user.first_name, self.user.last_name)
         else:
            return self.trading_name
+
+    def get_location(self):
+       return self.user.location_users.filter(user=self.user)
     
 
 class Education(BaseModel):

@@ -1,7 +1,9 @@
-from .models import Profile, Education, OperatingHours, AmbulanceService, Attachment
+from .models import Profile, Education, OperatingHours, AmbulanceService, Attachment, Location
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.contrib.auth import get_user_model
+from betterforms.multiform import MultiModelForm
 
 class ImageUpload(forms.ModelForm):
     class Meta:
@@ -151,8 +153,19 @@ class InstitutionForm(forms.ModelForm):
             raise ValidationError("This field is required")
         return None
 
+location = get_user_model()
+class LocationForm(forms.ModelForm):
+    class Meta:
+        model = Location
+        fields = ['location','mobility']
 
 class TradingHourForm(forms.ModelForm):
     class Meta:
         model = OperatingHours
         fields = ['open_time','close_time','day']
+
+class UserEditMultiForm(MultiModelForm):
+    form_classes = {
+        'location': LocationForm,
+        'tradhur': TradingHourForm,
+    }
