@@ -34,9 +34,9 @@
 		                                        
 		                                        <img src="{{object.image.url}}">
 		                                      {% elif object.gender == 1 %}
-	                                        <img src="{% static 'html_menu_1/img/female.png' %}">
+	                                        <img src="{% static 'html_menu_1/img/female_image.jpeg' %}">
 	                                      {% else %}
-	                                        <img src="{% static 'html_menu_1/img/images.jpeg' %}">
+	                                        <img src="{% static 'html_menu_1/img/male_image.jpeg' %}">
 	                                      {% endif %}
 		                                      <div id="imagePreview" style="background-image: url(../../../static/html_menu_1/img/female.jpg);">
 
@@ -180,19 +180,48 @@
                             <div class="indent_title_in">
                                 <i class="pe-7s-news-paper"></i>
                                 <h3>Services</h3>
-                                {% for info in keywords %}                              
-                                        {{info.keyword}}     
-                                {% endfor %} 
+                                <div class="popup_main margin_topvalue">
+                                    
+                                    <div class="popup_body">
+                                      <div class="popup_back"></div>
+                                        <div class="popup_contain popup_width">
+                                        <div class="popuptitle">
+                                            Services
+                                            <div class="popup_close popup_profile">&times;</div>
+                                        </div>
+                                          <div class="popupbody">
+                                            <ul class="contacts">
+                                            <h6>Services</h6>
+                                            <input type="text" value="" name="keyword" id="keyword">
+                                            </ul>
+                                          </div>
+                                           <div class="popupfooter">
+                                               <button data-id="{{request.user.profile.id}}" data-url="{% url 'users:add-keyword' %}" class="save_keyword save_btncss">save</button> 
+                                           </div>
+                                           
+                                        </div>
+                                    </div>
+                                  </div>  
                             </div>
                             <div class="wrapper_indent">
                                 <p></p>
-                                
+                                {% for info in keywords %}
+                                                             
+                                        {{info.keyword}}     
+                                {% endfor %} 
                                 <ul class="" id="delekeyul">
-                            
                                     {% for key in keyword %}
+                                    {% if key.keyword != None %}
                                     
                                     <li class="popup_spanlist"><span id="rmoveChip"> {{key.keyword}} <a data-id="{{key.id}}" data-url="{% url 'users:delete-keyword' %}" class="delete_keyword chipsCLose" >×</a></span></li>
-                                
+                                    
+                                    <!--<a data-id="{{request.user.profile.id}}" data-url="{% url 'users:delete-keyword' %}" class="delete_keyword popup_main" >
+                                       <img src="../../../static/html_menu_1/img/delete.png">
+                                    </a>
+
+                                    <li class="popup_spanlist"><span id="rmoveChip"> {{key.keyword}} <i class="chipsCLose">×</i></span></li>
+                                     -->
+                                    {% endif %}
                                     {% endfor %}
                                 </ul>
                             </div>
