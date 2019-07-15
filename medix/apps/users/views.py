@@ -30,7 +30,7 @@ def add_location(request):
             toggle_list.append(request.POST.get('friTog').title()) if request.POST.get('friTog') else toggle_list.append('None')
             toggle_list.append(request.POST.get('satTog').title()) if request.POST.get('satTog') else toggle_list.append('None')
             toggle_list.append(request.POST.get('sunTog').title()) if request.POST.get('sunTog') else toggle_list.append('None')
-            if request.POST.get("location")!=None and request.POST.get("location")!= '':       
+            if request.POST.get("location")!=None and request.POST.get("location")!= '' and not Location.objects.filter(user=user,location=request.POST.get("location")).exists():       
                 if request.POST.get('mobility')!=None: 
                     location_obj = Location.objects.create(user=user,location=request.POST.get("location"),mobility = True)
                 else:
@@ -60,18 +60,26 @@ def add_location(request):
     if request.POST.get('practLoc') == 'practice':
         if request.POST.get("location")==None or request.POST.get("location")=='':
             messages.error(request, 'Please Fill Location')
+        else:
+            messages.error(request, 'Location already exists')
         return redirect('/dashboard/practice/'+str(request.user.profile.id))
     if request.POST.get('instLoc') == 'institution':
         if request.POST.get("location")==None or request.POST.get("location")=='' :
             messages.error(request, 'Please Fill Location')
+        else:
+            messages.error(request, 'Location already exists')
         return redirect('/dashboard/institution/'+str(request.user.profile.id))
     if request.POST.get('emergLoc') == 'emergency':
         if request.POST.get("location")==None or request.POST.get("location")=='':
             messages.error(request, 'Please Fill Location')
+        else:
+            messages.error(request, 'Location already exists')
         return redirect('/dashboard/emergency-service/'+str(request.user.profile.id))
     if request.POST.get('healthLoc') == 'insurance':
         if request.POST.get("location")==None or request.POST.get("location")=='':
             messages.error(request, 'Please Fill Location')
+        else:
+            messages.error(request, 'Location already exists')
         return redirect('/dashboard/health-insurance/'+str(request.user.profile.id))
 
 
